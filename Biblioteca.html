@@ -7,7 +7,7 @@
 
     <style>
         body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; }
-        .topbar { padding: 1rem; background: #15161a; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; }
+        .topbar { padding: 1rem; background: #15161a; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 10; }
         .layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
         .sidebar { background: #17181a; padding: 1rem; overflow: auto; }
         .main { padding: 1rem; }
@@ -110,16 +110,18 @@ function openDrawer(title, pasta, totalPaginas) {
     drawerContent.innerHTML = '';
     currentTotalPages = totalPaginas;
     pageInfoSpan.textContent = `1 de ${currentTotalPages}`;
+
     const pages = [];
     for (let i = 1; i <= totalPaginas; i++) {
         const img = document.createElement("img");
-        img.src = `${pasta}/Pagina ${i}.png`; // <- Ajuste para "Pagina 1.png", "Pagina 2.png"...
+        img.src = `${pasta}/pagina${i}.png`; // <- sem espaço
         img.alt = `Página ${i}`;
         img.className = 'pdf-page-image';
         img.dataset.page = i;
         drawerContent.appendChild(img);
         pages.push(img);
     }
+
     if (intersectionObserver) intersectionObserver.disconnect();
     intersectionObserver = new IntersectionObserver((entries) => {
         let currentPage = 1;
@@ -132,6 +134,7 @@ function openDrawer(title, pasta, totalPaginas) {
         });
         pageInfoSpan.textContent = `${currentPage} de ${currentTotalPages}`;
     }, { threshold: 0.5 });
+
     pages.forEach(page => intersectionObserver.observe(page));
 }
 
@@ -179,3 +182,4 @@ render();
 </script>
 </body>
 </html>
+
