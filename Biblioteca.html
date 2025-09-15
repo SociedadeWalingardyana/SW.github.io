@@ -68,8 +68,8 @@
 <script>
 const state = {
     livros: [
-        {id: 1, titulo: "Compêndio Walingardyano", autor: "Gabryell Aweryan", capa: "Capa.png", baixado: true, favorito: true, tipo: "imagens", pasta: "paginas_compendio", totalPaginas: 8, estrelas: 0},
-        {id: 2, titulo: "Triohnte, O segredo do império", autor: "Gabryell Aweryan", capa: "capatoe.png", baixado: true, favorito: false, tipo: "imagens", pasta: "Triohnte", totalPaginas: 3, estrelas: 0}
+        {id: 1, titulo: "Compêndio Walingardyano", autor: "Gabryell Aweryan", capa: "Capa.png", baixado: true, favorito: true, tipo: "imagens", pasta: "paginas_compendio", totalPaginas: 8, estrelas: 0, prefixoPagina: "pagina"},
+        {id: 2, titulo: "Triohnte, O segredo do império", autor: "Gabryell Aweryan", capa: "capatoe.png", baixado: true, favorito: false, tipo: "imagens", pasta: "Triohnte", totalPaginas: 3, estrelas: 0, prefixoPagina: ""} // sem prefixo
     ]
 };
 
@@ -103,7 +103,7 @@ const pageInfoSpan = document.getElementById("pageInfo");
 let currentTotalPages = 0;
 let intersectionObserver = null;
 
-function openDrawer(title, pasta, totalPaginas) {
+function openDrawer(title, pasta, totalPaginas, prefixo) {
     document.getElementById("drawerTitle").textContent = title;
     drawer.classList.add("open");
     drawer.setAttribute("aria-hidden", "false");
@@ -114,7 +114,7 @@ function openDrawer(title, pasta, totalPaginas) {
     const pages = [];
     for (let i = 1; i <= totalPaginas; i++) {
         const img = document.createElement("img");
-        img.src = `${pasta}/pagina${i}.png`; // <- sem espaço
+        img.src = `${pasta}/${prefixo}${i}.png`; // usa prefixo dinamicamente
         img.alt = `Página ${i}`;
         img.className = 'pdf-page-image';
         img.dataset.page = i;
@@ -168,8 +168,9 @@ document.getElementById("grade").addEventListener("click", e => {
     const id = Number(btn.dataset.id);
     const livro = state.livros.find(l => l.id === id);
     if (btn.dataset.action === "baixar" && livro) {
-        openDrawer(livro.titulo, livro.pasta, livro.totalPaginas);
-    }
+    openDrawer(livro.titulo, livro.pasta, livro.totalPaginas, livro.prefixoPagina);
+}
+
     if (btn.dataset.action === "favoritar" && livro) {
         livro.favorito = !livro.favorito;
         btn.setAttribute("aria-pressed", livro.favorito);
