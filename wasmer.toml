@@ -1,8 +1,0 @@
-[package]
-name = "sociedade-walingardyana"
-version = "0.1.0"
-
-[[command]]
-name = "start"
-runner = "node"
-script = "node server.js"
