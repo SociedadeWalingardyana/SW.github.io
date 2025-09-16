@@ -1,0 +1,9 @@
+[package]
+name = "sociedade-walingardyana"
+version = "0.1.0"
+description = "Site da Sociedade Walingardyana"
+
+[dependencies]
+
+[fs]
+public = "."
