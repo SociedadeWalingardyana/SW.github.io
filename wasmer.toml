@@ -1,9 +1,8 @@
 [package]
 name = "sociedade-walingardyana"
 version = "0.1.0"
-description = "Site estático da Sociedade Walingardyana"
 
 [[command]]
 name = "start"
 runner = "node"
-script = "npx serve ."
+script = "node server.js"
