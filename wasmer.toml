@@ -1,14 +1,10 @@
 [package]
 name = "sociedade-walingardyana"
 version = "0.1.0"
-description = "Site da Sociedade Walingardyana"
-license = "MIT"
-
-[dependencies]
+description = "Site estático da Sociedade Walingardyana"
 
 [[command]]
-name = "web"
-module = "public"
+name = "start"
 runner = "web"
 
 [fs]
