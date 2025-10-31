@@ -9,12 +9,12 @@
 <body class="bg-black text-white p-8 min-h-screen flex flex-col items-center">
 
     <div id="language-selector" style="
-    position: right;
+    position: fixed;
     top: 10px;
-    right: 10px;
+    right: 10px; /* Esta propriedade o coloca no canto direito */
     width: 30px;
     height: 30px;
-    background: #281109;
+    background: #1a1a1a;
     border-radius: 5px;
     cursor: pointer;
     display: flex;
@@ -50,13 +50,13 @@
 
   <div class="grid grid-cols-1 gap-8 max-w-4xl w-full">
 
-        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #222;">
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <img src="Compendio.png" alt="Compêndio" class="mx-auto mb-4 w-50 h-32" />
       <h2 id="produto-1-titulo" class="text-xl font-semibold mb-2">Compêndio Walingardyano (PDF)</h2>
       <p id="produto-1-desc" class="text-sm mb-2">Versão digital para download. Ideal para acessar no celular ou tablet.</p>
       <p id="produto-1-preco" class="text-lg font-bold mb-2">Preço: R$ 12,90</p>
 
-            <div class="p-4 rounded mb-4 text-left" style="background-color: #222;">
+            <div class="p-4 rounded mb-4 text-left" style="background-color: #281109;">
         <p id="pix-nome" class="text-sm mb-1">GABRIEL ARAUJO A FELISMINO</p>
         <p id="pix-chave" class="text-sm">Chave Pix: <span class="text-green-400">111.306.684-95</span></p>
         <p id="pix-banco" class="text-sm mb-3">Banco: Mercado Pago</p>
@@ -68,31 +68,31 @@
       </button>
     </div>
 
-        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #222;">
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <h2 id="produto-2-titulo" class="text-xl font-semibold mb-2">Livro Físico: Compêndio Walingardyano</h2>
       <p id="produto-2-desc" class="text-sm mb-4">Tudo o que você precisa saber sobre a magia oculta de Walingardyn.</p>
       <p id="produto-2-preco" class="text-lg font-bold mb-2">Preço: R$ 31,00</p>
       </div>
 
-        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #222;">
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <h2 id="produto-3-titulo" class="text-xl font-semibold mb-2">Livro: Triohnte, O Segredo do Império</h2>
       <p id="produto-3-desc" class="text-sm mb-4">Política e mistério no principal continente de Walingardyn.</p>
       <p id="produto-3-preco" class="text-lg font-bold mb-2">Preço: R$ 38,00</p>
     </div>
 
-        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #222;">
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <h2 id="produto-4-titulo" class="text-xl font-semibold mb-2">Livro: O Segredo do Império</h2>
       <p id="produto-4-desc" class="text-sm mb-4">Descubra os mistérios por trás das estruturas imperiais e seus efeitos mágicos.</p>
       <p id="produto-4-preco" class="text-lg font-bold mb-2">Preço: R$ 42,00</p>
     </div>
 
-        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #222;">
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <h2 id="produto-5-titulo" class="text-xl font-semibold mb-2">Camiseta Oficial</h2>
       <p id="produto-5-desc" class="text-sm mb-4">Vista a Sociedade Walingardyana com orgulho.</p>
       <p id="produto-5-preco" class="text-lg font-bold mb-2">Preço: R$ 59,90</p>
     </div>
 
-        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #222;">
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <h2 id="produto-6-titulo" class="text-xl font-semibold mb-2">Cachecol Oficial</h2>
       <p id="produto-6-desc" class="text-sm mb-4">Ideal para aventuras em climas gelados como Costahlya.</p>
       <p id="produto-6-preco" class="text-lg font-bold mb-2">Preço: R$ 39,90</p>
@@ -189,10 +189,10 @@
         "produto-3-desc": "Política y misterio en el principal continente de Walingardyn.",
         "produto-3-preco": "Precio: R$ 38,00",
         "produto-4-titulo": "Libro: El Secreto del Imperio",
-        "produto-4-desc": "Descubre los misterios por trás das estructuras imperiales y seus efeitos mágicos.",
+        "produto-4-desc": "Descubre los misterios por trás de las estructuras imperiales y sus efectos mágicos.",
         "produto-4-preco": "Precio: R$ 42,00",
         "produto-5-titulo": "Camiseta Oficial",
-        "produto-5-desc": "Viste la Sociedad Walingardyana con orgullo.",
+        "produto-5-desc": "Viste la Sociedade Walingardyana con orgullo.",
         "produto-5-preco": "Precio: R$ 59,90",
         "produto-6-titulo": "Bufanda Oficial",
         "produto-6-desc": "Ideal para aventuras en climas fríos como Costahlya.",
