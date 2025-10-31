@@ -8,6 +8,25 @@
 </head>
 <body class="bg-black text-white p-8 min-h-screen flex flex-col items-center">
 
+
+  <!-- Botão fixo no canto superior direito -->
+  <div id="language-selector" style="
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: #1a1a1a;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  ">
+    <span style="color: white; font-size: 16px; user-select: none;">▼</span>
+  </div>
+
   <!-- Lista que vai abrir ao clicar -->
   <ul id="language-list" style="
     position: fixed;
