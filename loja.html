@@ -11,15 +11,16 @@
     <div id="language-selector" style="
     position: fixed;
     top: 10px;
-    right: 10px; /* Esta propriedade o coloca no canto direito */
+    right: 10px;
     width: 30px;
     height: 30px;
     background: #1a1a1a;
     border-radius: 5px;
     cursor: pointer;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* Mantém centralizado verticalmente */
+    justify-content: flex-end; /* Move a seta para a direita dentro do botão */
+    padding-right: 4px; /* Adiciona um pequeno espaçamento para não colar na borda */
     z-index: 9999;
   ">
     <span style="color: white; font-size: 16px; user-select: none;">▼</span>
