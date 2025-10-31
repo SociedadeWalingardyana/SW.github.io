@@ -6,22 +6,23 @@
     <title>Biblioteca</title>
 
     <style>
-        body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; }
-        .topbar { padding: 1rem; background: #15161a; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 10; }
+        body { margin: 0; font-family: sans-serif; background: #FFFFFF; color: #000000; } /* Alterado para fundo branco e texto preto */
+        .topbar { padding: 1rem; background: #15161a; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 10; color: #e7e9ee; } /* Mantido escuro para o contraste do menu superior */
         .layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
-        .sidebar { background: #17181a; padding: 1rem; overflow: auto; }
+        .sidebar { background: #17181a; padding: 1rem; overflow: auto; color: #e7e9ee; } /* Mantido escuro para o sidebar */
+        .sidebar h2 { color: #e7e9ee; }
         .main { padding: 1rem; }
         .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-        .card-book { background: #17181a; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: transform .1s; }
+        .card-book { background: #f0f0f0; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: transform .1s; color: #000000; } /* Card alterado para fundo claro e texto preto */
         .card-book:hover { transform: translateY(-2px); }
-        .cover { width: 100%; aspect-ratio: 3/4; background: #101114; display: flex; align-items: center; justify-content: center; }
+        .cover { width: 100%; aspect-ratio: 3/4; background: #cccccc; display: flex; align-items: center; justify-content: center; } /* Capa alterada para fundo claro */
         .cover img { width: 100%; height: 100%; object-fit: cover; }
         .meta { padding: .75rem; }
-        .meta h3 { margin: 0 0 .25rem 0; }
-        .meta .author { color: #aab0bd; font-size: .9rem; }
+        .meta h3 { margin: 0 0 .25rem 0; color: #000000; }
+        .meta .author { color: #555555; font-size: .9rem; } /* Autor em cinza escuro */
         .actions { display: flex; gap: .5rem; padding: .5rem .75rem; align-items: center; }
-        .btn { padding: .4rem .75rem; border-radius: 12px; border: none; cursor: pointer; background: #2b2d32; color: #e7e9ee; }
-        .btn:hover { background: #3a3d45; }
+        .btn { padding: .4rem .75rem; border-radius: 12px; border: none; cursor: pointer; background: #dddddd; color: #000000; } /* Botões alterados para fundo claro e texto preto */
+        .btn:hover { background: #cccccc; }
         .fav[aria-pressed="true"]::after { content: "★"; margin-left: .25rem; }
         .fav[aria-pressed="false"]::after { content: "☆"; margin-left: .25rem; }
         .star-count { font-size: .9rem; color: #ffd700; margin-left: .25rem; }
@@ -183,4 +184,3 @@ render();
 </script>
 </body>
 </html>
-
