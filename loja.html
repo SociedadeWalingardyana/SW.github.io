@@ -8,48 +8,31 @@
 </head>
 <body class="bg-black text-white p-8 min-h-screen flex flex-col items-center">
 
-    <div id="language-selector" style="
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background: #1a1a1a;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: right; /* Mantém centralizado verticalmente */
-    justify-content: right; /* Move a seta para a direita dentro do botão */
-    padding-right: 4px; /* Adiciona um pequeno espaçamento para não colar na borda */
-    z-index: 9999;
-  ">
-    <span style="color: white; font-size: 16px; user-select: none;">▼</span>
-  </div>
+  <!-- Lista que vai abrir ao clicar -->
+  <ul id="language-list" style="
+    position: fixed;
+    top: 45px;
+    right: 10px;
+    width: 140px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #222;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    display: none;
+    z-index: 9999;
+  ">
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Português</li>
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Español</li>
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
+  </ul>
 
-    <ul id="language-list" style="
-    position: fixed;
-    top: 45px;
-    right: 10px;
-    width: 140px;
-    max-height: 150px;
-    overflow-y: auto;
-    background: #222;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    list-style: none;
-    padding: 5px 0;
-    margin: 0;
-    display: none;
-    z-index: 9999;
-  ">
-    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Português</li>
-    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Español</li>
-    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
-  </ul>
+  <h1 id="titulo-principal" class="text-3xl font-bold mb-6">Loja Oficial</h1>
 
-  <h1 id="titulo-principal" class="text-3xl font-bold mb-6">Loja</h1>
-
-  <div class="grid grid-cols-1 gap-8 max-w-4xl w-full">
+  <div class="grid grid-cols-1 gap-8 max-w-4xl w-full">
 
         <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <img src="Compendio.png" alt="Compêndio" class="mx-auto mb-4 w-50 h-32" />
