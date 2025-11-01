@@ -1,111 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sociedade Walingardyana</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <style>
-    body {
-      background-color: #281109; /* Cor de fundo sólida */
-      color: #FFFFFF;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1; overflow: hidden;
-    }
-    .flag {
-      width: 28px;
-      height: 20px;
-      cursor: pointer;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sociedade Walingardyana</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #281109 !important; /* Cor de fundo sólida */
+      color: #FFFFFF;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1; overflow: hidden;
+    }
+    .flag {
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body class="text-white"> 
+<body class="text-white"> 
 
 <audio autoplay loop muted id="musica-fundo">
-    <source src="musica-de-fundo.mp3" type="audio/mpeg" />
-    Seu navegador não suporta áudio HTML5.
-  </audio>
+    <source src="musica-de-fundo.mp3" type="audio/mpeg" />
+    Seu navegador não suporta áudio HTML5.
+  </audio>
 
-  <header class="bg-black text-white p-4 shadow-md">
-    <div class="container mx-auto flex flex-col items-center">
-      <img src="oficial.png" alt="Logo Walingardyana" class="w-32 h-auto mb-2" />
-      <h1 id="titulo-principal" class="text-2xl font-bold">Sociedade Walingardyana</h1>
-      <nav class="flex flex-wrap gap-4 justify-center mt-2">
-        <a id="nav-novidades" href="novidades.html" class="hover:underline">Notícias</a>
-        <a id="nav-loja" href="loja.html" class="hover:underline">Loja</a>
-        <a id="nav-autores" href="autores.html" class="hover:underline">Nossos Autores</a>
-        <a id="nav-biblioteca" href="Biblioteca.html" class="hover:underline">Biblioteca</a>
-      </nav>
-    </div>
-  </header>
+  <header class="bg-black text-white p-4 shadow-md">
+    <div class="container mx-auto flex flex-col items-center">
+      <img src="oficial.png" alt="Logo Walingardyana" class="w-32 h-auto mb-2" />
+      <h1 id="titulo-principal" class="text-2xl font-bold">Sociedade Walingardyana</h1>
+      <nav class="flex flex-wrap gap-4 justify-center mt-2">
+        <a id="nav-novidades" href="novidades.html" class="hover:underline">Notícias</a>
+        <a id="nav-loja" href="loja.html" class="hover:underline">Loja</a>
+        <a id="nav-autores" href="autores.html" class="hover:underline">Nossos Autores</a>
+        <a id="nav-biblioteca" href="Biblioteca.html" class="hover:underline">Biblioteca</a>
+      </nav>
+    </div>
+  </header>
 
-  <section class="container mx-auto mt-6">
-    <div class="h-80 rounded overflow-hidden shadow-lg">
-      <video class="w-full h-full object-cover" autoplay muted loop>
-        <source src="walinga.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeo HTML5.
-      </video>
-    </div>
-  </section>
+  <section class="container mx-auto mt-6">
+    <div class="h-80 rounded overflow-hidden shadow-lg">
+      <video class="w-full h-full object-cover" autoplay muted loop>
+        <source src="walinga.mp4" type="video/mp4" />
+        Seu navegador não suporta vídeo HTML5.
+      </video>
+    </div>
+  </section>
 
-  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
-    <p id="boas-vindas" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Origem da Sociedade Walingardyana</p>
-    <p id="explicativo1"> A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Araújo Aquino Felismino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido.
+  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
+    <p id="boas-vindas" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Origem da Sociedade Walingardyana</p>
+    <p id="explicativo1"> A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Araújo Aquino Felismino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido.
 
 Com a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência.
 
 Foi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo.
 
 Juntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir. </p>
-  </section>
+  </section>
 
-  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
-    <p id="boas-vindas" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Visão da Sociedade Walingardyana para o futuro</p>
-    <p id="explicativo1"> Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia.
+  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
+    <p id="boas-vindas" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Visão da Sociedade Walingardyana para o futuro</p>
+    <p id="explicativo1"> Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia.
 
 Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional. </p>
-  </section>
+  </section>
 
-  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
-    <p class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Como Triohnte começou?</p>
-    <p class="mb-4">
-      Em janeiro de 2020, um projeto de cinema, o qual Gabryell também havia fundado, chegou ao seu fim devido a alguns desentendimentos com a equipe. O projeto era um curta-metragem com temática potteriana, intitulado: <strong>Prince Afftton e a relíquea do império</strong>, (nome sugestivo, com certo parentesco com o título de nosso livro no futuro). É importante ressaltar que esse projeto durou 7 anos e alternava entre quedas e revividas enquanto o autor e a equipe aprendiam certos traquejos do cinema e postura.
-    </p>
-    <p class="mb-4 italic">
-      "Chegou uma tarde em que tudo acabou e não posso dizer que juntos votamos para que acabasse, por mim estaríamos até hoje gravando, ou talvez já estivéssemos com algo maior, não sei. O problema na Treehouse e antes dela, foi o ego, meu ego e das pessoas envolvidas. Algumas foram covardes e tentaram justificar suas próprias frustrações simplesmente colocando a culpa no fundador".
-    </p>
-    <p class="mb-4 italic">
-      "Imagine que trabalhei ao lado de duas mulheres que pelo fato de descobrirem que eu não correspondia a uma paixão que elas nutriam por mim e que eu nem sabia que nutriam; me acusaram de manipulação emocional e plágio em um roteiro que eu também havia escrito, o que era um trabalho grupal e respeitoso, de repente se tornou um campo minado, mas eu ainda acredito em teorias de sabotagem, aquilo não foi normal, foi forçado, estávamos crescendo, pouco, mas crescendo".
-    </p>
-    <p class="mb-4">
-      Disse Gabryell Aweryan em entrevista com o departamento de promotoria da SW.
-    </p>
-    <p class="mb-4">
-      Mais tarde o autor escreveria um conto sob forte tristeza pelo término do projeto de tal forma. O conto intitulado: <strong>Cyannon, E a batalha das ilhas galápago</strong>. Um conto que se passaria num mundo paralelo e narraria uma batalha entre equatorianos e espanhóis pelo controle de terras recém descobertas. Uma história sem pé nem cabeça, se vista com olhos nús e sentidos apurados pela acidez da leitura, mas aquele conto foi o (avô) de Triohnte.
-    </p>
-  </section>
+  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
+    <p class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Como Triohnte começou?</p>
+    <p class="mb-4">
+      Em janeiro de 2020, um projeto de cinema, o qual Gabryell também havia fundado, chegou ao seu fim devido a alguns desentendimentos com a equipe. O projeto era um curta-metragem com temática potteriana, intitulado: <strong>Prince Afftton e a relíquea do império</strong>, (nome sugestivo, com certo parentesco com o título de nosso livro no futuro). É importante ressaltar que esse projeto durou 7 anos e alternava entre quedas e revividas enquanto o autor e a equipe aprendiam certos traquejos do cinema e postura.
+    </p>
+    <p class="mb-4 italic">
+      "Chegou uma tarde em que tudo acabou e não posso dizer que juntos votamos para que acabasse, por mim estaríamos até hoje gravando, ou talvez já estivéssemos com algo maior, não sei. O problema na Treehouse e antes dela, foi o ego, meu ego e das pessoas envolvidas. Algumas foram covardes e tentaram justificar suas próprias frustrações simplesmente colocando a culpa no fundador".
+    </p>
+    <p class="mb-4 italic">
+      "Imagine que trabalhei ao lado de duas mulheres que pelo fato de descobrirem que eu não correspondia a uma paixão que elas nutriam por mim e que eu nem sabia que nutriam; me acusaram de manipulação emocional e plágio em um roteiro que eu também havia escrito, o que era um trabalho grupal e respeitoso, de repente se tornou um campo minado, mas eu ainda acredito em teorias de sabotagem, aquilo não foi normal, foi forçado, estávamos crescendo, pouco, mas crescendo".
+    </p>
+    <p class="mb-4">
+      Disse Gabryell Aweryan em entrevista com o departamento de promotoria da SW.
+    </p>
+    <p class="mb-4">
+      Mais tarde o autor escreveria um conto sob forte tristeza pelo término do projeto de tal forma. O conto intitulado: <strong>Cyannon, E a batalha das ilhas galápago</strong>. Um conto que se passaria num mundo paralelo e narraria uma batalha entre equatorianos e espanhóis pelo controle de terras recém descobertas. Uma história sem pé nem cabeça, se vista com olhos nús e sentidos apurados pela acidez da leitura, mas aquele conto foi o (avô) de Triohnte.
+    </p>
+  </section>
 
-  </div>
+  </div>
 </section>
 
-
-
-  <footer class="bg-black text-white text-center p-4 mt-16 space-y-2">
-    <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
-    <div class="flex justify-center space-x-6">
-      <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank" class="hover:underline">YouTube</a>
-      <a href="https://discord.gg/xTVv72FUuU" target="_blank" class="hover:underline">Discord</a>
-      <a href="https://www.instagram.com/swalingardynofc/" target="_blank" class="hover:underline">Instagram</a>
-    </div>
-  </footer>
+  <footer class="bg-black text-white text-center p-4 mt-16 space-y-2">
+    <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
+    <div class="flex justify-center space-x-6">
+      <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank" class="hover:underline">YouTube</a>
+      <a href="https://discord.gg/xTVv72FUuU" target="_blank" class="hover:underline">Discord</a>
+      <a href="https://www.instagram.com/swalingardynofc/" target="_blank" class="hover:underline">Instagram</a>
+    </div>
+  </footer>
 
 </body>
 </html>
-
 
 
