@@ -26,10 +26,153 @@
 </head>
 <body class="text-white"> 
 
-<audio autoplay loop muted id="musica-fundo">
-    <source src="musica-de-fundo.mp3" type="audio/mpeg" />
-    Seu navegador não suporta áudio HTML5.
-  </audio>
+
+
+
+
+
+
+
+
+<!-- Botão fixo no canto superior direito -->
+  <div id="language-selector" style="
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: #1a1a1a;
+    /* sem borda */
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  ">
+    <span style="color: white; font-size: 16px; user-select: none;">▼</span>
+  </div>
+
+  <!-- Lista que vai abrir ao clicar -->
+  <ul id="language-list" style="
+    position: fixed;
+    top: 45px;
+    right: 10px;
+    width: 120px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #222;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    display: none;
+    z-index: 9999;
+  ">
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Português</li>
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Español</li>
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
+  </ul>
+
+  <script>
+    const selector = document.getElementById('language-selector');
+    const list = document.getElementById('language-list');
+
+    selector.addEventListener('click', () => {
+      if (list.style.display === 'none' || list.style.display === '') {
+        list.style.display = 'block';
+      } else {
+        list.style.display = 'none';
+      }
+    });
+
+    // Fechar a lista se clicar fora
+    document.addEventListener('click', (e) => {
+      if (!selector.contains(e.target) && !list.contains(e.target)) {
+        list.style.display = 'none';
+      }
+    });
+
+    const traducoes = {
+      pt: {
+        "titulo-principal": "Sociedade Walingardyana",
+        "nav-novidades": "Novidades do Universo",
+        "nav-contos": "Contos de Walingardyn",
+        "nav-loja": "Loja Oficial",
+        "nav-gabryell": "Tudo sobre Gabryell Aweryan",
+        "nav-casas": "Casas de Walingardyn",
+        "nav-obras": "Obras Canônicas",
+        "nav-biblioteca": "Biblioteca",
+        "boas-vindas": "Seja bem-vindo, caro leitor! Apresentamos a você a porta e entrada do mundo de Walingardyn."
+      },
+      en: {
+        "titulo-principal": "Walingardyan Society",
+        "nav-novidades": "Universe News",
+        "nav-contos": "Walingardyn Tales",
+        "nav-loja": "Official Store",
+        "nav-gabryell": "About Gabryell Aweryan",
+        "nav-casas": "Walingardyn Houses",
+        "nav-obras": "Canonical Works",
+        "nav-biblioteca": "Library",
+        "boas-vindas": "Welcome, dear reader! You are entering the world of Walingardyn."
+      },
+      es: {
+        "titulo-principal": "Sociedad Walingardyana",
+        "nav-novidades": "Novedades del Universo",
+        "nav-contos": "Cuentos de Walingardyn",
+        "nav-loja": "Tienda Oficial",
+        "nav-gabryell": "Todo sobre Gabryell Aweryan",
+        "nav-casas": "Casas de Walingardyn",
+        "nav-obras": "Obras Canónicas",
+        "nav-biblioteca": "Biblioteca",
+        "boas-vindas": "¡Bienvenido, querido lector! Presentamos la puerta de entrada al mundo de Walingardyn."
+      }
+    };
+
+    function setLanguage(lang) {
+      const t = traducoes[lang];
+      for (const id in t) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.textContent = t[id];
+        }
+      }
+    }
+
+    list.querySelectorAll('li').forEach((li) => {
+      li.addEventListener('click', () => {
+        let langCode = '';
+        switch (li.textContent) {
+          case 'Português':
+            langCode = 'pt';
+            break;
+          case 'Español':
+            langCode = 'es';
+            break;
+          case 'English':
+            langCode = 'en';
+            break;
+        }
+        setLanguage(langCode);
+        list.style.display = 'none';
+      });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
   <header class="bg-black text-white p-4 shadow-md">
     <div class="container mx-auto flex flex-col items-center">
@@ -104,6 +247,7 @@ Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohn
 
 </body>
 </html>
+
 
 
 
