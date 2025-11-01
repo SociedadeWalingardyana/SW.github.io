@@ -1,253 +1,267 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sociedade Walingardyana</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <style>
-    body {
-      background-color: #281109 !important; /* Cor de fundo sólida */
-      color: #FFFFFF;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1; overflow: hidden;
-    }
-    .flag {
-      width: 28px;
-      height: 20px;
-      cursor: pointer;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sociedade Walingardyana</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #281109 !important; /* Cor de fundo sólida */
+      color: #FFFFFF;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1; overflow: hidden;
+    }
+    .flag {
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body class="text-white"> 
+<body class="text-white"> 
 
+<audio autoplay loop muted id="musica-fundo">
+    <source src="musica-de-fundo.mp3" type="audio/mpeg" />
+    Seu navegador não suporta áudio HTML5.
+  </audio>
 
+  <header class="bg-black text-white p-4 shadow-md">
+    <div class="container mx-auto flex flex-col items-center">
+      <img src="oficial.png" alt="Logo Walingardyana" class="w-32 h-auto mb-2" />
+      <h1 id="titulo-principal" class="text-2xl font-bold">Sociedade Walingardyana</h1>
+      <nav class="flex flex-wrap gap-4 justify-center mt-2">
+        <a id="nav-novidades" href="novidades.html" class="hover:underline">Notícias</a>
+        <a id="nav-loja" href="loja.html" class="hover:underline">Loja</a>
+        <a id="nav-autores" href="autores.html" class="hover:underline">Nossos Autores</a>
+        <a id="nav-biblioteca" href="Biblioteca.html" class="hover:underline">Biblioteca</a>
+      </nav>
+    </div>
+  </header>
 
+  <section class="container mx-auto mt-6">
+    <div class="h-80 rounded overflow-hidden shadow-lg">
+      <video class="w-full h-full object-cover" autoplay muted loop>
+        <source src="walinga.mp4" type="video/mp4" />
+        Seu navegador não suporta vídeo HTML5.
+      </video>
+    </div>
+  </section>
 
-
-
-
-
-
-<!-- Botão fixo no canto superior direito -->
-  <div id="language-selector" style="
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background: #1a1a1a;
-    /* sem borda */
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  ">
-    <span style="color: white; font-size: 16px; user-select: none;">▼</span>
-  </div>
-
-  <!-- Lista que vai abrir ao clicar -->
-  <ul id="language-list" style="
-    position: fixed;
-    top: 45px;
-    right: 10px;
-    width: 120px;
-    max-height: 150px;
-    overflow-y: auto;
-    background: #222;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    list-style: none;
-    padding: 5px 0;
-    margin: 0;
-    display: none;
-    z-index: 9999;
-  ">
-    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Português</li>
-    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Español</li>
-    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
-  </ul>
-
-  <script>
-    const selector = document.getElementById('language-selector');
-    const list = document.getElementById('language-list');
-
-    selector.addEventListener('click', () => {
-      if (list.style.display === 'none' || list.style.display === '') {
-        list.style.display = 'block';
-      } else {
-        list.style.display = 'none';
-      }
-    });
-
-    // Fechar a lista se clicar fora
-    document.addEventListener('click', (e) => {
-      if (!selector.contains(e.target) && !list.contains(e.target)) {
-        list.style.display = 'none';
-      }
-    });
-
-    const traducoes = {
-      pt: {
-        "titulo-principal": "Sociedade Walingardyana",
-        "nav-novidades": "Novidades do Universo",
-        "nav-contos": "Contos de Walingardyn",
-        "nav-loja": "Loja Oficial",
-        "nav-gabryell": "Tudo sobre Gabryell Aweryan",
-        "nav-casas": "Casas de Walingardyn",
-        "nav-obras": "Obras Canônicas",
-        "nav-biblioteca": "Biblioteca",
-        "boas-vindas": "Seja bem-vindo, caro leitor! Apresentamos a você a porta e entrada do mundo de Walingardyn."
-      },
-      en: {
-        "titulo-principal": "Walingardyan Society",
-        "nav-novidades": "Universe News",
-        "nav-contos": "Walingardyn Tales",
-        "nav-loja": "Official Store",
-        "nav-gabryell": "About Gabryell Aweryan",
-        "nav-casas": "Walingardyn Houses",
-        "nav-obras": "Canonical Works",
-        "nav-biblioteca": "Library",
-        "boas-vindas": "Welcome, dear reader! You are entering the world of Walingardyn."
-      },
-      es: {
-        "titulo-principal": "Sociedad Walingardyana",
-        "nav-novidades": "Novedades del Universo",
-        "nav-contos": "Cuentos de Walingardyn",
-        "nav-loja": "Tienda Oficial",
-        "nav-gabryell": "Todo sobre Gabryell Aweryan",
-        "nav-casas": "Casas de Walingardyn",
-        "nav-obras": "Obras Canónicas",
-        "nav-biblioteca": "Biblioteca",
-        "boas-vindas": "¡Bienvenido, querido lector! Presentamos la puerta de entrada al mundo de Walingardyn."
-      }
-    };
-
-    function setLanguage(lang) {
-      const t = traducoes[lang];
-      for (const id in t) {
-        const el = document.getElementById(id);
-        if (el) {
-          el.textContent = t[id];
-        }
-      }
-    }
-
-    list.querySelectorAll('li').forEach((li) => {
-      li.addEventListener('click', () => {
-        let langCode = '';
-        switch (li.textContent) {
-          case 'Português':
-            langCode = 'pt';
-            break;
-          case 'Español':
-            langCode = 'es';
-            break;
-          case 'English':
-            langCode = 'en';
-            break;
-        }
-        setLanguage(langCode);
-        list.style.display = 'none';
-      });
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <header class="bg-black text-white p-4 shadow-md">
-    <div class="container mx-auto flex flex-col items-center">
-      <img src="oficial.png" alt="Logo Walingardyana" class="w-32 h-auto mb-2" />
-      <h1 id="titulo-principal" class="text-2xl font-bold">Sociedade Walingardyana</h1>
-      <nav class="flex flex-wrap gap-4 justify-center mt-2">
-        <a id="nav-novidades" href="novidades.html" class="hover:underline">Notícias</a>
-        <a id="nav-loja" href="loja.html" class="hover:underline">Loja</a>
-        <a id="nav-autores" href="autores.html" class="hover:underline">Nossos Autores</a>
-        <a id="nav-biblioteca" href="Biblioteca.html" class="hover:underline">Biblioteca</a>
-      </nav>
-    </div>
-  </header>
-
-  <section class="container mx-auto mt-6">
-    <div class="h-80 rounded overflow-hidden shadow-lg">
-      <video class="w-full h-full object-cover" autoplay muted loop>
-        <source src="walinga.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeo HTML5.
-      </video>
-    </div>
-  </section>
-
-  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
-    <p id="boas-vindas" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Origem da Sociedade Walingardyana</p>
-    <p id="explicativo1"> A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Araújo Aquino Felismino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido.
+  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
+    <p id="boas-vindas-origem" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Origem da Sociedade Walingardyana</p>
+    <p id="explicativo1-origem"> A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Araújo Aquino Felismino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido.
 
 Com a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência.
 
 Foi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo.
 
 Juntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir. </p>
-  </section>
+  </section>
 
-  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
-    <p id="boas-vindas" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Visão da Sociedade Walingardyana para o futuro</p>
-    <p id="explicativo1"> Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia.
+  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
+    <p id="boas-vindas-visao" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Visão da Sociedade Walingardyana para o futuro</p>
+    <p id="explicativo1-visao"> Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia.
 
 Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional. </p>
-  </section>
+  </section>
 
-  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
-    <p class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Como Triohnte começou?</p>
-    <p class="mb-4">
-      Em janeiro de 2020, um projeto de cinema, o qual Gabryell também havia fundado, chegou ao seu fim devido a alguns desentendimentos com a equipe. O projeto era um curta-metragem com temática potteriana, intitulado: <strong>Prince Afftton e a relíquea do império</strong>, (nome sugestivo, com certo parentesco com o título de nosso livro no futuro). É importante ressaltar que esse projeto durou 7 anos e alternava entre quedas e revividas enquanto o autor e a equipe aprendiam certos traquejos do cinema e postura.
-    </p>
-    <p class="mb-4 italic">
-      "Chegou uma tarde em que tudo acabou e não posso dizer que juntos votamos para que acabasse, por mim estaríamos até hoje gravando, ou talvez já estivéssemos com algo maior, não sei. O problema na Treehouse e antes dela, foi o ego, meu ego e das pessoas envolvidas. Algumas foram covardes e tentaram justificar suas próprias frustrações simplesmente colocando a culpa no fundador".
-    </p>
-    <p class="mb-4 italic">
-      "Imagine que trabalhei ao lado de duas mulheres que pelo fato de descobrirem que eu não correspondia a uma paixão que elas nutriam por mim e que eu nem sabia que nutriam; me acusaram de manipulação emocional e plágio em um roteiro que eu também havia escrito, o que era um trabalho grupal e respeitoso, de repente se tornou um campo minado, mas eu ainda acredito em teorias de sabotagem, aquilo não foi normal, foi forçado, estávamos crescendo, pouco, mas crescendo".
-    </p>
-    <p class="mb-4">
-      Disse Gabryell Aweryan em entrevista com o departamento de promotoria da SW.
-    </p>
-    <p class="mb-4">
-      Mais tarde o autor escreveria um conto sob forte tristeza pelo término do projeto de tal forma. O conto intitulado: <strong>Cyannon, E a batalha das ilhas galápago</strong>. Um conto que se passaria num mundo paralelo e narraria uma batalha entre equatorianos e espanhóis pelo controle de terras recém descobertas. Uma história sem pé nem cabeça, se vista com olhos nús e sentidos apurados pela acidez da leitura, mas aquele conto foi o (avô) de Triohnte.
-    </p>
-  </section>
+  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
+    <p id="titulo-triohnte-comeco" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Como Triohnte começou?</p>
+    <p id="paragrafo1-triohnte-comeco" class="mb-4">
+      Em janeiro de 2020, um projeto de cinema, o qual Gabryell também havia fundado, chegou ao seu fim devido a alguns desentendimentos com a equipe. O projeto era um curta-metragem com temática potteriana, intitulado: <strong>Prince Afftton e a relíquea do império</strong>, (nome sugestivo, com certo parentesco com o título de nosso livro no futuro). É importante ressaltar que esse projeto durou 7 anos e alternava entre quedas e revividas enquanto o autor e a equipe aprendiam certos traquejos do cinema e postura.
+    </p>
+    <p id="citacao1-triohnte-comeco" class="mb-4 italic">
+      "Chegou uma tarde em que tudo acabou e não posso dizer que juntos votamos para que acabasse, por mim estaríamos até hoje gravando, ou talvez já estivéssemos com algo maior, não sei. O problema na Treehouse e antes dela, foi o ego, meu ego e das pessoas envolvidas. Algumas foram covardes e tentaram justificar suas próprias frustrações simplesmente colocando a culpa no fundador".
+    </p>
+    <p id="citacao2-triohnte-comeco" class="mb-4 italic">
+      "Imagine que trabalhei ao lado de duas mulheres que pelo fato de descobrirem que eu não correspondia a uma paixão que elas nutriam por mim e que eu nem sabia que nutriam; me acusaram de manipulação emocional e plágio em um roteiro que eu também havia escrito, o que era um trabalho grupal e respeitoso, de repente se tornou um campo minado, mas eu ainda acredito em teorias de sabotagem, aquilo não foi normal, foi forçado, estávamos crescendo, pouco, mas crescendo".
+    </p>
+    <p id="citacao-autor-triohnte-comeco" class="mb-4">
+      Disse Gabryell Aweryan em entrevista com o departamento de promotoria da SW.
+    </p>
+    <p id="paragrafo2-triohnte-comeco" class="mb-4">
+      Mais tarde o autor escreveria um conto sob forte tristeza pelo término do projeto de tal forma. O conto intitulado: <strong>Cyannon, E a batalha das ilhas galápago</strong>. Um conto que se passaria num mundo paralelo e narraria uma batalha entre equatorianos e espanhóis pelo controle de terras recém descobertas. Uma história sem pé nem cabeça, se vista com olhos nús e sentidos apurados pela acidez da leitura, mas aquele conto foi o (avô) de Triohnte.
+    </p>
+  </section>
 
-  </div>
+  </div>
 </section>
 
-  <footer class="bg-black text-white text-center p-4 mt-16 space-y-2">
-    <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
-    <div class="flex justify-center space-x-6">
-      <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank" class="hover:underline">YouTube</a>
-      <a href="https://discord.gg/xTVv72FUuU" target="_blank" class="hover:underline">Discord</a>
-      <a href="https://www.instagram.com/swalingardynofc/" target="_blank" class="hover:underline">Instagram</a>
-    </div>
-  </footer>
+  <footer class="bg-black text-white text-center p-4 mt-16 space-y-2">
+    <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
+    <div class="flex justify-center space-x-6">
+      <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank" class="hover:underline">YouTube</a>
+      <a href="https://discord.gg/xTVv72FUuU" target="_blank" class="hover:underline">Discord</a>
+      <a href="https://www.instagram.com/swalingardynofc/" target="_blank" class="hover:underline">Instagram</a>
+    </div>
+  </footer>
+
+  <div id="language-selector" style="
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: #1a1a1a;
+    /* sem borda */
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  ">
+    <span style="color: white; font-size: 16px; user-select: none;">▼</span>
+  </div>
+
+    <ul id="language-list" style="
+    position: fixed;
+    top: 45px;
+    right: 10px;
+    width: 120px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #222;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    display: none;
+    z-index: 9999;
+  ">
+    <li data-lang="pt" style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Português</li>
+    <li data-lang="es" style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Español</li>
+    <li data-lang="en" style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
+  </ul>
+
+  <script>
+    const selector = document.getElementById('language-selector');
+    const list = document.getElementById('language-list');
+
+    selector.addEventListener('click', () => {
+      if (list.style.display === 'none' || list.style.display === '') {
+        list.style.display = 'block';
+      } else {
+        list.style.display = 'none';
+      }
+    });
+
+    // Fechar a lista se clicar fora
+    document.addEventListener('click', (e) => {
+      if (!selector.contains(e.target) && !list.contains(e.target)) {
+        list.style.display = 'none';
+      }
+    });
+
+    // Adicionando IDs para os novos elementos de texto (os já existentes são mantidos e IDs atualizados se necessário)
+    // Nota: Eu ajustei os IDs 'boas-vindas' e 'explicativo1' que estavam repetidos, adicionando um sufixo para torná-los únicos, o que é crucial para o JavaScript
+    const traducoes = {
+      pt: {
+        "titulo-principal": "Sociedade Walingardyana",
+        "nav-novidades": "Notícias",
+        "nav-loja": "Loja",
+        "nav-autores": "Nossos Autores",
+        "nav-biblioteca": "Biblioteca",
+        
+        // Conteúdo
+        "boas-vindas-origem": "Origem da Sociedade Walingardyana",
+        "explicativo1-origem": " A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Araújo Aquino Felismino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido.\n\nCom a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência.\n\nFoi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo.\n\nJuntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir. ",
+        "boas-vindas-visao": "Visão da Sociedade Walingardyana para o futuro",
+        "explicativo1-visao": " Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia.\n\nTudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional. ",
+        "titulo-triohnte-comeco": "Como Triohnte começou?",
+        "paragrafo1-triohnte-comeco": "Em janeiro de 2020, um projeto de cinema, o qual Gabryell também havia fundado, chegou ao seu fim devido a alguns desentendimentos com a equipe. O projeto era um curta-metragem com temática potteriana, intitulado: Prince Afftton e a relíquea do império, (nome sugestivo, com certo parentesco com o título de nosso livro no futuro). É importante ressaltar que esse projeto durou 7 anos e alternava entre quedas e revividas enquanto o autor e a equipe aprendiam certos traquejos do cinema e postura.",
+        "citacao1-triohnte-comeco": "\"Chegou uma tarde em que tudo acabou e não posso dizer que juntos votamos para que acabasse, por mim estaríamos até hoje gravando, ou talvez já estivéssemos com algo maior, não sei. O problema na Treehouse e antes dela, foi o ego, meu ego e das pessoas envolvidas. Algumas foram covardes e tentaram justificar suas próprias frustrações simplesmente colocando a culpa no fundador\".",
+        "citacao2-triohnte-comeco": "\"Imagine que trabalhei ao lado de duas mulheres que pelo fato de descobrirem que eu não correspondia a uma paixão que elas nutriam por mim e que eu nem sabia que nutriam; me acusaram de manipulação emocional e plágio em um roteiro que eu também havia escrito, o que era um trabalho grupal e respeitoso, de repente se tornou um campo minado, mas eu ainda acredito em teorias de sabotagem, aquilo não foi normal, foi forçado, estávamos crescendo, pouco, mas crescendo\".",
+        "citacao-autor-triohnte-comeco": "Disse Gabryell Aweryan em entrevista com o departamento de promotoria da SW.",
+        "paragrafo2-triohnte-comeco": "Mais tarde o autor escreveria um conto sob forte tristeza pelo término do projeto de tal forma. O conto intitulado: Cyannon, E a batalha das ilhas galápago. Um conto que se passaria num mundo paralelo e narraria uma batalha entre equatorianos e espanhóis pelo controle de terras recém descobertas. Uma história sem pé nem cabeça, se vista com olhos nús e sentidos apurados pela acidez da leitura, mas aquele conto foi o (avô) de Triohnte."
+      },
+      en: {
+        "titulo-principal": "Walingardyan Society",
+        "nav-novidades": "News",
+        "nav-loja": "Store",
+        "nav-autores": "Our Authors",
+        "nav-biblioteca": "Library",
+
+        // Conteúdo
+        "boas-vindas-origem": "Origin of the Walingardyan Society",
+        "explicativo1-origem": " The Walingardyan Society was created in December 2022 by Gabriel Araújo Aquino Felismino, known by the pseudonym Gabryell Aweryan, initially as a page dedicated to promoting his work and gathering readers. The original brand, called The World of Triohnte, aimed to segment and organize the material already produced.\n\nWith the evolution of his style and the deep revision of his book Trionte, driven by the criticism received about the volume, Gabryell felt the need to dedicate himself even more to the universe he had created, seeking to build it with rigor and consistency.\n\nIt was only after the rupture of the publication pact with the CRV publishing house, responsible for the first version of the book, in October 2023, that Aweryan decided to formally establish a name for what he saw, and continues to see, as his legacy: the Walingardyan Society. This decision reflected not only his indignation at the editorial neglect but also his determination to protect, expand, and consolidate the literary legacy he was building.\n\nPooling his savings, Gabryell registered the brand on July 9, 2025, patenting the Walingardyan Society and everything it produces. ",
+        "boas-vindas-visao": "Walingardyan Society's Vision for the Future",
+        "explicativo1-visao": " Although we are 'keeping our feet on the ground' regarding the new investments that have emerged since the public showcase of the brand, we are extremely excited about the future. Our greatest long-term desire is to become the main producer, seller, and promoter of high-quality original products within three niches currently competing for space in Brazilian literature: Horror, Dark Fantasy, and High Fantasy.\n\nAll of this, of course, starting with the publication of our great highlight, Triohnte, with the expectation of consolidating it as a prosperous and long-lasting franchise, which will serve as a basis for expanding the Walingardyan Society's presence in the national and international literary scene. ",
+        "titulo-triohnte-comeco": "How did Triohnte begin?",
+        "paragrafo1-triohnte-comeco": "In January 2020, a film project, which Gabryell had also founded, came to an end due to some disagreements with the team. The project was a short film with a Potterian theme, titled: Prince Afftton and the relic of the empire, (a suggestive name, with a certain kinship to the title of our future book). It is important to note that this project lasted 7 years and alternated between falls and revivals as the author and the team learned certain cinema tricks and postures.",
+        "citacao1-triohnte-comeco": "\"One afternoon everything ended, and I can't say that we collectively voted for it to end. As for me, we would still be filming today, or perhaps we would already have something bigger, I don't know. The problem at Treehouse, and before that, was ego—my ego and the egos of the people involved. Some were cowardly and tried to justify their own frustrations simply by blaming the founder.\"",
+        "citacao2-triohnte-comeco": "\"Imagine that I worked alongside two women who, upon discovering that I did not reciprocate a passion they held for me and that I didn't even know they had; accused me of emotional manipulation and plagiarism in a script that I had also written, which was a respectful group effort, suddenly became a minefield, but I still believe in sabotage theories, that wasn't normal, it was forced, we were growing, little by little, but growing.\"",
+        "citacao-autor-triohnte-comeco": "Said Gabryell Aweryan in an interview with the SW promotion department.",
+        "paragrafo2-triohnte-comeco": "Later the author would write a short story under deep sadness over the project's ending in such a way. The story was titled: Cyannon, And the battle of the Galápagos Islands. A story that would take place in a parallel world and narrate a battle between Ecuadorians and Spaniards for control of newly discovered lands. A story without rhyme or reason, if viewed with naked eyes and senses sharpened by the acidity of the reading, but that short story was the (grandfather) of Triohnte."
+      },
+      es: {
+        "titulo-principal": "Sociedad Walingardyana",
+        "nav-novidades": "Noticias",
+        "nav-loja": "Tienda",
+        "nav-autores": "Nuestros Autores",
+        "nav-biblioteca": "Biblioteca",
+
+        // Conteúdo
+        "boas-vindas-origem": "Origen de la Sociedad Walingardyana",
+        "explicativo1-origem": " La Sociedad Walingardyana fue creada en diciembre de 2022 por Gabriel Araújo Aquino Felismino, conocido por el seudónimo Gabryell Aweryan, inicialmente como una página dedicada a divulgar su trabajo y atraer lectores. La marca original, llamada El Mundo de Triohnte, tenía como objetivo segmentar y organizar el material ya producido.\n\nCon la evolución de su estilo y la profunda revisión de su libro Trionte, impulsada por las críticas recibidas sobre el volumen, Gabryell sintió la necesidad de dedicarse aún más al universo que había creado, buscando construirlo con rigor y consistencia.\n\nFue solo después de la ruptura del pacto de publicación con la editorial CRV, responsable de la primera versión del libro, en octubre de 2023, que Aweryan decidió establecer formalmente un nombre para lo que veía, y sigue viendo, como su legado: la Sociedad Walingardyana. Esta decisión reflejó no solo su indignación ante el desinterés editorial, sino también su determinación de proteger, expandir y consolidar el legado literario que estaba construyendo.\n\nReuniendo sus ahorros, Gabryell registró la marca el 9 de julio de 2025, patentando la Sociedad Walingardyana y todo lo que ella produzca. ",
+        "boas-vindas-visao": "Visión de la Sociedad Walingardyana para el futuro",
+        "explicativo1-visao": " Aunque estamos con los “pies en la tierra” ante las nuevas inversiones que surgieron desde la muestra pública de la marca, estamos extremadamente animados con el futuro. Nuestro mayor deseo a largo plazo es convertirnos en el principal productor, vendedor y promotor de productos originales de alta calidad dentro de tres nichos que actualmente disputan espacio en la literatura brasileña: Terror, Fantasía Oscura y Alta Fantasía.\n\nTodo esto, claro, comenzando con la publicación de nuestro gran destaque, Triohnte, con la expectativa de consolidarlo como una franquicia próspera y duradera, que servirá de base para expandir la presencia de la Sociedad Walingardyana en el escenario literario nacional e internacional. ",
+        "titulo-triohnte-comeco": "¿Cómo comenzó Triohnte?",
+        "paragrafo1-triohnte-comeco": "En enero de 2020, un proyecto de cine, el cual Gabryell también había fundado, llegó a su fin debido a algunos desacuerdos con el equipo. El proyecto era un cortometraje con temática potteriana, titulado: Prince Afftton y la reliquia del imperio, (nombre sugerente, con cierto parentesco con el título de nuestro futuro libro). Es importante resaltar que este proyecto duró 7 años y alternaba entre caídas y revividas mientras el autor y el equipo aprendían ciertos trucos y posturas del cine.",
+        "citacao1-triohnte-comeco": "\"Llegó una tarde en que todo terminó y no puedo decir que juntos votamos para que terminara, por mí estaríamos hasta hoy grabando, o tal vez ya tuviéramos algo mayor, no sé. El problema en Treehouse y antes de ella, fue el ego, mi ego y el de las personas involucradas. Algunas fueron cobardes e intentaron justificar sus propias frustraciones simplemente culpando al fundador\".",
+        "citacao2-triohnte-comeco": "\"Imagina que trabajé al lado de dos mujeres que por el hecho de descubrir que yo no correspondía a una pasión que ellas nutrían por mí y que yo ni sabía que nutrían; me acusaron de manipulación emocional y plagio en un guion que yo también había escrito, lo que era un trabajo grupal y respetuoso, de repente se convirtió en un campo minado, pero yo todavía creo en teorías de sabotaje, aquello no fue normal, fue forzado, estábamos creciendo, poco, pero creciendo\".",
+        "citacao-autor-triohnte-comeco": "Dijo Gabryell Aweryan en entrevista con el departamento de promoción de la SW.",
+        "paragrafo2-triohnte-comeco": "Más tarde el autor escribiría un cuento bajo fuerte tristeza por el término del proyecto de tal forma. El cuento titulado: Cyannon, Y la batalla de las islas galápago. Un cuento que se desarrollaría en un mundo paralelo y narraría una batalla entre ecuatorianos y españoles por el control de tierras recién descubiertas. Una historia sin pies ni cabeza, si se mira con ojos desnudos y sentidos agudizados por la acidez de la lectura, pero aquel cuento fue el (abuelo) de Triohnte."
+      }
+    };
+
+    // Função auxiliar para traduzir o conteúdo com quebras de linha
+    function setLanguage(lang) {
+      const t = traducoes[lang];
+      for (const id in t) {
+        const el = document.getElementById(id);
+        if (el) {
+          // Para os links de navegação, precisamos traduzir o texto dentro do <a>
+          if (el.tagName === 'A') {
+            el.textContent = t[id];
+          } else {
+            // Para o texto do corpo, precisamos lidar com quebras de linha
+            if (id.startsWith('explicativo1')) {
+              // Usar innerHTML e <br> para respeitar as quebras de linha do texto traduzido
+              const htmlContent = t[id].trim().replace(/\n/g, '<br><br>');
+              el.innerHTML = htmlContent;
+            } else {
+              // Para outros elementos, apenas defina o textContent
+              el.textContent = t[id];
+            }
+          }
+        }
+      }
+    }
+
+    list.querySelectorAll('li').forEach((li) => {
+      li.addEventListener('click', () => {
+        const langCode = li.getAttribute('data-lang');
+        if (langCode) {
+          setLanguage(langCode);
+          list.style.display = 'none';
+        }
+      });
+    });
+
+    // Garantir que a página inicie em Português
+    setLanguage('pt');
+  </script>
 
 </body>
 </html>
-
 
 
 
