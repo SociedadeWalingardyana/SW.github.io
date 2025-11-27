@@ -1,32 +1,34 @@
-Write-Host "Listando deployments (json)..."
+name: Clean Wasmer Deployments
 
-$raw = wasmer deploy list --json 2>&1
+on:
+  workflow_dispatch:  # permite rodar manualmente pelo GitHub
+  # Se quiser que rode a cada push na main, descomente:
+  # push:
+  #   branches: [ "main" ]
 
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Erro ao executar 'wasmer deploy list'."
-    Write-Host $raw
-    exit 1
-}
+jobs:
+  clean:
+    runs-on: ubuntu-latest
 
-try {
-    $parsed = $raw | ConvertFrom-Json
-} catch {
-    Write-Host "Falha ao parsear JSON:"
-    Write-Host $raw
-    exit 1
-}
+    steps:
+      - name: Instalar Wasmer
+        run: |
+          curl https://get.wasmer.io -sSfL | sh
+          echo "$HOME/.wasmer/bin" >> $GITHUB_PATH
 
-$items = $parsed
+      - name: Instalar jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
-if (-not $items -or $items.Count -eq 0) {
-    Write-Host "Nenhum deployment encontrado."
-    exit 0
-}
+      - name: Login no Wasmer
+        run: wasmer login --token "${{ secrets.WASMER_TOKEN }}"
 
-foreach ($item in $items) {
-    $id = $item.id
-    if (-not $id) { continue }
+      - name: Listar Deployments
+        run: wasmer deploy list --json
 
-    Write-Host "Apagando $id..."
-    wasmer deploy delete $id
-}
+      - name: Limpar Deployments Antigos
+        run: |
+          echo "Limpando deployments..."
+          wasmer deploy list --json | jq -r '.[].id' | while read id; do
+            echo "Apagando $id..."
+            wasmer deploy delete "$id"
+          done
