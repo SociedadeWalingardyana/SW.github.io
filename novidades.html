@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Novidades do Universo - Sociedade Walingardyana</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    /* Botão fixo no canto superior direito */
+    #language-selector {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background: #1a1a1a;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      user-select: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    #language-list {
+      position: fixed;
+      top: 45px;
+      right: 10px;
+      width: 140px;
+      max-height: 150px;
+      overflow-y: auto;
+      background: #222;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      list-style: none;
+      padding: 5px 0;
+      margin: 0;
+      display: none;
+      z-index: 9999;
+    }
+    #language-list li {
+      padding: 8px 12px;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+    #language-list li:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body class="bg-black text-white p-8 min-h-screen flex flex-col items-center">
+
+  <!-- Botão fixo para escolher idioma -->
+  <div id="language-selector">
+    <span>▼</span>
+  </div>
+
+  <!-- Lista dropdown de idiomas -->
+  <ul id="language-list">
+    <li data-lang="pt">Português</li>
+    <li data-lang="es">Español</li>
+    <li data-lang="en">English</li>
+  </ul>
+
+  <h1 class="text-3xl font-bold mb-6"
+      data-pt="Novidades do Universo"
+      data-en="Universe News"
+      data-es="Novedades del Universo">
+    Novidades do Universo
+  </h1>
+  <p class="mb-8"
+     data-pt="Abaixo você verá todas as novidade que já aconteceram e que estão para acontecer."
+     data-en="Below you will see all the news that has happened and what's coming."
+     data-es="Abajo verás todas las novedades que ya han ocurrido y las que están por venir.">
+    Abaixo você verá todas as novidade que já aconteceram e que estão para acontecer.
+  </p>
+
+  <div class="w-full max-w-3xl space-y-4">
+    <div class="bg-gray-900 p-4 rounded shadow-md">
+      <p>
+        <span
+          data-pt="Mudanças na aba idioma e funcionalidade geral da mesma no site."
+          data-en="Changes in the language tab and its general functionality on the site."
+          data-es="Cambios en la pestaña de idioma y su funcionalidad general en el sitio.">
+          Mudanças na aba idioma e funcionalidade geral da mesma no site.
+        </span>
+        <span class="text-gray-400 italic">- Postado em 12/08/2025</span>
+      </p>
+      <p class="text-yellow-900 font-bold mt-1"
+         data-pt="FUTURA!"
+         data-en="COMING SOON!"
+         data-es="¡PRÓXIMAMENTE!">FUTURA!</p>
+    </div>
+
+    <div class="bg-gray-900 p-4 rounded shadow-md">
+      <p>
+        <span
+          data-pt="Em uma reunião analítica sobre as funcionalidades do site, resolvemos retirar o fórum da versão definitiva."
+          data-en="In an analytical meeting about the site's functionalities, we decided to remove the forum from the final version."
+          data-es="En una reunión analítica sobre las funcionalidades del sitio, decidimos retirar el foro de la versión definitiva.">
+          Em uma reunião analítica sobre as funcionalidades do site, resolvemos retirar o fórum da versão definitiva.
+        </span>
+        <span class="text-gray-400 italic">- Postado em 11/08/2025</span>
+      </p>
+    </div>
+
+    <div class="bg-gray-900 p-4 rounded shadow-md">
+      <p>
+        <span
+          data-pt="Alterações foram feitas nas abas, Sucesso imediato!"
+          data-en="Changes were made to the tabs, Immediate success!"
+          data-es="Se hicieron cambios en las pestañas, ¡Éxito inmediato!">
+          Alterações foram feitas nas abas, Sucesso imediato!
+        </span>
+        <span class="text-gray-400 italic">- Postado em 04/08/2025</span>
+      </p>
+    </div>
+
+    <div class="bg-gray-900 p-4 rounded shadow-md">
+      <p>
+        <span
+          data-pt="Incorporamos a mudança de idioma."
+          data-en="We incorporated the language change."
+          data-es="Incorporamos el cambio de idioma.">
+          Incorporamos a mudança de idioma.
+        </span>
+        <span class="text-gray-400 italic">- Postado em 26/07/2025</span>
+      </p>
+    </div>
+  </div>
+
+  <a href="index.html"
+     class="text-blue-400 hover:underline mt-8"
+     data-pt="← Voltar para a página inicial"
+     data-en="← Back to home"
+     data-es="← Volver al inicio">
+    ← Voltar para a página inicial
+  </a>
+
+  <script>
+    const languageSelector = document.getElementById('language-selector');
+    const languageList = document.getElementById('language-list');
+
+    languageSelector.addEventListener('click', () => {
+      languageList.style.display = languageList.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!languageSelector.contains(e.target) && !languageList.contains(e.target)) {
+        languageList.style.display = 'none';
+      }
+    });
+
+    function updateLanguage(lang) {
+      if (!lang) return;
+
+      document.querySelectorAll('[data-pt]').forEach(el => {
+        if (lang === 'pt') el.textContent = el.getAttribute('data-pt');
+        else if (lang === 'en') el.textContent = el.getAttribute('data-en');
+        else if (lang === 'es') el.textContent = el.getAttribute('data-es');
+      });
+
+      if (lang === 'pt') document.title = 'Novidades do Universo - Sociedade Walingardyana';
+      else if (lang === 'en') document.title = 'Universe News - Walingardyana Society';
+      else if (lang === 'es') document.title = 'Novedades del Universo - Sociedad Walingardyana';
+
+      languageList.style.display = 'none';
+    }
+
+    languageList.querySelectorAll('li').forEach(li => {
+      li.addEventListener('click', () => {
+        updateLanguage(li.getAttribute('data-lang'));
+      });
+    });
+  </script>
+
+</body>
+</html>

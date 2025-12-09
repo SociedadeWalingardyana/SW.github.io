@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loja</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-black text-white p-8 min-h-screen flex flex-col items-center">
+
+
+  <!-- Botão fixo no canto superior direito -->
+  <div id="language-selector" style="
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: #1a1a1a;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  ">
+    <span style="color: white; font-size: 16px; user-select: none;">▼</span>
+  </div>
+
+  <!-- Lista que vai abrir ao clicar -->
+  <ul id="language-list" style="
+    position: fixed;
+    top: 45px;
+    right: 10px;
+    width: 140px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #222;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    display: none;
+    z-index: 9999;
+  ">
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Português</li>
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Español</li>
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
+  </ul>
+
+  <h1 id="titulo-principal" class="text-3xl font-bold mb-6">Loja</h1>
+
+  <div class="grid grid-cols-1 gap-8 max-w-4xl w-full">
+
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
+      <img src="Compendio.png" alt="Compêndio" class="mx-auto mb-4 w-50 h-32" />
+      <h2 id="produto-1-titulo" class="text-xl font-semibold mb-2">Compêndio Walingardyano (PDF)</h2>
+      <p id="produto-1-desc" class="text-sm mb-2">Versão digital para download. Ideal para acessar no celular ou tablet.</p>
+      <p id="produto-1-preco" class="text-lg font-bold mb-2">Preço: R$ 12,90</p>
+
+            <div class="p-4 rounded mb-4 text-left" style="background-color: #281109;">
+        <p id="pix-nome" class="text-sm mb-1">GABRIEL ARAUJO A FELISMINO</p>
+        <p id="pix-chave" class="text-sm">Chave Pix: <span class="text-green-400">111.306.684-95</span></p>
+        <p id="pix-banco" class="text-sm mb-3">Banco: Mercado Pago</p>
+        <img src="qr-code.png" alt="QR Code Pix" class="mx-auto w-40 h-40 border border-white rounded" />
+      </div>
+
+      <button onclick="registrarCompraPDF()" id="botao-pdf" class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded font-bold mt-2">
+        Já paguei!
+      </button>
+    </div>
+
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
+      <h2 id="produto-2-titulo" class="text-xl font-semibold mb-2">Livro Físico: Compêndio Walingardyano</h2>
+      <p id="produto-2-desc" class="text-sm mb-4">Tudo o que você precisa saber sobre a magia oculta de Walingardyn.</p>
+      <p id="produto-2-preco" class="text-lg font-bold mb-2">Preço: R$ 31,00</p>
+      </div>
+
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
+      <h2 id="produto-3-titulo" class="text-xl font-semibold mb-2">Livro: Triohnte, O Segredo do Império</h2>
+      <p id="produto-3-desc" class="text-sm mb-4">Política e mistério no principal continente de Walingardyn.</p>
+      <p id="produto-3-preco" class="text-lg font-bold mb-2">Preço: R$ 38,00</p>
+    </div>
+
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
+      <h2 id="produto-4-titulo" class="text-xl font-semibold mb-2">Livro: O Segredo do Império</h2>
+      <p id="produto-4-desc" class="text-sm mb-4">Descubra os mistérios por trás das estruturas imperiais e seus efeitos mágicos.</p>
+      <p id="produto-4-preco" class="text-lg font-bold mb-2">Preço: R$ 42,00</p>
+    </div>
+
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
+      <h2 id="produto-5-titulo" class="text-xl font-semibold mb-2">Camiseta Oficial</h2>
+      <p id="produto-5-desc" class="text-sm mb-4">Vista a Sociedade Walingardyana com orgulho.</p>
+      <p id="produto-5-preco" class="text-lg font-bold mb-2">Preço: R$ 59,90</p>
+    </div>
+
+        <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
+      <h2 id="produto-6-titulo" class="text-xl font-semibold mb-2">Cachecol Oficial</h2>
+      <p id="produto-6-desc" class="text-sm mb-4">Ideal para aventuras em climas gelados como Costahlya.</p>
+      <p id="produto-6-preco" class="text-lg font-bold mb-2">Preço: R$ 39,90</p>
+    </div>
+
+  </div>
+
+  <a href="index.html" id="link-voltar" class="mt-12 text-blue-400 hover:underline">← Voltar para a página inicial</a>
+
+  <script>
+    const selector = document.getElementById('language-selector');
+    const list = document.getElementById('language-list');
+
+    selector.addEventListener('click', () => {
+      if (list.style.display === 'none' || list.style.display === '') {
+        list.style.display = 'block';
+      } else {
+        list.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!selector.contains(e.target) && !list.contains(e.target)) {
+        list.style.display = 'none';
+      }
+    });
+
+    const traducoes = {
+      pt: {
+        "titulo-principal": "Loja",
+        "produto-1-titulo": "Compêndio Walingardyano (PDF)",
+        "produto-1-desc": "Versão digital para download. Ideal para acessar no celular ou tablet.",
+        "produto-1-preco": "Preço: R$ 12,90",
+        "pix-nome": "GABRIEL ARAUJO A FELISMINO",
+        "pix-chave": "Chave Pix: <span class=\"text-green-400\">111.306.684-95</span>",
+        "pix-banco": "Banco: Mercado Pago",
+        "botao-pdf": "Já paguei!",
+        "produto-2-titulo": "Livro Físico: Compêndio Walingardyano",
+        "produto-2-desc": "Tudo o que você precisa saber sobre a magia oculta de Walingardyn.",
+        "produto-2-preco": "Preço: R$ 31,00",
+        "produto-3-titulo": "Livro: Triohnte, O Segredo do Império",
+        "produto-3-desc": "Política e mistério no principal continente de Walingardyn.",
+        "produto-3-preco": "Preço: R$ 38,00",
+        "produto-4-titulo": "Livro: O Segredo do Império",
+        "produto-4-desc": "Descubra os mistérios por trás das estruturas imperiais e seus efeitos mágicos.",
+        "produto-4-preco": "Preço: R$ 42,00",
+        "produto-5-titulo": "Camiseta Oficial",
+        "produto-5-desc": "Vista a Sociedade Walingardyana com orgulho.",
+        "produto-5-preco": "Preço: R$ 59,90",
+        "produto-6-titulo": "Cachecol Oficial",
+        "produto-6-desc": "Ideal para aventuras em climas gelados como Costahlya.",
+        "produto-6-preco": "Preço: R$ 39,90",
+        "link-voltar": "← Voltar para a página inicial"
+      },
+      en: {
+        "titulo-principal": "Store",
+        "produto-1-titulo": "Walingardyan Compendium (PDF)",
+        "produto-1-desc": "Digital version for download. Perfect for mobile or tablet access.",
+        "produto-1-preco": "Price: R$ 12.90",
+        "pix-nome": "GABRIEL ARAUJO A FELISMINO",
+        "pix-chave": "Pix Key: <span class=\"text-green-400\">111.306.684-95</span>",
+        "pix-banco": "Bank: Mercado Pago",
+        "botao-pdf": "I already paid!",
+        "produto-2-titulo": "Physical Book: Walingardyan Compendium",
+        "produto-2-desc": "Everything you need to know about Walingardyn's hidden magic.",
+        "produto-2-preco": "Price: R$ 31.00",
+        "produto-3-titulo": "Book: Triohnte, The Secret of the Empire",
+        "produto-3-desc": "Politics and mystery in Walingardyn's main continent.",
+        "produto-3-preco": "Price: R$ 38.00",
+        "produto-4-titulo": "Book: The Secret of the Empire",
+        "produto-4-desc": "Discover the mysteries behind imperial structures and their magical effects.",
+        "produto-4-preco": "Price: R$ 42.00",
+        "produto-5-titulo": "Official T-shirt",
+        "produto-5-desc": "Wear the Walingardyan Society with pride.",
+        "produto-5-preco": "Price: R$ 59.90",
+        "produto-6-titulo": "Official Scarf",
+        "produto-6-desc": "Ideal for adventures in cold climates like Costahlya.",
+        "produto-6-preco": "Price: R$ 39.90",
+        "link-voltar": "← Back to the homepage"
+      },
+      es: {
+        "titulo-principal": "Tienda",
+        "produto-1-titulo": "Compendio Walingardyano (PDF)",
+        "produto-1-desc": "Versión digital para descargar. Ideal para acceder en el móvil o tableta.",
+        "produto-1-preco": "Precio: R$ 12,90",
+        "pix-nome": "GABRIEL ARAUJO A FELISMINO",
+        "pix-chave": "Clave Pix: <span class=\"text-green-400\">111.306.684-95</span>",
+        "pix-banco": "Banco: Mercado Pago",
+        "botao-pdf": "¡Ya pagué!",
+        "produto-2-titulo": "Libro Físico: Compendio Walingardyano",
+        "produto-2-desc": "Todo lo que necesitas saber sobre la magia oculta de Walingardyn.",
+        "produto-2-preco": "Precio: R$ 31,00",
+        "produto-3-titulo": "Libro: Triohnte, El Secreto del Imperio",
+        "produto-3-desc": "Política y misterio en el principal continente de Walingardyn.",
+        "produto-3-preco": "Precio: R$ 38,00",
+        "produto-4-titulo": "Libro: El Secreto del Imperio",
+        "produto-4-desc": "Descubre los misterios por trás de las estructuras imperiales y sus efectos mágicos.",
+        "produto-4-preco": "Precio: R$ 42,00",
+        "produto-5-titulo": "Camiseta Oficial",
+        "produto-5-desc": "Viste la Sociedade Walingardyana con orgullo.",
+        "produto-5-preco": "Precio: R$ 59,90",
+        "produto-6-titulo": "Bufanda Oficial",
+        "produto-6-desc": "Ideal para aventuras en climas fríos como Costahlya.",
+        "produto-6-preco": "Precio: R$ 39,90",
+        "link-voltar": "← Volver a la página principal"
+      }
+    };
+
+    function setLanguage(lang) {
+      const t = traducoes[lang];
+      if (!t) return;
+      for (const id in t) {
+        const el = document.getElementById(id);
+        if (el) {
+          if(id === 'pix-chave') {
+            el.innerHTML = t[id];
+          } else {
+            el.textContent = t[id];
+          }
+        }
+      }
+      document.title = t["titulo-principal"] + " - Sociedade Walingardyana";
+      localStorage.setItem("idioma", lang);
+    }
+
+    window.onload = () => {
+      const lang = localStorage.getItem("idioma") || "pt";
+      setLanguage(lang);
+    };
+
+    list.querySelectorAll('li').forEach((li) => {
+      li.addEventListener('click', () => {
+        let langCode = '';
+        switch (li.textContent) {
+          case 'Português':
+            langCode = 'pt';
+            break;
+          case 'Español':
+            langCode = 'es';
+            break;
+          case 'English':
+            langCode = 'en';
+            break;
+        }
+        setLanguage(langCode);
+        list.style.display = 'none';
+      });
+    });
+
+    function registrarCompraPDF() {
+      const produtos = JSON.parse(localStorage.getItem('produtosComprados') || '[]');
+      if (!produtos.includes('compendio')) {
+        produtos.push('compendio');
+        localStorage.setItem('produtosComprados', JSON.stringify(produtos));
+      }
+      alert(traducoes[localStorage.getItem("idioma") || "pt"]["botao-pdf"] === "Já paguei!" 
+            ? "Compra registrada com sucesso! Vá até a aba Biblioteca para baixar o PDF." 
+            : "Purchase registered successfully! Go to the Library tab to download the PDF.");
+    }
+  </script>
+
+</body>
+</html>
