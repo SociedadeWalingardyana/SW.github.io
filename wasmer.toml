@@ -1,0 +1,13 @@
+[package]
+name = '<your-user>/<package>'
+version = '0.1.0'
+description = 'Description for package'
+ 
+[[module]]
+name = '<your-module>'
+source = 'target/release/<your-module>.wasm'
+ 
+[[command]]
+runner = 'wasi'
+name = '<your-module>'
+module = '<your-module>'
