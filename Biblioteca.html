@@ -7,12 +7,40 @@
 
     <style>
         body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; }
-        .topbar { padding: 1rem; background: #15161a; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; }
+        .topbar { padding: 1rem; background: #15161a; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 10; }
         .layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 58px); }
-        .sidebar { background: #17181a; padding: 1rem; overflow: auto; }
+        .sidebar { background: #17181a; padding: 1rem; overflow: auto; border-right: 1px solid #2b2d32; }
         .main { padding: 1rem; }
         .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-        .card-book { background: #17181a; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: transform .1s; }
+        
+        /* Estilos da Caixa de Comentários */
+        .comment-section { margin-top: 2rem; background: #ffffff; padding: 1rem; border-radius: 12px; color: #1a1a1a; }
+        .comment-section h3 { margin-top: 0; font-size: 1.1rem; color: #0f0f10; }
+        .comment-section textarea { 
+            width: 100%; 
+            height: 80px; 
+            margin-top: 0.5rem; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            padding: 0.5rem; 
+            box-sizing: border-box;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .btn-comment { 
+            margin-top: 0.5rem; 
+            width: 100%; 
+            background: #15161a; 
+            color: white; 
+            padding: 0.5rem; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+        }
+        .btn-comment:hover { background: #333; }
+
+        /* Estilos originais mantidos */
+        .card-book { background: #17181a; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: transform .1s; border: 1px solid #2b2d32; }
         .card-book:hover { transform: translateY(-2px); }
         .cover { width: 100%; aspect-ratio: 3/4; background: #101114; display: flex; align-items: center; justify-content: center; }
         .cover img { width: 100%; height: 100%; object-fit: cover; }
@@ -27,16 +55,16 @@
         .star-count { font-size: .9rem; color: #ffd700; margin-left: .25rem; }
         .drawer { position: fixed; inset: 0; background: rgba(0, 0, 0, .95); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; transform: translateY(100%); transition: transform .2s ease; z-index: 50; }
         .drawer.open { transform: translateY(0); }
-        .drawer-content { display: flex; flex-direction: column; align-items: center; width: 100%; height: 100%; overflow-y: auto; padding: 1rem; box-sizing: border-box; transform: scale(1); transform-origin: top center; transition: transform 0.2s ease-in-out; }
+        .drawer-content { display: flex; flex-direction: column; align-items: center; width: 100%; height: 100%; overflow-y: auto; padding: 1rem; box-sizing: border-box; }
         .drawer-content img { width: 100%; height: auto; margin-bottom: 1rem; border: 1px solid #2b2d32; border-radius: 8px; }
         .drawer-controls { display: flex; gap: .5rem; align-items: center; justify-content: center; padding: 1rem 0; }
-        .reading-mode .topbar,
-        .reading-mode .drawer-controls { opacity: 0; pointer-events: none; }
+        .reading-mode .topbar, .reading-mode .drawer-controls { opacity: 0; pointer-events: none; }
         .reading-mode .drawer-content { padding: 0; background: #000; }
         .reading-mode .drawer-content img { border: none; border-radius: 0; margin-bottom: 0; }
     </style>
 </head>
 <body>
+
 <header class="topbar">
     <div class="title">Biblioteca</div>
 </header>
@@ -44,6 +72,12 @@
 <div class="layout">
     <aside class="sidebar">
         <h2>Suas obras reunidas em um só lugar.</h2>
+        
+        <div class="comment-section">
+            <h3>Deixe seu comentário</h3>
+            <textarea placeholder="O que você está lendo hoje?"></textarea>
+            <button class="btn-comment">Enviar</button>
+        </div>
     </aside>
 
     <main class="main">
@@ -74,7 +108,6 @@ const state = {
     ]
 };
 
-// Renderiza livros
 function render() {
     const grade = document.getElementById("grade");
     grade.innerHTML = "";
@@ -94,7 +127,6 @@ function render() {
     });
 }
 
-// ======= Drawer de Imagens =======
 const drawer = document.getElementById("drawer");
 const drawerContent = document.querySelector(".drawer-content");
 const zoomInBtn = document.getElementById("zoomIn");
@@ -114,7 +146,7 @@ function openDrawer(title, pasta, totalPaginas) {
     const pages = [];
     for (let i = 1; i <= totalPaginas; i++) {
         const img = document.createElement("img");
-        img.src = `${pasta}/Pagina ${i}.png`; // <- Ajuste para "Pagina 1.png", "Pagina 2.png"...
+        img.src = `${pasta}/Pagina ${i}.png`;
         img.alt = `Página ${i}`;
         img.className = 'pdf-page-image';
         img.dataset.page = i;
@@ -140,7 +172,6 @@ function closeDrawer() {
     drawer.classList.remove("open");
     drawer.setAttribute("aria-hidden", "true");
     document.body.classList.remove("reading-mode");
-    document.getElementById("toggleReadingMode").textContent = "Ver em Slide";
 }
 
 document.getElementById("closeDrawer").addEventListener("click", closeDrawer);
