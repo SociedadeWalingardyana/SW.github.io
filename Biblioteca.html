@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Biblioteca</title>
-
 <style>
 body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; }
 .topbar { padding: 1rem; background: #15161a; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 10; }
@@ -29,13 +28,16 @@ body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; 
 .fav[aria-pressed="false"]::after { content: "☆"; }
 .star-count { color: #ffd700; }
 
-/* Drawer */
-#drawer { position: fixed; inset:0; background: rgba(0,0,0,.95); display:none; flex-direction:column; z-index:50; overflow:auto; }
-#drawer .topbar { background:#15161a; padding:1rem; display:flex; justify-content:space-between; align-items:center; }
-#drawerContent img { width:100%; margin-bottom:1rem; }
+.drawer { position: fixed; inset:0; background: rgba(0,0,0,.95); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1rem; transform:translateY(100%); transition: transform .2s ease; z-index:50; }
+.drawer.open { transform: translateY(0); }
+.drawer-content { display:flex; flex-direction:column; align-items:center; width:100%; height:100%; overflow-y:auto; padding:1rem; box-sizing:border-box; }
+.drawer-content img { width:100%; height:auto; margin-bottom:1rem; border:1px solid #2b2d32; border-radius:8px; }
+.drawer-controls { display:flex; gap:.5rem; align-items:center; justify-content:center; padding:1rem 0; }
+.reading-mode .topbar, .reading-mode .drawer-controls { opacity:0; pointer-events:none; }
+.reading-mode .drawer-content { padding:0; background:#000; }
+.reading-mode .drawer-content img { border:none; border-radius:0; margin-bottom:0; }
 </style>
 </head>
-
 <body>
 
 <header class="topbar">Biblioteca</header>
@@ -43,7 +45,6 @@ body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; 
 <div class="layout">
 <aside class="sidebar">
 <h2>Suas obras reunidas em um só lugar.</h2>
-
 <div class="comment-section">
 <h3>Deixe seu comentário</h3>
 <textarea placeholder="O que você está lendo hoje?"></textarea>
@@ -56,13 +57,18 @@ body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; 
 </main>
 </div>
 
-<!-- Drawer de Leitura -->
-<div id="drawer">
+<div id="drawer" class="drawer" aria-hidden="true">
   <div class="topbar">
-    <h2 id="drawerTitle"></h2>
     <button class="btn" id="closeDrawer">Fechar</button>
+    <h2 id="drawerTitle"></h2>
+    <button class="btn" id="toggleReadingMode">Ver em Slide</button>
   </div>
-  <div id="drawerContent"></div>
+  <div class="drawer-content"></div>
+  <div class="drawer-controls">
+    <button class="btn" id="zoomOut">-</button>
+    <button class="btn" id="zoomIn">+</button>
+    <span id="pageInfo">0 de 0</span>
+  </div>
 </div>
 
 <!-- Firebase -->
@@ -70,7 +76,7 @@ body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-// 🔥 CONFIGURE AQUI COM SEUS DADOS REAIS
+// 🔥 CONFIGURE AQUI
 const firebaseConfig = {
   apiKey: "SUA_API_KEY",
   authDomain: "sw-biblio.firebaseapp.com",
@@ -88,7 +94,7 @@ const livros = [
   {id:3, titulo:"Virtudes", autor:"Francisco de Assis", capa:"Virtudes.png", pasta:"Virtudes", totalPaginas:3}
 ];
 
-// 🎨 RENDER + HIDRATAÇÃO
+// 🎨 RENDER
 const grade = document.getElementById("grade");
 const section = document.querySelector(".comment-section");
 const textarea = section.querySelector("textarea");
@@ -108,13 +114,12 @@ livros.forEach(l => {
   `;
   grade.appendChild(card);
 
-  // ⭐ Carregar estrelas existentes e tempo real
-  db.ref("estrelas/" + l.id).on("value", snap => {
-    document.getElementById("stars-" + l.id).textContent = snap.val() || 0;
+  db.ref("estrelas/"+l.id).on("value", snap=>{
+    document.getElementById("stars-"+l.id).textContent = snap.val()||0;
   });
 });
 
-// ⭐ Clique estrela
+// ⭐ ESTRELAS
 grade.addEventListener("click", e=>{
   const btn = e.target.closest(".fav");
   if(btn){
@@ -123,7 +128,6 @@ grade.addEventListener("click", e=>{
     db.ref("estrelas/"+id).transaction(v=>(v||0)+1);
     return;
   }
-  // 📖 Clique Ler
   const btnLer = e.target.closest(".ler");
   if(btnLer){
     const livro = livros.find(l=>l.id==btnLer.dataset.id);
@@ -132,11 +136,11 @@ grade.addEventListener("click", e=>{
   }
 });
 
-// 💬 Comentários
+// 💬 COMENTÁRIOS
 db.ref("comentarios").limitToLast(20).once("value", snap=>{
-  snap.forEach(child=>{
+  snap.forEach(c=>{
     const p=document.createElement("p");
-    p.textContent="• "+child.val().texto;
+    p.textContent="• "+c.val().texto;
     section.appendChild(p);
   });
 });
@@ -151,21 +155,67 @@ btnComment.onclick=()=>{
   textarea.value="";
 };
 
-// 📖 Drawer de leitura
+// 📖 DRAWER IMERSIVO
 const drawer=document.getElementById("drawer");
-const drawerContent=document.getElementById("drawerContent");
+const drawerContent=document.querySelector(".drawer-content");
 const drawerTitle=document.getElementById("drawerTitle");
-document.getElementById("closeDrawer").onclick=()=>{ drawer.style.display="none"; drawerContent.innerHTML=""; }
+const closeDrawer=document.getElementById("closeDrawer");
+const toggleReadingMode=document.getElementById("toggleReadingMode");
+const zoomIn=document.getElementById("zoomIn");
+const zoomOut=document.getElementById("zoomOut");
+const pageInfo=document.getElementById("pageInfo");
+
+let currentTotalPages=0;
+let intersectionObserver=null;
+let imageZoom=1;
 
 function openDrawer(livro){
   drawerTitle.textContent=livro.titulo;
+  drawer.classList.add("open");
+  drawer.setAttribute("aria-hidden","false");
   drawerContent.innerHTML="";
-  drawer.style.display="flex";
+  currentTotalPages=livro.totalPaginas;
+  pageInfo.textContent=`1 de ${currentTotalPages}`;
+  const pages=[];
   for(let i=1;i<=livro.totalPaginas;i++){
     const img=document.createElement("img");
     img.src=`${livro.pasta}/Pagina ${i}.png`;
+    img.dataset.page=i;
     drawerContent.appendChild(img);
+    pages.push(img);
   }
+  if(intersectionObserver) intersectionObserver.disconnect();
+  intersectionObserver=new IntersectionObserver(entries=>{
+    let maxRatio=0,currentPage=1;
+    entries.forEach(entry=>{
+      if(entry.intersectionRatio>maxRatio){
+        maxRatio=entry.intersectionRatio;
+        currentPage=Number(entry.target.dataset.page);
+      }
+    });
+    pageInfo.textContent=`${currentPage} de ${currentTotalPages}`;
+  },{threshold:0.5});
+  pages.forEach(p=>intersectionObserver.observe(p));
+}
+
+closeDrawer.onclick=()=>{
+  drawer.classList.remove("open");
+  drawer.setAttribute("aria-hidden","true");
+  document.body.classList.remove("reading-mode");
+}
+
+toggleReadingMode.onclick=()=>{
+  document.body.classList.toggle("reading-mode");
+  toggleReadingMode.textContent=document.body.classList.contains("reading-mode")?"Sair do Slide":"Ver em Slide";
+}
+
+zoomIn.onclick=()=>{
+  imageZoom=Math.min(2,imageZoom+0.1);
+  drawerContent.style.transform=`scale(${imageZoom})`;
+}
+zoomOut.onclick=()=>{
+  imageZoom=Math.max(0.5,imageZoom-0.1);
+  drawerContent.style.transform=`scale(${imageZoom})`;
 }
 </script>
 
