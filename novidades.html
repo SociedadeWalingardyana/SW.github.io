@@ -50,6 +50,35 @@
     #language-list li:hover {
       background-color: #444;
     }
+
+    /* Posts */
+    .post-card {
+      background: #1a0901;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      color: white;
+    }
+    .post-card img {
+      display: block;
+      margin: 0 auto 1rem auto;
+    }
+    .post-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .post-text {
+      text-align: justify;
+    }
+    .post-date {
+      display: block;
+      text-align: left;
+      margin-top: 1rem;
+      font-style: italic;
+      color: #ccc;
+    }
   </style>
 </head>
 <body class="bg-black text-white p-8 min-h-screen flex flex-col items-center">
@@ -80,108 +109,91 @@
   </p>
 
 <div class="w-full max-w-3xl space-y-4">
-    <div class="bg-brown-900 p-4 rounded shadow-md">
-                <div class="flex justify-center mb-4">
-            <img src="image.png" alt="Ícone de atualização de idioma" class="h-30 w-30" />
-        </div>
-        
-        <p>
-            <span
-              data-pt="Mudanças na aba idioma e funcionalidade geral da mesma no site."
-              data-en="Changes in the language tab and its general functionality on the site."
-              data-es="Cambios en la pestaña de idioma y su funcionalidad general en el sitio.">
-              <p>Francisco de Assis, novo escritor a publicar com a SW Editorial, novo setor editorial da Sociedade Walingardyana. Francisco entrará para o podium dos autores renomados da SW, mas sua presença não é exclusiva.</p>
-              
-               <p>Em um mundo onde cada vez mais obras "Romanticas", melhor dizendo, Pseudo-Pornograficas, crescem no apetite bestial do povo, um pouco de sentimentalismo deve ser representar um respiro, mas um sentimentalismo real, que transcende. Francisco vai estrear o setor editorial com seu livro de sentimentos: "Virtudes".</p>
-
-              <p>A frente da SW Editorial está Wellington Novaes, escritor de um tipo de caos mais manifestado, que também exibe paixões dentro da fantasia e por isso seu amor para com a SW, além é claro de ser sócio da editora/selo exclusivo.</p>
-            </span>
-            <span class="text-gray-400 italic">- Postado em 17/12/2025</span>
-        </p>
-       
-    </div>
+  <div class="post-card">
+      <div class="flex justify-center mb-4">
+        <img src="image.png" alt="Ícone de atualização de idioma" class="h-30 w-30" />
+      </div>
+      <div class="post-title"
+           data-pt="Novos Escritores na SW Editorial"
+           data-en="New Writers at SW Editorial"
+           data-es="Nuevos Escritores en SW Editorial">
+        Novos Escritores na SW Editorial
+      </div>
+      <div class="post-text"
+           data-pt="Francisco de Assis, novo escritor a publicar com a SW Editorial, novo setor editorial da Sociedade Walingardyana. Francisco entrará para o podium dos autores renomados da SW, mas sua presença não é exclusiva. Em um mundo onde cada vez mais obras 'Romanticas', melhor dizendo, Pseudo-Pornograficas, crescem no apetite bestial do povo, um pouco de sentimentalismo deve representar um respiro, mas um sentimentalismo real, que transcende. Francisco vai estrear o setor editorial com seu livro de sentimentos: 'Virtudes'. A frente da SW Editorial está Wellington Novaes, escritor de um tipo de caos mais manifestado, que também exibe paixões dentro da fantasia e por isso seu amor para com a SW, além é claro de ser sócio da editora/selo exclusivo."
+           data-en="Francisco de Assis, new author to publish with SW Editorial, new editorial sector of the Walingardyana Society..."
+           data-es="Francisco de Assis, nuevo escritor a publicar con SW Editorial, nuevo sector editorial de la Sociedad Walingardyana...">
+        Francisco de Assis, novo escritor a publicar com a SW Editorial, novo setor editorial da Sociedade Walingardyana. Francisco entrará para o podium dos autores renomados da SW, mas sua presença não é exclusiva. Em um mundo onde cada vez mais obras "Romanticas", melhor dizendo, Pseudo-Pornograficas, crescem no apetite bestial do povo, um pouco de sentimentalismo deve representar um respiro, mas um sentimentalismo real, que transcende. Francisco vai estrear o setor editorial com seu livro de sentimentos: "Virtudes". A frente da SW Editorial está Wellington Novaes, escritor de um tipo de caos mais manifestado, que também exibe paixões dentro da fantasia e por isso seu amor para com a SW, além é claro de ser sócio da editora/selo exclusivo.
+      </div>
+      <span class="post-date">- Postado em 17/12/2025</span>
+  </div>
 </div>
-   
-
-
-
-  
 
 <div class="w-full max-w-3xl space-y-4">
-    <div class="bg-brown-900 p-4 rounded shadow-md">
-                <div class="flex justify-center mb-4">
-            <img src="ssw.png" alt="Ícone de atualização de idioma" class="h-30 w-30" />
-        </div>
-        
-        <p>
-            <span
-              data-pt="Mudanças na aba idioma e funcionalidade geral da mesma no site."
-              data-en="Changes in the language tab and its general functionality on the site."
-              data-es="Cambios en la pestaña de idioma y su funcionalidad general en el sitio.">
-              <p>SW Editorial oficialmente aberta. Com poucos dias após a abertura do novo setor da Sociedade Walingardyana, autores já confirmam presença na lista de escritores seletos representados pela marca.</p>
-              
-            
-            </span>
-            <span class="text-gray-400 italic">- Postado em 16/12/2025</span>
-        </p>
-       
-    </div>
+  <div class="post-card">
+      <div class="flex justify-center mb-4">
+        <img src="ssw.png" alt="Ícone de atualização de idioma" class="h-30 w-30" />
+      </div>
+      <div class="post-title"
+           data-pt="SW Editorial Oficialmente Aberta"
+           data-en="SW Editorial Officially Open"
+           data-es="SW Editorial Oficialmente Abierta">
+        SW Editorial Oficialmente Aberta
+      </div>
+      <div class="post-text"
+           data-pt="SW Editorial oficialmente aberta. Com poucos dias após a abertura do novo setor da Sociedade Walingardyana, autores já confirmam presença na lista de escritores seletos representados pela marca."
+           data-en="SW Editorial officially open. Within a few days after the new sector of Walingardyana Society opened, authors already confirm presence on the list of select writers represented by the brand."
+           data-es="SW Editorial oficialmente abierta. Con pocos días después de la apertura del nuevo sector de la Sociedad Walingardyana, los autores ya confirman su presencia en la lista de escritores selectos representados por la marca.">
+        SW Editorial oficialmente aberta. Com poucos dias após a abertura do novo setor da Sociedade Walingardyana, autores já confirmam presença na lista de escritores seletos representados pela marca.
+      </div>
+      <span class="post-date">- Postado em 16/12/2025</span>
+  </div>
 </div>
-   
 
+<a href="index.html"
+   class="text-blue-400 hover:underline mt-8"
+   data-pt="← Voltar para a página inicial"
+   data-en="← Back to home"
+   data-es="← Volver al inicio">
+  ← Voltar para a página inicial
+</a>
 
+<script>
+  const languageSelector = document.getElementById('language-selector');
+  const languageList = document.getElementById('language-list');
 
+  languageSelector.addEventListener('click', () => {
+    languageList.style.display = languageList.style.display === 'block' ? 'none' : 'block';
+  });
 
-
-
-
-
-
-    
-  <a href="index.html"
-     class="text-blue-400 hover:underline mt-8"
-     data-pt="← Voltar para a página inicial"
-     data-en="← Back to home"
-     data-es="← Volver al inicio">
-    ← Voltar para a página inicial
-  </a>
-
-  <script>
-    const languageSelector = document.getElementById('language-selector');
-    const languageList = document.getElementById('language-list');
-
-    languageSelector.addEventListener('click', () => {
-      languageList.style.display = languageList.style.display === 'block' ? 'none' : 'block';
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!languageSelector.contains(e.target) && !languageList.contains(e.target)) {
-        languageList.style.display = 'none';
-      }
-    });
-
-    function updateLanguage(lang) {
-      if (!lang) return;
-
-      document.querySelectorAll('[data-pt]').forEach(el => {
-        if (lang === 'pt') el.textContent = el.getAttribute('data-pt');
-        else if (lang === 'en') el.textContent = el.getAttribute('data-en');
-        else if (lang === 'es') el.textContent = el.getAttribute('data-es');
-      });
-
-      if (lang === 'pt') document.title = 'Novidades do Universo - Sociedade Walingardyana';
-      else if (lang === 'en') document.title = 'Universe News - Walingardyana Society';
-      else if (lang === 'es') document.title = 'Novedades del Universo - Sociedad Walingardyana';
-
+  document.addEventListener('click', (e) => {
+    if (!languageSelector.contains(e.target) && !languageList.contains(e.target)) {
       languageList.style.display = 'none';
     }
+  });
 
-    languageList.querySelectorAll('li').forEach(li => {
-      li.addEventListener('click', () => {
-        updateLanguage(li.getAttribute('data-lang'));
-      });
+  function updateLanguage(lang) {
+    if (!lang) return;
+
+    document.querySelectorAll('[data-pt]').forEach(el => {
+      if (lang === 'pt') el.textContent = el.getAttribute('data-pt');
+      else if (lang === 'en') el.textContent = el.getAttribute('data-en');
+      else if (lang === 'es') el.textContent = el.getAttribute('data-es');
     });
-  </script>
+
+    if (lang === 'pt') document.title = 'Novidades do Universo - Sociedade Walingardyana';
+    else if (lang === 'en') document.title = 'Universe News - Walingardyana Society';
+    else if (lang === 'es') document.title = 'Novedades del Universo - Sociedad Walingardyana';
+
+    languageList.style.display = 'none';
+  }
+
+  languageList.querySelectorAll('li').forEach(li => {
+    li.addEventListener('click', () => {
+      updateLanguage(li.getAttribute('data-lang'));
+    });
+  });
+</script>
 
 </body>
 </html>
