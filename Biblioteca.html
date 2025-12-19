@@ -30,7 +30,7 @@ body {
 }
 
 .sidebar { 
-    background: #000000; /* barra lateral preta */
+    background: #000000;
     padding: 1rem; 
     overflow: auto; 
     border-right: 1px solid #000000; 
@@ -48,10 +48,10 @@ body {
 
 .comment-section { 
     margin-top: 2rem; 
-    background: #1a0901; /* chat */
+    background: #1a0901; 
     padding: 1rem; 
     border-radius: 12px; 
-    color: #ffffff; /* texto branco */
+    color: #ffffff; 
 }
 
 .comment-section h3 { 
@@ -99,7 +99,7 @@ body {
 }
 
 .card-book { 
-    background: #1a0901; /* caixas de livros */
+    background: #1a0901; 
     border-radius: 20px; 
     overflow: hidden; 
     display: flex; 
@@ -291,14 +291,11 @@ const textarea = section.querySelector("textarea");
 const btnComment = section.querySelector(".btn-comment");
 
 let userCountry = "Desconhecido";
-fetch("https://ipapi.co/json/").then(r=>r.json()).then(d=>userCountry=d.country_name||"Desconhecido");
+fetch("https://ipapi.co/json/")
+  .then(r => r.json())
+  .then(d => { userCountry = d.country_name || "Desconhecido"; });
 
-function addComment(text, country){
-    const p=document.createElement("p");
-    p.innerHTML = `${text} <span class="comment-country">${country}</span>`;
-    section.appendChild(p);
-}
-
+// Renderiza livros
 livros.forEach(l => {
   const card = document.createElement("div");
   card.className = "card-book";
@@ -340,18 +337,33 @@ grade.addEventListener("click", e=>{
 });
 
 // 💬 COMENTÁRIOS
+// Renderiza últimos 20 comentários
 db.ref("comentarios").limitToLast(20).once("value", snap=>{
-    snap.forEach(c=>addComment(c.val().texto, c.val().pais||"Desconhecido"));
+    snap.forEach(c=>{
+        addComment(c.val().texto, c.val().pais||"Desconhecido");
+    });
 });
+
+// Renderiza novos comentários em tempo real
 db.ref("comentarios").limitToLast(1).on("child_added", snap=>{
     addComment(snap.val().texto, snap.val().pais||"Desconhecido");
 });
-btnComment.onclick=()=>{
+
+btnComment.onclick = () => {
     if(!textarea.value.trim()) return;
-    db.ref("comentarios").push({texto:textarea.value, data:Date.now(), pais:userCountry});
-    addComment(textarea.value, userCountry);
-    textarea.value="";
+    db.ref("comentarios").push({
+        texto: textarea.value,
+        data: Date.now(),
+        pais: userCountry
+    });
+    textarea.value = "";
 };
+
+function addComment(text, country){
+    const p = document.createElement("p");
+    p.innerHTML = `${text} <span class="comment-country">${country}</span>`;
+    section.appendChild(p);
+}
 
 // 📖 DRAWER IMERSIVO
 const drawer=document.getElementById("drawer");
