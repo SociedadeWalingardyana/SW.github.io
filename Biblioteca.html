@@ -56,8 +56,8 @@ body {
 
 .comment-section h3 { 
     margin-top: 0; 
-    font-size: 1.1rem; 
-    color: #ffffff; /* título do chat branco */
+    font-size: 1.1rem;
+    color: #ffffff; 
 }
 
 .comment-section textarea {
@@ -69,9 +69,8 @@ body {
     padding: 0.5rem;
     resize: vertical;
     box-sizing: border-box;
-    background: #000000; /* fundo preto */
-    color: #ffffff;       /* texto branco */
-
+    background: #000000; 
+    color: #ffffff;       
 }
 
 .btn-comment {
@@ -87,7 +86,16 @@ body {
 }
 
 .comment-section p { 
-    margin: 0.25rem 0; 
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-country {
+    font-style: italic;
+    color: #aab0bd;
+    margin-left: 1rem;
 }
 
 .card-book { 
@@ -118,6 +126,15 @@ body {
 .meta .author { 
     color: #aab0bd; 
     font-size: .9rem; 
+}
+
+.meta .synopsis {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #c0c0c0;
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .actions { 
@@ -262,9 +279,9 @@ const db = firebase.database();
 
 // 📚 LIVROS
 const livros = [
-  {id:1, titulo:"Melissa", autor:"Wellington Novaes", capa:"Mellissa.png", pasta:"páginas compendio", totalPaginas:6},
-  {id:2, titulo:"Triohnte", autor:"Gabryell Aweryan", capa:"capaT.png", pasta:"Triohnte", totalPaginas:3},
-  {id:3, titulo:"Virtudes", autor:"Francisco de Assis", capa:"Virtudes.png", pasta:"Virtudes", totalPaginas:3}
+  {id:1, titulo:"Melissa", autor:"Wellington Novaes", capa:"Mellissa.png", pasta:"páginas compendio", totalPaginas:6, sinopse:"Uma jornada emocionante de descoberta e coragem."},
+  {id:2, titulo:"Triohnte", autor:"Gabryell Aweryan", capa:"capaT.png", pasta:"Triohnte", totalPaginas:3, sinopse:"Um épico de fantasia sombria e intrigas políticas."},
+  {id:3, titulo:"Virtudes", autor:"Francisco de Assis", capa:"Virtudes.png", pasta:"Virtudes", totalPaginas:3, sinopse:"Reflexões sobre a bondade e a espiritualidade."}
 ];
 
 // 🎨 RENDER
@@ -278,7 +295,7 @@ fetch("https://ipapi.co/json/").then(r=>r.json()).then(d=>userCountry=d.country_
 
 function addComment(text, country){
     const p=document.createElement("p");
-    p.textContent=`• ${text} - ${country}`;
+    p.innerHTML = `${text} <span class="comment-country">${country}</span>`;
     section.appendChild(p);
 }
 
@@ -287,7 +304,11 @@ livros.forEach(l => {
   card.className = "card-book";
   card.innerHTML = `
     <div class="cover"><img src="${l.capa}"></div>
-    <div class="meta"><h3>${l.titulo}</h3><div class="author">${l.autor}</div></div>
+    <div class="meta">
+      <h3>${l.titulo}</h3>
+      <div class="author">${l.autor}</div>
+      <div class="synopsis">${l.sinopse || 'Sem sinopse disponível.'}</div>
+    </div>
     <div class="actions">
       <button class="btn ler" data-id="${l.id}">Ler</button>
       <button class="btn fav" aria-pressed="false" data-id="${l.id}"></button>
