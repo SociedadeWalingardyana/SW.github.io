@@ -56,27 +56,28 @@ body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-// 🔥 CONFIGURE AQUI
+/* 🔥 FIREBASE CONFIG — USE OS SEUS DADOS REAIS */
 const firebaseConfig = {
   apiKey: "SUA_API_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  databaseURL: "https://SEU_PROJETO-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "SEU_PROJETO",
+  authDomain: "sw-biblio.firebaseapp.com",
+  databaseURL: "https://sw-biblio-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "sw-biblio",
   appId: "SEU_APP_ID"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// 📚 ESTADO
+/* 📚 LIVROS */
 const livros = [
   {id: 1, titulo: "Melissa", autor: "Wellington Novaes", capa: "Mellissa.png"},
   {id: 2, titulo: "Triohnte", autor: "Gabryell Aweryan", capa: "capaT.png"},
   {id: 3, titulo: "Virtudes", autor: "Francisco de Assis", capa: "Virtudes.png"}
 ];
 
-// 🎨 RENDER
+/* 🎨 RENDER + HIDRATAÇÃO */
 const grade = document.getElementById("grade");
+
 livros.forEach(l => {
   const card = document.createElement("div");
   card.className = "card-book";
@@ -90,38 +91,53 @@ livros.forEach(l => {
   `;
   grade.appendChild(card);
 
-  // ⭐ LISTENER
+  // ⭐ hidratação inicial + tempo real
   db.ref("estrelas/" + l.id).on("value", snap => {
     document.getElementById("stars-" + l.id).textContent = snap.val() || 0;
   });
 });
 
-// ⭐ CLICK ESTRELA
+/* ⭐ CLICK ESTRELA (persistente) */
 grade.addEventListener("click", e => {
   const btn = e.target.closest(".fav");
   if (!btn) return;
+
   const id = btn.dataset.id;
-  btn.setAttribute("aria-pressed", true);
+  btn.setAttribute("aria-pressed", "true");
 
   db.ref("estrelas/" + id).transaction(v => (v || 0) + 1);
 });
 
-// 💬 COMENTÁRIOS
-const textarea = document.querySelector("textarea");
+/* 💬 COMENTÁRIOS */
+const textarea = document.querySelector(".comment-section textarea");
 const btnComment = document.querySelector(".btn-comment");
 const section = document.querySelector(".comment-section");
 
-btnComment.onclick = () => {
-  if (!textarea.value.trim()) return;
-  db.ref("comentarios").push({ texto: textarea.value, data: Date.now() });
-  textarea.value = "";
-};
+/* hidratação inicial */
+db.ref("comentarios").limitToLast(20).once("value", snap => {
+  snap.forEach(child => {
+    const p = document.createElement("p");
+    p.textContent = "• " + child.val().texto;
+    section.appendChild(p);
+  });
+});
 
-db.ref("comentarios").limitToLast(20).on("child_added", snap => {
+/* tempo real */
+db.ref("comentarios").limitToLast(1).on("child_added", snap => {
   const p = document.createElement("p");
   p.textContent = "• " + snap.val().texto;
   section.appendChild(p);
 });
+
+/* envio */
+btnComment.onclick = () => {
+  if (!textarea.value.trim()) return;
+  db.ref("comentarios").push({
+    texto: textarea.value,
+    data: Date.now()
+  });
+  textarea.value = "";
+};
 </script>
 
 </body>
