@@ -28,6 +28,11 @@ body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; 
 .fav[aria-pressed="true"]::after { content: "★"; }
 .fav[aria-pressed="false"]::after { content: "☆"; }
 .star-count { color: #ffd700; }
+
+/* Drawer */
+#drawer { position: fixed; inset:0; background: rgba(0,0,0,.95); display:none; flex-direction:column; z-index:50; overflow:auto; }
+#drawer .topbar { background:#15161a; padding:1rem; display:flex; justify-content:space-between; align-items:center; }
+#drawerContent img { width:100%; margin-bottom:1rem; }
 </style>
 </head>
 
@@ -51,12 +56,21 @@ body { margin: 0; font-family: sans-serif; background: #0f0f10; color: #e7e9ee; 
 </main>
 </div>
 
+<!-- Drawer de Leitura -->
+<div id="drawer">
+  <div class="topbar">
+    <h2 id="drawerTitle"></h2>
+    <button class="btn" id="closeDrawer">Fechar</button>
+  </div>
+  <div id="drawerContent"></div>
+</div>
+
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-/* 🔥 FIREBASE CONFIG — USE OS SEUS DADOS REAIS */
+// 🔥 CONFIGURE AQUI COM SEUS DADOS REAIS
 const firebaseConfig = {
   apiKey: "SUA_API_KEY",
   authDomain: "sw-biblio.firebaseapp.com",
@@ -64,19 +78,21 @@ const firebaseConfig = {
   projectId: "sw-biblio",
   appId: "SEU_APP_ID"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-/* 📚 LIVROS */
+// 📚 LIVROS
 const livros = [
-  {id: 1, titulo: "Melissa", autor: "Wellington Novaes", capa: "Mellissa.png"},
-  {id: 2, titulo: "Triohnte", autor: "Gabryell Aweryan", capa: "capaT.png"},
-  {id: 3, titulo: "Virtudes", autor: "Francisco de Assis", capa: "Virtudes.png"}
+  {id:1, titulo:"Melissa", autor:"Wellington Novaes", capa:"Mellissa.png", pasta:"páginas compendio", totalPaginas:6},
+  {id:2, titulo:"Triohnte", autor:"Gabryell Aweryan", capa:"capaT.png", pasta:"Triohnte", totalPaginas:3},
+  {id:3, titulo:"Virtudes", autor:"Francisco de Assis", capa:"Virtudes.png", pasta:"Virtudes", totalPaginas:3}
 ];
 
-/* 🎨 RENDER + HIDRATAÇÃO */
+// 🎨 RENDER + HIDRATAÇÃO
 const grade = document.getElementById("grade");
+const section = document.querySelector(".comment-section");
+const textarea = section.querySelector("textarea");
+const btnComment = section.querySelector(".btn-comment");
 
 livros.forEach(l => {
   const card = document.createElement("div");
@@ -85,59 +101,72 @@ livros.forEach(l => {
     <div class="cover"><img src="${l.capa}"></div>
     <div class="meta"><h3>${l.titulo}</h3><div class="author">${l.autor}</div></div>
     <div class="actions">
+      <button class="btn ler" data-id="${l.id}">Ler</button>
       <button class="btn fav" aria-pressed="false" data-id="${l.id}"></button>
       <span class="star-count" id="stars-${l.id}">0</span>
     </div>
   `;
   grade.appendChild(card);
 
-  // ⭐ hidratação inicial + tempo real
+  // ⭐ Carregar estrelas existentes e tempo real
   db.ref("estrelas/" + l.id).on("value", snap => {
     document.getElementById("stars-" + l.id).textContent = snap.val() || 0;
   });
 });
 
-/* ⭐ CLICK ESTRELA (persistente) */
-grade.addEventListener("click", e => {
+// ⭐ Clique estrela
+grade.addEventListener("click", e=>{
   const btn = e.target.closest(".fav");
-  if (!btn) return;
-
-  const id = btn.dataset.id;
-  btn.setAttribute("aria-pressed", "true");
-
-  db.ref("estrelas/" + id).transaction(v => (v || 0) + 1);
+  if(btn){
+    const id = btn.dataset.id;
+    btn.setAttribute("aria-pressed","true");
+    db.ref("estrelas/"+id).transaction(v=>(v||0)+1);
+    return;
+  }
+  // 📖 Clique Ler
+  const btnLer = e.target.closest(".ler");
+  if(btnLer){
+    const livro = livros.find(l=>l.id==btnLer.dataset.id);
+    if(!livro) return;
+    openDrawer(livro);
+  }
 });
 
-/* 💬 COMENTÁRIOS */
-const textarea = document.querySelector(".comment-section textarea");
-const btnComment = document.querySelector(".btn-comment");
-const section = document.querySelector(".comment-section");
-
-/* hidratação inicial */
-db.ref("comentarios").limitToLast(20).once("value", snap => {
-  snap.forEach(child => {
-    const p = document.createElement("p");
-    p.textContent = "• " + child.val().texto;
+// 💬 Comentários
+db.ref("comentarios").limitToLast(20).once("value", snap=>{
+  snap.forEach(child=>{
+    const p=document.createElement("p");
+    p.textContent="• "+child.val().texto;
     section.appendChild(p);
   });
 });
-
-/* tempo real */
-db.ref("comentarios").limitToLast(1).on("child_added", snap => {
-  const p = document.createElement("p");
-  p.textContent = "• " + snap.val().texto;
+db.ref("comentarios").limitToLast(1).on("child_added", snap=>{
+  const p=document.createElement("p");
+  p.textContent="• "+snap.val().texto;
   section.appendChild(p);
 });
-
-/* envio */
-btnComment.onclick = () => {
-  if (!textarea.value.trim()) return;
-  db.ref("comentarios").push({
-    texto: textarea.value,
-    data: Date.now()
-  });
-  textarea.value = "";
+btnComment.onclick=()=>{
+  if(!textarea.value.trim()) return;
+  db.ref("comentarios").push({texto:textarea.value,data:Date.now()});
+  textarea.value="";
 };
+
+// 📖 Drawer de leitura
+const drawer=document.getElementById("drawer");
+const drawerContent=document.getElementById("drawerContent");
+const drawerTitle=document.getElementById("drawerTitle");
+document.getElementById("closeDrawer").onclick=()=>{ drawer.style.display="none"; drawerContent.innerHTML=""; }
+
+function openDrawer(livro){
+  drawerTitle.textContent=livro.titulo;
+  drawerContent.innerHTML="";
+  drawer.style.display="flex";
+  for(let i=1;i<=livro.totalPaginas;i++){
+    const img=document.createElement("img");
+    img.src=`${livro.pasta}/Pagina ${i}.png`;
+    drawerContent.appendChild(img);
+  }
+}
 </script>
 
 </body>
