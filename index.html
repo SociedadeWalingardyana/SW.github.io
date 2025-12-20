@@ -1,3 +1,5 @@
+
+Dito por si:
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,39 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sociedade Walingardyana</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <!-- Fonte Cinzel Decorative -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #281109 !important;
+      background-color: #281109 !important; /* Cor de fundo sólida */
       color: #FFFFFF;
-      font-family: sans-serif;
-      text-align: justify; /* Justificar todos os textos */
     }
-
-    h1, h2, h3, #boas-vindas {
-      font-family: 'Cinzel Decorative', cursive;
-      text-align: center; /* Centralizar títulos */
-    }
-
-    /* Padronizando tamanhos dos títulos */
-    #boas-vindas {
-      font-size: 3rem;
-    }
-    h1 {
-      font-size: 2rem;
-    }
-    h2 {
-      font-size: 2.5rem;
-    }
-    h3 {
-      font-size: 1.6rem;
-    }
-
-    p {
-      text-align: justify; /* Garantir que os parágrafos fiquem justificados */
-    }
-
     body::before {
       content: "";
       position: fixed;
@@ -45,56 +19,10 @@
       width: 100%; height: 100%;
       z-index: -1; overflow: hidden;
     }
-
     .flag {
       width: 28px;
       height: 20px;
       cursor: pointer;
-    }
-
-    /* --- ESTILO ANÚNCIO --- */
-    #anuncio-flutuante {
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      z-index: 1000;
-      width: 250px;
-      padding: 15px;
-      background-color: #f8f8f8;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      font-family: Arial, sans-serif;
-    }
-
-    #fechar-anuncio {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-      cursor: pointer;
-      border: none;
-      background: none;
-      padding: 0;
-      line-height: 1;
-      transition: color 0.2s;
-    }
-
-    #fechar-anuncio:hover {
-      color: #ff0000;
-    }
-
-    #anuncio-flutuante h3 {
-      margin-top: 0;
-      color: #007bff;
-      font-size: 16px;
-    }
-
-    #anuncio-flutuante p {
-      font-size: 14px;
-      color: #555;
     }
   </style>
 </head>
@@ -124,27 +52,111 @@
     </div>
   </section>
 
-  <!-- Anúncio Flutuante -->
-  <div id="anuncio-flutuante">
-    <button id="fechar-anuncio" role="button" aria-label="Fechar Anúncio">X</button>
-    <h3>Melissa</h3>
-    <p>Do autor Wellington Novaes</p>
-    <a href="#" style="color: #007bff; text-decoration: none; font-weight: bold;">Ver Detalhes</a>
-  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const botaoFechar = document.getElementById('fechar-anuncio');
-      const caixaAnuncio = document.getElementById('anuncio-flutuante');
-      botaoFechar.addEventListener('click', function() {
-        caixaAnuncio.style.display = 'none';
-      });
-    });
-  </script>
+   <!-- Anúncio -->
+
+ <style>
+        /* --- ESTILO CSS --- */
+        #anuncio-flutuante {
+            /* Posição Fixa (Flutuante) */
+            position: fixed;
+            top: 100px; /* Distância do topo */
+            right: 20px; /* Distância da direita */
+            z-index: 1000; /* Garante que fique acima de outros elementos */
+
+            /* Estilo da Caixa */
+            width: 250px;
+            padding: 15px;
+            background-color: #f8f8f8; /* Cor de fundo clara */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilo do Botão de Fechar (X) */
+        #fechar-anuncio {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            line-height: 1; /* Alinhamento vertical */
+            transition: color 0.2s;
+        }
+
+        #fechar-anuncio:hover {
+            color: #ff0000; /* Cor vermelha ao passar o mouse */
+        }
+
+        /* Estilo do Conteúdo */
+        #anuncio-flutuante h3 {
+            margin-top: 0;
+            color: #007bff;
+            font-size: 16px;
+        }
+
+        #anuncio-flutuante p {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="anuncio-flutuante">
+        <button id="fechar-anuncio" role="button" aria-label="Fechar Anúncio">X</button>
+        <h3>Melissa</h3>
+        <p>Do autor Wellington Novaes</p>
+        <a href="#" style="color: #007bff; text-decoration: none; font-weight: bold;">Ver Detalhes</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Pega o elemento do botão "X"
+            const botaoFechar = document.getElementById('fechar-anuncio');
+            // 2. Pega o elemento da caixa de anúncio inteira
+            const caixaAnuncio = document.getElementById('anuncio-flutuante');
+
+            // 3. Adiciona um "ouvinte" de evento de clique ao botão
+            botaoFechar.addEventListener('click', function() {
+                // Quando o botão é clicado, esconde a caixa de anúncio
+                caixaAnuncio.style.display = 'none';
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
   <!-- Seção: Origem -->
-  <section class="text-white container mx-auto mt-6 text-lg font-medium">
-    <p id="boas-vindas" class="mb-12">Origem da Sociedade Walingardyana</p>
+  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
+    <p id="boas-vindas" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Origem da Sociedade Walingardyana</p>
     <p id="explicativo1">
       A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Araújo Aquino Felismino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido.
 
@@ -157,14 +169,15 @@
   </section>
 
   <!-- Seção: Visão para o futuro -->
-  <section class="text-white container mx-auto mt-6 text-lg font-medium">
-    <p id="boas-vindas" class="mb-12">Visão da Sociedade Walingardyana para o futuro</p>
+  <section class="text-white container mx-auto mt-6 text-center text-lg font-medium">
+    <p id="boas-vindas" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-12">Visão da Sociedade Walingardyana para o futuro</p>
     <p id="explicativo1">
       Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia.
 
       Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional.
     </p>
   </section>
+
 
   <!-- Rodapé -->
   <footer class="bg-black text-white text-center p-4 mt-16 space-y-2">
@@ -177,6 +190,7 @@
   </footer>
 
   <!-- Botão de idioma -->
+  <!-- Botão fixo no canto superior direito -->
   <div id="language-selector" style="
     position: fixed;
     top: 10px;
@@ -222,9 +236,14 @@
     const list = document.getElementById('language-list');
 
     selector.addEventListener('click', () => {
-      list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+      if (list.style.display === 'none' || list.style.display === '') {
+        list.style.display = 'block';
+      } else {
+        list.style.display = 'none';
+      }
     });
 
+    // Fechar lista ao clicar fora
     document.addEventListener('click', (e) => {
       if (!selector.contains(e.target) && !list.contains(e.target)) {
         list.style.display = 'none';
@@ -262,7 +281,9 @@
       const t = traducoes[lang];
       for (const id in t) {
         const el = document.getElementById(id);
-        if (el) el.textContent = t[id];
+        if (el) {
+          el.textContent = t[id];
+        }
       }
     }
 
@@ -270,9 +291,12 @@
       li.addEventListener('click', () => {
         let langCode = '';
         switch (li.textContent) {
-          case 'Português': langCode = 'pt'; break;
-          case 'Español': langCode = 'es'; break;
-          case 'English': langCode = 'en'; break;
+          case 'Português':
+            langCode = 'pt'; break;
+          case 'Español':
+            langCode = 'es'; break;
+          case 'English':
+            langCode = 'en'; break;
         }
         setLanguage(langCode);
         list.style.display = 'none';
@@ -282,3 +306,4 @@
 
 </body>
 </html>
+ 
