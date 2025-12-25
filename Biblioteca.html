@@ -33,7 +33,7 @@ body {
     background: #000000;
     padding: 1rem; 
     overflow: auto; 
-    border-right: 1px solid #000000; 
+    border-right: 1px solid #1a0901; 
 }
 
 .main { 
@@ -42,60 +42,8 @@ body {
 
 .grid { 
     display: grid; 
-    gap: 1rem; 
+    gap: 1.5rem; 
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
-}
-
-.comment-section { 
-    margin-top: 2rem; 
-    background: #1a0901; 
-    padding: 1rem; 
-    border-radius: 12px; 
-    color: #ffffff; 
-}
-
-.comment-section h3 { 
-    margin-top: 0; 
-    font-size: 1.1rem;
-    color: #ffffff; 
-}
-
-.comment-section textarea {
-    width: 100%;
-    height: 80px;
-    margin: 0;
-    border: 1px solid #000000;
-    border-radius: 8px;
-    padding: 0.5rem;
-    resize: vertical;
-    box-sizing: border-box;
-    background: #000000; 
-    color: #ffffff;       
-}
-
-.btn-comment {
-    margin-top: 0.5rem;
-    width: 100%;
-    background: #000000;
-    color: white;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-sizing: border-box;
-}
-
-.comment-section p { 
-    margin: 0.25rem 0;
-    font-size: 0.95rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.comment-country {
-    font-style: italic;
-    color: #aab0bd;
-    margin-left: 1rem;
 }
 
 .card-book { 
@@ -104,13 +52,13 @@ body {
     overflow: hidden; 
     display: flex; 
     flex-direction: column; 
-    border: 1px solid #000000; 
+    border: 1px solid #333; 
 }
 
 .cover { 
     width: 100%; 
     aspect-ratio: 3/4; 
-    background: #000000; 
+    background: #000; 
 }
 
 .cover img { 
@@ -120,112 +68,65 @@ body {
 }
 
 .meta { 
-    padding: .75rem; 
+    padding: 1rem 1rem 0.5rem 1rem; 
+}
+
+.meta h3 {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.2rem;
 }
 
 .meta .author { 
     color: #aab0bd; 
-    font-size: .9rem; 
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 0.6rem;
 }
 
 .meta .synopsis {
-    margin-top: 0.5rem;
     font-size: 0.85rem;
     color: #c0c0c0;
-    max-height: 3em;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.4;
 }
 
+/* --- AÇÕES SEM A LINHA DE DIVISÃO --- */
 .actions { 
     display: flex; 
     gap: .5rem; 
-    padding: .5rem .75rem; 
+    padding: 0.8rem 1rem 1rem 1rem; 
     align-items: center; 
+    /* A linha border-top foi removida daqui */
 }
 
 .btn { 
-    padding: .4rem .75rem; 
+    padding: .5rem .8rem; 
     border-radius: 12px; 
     border: none; 
     cursor: pointer; 
     background: #000000; 
     color: #e7e9ee; 
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
 }
 
-.fav[aria-pressed="true"]::after { 
-    content: "★"; 
-}
-
-.fav[aria-pressed="false"]::after { 
-    content: "☆"; 
-}
+.fav[aria-pressed="true"]::before { content: "★"; color: #ffd700; }
+.fav[aria-pressed="false"]::before { content: "☆"; }
 
 .star-count { 
-    color: #ffffff; 
+    color: #ffffff;
+    font-weight: bold;
 }
 
-.drawer { 
-    position: fixed; 
-    inset:0; 
-    background: rgba(0,0,0,.95); 
-    display:flex; 
-    flex-direction:column; 
-    align-items:center; 
-    justify-content:center; 
-    padding:1rem; 
-    transform:translateY(100%); 
-    transition: transform .2s ease; 
-    z-index:50; 
-}
+.comment-section { margin-top: 2rem; background: #1a0901; padding: 1rem; border-radius: 12px; }
+.comment-section textarea { width: 100%; height: 80px; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 0.5rem; box-sizing: border-box; }
+.btn-comment { margin-top: 0.5rem; width: 100%; background: #000; color: white; padding: 0.6rem; border: none; border-radius: 8px; cursor: pointer; }
 
-.drawer.open { 
-    transform: translateY(0); 
-}
-
-.drawer-content { 
-    display:flex; 
-    flex-direction:column; 
-    align-items:center; 
-    width:100%; 
-    height:100%; 
-    overflow-y:auto; 
-    padding:1rem; 
-    box-sizing:border-box; 
-}
-
-.drawer-content img { 
-    width:100%; 
-    height:auto; 
-    margin-bottom:1rem; 
-    border:1px solid #000000; 
-    border-radius:8px; 
-}
-
-.drawer-controls { 
-    display:flex; 
-    gap:.5rem; 
-    align-items:center; 
-    justify-content:center; 
-    padding:1rem 0; 
-}
-
-.reading-mode .topbar, 
-.reading-mode .drawer-controls { 
-    opacity:0; 
-    pointer-events:none; 
-}
-
-.reading-mode .drawer-content { 
-    padding:0; 
-    background:#000000; 
-}
-
-.reading-mode .drawer-content img { 
-    border:none; 
-    border-radius:0; 
-    margin-bottom:0; 
-}
+.drawer { position: fixed; inset:0; background: rgba(0,0,0,.95); display:flex; flex-direction:column; transform:translateY(100%); transition: transform .2s ease; z-index:50; }
+.drawer.open { transform: translateY(0); }
+.drawer-content { overflow-y:auto; padding:1rem; display:flex; flex-direction:column; align-items:center; }
+.drawer-content img { width:100%; max-width: 800px; height:auto; margin-bottom:1rem; }
 </style>
 </head>
 <body>
@@ -233,40 +134,32 @@ body {
 <header class="topbar">Biblioteca</header>
 
 <div class="layout">
-<aside class="sidebar">
-<h2>Suas obras reunidas em um só lugar.</h2>
-<div class="comment-section">
-<h3>Deixe seu comentário</h3>
-<textarea placeholder="O que você está lendo hoje?"></textarea>
-<button class="btn-comment">Enviar</button>
-</div>
-</aside>
-
-<main class="main">
-<div id="grade" class="grid"></div>
-</main>
+    <aside class="sidebar">
+        <h2>Suas obras reunidas em um só lugar.</h2>
+        <div class="comment-section">
+            <h3>Deixe seu comentário</h3>
+            <textarea placeholder="O que você está lendo hoje?"></textarea>
+            <button class="btn-comment">Enviar</button>
+        </div>
+    </aside>
+    <main class="main">
+        <div id="grade" class="grid"></div>
+    </main>
 </div>
 
 <div id="drawer" class="drawer" aria-hidden="true">
-  <div class="topbar">
-    <button class="btn" id="closeDrawer">Fechar</button>
-    <h2 id="drawerTitle"></h2>
-    <button class="btn" id="toggleReadingMode">Ver em Slide</button>
-  </div>
-  <div class="drawer-content"></div>
-  <div class="drawer-controls">
-    <button class="btn" id="zoomOut">-</button>
-    <button class="btn" id="zoomIn">+</button>
-    <span id="pageInfo">0 de 0</span>
-  </div>
+    <div class="topbar">
+        <button class="btn" id="closeDrawer">Fechar</button>
+        <h2 id="drawerTitle"></h2>
+    </div>
+    <div class="drawer-content"></div>
 </div>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-// 🔥 CONFIGURE AQUI
+// 🔥 CONFIGURE SEU FIREBASE AQUI
 const firebaseConfig = {
   apiKey: "SUA_API_KEY",
   authDomain: "sw-biblio.firebaseapp.com",
@@ -277,25 +170,14 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// 📚 LIVROS
 const livros = [
   {id:1, titulo:"Melissa", autor:"Wellington Novaes", capa:"Mellissa.png", pasta:"páginas compendio", totalPaginas:6, sinopse:"Uma jornada emocionante de descoberta e coragem."},
   {id:2, titulo:"Triohnte", autor:"Gabryell Aweryan", capa:"capaT.png", pasta:"Triohnte", totalPaginas:3, sinopse:"Um épico de fantasia sombria e intrigas políticas."},
   {id:3, titulo:"Virtudes", autor:"Francisco de Assis", capa:"Virtudes.png", pasta:"Virtudes", totalPaginas:3, sinopse:"Reflexões sobre a bondade e a espiritualidade."}
 ];
 
-// 🎨 RENDER
 const grade = document.getElementById("grade");
-const section = document.querySelector(".comment-section");
-const textarea = section.querySelector("textarea");
-const btnComment = section.querySelector(".btn-comment");
 
-let userCountry = "Desconhecido";
-fetch("https://ipapi.co/json/")
-  .then(r => r.json())
-  .then(d => { userCountry = d.country_name || "Desconhecido"; });
-
-// Renderiza livros
 livros.forEach(l => {
   const card = document.createElement("div");
   card.className = "card-book";
@@ -303,131 +185,54 @@ livros.forEach(l => {
     <div class="cover"><img src="${l.capa}"></div>
     <div class="meta">
       <h3>${l.titulo}</h3>
-      <div class="author">${l.autor}</div>
-      <div class="synopsis">${l.sinopse || 'Sem sinopse disponível.'}</div>
+      <div class="author">Por: ${l.autor}</div>
+      <div class="synopsis">${l.sinopse}</div>
     </div>
     <div class="actions">
       <button class="btn ler" data-id="${l.id}">Ler</button>
-      <button class="btn fav" aria-pressed="false" data-id="${l.id}"></button>
-      <span class="star-count" id="stars-${l.id}">0</span>
+      <button class="btn fav" aria-pressed="false" data-id="${l.id}">
+        <span class="star-count" id="stars-${l.id}">0</span>
+      </button>
     </div>
   `;
   grade.appendChild(card);
 
-  db.ref("estrelas/"+l.id).on("value", snap=>{
-    document.getElementById("stars-"+l.id).textContent = snap.val()||0;
+  db.ref("estrelas/"+l.id).on("value", snap => {
+    document.getElementById("stars-"+l.id).textContent = snap.val() || 0;
   });
 });
 
-// ⭐ ESTRELAS
-grade.addEventListener("click", e=>{
-  const btn = e.target.closest(".fav");
-  if(btn){
-    const id = btn.dataset.id;
-    btn.setAttribute("aria-pressed","true");
-    db.ref("estrelas/"+id).transaction(v=>(v||0)+1);
+grade.addEventListener("click", e => {
+  const btnFav = e.target.closest(".fav");
+  if(btnFav) {
+    const id = btnFav.dataset.id;
+    btnFav.setAttribute("aria-pressed", "true");
+    db.ref("estrelas/"+id).transaction(v => (v || 0) + 1);
     return;
   }
   const btnLer = e.target.closest(".ler");
-  if(btnLer){
-    const livro = livros.find(l=>l.id==btnLer.dataset.id);
-    if(!livro) return;
-    openDrawer(livro);
+  if(btnLer) {
+    const livro = livros.find(l => l.id == btnLer.dataset.id);
+    if(livro) openDrawer(livro);
   }
 });
 
-// 💬 COMENTÁRIOS
-// Renderiza últimos 20 comentários
-db.ref("comentarios").limitToLast(20).once("value", snap=>{
-    snap.forEach(c=>{
-        addComment(c.val().texto, c.val().pais||"Desconhecido");
-    });
-});
+function openDrawer(livro) {
+    const drawer = document.getElementById("drawer");
+    const content = document.querySelector(".drawer-content");
+    document.getElementById("drawerTitle").textContent = livro.titulo;
+    content.innerHTML = "";
+    for(let i=1; i<=livro.totalPaginas; i++) {
+        const img = document.createElement("img");
+        img.src = `${livro.pasta}/Pagina ${i}.png`;
+        content.appendChild(img);
+    }
+    drawer.classList.add("open");
+}
 
-// Renderiza novos comentários em tempo real
-db.ref("comentarios").limitToLast(1).on("child_added", snap=>{
-    addComment(snap.val().texto, snap.val().pais||"Desconhecido");
-});
-
-btnComment.onclick = () => {
-    if(!textarea.value.trim()) return;
-    db.ref("comentarios").push({
-        texto: textarea.value,
-        data: Date.now(),
-        pais: userCountry
-    });
-    textarea.value = "";
+document.getElementById("closeDrawer").onclick = () => {
+    document.getElementById("drawer").classList.remove("open");
 };
-
-function addComment(text, country){
-    const p = document.createElement("p");
-    p.innerHTML = `${text} <span class="comment-country">${country}</span>`;
-    section.appendChild(p);
-}
-
-// 📖 DRAWER IMERSIVO
-const drawer=document.getElementById("drawer");
-const drawerContent=document.querySelector(".drawer-content");
-const drawerTitle=document.getElementById("drawerTitle");
-const closeDrawer=document.getElementById("closeDrawer");
-const toggleReadingMode=document.getElementById("toggleReadingMode");
-const zoomIn=document.getElementById("zoomIn");
-const zoomOut=document.getElementById("zoomOut");
-const pageInfo=document.getElementById("pageInfo");
-
-let currentTotalPages=0;
-let intersectionObserver=null;
-let imageZoom=1;
-
-function openDrawer(livro){
-  drawerTitle.textContent=livro.titulo;
-  drawer.classList.add("open");
-  drawer.setAttribute("aria-hidden","false");
-  drawerContent.innerHTML="";
-  currentTotalPages=livro.totalPaginas;
-  pageInfo.textContent=`1 de ${currentTotalPages}`;
-  const pages=[];
-  for(let i=1;i<=livro.totalPaginas;i++){
-    const img=document.createElement("img");
-    img.src=`${livro.pasta}/Pagina ${i}.png`;
-    img.dataset.page=i;
-    drawerContent.appendChild(img);
-    pages.push(img);
-  }
-  if(intersectionObserver) intersectionObserver.disconnect();
-  intersectionObserver=new IntersectionObserver(entries=>{
-    let maxRatio=0,currentPage=1;
-    entries.forEach(entry=>{
-      if(entry.intersectionRatio>maxRatio){
-        maxRatio=entry.intersectionRatio;
-        currentPage=Number(entry.target.dataset.page);
-      }
-    });
-    pageInfo.textContent=`${currentPage} de ${currentTotalPages}`;
-  },{threshold:0.5});
-  pages.forEach(p=>intersectionObserver.observe(p));
-}
-
-closeDrawer.onclick=()=>{
-  drawer.classList.remove("open");
-  drawer.setAttribute("aria-hidden","true");
-  document.body.classList.remove("reading-mode");
-}
-
-toggleReadingMode.onclick=()=>{
-  document.body.classList.toggle("reading-mode");
-  toggleReadingMode.textContent=document.body.classList.contains("reading-mode")?"Sair do Slide":"Ver em Slide";
-}
-
-zoomIn.onclick=()=>{
-  imageZoom=Math.min(2,imageZoom+0.1);
-  drawerContent.style.transform=`scale(${imageZoom})`;
-}
-zoomOut.onclick=()=>{
-  imageZoom=Math.max(0.5,imageZoom-0.1);
-  drawerContent.style.transform=`scale(${imageZoom})`;
-}
 </script>
-
 </body>
 </html>
