@@ -96,6 +96,10 @@ body {
     align-items: center; 
 }
 
+
+
+
+
 .btn { 
     padding: .5rem .8rem; 
     border-radius: 12px; 
@@ -106,23 +110,46 @@ body {
     color: #e7e9ee; 
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     font-size: 0.9rem;
+
+    /* trava o tamanho */
+    width: 64px;
+    height: 36px;
 }
 
-.fav[aria-pressed="true"]::before { content: "★"; color: #ffffff; font-size: 16px; }
-.fav[aria-pressed="false"]::before { content: "☆"; font-size: 16px; }
+/* estrela não influencia layout */
+.fav::before { 
+    font-size: 16px; 
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.fav[aria-pressed="true"]::before { 
+    content: "★"; 
+    color: #ffffff; 
+}
+
+.fav[aria-pressed="false"]::before { 
+    content: "☆"; 
+}
+
+.star-count { 
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 0.7rem;
+}
+
+
+
+
+
 
 
 
 
     
-
-.star-count { 
-    color: #ffffff;
-    font-weight: soft;
-    font-size: 0.5;
-}
 
 
 
