@@ -159,6 +159,8 @@ body {
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
+
+    
 // 🔥 CONFIGURE AQUI
 const firebaseConfig = {
   apiKey: "SUA_API_KEY",
@@ -233,6 +235,100 @@ function openDrawer(livro) {
 document.getElementById("closeDrawer").onclick = () => {
     document.getElementById("drawer").classList.remove("open");
 };
+
+
+    // 💬 COMENTÁRIOS
+// Renderiza últimos 20 comentários
+db.ref("comentarios").limitToLast(20).once("value", snap=>{
+    snap.forEach(c=>{
+        addComment(c.val().texto, c.val().pais||"Desconhecido");
+    });
+});
+
+// Renderiza novos comentários em tempo real
+db.ref("comentarios").limitToLast(1).on("child_added", snap=>{
+    addComment(snap.val().texto, snap.val().pais||"Desconhecido");
+});
+
+btnComment.onclick = () => {
+    if(!textarea.value.trim()) return;
+    db.ref("comentarios").push({
+        texto: textarea.value,
+        data: Date.now(),
+        pais: userCountry
+    });
+    textarea.value = "";
+};
+
+function addComment(text, country){
+    const p = document.createElement("p");
+    p.innerHTML = `${text} <span class="comment-country">${country}</span>`;
+    section.appendChild(p);
+}
+
+// 📖 DRAWER IMERSIVO
+const drawer=document.getElementById("drawer");
+const drawerContent=document.querySelector(".drawer-content");
+const drawerTitle=document.getElementById("drawerTitle");
+const closeDrawer=document.getElementById("closeDrawer");
+const toggleReadingMode=document.getElementById("toggleReadingMode");
+const zoomIn=document.getElementById("zoomIn");
+const zoomOut=document.getElementById("zoomOut");
+const pageInfo=document.getElementById("pageInfo");
+
+let currentTotalPages=0;
+let intersectionObserver=null;
+let imageZoom=1;
+
+function openDrawer(livro){
+  drawerTitle.textContent=livro.titulo;
+  drawer.classList.add("open");
+  drawer.setAttribute("aria-hidden","false");
+  drawerContent.innerHTML="";
+  currentTotalPages=livro.totalPaginas;
+  pageInfo.textContent=`1 de ${currentTotalPages}`;
+  const pages=[];
+  for(let i=1;i<=livro.totalPaginas;i++){
+    const img=document.createElement("img");
+    img.src=`${livro.pasta}/Pagina ${i}.png`;
+    img.dataset.page=i;
+    drawerContent.appendChild(img);
+    pages.push(img);
+  }
+  if(intersectionObserver) intersectionObserver.disconnect();
+  intersectionObserver=new IntersectionObserver(entries=>{
+    let maxRatio=0,currentPage=1;
+    entries.forEach(entry=>{
+      if(entry.intersectionRatio>maxRatio){
+        maxRatio=entry.intersectionRatio;
+        currentPage=Number(entry.target.dataset.page);
+      }
+    });
+    pageInfo.textContent=`${currentPage} de ${currentTotalPages}`;
+  },{threshold:0.5});
+  pages.forEach(p=>intersectionObserver.observe(p));
+}
+
+closeDrawer.onclick=()=>{
+  drawer.classList.remove("open");
+  drawer.setAttribute("aria-hidden","true");
+  document.body.classList.remove("reading-mode");
+}
+
+toggleReadingMode.onclick=()=>{
+  document.body.classList.toggle("reading-mode");
+  toggleReadingMode.textContent=document.body.classList.contains("reading-mode")?"Sair do Slide":"Ver em Slide";
+}
+
+zoomIn.onclick=()=>{
+  imageZoom=Math.min(2,imageZoom+0.1);
+  drawerContent.style.transform=`scale(${imageZoom})`;
+}
+zoomOut.onclick=()=>{
+  imageZoom=Math.max(0.5,imageZoom-0.1);
+  drawerContent.style.transform=`scale(${imageZoom})`;
+}
+
 </script>
 </body>
 </html>
