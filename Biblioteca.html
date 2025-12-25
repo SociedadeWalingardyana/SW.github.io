@@ -89,7 +89,6 @@ body {
     line-height: 1.4;
 }
 
-/* --- AÇÕES SEM A LINHA DE DIVISÃO --- */
 .actions { 
     display: flex; 
     gap: .5rem; 
@@ -122,10 +121,39 @@ body {
 .comment-section textarea { width: 100%; height: 80px; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 0.5rem; box-sizing: border-box; }
 .btn-comment { margin-top: 0.5rem; width: 100%; background: #000; color: white; padding: 0.6rem; border: none; border-radius: 8px; cursor: pointer; }
 
-.drawer { position: fixed; inset:0; background: rgba(0,0,0,.95); display:flex; flex-direction:column; transform:translateY(100%); transition: transform .2s ease; z-index:50; }
+.drawer { 
+    position: fixed; 
+    inset:0; 
+    background: rgba(0,0,0,.95); 
+    display:flex; 
+    flex-direction:column; 
+    transform:translateY(100%); 
+    transition: transform .2s ease; 
+    z-index:50; 
+}
 .drawer.open { transform: translateY(0); }
 .drawer-content { overflow-y:auto; padding:1rem; display:flex; flex-direction:column; align-items:center; }
 .drawer-content img { width:100%; max-width: 800px; height:auto; margin-bottom:1rem; }
+
+/* --- Drawer topbar centralizado --- */
+#drawer .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* centraliza o título */
+    position: relative;
+    padding: 1rem;
+    background: #1a0901;
+}
+
+#drawer .topbar #closeDrawer {
+    position: absolute;
+    left: 1rem; /* botão à esquerda */
+}
+
+#drawer .topbar #toggleSlide {
+    position: absolute;
+    right: 1rem; /* botão slide à direita */
+}
 </style>
 </head>
 <body>
@@ -148,8 +176,9 @@ body {
 
 <div id="drawer" class="drawer" aria-hidden="true">
     <div class="topbar">
-        <button class="btn" id="closeDrawer">Fechar</button>
+        <button class="btn" id="closeDrawer">Sair</button>
         <h2 id="drawerTitle"></h2>
+        <button class="btn" id="toggleSlide">Slide</button>
     </div>
     <div class="drawer-content"></div>
 </div>
@@ -196,13 +225,11 @@ livros.forEach(l => {
   `;
   grade.appendChild(card);
 
-  // Atualiza estrelas em tempo real
   db.ref("estrelas/"+l.id).on("value", snap => {
     document.getElementById("stars-"+l.id).textContent = snap.val() || 0;
   });
 });
 
-// Eventos de clique em livros e favoritos
 grade.addEventListener("click", e => {
   const btnFav = e.target.closest(".fav");
   if(btnFav) {
@@ -242,19 +269,16 @@ const btnComment = document.querySelector(".btn-comment");
 const textarea = document.querySelector(".comment-section textarea");
 const section = document.querySelector(".comment-section");
 
-// Renderiza últimos 20 comentários
 db.ref("comentarios").limitToLast(20).once("value", snap=>{
     snap.forEach(c=>{
         addComment(c.val().texto, c.val().pais||"Desconhecido");
     });
 });
 
-// Renderiza novos comentários em tempo real
 db.ref("comentarios").limitToLast(1).on("child_added", snap=>{
     addComment(snap.val().texto, snap.val().pais||"Desconhecido");
 });
 
-// Envio de comentário
 btnComment.onclick = () => {
     if(!textarea.value.trim()) return;
     db.ref("comentarios").push({
@@ -265,7 +289,6 @@ btnComment.onclick = () => {
     textarea.value = "";
 };
 
-// Função para renderizar comentário
 function addComment(text, country){
     const p = document.createElement("p");
     p.innerHTML = `${text} <span class="comment-country">${country}</span>`;
