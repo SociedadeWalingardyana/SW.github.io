@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sociedade Walingardyana</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
   
   <!-- Fonte Cinzel para os títulos principais -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
@@ -14,10 +13,9 @@
       background-color: #281109 !important;
       color: #FFFFFF;
       font-family: sans-serif;
-      text-align: justify; /* Justifica todo o texto */
+      text-align: justify;
     }
 
-    /* Títulos principais "Origem..." e "Visão..." */
     #boas-vindas {
       font-family: 'Cinzel', serif;
       font-size: 3rem;
@@ -25,9 +23,9 @@
       margin-bottom: 2rem;
     }
 
-    /* Garantir que parágrafos fiquem justificados */
     p {
       text-align: justify;
+      margin-bottom: 20px; /* Espaço entre estrofes */
     }
 
     body::before {
@@ -135,54 +133,25 @@
     });
   </script>
 
-
-  <style>
-  p {
-    margin-bottom: 20px;   /* Espaço entre estrofes */
-  }
-</style>
-  
-
   <!-- Seção: Origem -->
   <section class="text-white container mx-auto mt-6 text-lg font-medium">
     <p id="boas-vindas">Origem da Sociedade Walingardyana</p>
     <p id="explicativo1">
       A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido.
-
       Com a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência.
-
       Foi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo.
-
       Juntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir.
-
-
-      
-<style>
-  p {
-    margin-bottom: 20px;   /* Espaço entre estrofes */
-  }
-</style>
-
-      
-     <p> Posteriormente, um jovem escritor tão, ou mais talentoso que Gabryell, de nome Wellington Noves, resolveu especular sobre o funcionamento da ideia, momento em que, expressou interesse em investir na SW. Seu empenho inicialmente se deu como observador obstinado e por fim, devido ao seus excepcionais trabalhos, foi convidado a se tornar sócio da marca. Wellington assumiu integralmente o comando da SW Editorial como editor-chefe neste ano. A equipe conta com outros profissionais qualificados, como é o caso da Srta. Agatha Rosário, parceira de Gabryell em outra área, que entrou para o cargo de auditoria na SW.</p> 
+    </p>
+    <p>
+      Posteriormente, um jovem escritor tão, ou mais talentoso que Gabryell, de nome Wellington Noves, resolveu especular sobre o funcionamento da ideia, momento em que, expressou interesse em investir na SW. Seu empenho inicialmente se deu como observador obstinado e por fim, devido ao seus excepcionais trabalhos, foi convidado a se tornar sócio da marca. Wellington assumiu integralmente o comando da SW Editorial como editor-chefe neste ano. A equipe conta com outros profissionais qualificados, como é o caso da Srta. Agatha Rosário, parceira de Gabryell em outra área, que entrou para o cargo de auditoria na SW.
+    </p> 
   </section>
-
-
-<style>
-  p {
-    margin-bottom: 20px;   /* Espaço entre estrofes */
-  }
-</style>
-
-
-  
 
   <!-- Seção: Visão para o futuro -->
   <section class="text-white container mx-auto mt-6 text-lg font-medium">
     <p id="boas-vindas">Visão da Sociedade Walingardyana para o futuro</p>
     <p id="explicativo1">
       Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia.
-
       Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional.
     </p>
   </section>
@@ -215,6 +184,23 @@
     <span style="color: white; font-size: 16px; user-select: none;">▼</span>
   </div>
 
+  <!-- Botão Direct Colab -->
+  <div id="direct-colab" style="
+      position: fixed;
+      top: 10px;
+      right: 50px;
+      background: #1a1a1a;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 9999;
+      text-align: center;
+  ">
+    Direct Colab
+  </div>
+
   <!-- Lista suspensa de idiomas -->
   <ul id="language-list" style="
     position: fixed;
@@ -237,7 +223,7 @@
     <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
   </ul>
 
-  <!-- Script do seletor de idioma -->
+  <!-- Script do seletor de idioma e Direct Colab -->
   <script>
     const selector = document.getElementById('language-selector');
     const list = document.getElementById('language-list');
@@ -297,53 +283,14 @@
         }
         setLanguage(langCode);
         list.style.display = 'none';
-
-
-        <div id="direct-colab" style="
-    position: fixed;
-    top: 10px;
-    right: 50px;  /* deslocado para não sobrepor o seletor */
-    background: #1a1a1a;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    z-index: 9999;
-    text-align: center;
-">
-  Direct Colab
-</div>
-
-document.getElementById('direct-colab').addEventListener('click', function() {
-    window.location.href = 'SW Sistem.html';
-
       });
     });
 
-
-    
+    // Redirecionamento do Direct Colab
+    document.getElementById('direct-colab').addEventListener('click', function() {
+        window.location.href = 'SW Sistem.html';
+    });
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
