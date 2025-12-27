@@ -299,12 +299,36 @@
         list.style.display = 'none';
       });
     });
+
+
+<!-- Botão Direct Colab -->
+<div id="direct-colab" style="
+    position: fixed;
+    top: 10px;
+    right: 50px;  /* Ligeiro deslocamento para não sobrepor o seletor de idioma */
+    background: #1a1a1a;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 9999;
+    text-align: center;
+">
+  Direct Colab
+</div>
+
+// Redirecionamento do Direct Colab
+document.getElementById('direct-colab').addEventListener('click', function() {
+    window.location.href = 'SW Sistem.html';
+});
+
+
+
   </script>
 
 </body>
 </html>
-
-
 
 
 
