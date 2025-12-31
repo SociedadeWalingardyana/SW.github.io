@@ -3,35 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Um Sonho</title>
+    <title>Finalizar Compra</title>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <style>
         body {
-            /* Define o fundo como preto */
             background-color: black;
-            
-            /* Centraliza o texto na tela */
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            
-            /* Estilização da fonte */
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+        }
+
+        .capa-livro {
+            width: 250px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2rem;
             font-weight: 300;
-            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .sinopse {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .preco {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #009ee3; /* Cor padrão Mercado Pago */
+            margin-bottom: 30px;
+        }
+
+        /* Container onde o botão do Mercado Pago será renderizado */
+        #walletWidget {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
 
-    <h1>A um passo de realizar um sonho</h1>
+    <div class="container">
+        <img src="SEG.png" alt="Capa do Livro" class="capa-livro">
+        
+        <p class="sinopse">
+            Aqui vai a sinopse do seu livro conforme descrita na loja.html. 
+            Um breve resumo da história para cativar o leitor.
+        </p>
+
+        <p class="preco">R$ 49,90</p>
+
+        <div id="walletWidget"></div>
+    </div>
+
+    <script>
+        // Inicializa o Mercado Pago com sua Public Key que você enviou
+        const mp = new MercadoPago('APP_USR-13d91b74-3c7a-4409-b164-d9c9828d73c9', {
+            locale: 'pt-BR'
+        });
+
+        // Aqui você integraria com o seu backend para gerar o preferenceId
+        // Por enquanto, o botão será renderizado visualmente
+        mp.bricks().create("wallet", "walletWidget", {
+            initialization: {
+                preferenceId: "ID_DA_PREFERENCIA_GERADA", // Você precisa gerar este ID via API usando seu Access Token
+            },
+            customization: {
+                texts: {
+                    valueProp: 'smart_option',
+                    action: 'pay',
+                },
+            },
+        });
+    </script>
 
 </body>
 </html>
