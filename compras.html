@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finalizar Compra</title>
+    <title>Finalizar Compra - Os Segredários</title>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <style>
         body {
@@ -21,38 +21,43 @@
         }
 
         .container {
-            max-width: 400px;
+            max-width: 500px;
+            background-color: #111;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .capa-livro {
-            width: 250px;
+            width: 220px;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
             margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
         }
 
         .sinopse {
-            font-size: 1rem;
-            color: #ccc;
-            margin-bottom: 15px;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            color: #bbb;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-align: justify;
         }
 
         .preco {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            color: #009ee3; /* Cor padrão Mercado Pago */
+            color: #009ee3;
             margin-bottom: 30px;
         }
 
-        /* Container onde o botão do Mercado Pago será renderizado */
         #walletWidget {
             width: 100%;
             display: flex;
@@ -65,9 +70,13 @@
     <div class="container">
         <img src="SEG.png" alt="Capa do Livro" class="capa-livro">
         
-        <p class="sinopse">
-           Marco,
-        </p>
+        <h1>A um passo de realizar um sonho</h1>
+
+        <div class="sinopse">
+            <p>Marco, João e Lucas vivem a rotina sem graça da Kenya Enlatados, uma pequena empresa de São Paulo que enlata legumes e sardinhas. Mas a monotonia acaba quando recebem um telefonema inesperado de Cleber F. Junior, do Amazonas: investigar um parque aquático abandonado, palco de uma tragédia que ainda assombra o local.</p>
+            <p>Aproveitando que suas férias estavam chegando, inventam um retiro espiritual para justificar a ausência, e claro, o chefe não entende nada! Munidos de curiosidade, improviso e sua van carateristicamente cômica, os Segredários partem rumo ao Amazonas.</p>
+            <p>No parque, descobrem que Cleber desapareceu misteriosamente e que a missão agora é coordenada por seu filho, Victor, que quer resolver o problema da propriedade para vendê-la. Entre mistérios, absurdos e perigos que ninguém ousaria enfrentar, Marco, João e Lucas vão aprender que segredos enterrados nem sempre ficam onde deveriam, e que a linha entre o banal e o bizarro pode ser mais fina do que imaginam.</p>
+        </div>
 
         <p class="preco">R$ 49,90</p>
 
@@ -75,16 +84,15 @@
     </div>
 
     <script>
-        // Inicializa o Mercado Pago com sua Public Key que você enviou
+        // Inicialização com a sua Public Key de produção fornecida
         const mp = new MercadoPago('APP_USR-13d91b74-3c7a-4409-b164-d9c9828d73c9', {
             locale: 'pt-BR'
         });
 
-        // Aqui você integraria com o seu backend para gerar o preferenceId
-        // Por enquanto, o botão será renderizado visualmente
         mp.bricks().create("wallet", "walletWidget", {
             initialization: {
-                preferenceId: "ID_DA_PREFERENCIA_GERADA", // Você precisa gerar este ID via API usando seu Access Token
+                // Lembre-se: Você precisa gerar o preferenceId no seu servidor usando seu Access Token
+                preferenceId: "ID_DA_PREFERENCIA_GERADA", 
             },
             customization: {
                 texts: {
@@ -97,5 +105,3 @@
 
 </body>
 </html>
-
-
