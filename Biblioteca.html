@@ -50,7 +50,7 @@ body {
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
     gap: 1.5rem; 
-    flex: 1; /* ocupa espaço restante */
+    flex: 1; 
     overflow-y: auto;
     max-height: calc(100vh - 2rem);
 }
@@ -292,14 +292,14 @@ function renderCard(item, container, includeFav=false){
   container.appendChild(card);
 }
 
-// Render
+// Render de livros e novels com votação
 livros.forEach(l => renderCard(l, grade, true));
-novels.forEach(n => renderCard(n, novelGrid, false));
+novels.forEach(n => renderCard(n, novelGrid, true));
 
 // Firebase estrelas
-livros.forEach(l => {
-  db.ref("estrelas/"+l.id).on("value", snap => {
-    const el = document.getElementById("stars-"+l.id);
+[...livros, ...novels].forEach(item => {
+  db.ref("estrelas/"+item.id).on("value", snap => {
+    const el = document.getElementById("stars-"+item.id);
     if(el) el.textContent = snap.val() || 0;
   });
 });
@@ -334,12 +334,12 @@ function openDrawer(item){
     content.appendChild(img);
   }
   drawer.classList.add("open");
-  document.body.style.overflow = "hidden"; // trava scroll
+  document.body.style.overflow = "hidden";
 }
 
 document.getElementById("closeDrawer").onclick = () => {
   document.getElementById("drawer").classList.remove("open");
-  document.body.style.overflow = "auto"; // libera scroll
+  document.body.style.overflow = "auto";
 };
 
 // Comentários
