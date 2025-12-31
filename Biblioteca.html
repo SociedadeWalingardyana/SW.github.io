@@ -37,6 +37,9 @@ body {
 }
 
 .main { 
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* livros + novels */
+    gap: 1.5rem;
     padding: 1rem; 
 }
 
@@ -164,7 +167,15 @@ body {
 #drawer .topbar #closeDrawer { position: absolute; left: 1rem; }
 #drawer .topbar #toggleSlide { position: absolute; right: 1rem; }
 
-#novelGrid { margin-top: 2rem; border-top: 1px solid #1a0901; padding-top: 1rem; }
+#novelGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 2rem);
+    padding-left: 1rem;
+    border-left: 1px solid #1a0901;
+}
 </style>
 </head>
 <body>
@@ -181,8 +192,10 @@ body {
         </div>
     </aside>
     <main class="main">
+        <!-- Coluna esquerda: Livros -->
         <div id="grade" class="grid"></div>
-        <div id="novelGrid" class="grid"></div>
+        <!-- Coluna direita: Novels -->
+        <div id="novelGrid"></div>
     </main>
 </div>
 
@@ -226,7 +239,7 @@ const novels = [
 const grade = document.getElementById("grade");
 const novelGrid = document.getElementById("novelGrid");
 
-// Função genérica de render card
+// Função genérica render card
 function renderCard(item, container, includeFav=false){
   const card = document.createElement("div");
   card.className = "card-book";
@@ -246,11 +259,11 @@ function renderCard(item, container, includeFav=false){
   container.appendChild(card);
 }
 
-// Render livros + Novels
+// Render
 livros.forEach(l => renderCard(l, grade, true));
-novels.forEach(n => renderCard(n, novelGrid));
+novels.forEach(n => renderCard(n, novelGrid, false));
 
-// Firebase estrelas para livros
+// Firebase estrelas
 livros.forEach(l => {
   db.ref("estrelas/"+l.id).on("value", snap => {
     const el = document.getElementById("stars-"+l.id);
@@ -258,7 +271,7 @@ livros.forEach(l => {
   });
 });
 
-// Listener global para click
+// Clique global
 document.body.addEventListener("click", e => {
   const btnFav = e.target.closest(".fav");
   if(btnFav){
