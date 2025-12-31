@@ -335,88 +335,16 @@ function addComment(text, country){
     section.appendChild(p);
 }
 
-/*NOVELS MODULE*/
-<aside class="novels">
-    <h2>Novels</h2>
-    <p style="font-size:0.8rem;color:#aab0bd">Sessão de histórias rápidas</p>
-    <div id="novelGrid" class="grid"></div>
-</aside>
 
-<style>
+
+
+
+
+
+
+
+
     
-/* NOVELS CSS */
-.novels {
-    background: #000;
-    padding: 1rem;
-    overflow: auto;
-    border-left: 1px solid #1a0901;
-}
-</style>
-
-<script>
-// NOVELS DATA
-const novels = [
-  {
-    id: 101,
-    titulo: "O Último Sino",
-    autor: "Autor Desconhecido",
-    capa: "novel1.png",
-    pasta: "Novels/Sino",
-    totalPaginas: 4,
-    sinopse: "O sino toca apenas uma vez."
-  },
-  {
-    id: 102,
-    titulo: "Cinza no Cálice",
-    autor: "Autor Desconhecido",
-    capa: "novel2.png",
-    pasta: "Novels/Cinzas",
-    totalPaginas: 3,
-    sinopse: "Uma fé escrita por outra mão."
-  }
-];
-
-const novelGrid = document.getElementById("novelGrid");
-
-// RENDERIZA CARDS IGUAL AOS LIVROS
-novels.forEach(n => {
-  const card = document.createElement("div");
-  card.className = "card-book";
-  card.innerHTML = `
-    <div class="cover"><img src="${n.capa}"></div>
-    <div class="meta">
-      <h3>${n.titulo}</h3>
-      <div class="author">Por: ${n.autor}</div>
-      <div class="synopsis">${n.sinopse}</div>
-    </div>
-    <div class="actions">
-      <button class="btn ler" data-id="${n.id}">Ler</button>
-    </div>
-  `;
-  novelGrid.appendChild(card);
-});
-
-// CONECTA COM A LÓGICA EXISTENTE DO DRAWER
-document.body.addEventListener("click", e => {
-  const btn = e.target.closest(".ler");
-  if(!btn) return;
-
-  const item = [...livros, ...novels].find(x => x.id == btn.dataset.id);
-  if(!item) return;
-
-  const drawer = document.getElementById("drawer");
-  const content = document.querySelector(".drawer-content");
-  document.getElementById("drawerTitle").textContent = item.titulo;
-  content.innerHTML = "";
-
-  for(let i=1; i<=item.totalPaginas; i++){
-    const img = document.createElement("img");
-    img.src = `${item.pasta}/Pagina ${i}.png`;
-    content.appendChild(img);
-  }
-
-  drawer.classList.add("open");
-});
 </script>
 </body>
 </html>
