@@ -96,10 +96,6 @@ body {
     align-items: center; 
 }
 
-
-
-
-
 .btn { 
     padding: .5rem .8rem; 
     border-radius: 12px; 
@@ -113,13 +109,10 @@ body {
     justify-content: center;
     gap: 0.5rem;
     font-size: 0.9rem;
-
-    /* trava o tamanho */
     width: 64px;
     height: 36px;
 }
 
-/* estrela não influencia layout */
 .fav::before { 
     font-size: 16px; 
     line-height: 1;
@@ -141,22 +134,6 @@ body {
     font-size: 0.7rem;
 }
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
 .comment-section { margin-top: 2rem; background: #1a0901; padding: 1rem; border-radius: 12px; }
 .comment-section textarea { width: 100%; height: 80px; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 0.5rem; box-sizing: border-box; }
 .btn-comment { margin-top: 0.5rem; width: 100%; background: #000; color: white; padding: 0.6rem; border: none; border-radius: 8px; cursor: pointer; }
@@ -175,25 +152,19 @@ body {
 .drawer-content { overflow-y:auto; padding:1rem; display:flex; flex-direction:column; align-items:center; }
 .drawer-content img { width:100%; max-width: 800px; height:auto; margin-bottom:1rem; }
 
-/* --- Drawer topbar centralizado --- */
 #drawer .topbar {
     display: flex;
     align-items: center;
-    justify-content: center; /* centraliza o título */
+    justify-content: center; 
     position: relative;
     padding: 1rem;
     background: #1a0901;
 }
 
-#drawer .topbar #closeDrawer {
-    position: absolute;
-    left: 1rem; /* botão à esquerda */
-}
+#drawer .topbar #closeDrawer { position: absolute; left: 1rem; }
+#drawer .topbar #toggleSlide { position: absolute; right: 1rem; }
 
-#drawer .topbar #toggleSlide {
-    position: absolute;
-    right: 1rem; /* botão slide à direita */
-}
+#novelGrid { margin-top: 2rem; border-top: 1px solid #1a0901; padding-top: 1rem; }
 </style>
 </head>
 <body>
@@ -211,6 +182,7 @@ body {
     </aside>
     <main class="main">
         <div id="grade" class="grid"></div>
+        <div id="novelGrid" class="grid"></div>
     </main>
 </div>
 
@@ -227,6 +199,7 @@ body {
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
+// FIREBASE
 const firebaseConfig = {
   apiKey: "SUA_API_KEY",
   authDomain: "sw-biblio.firebaseapp.com",
@@ -237,84 +210,98 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// LIVROS
 const livros = [
   {id:1, titulo:"Melissa", autor:"Wellington Novaes", capa:"Mellissa.png", pasta:"páginas compendio", totalPaginas:6, sinopse:"Uma jornada emocionante de descoberta e coragem."},
   {id:2, titulo:"Triohnte", autor:"Gabryell Aweryan", capa:"capaT.png", pasta:"Triohnte", totalPaginas:3, sinopse:"Um épico de fantasia sombria e intrigas políticas."},
   {id:3, titulo:"Virtudes", autor:"Francisco de Assis", capa:"Virtudes.png", pasta:"Virtudes", totalPaginas:3, sinopse:"Reflexões sobre a bondade e a espiritualidade."}
 ];
 
-const grade = document.getElementById("grade");
+// NOVELS
+const novels = [
+  {id:101, titulo:"O Último Sino", autor:"Autor Desconhecido", capa:"novel1.png", pasta:"Novels/Sino", totalPaginas:4, sinopse:"O sino toca apenas uma vez."},
+  {id:102, titulo:"Cinza no Cálice", autor:"Autor Desconhecido", capa:"novel2.png", pasta:"Novels/Cinzas", totalPaginas:3, sinopse:"Uma fé escrita por outra mão."}
+];
 
-// Renderiza os livros
-livros.forEach(l => {
+const grade = document.getElementById("grade");
+const novelGrid = document.getElementById("novelGrid");
+
+// Função genérica de render card
+function renderCard(item, container, includeFav=false){
   const card = document.createElement("div");
   card.className = "card-book";
   card.innerHTML = `
-    <div class="cover"><img src="${l.capa}"></div>
+    <div class="cover"><img src="${item.capa}"></div>
     <div class="meta">
-      <h3>${l.titulo}</h3>
-      <div class="author">Por: ${l.autor}</div>
-      <div class="synopsis">${l.sinopse}</div>
+      <h3>${item.titulo}</h3>
+      <div class="author">Por: ${item.autor}</div>
+      <div class="synopsis">${item.sinopse}</div>
     </div>
     <div class="actions">
-      <button class="btn ler" data-id="${l.id}">Ler</button>
-      <button class="btn fav" aria-pressed="false" data-id="${l.id}">
-        <span class="star-count" id="stars-${l.id}">0</span>
-      </button>
-    </div>
-  `;
-  grade.appendChild(card);
+      <button class="btn ler" data-id="${item.id}">Ler</button>
+      ${includeFav ? `<button class="btn fav" aria-pressed="false" data-id="${item.id}">
+        <span class="star-count" id="stars-${item.id}">0</span>
+      </button>` : ""}
+    </div>`;
+  container.appendChild(card);
+}
 
+// Render livros + Novels
+livros.forEach(l => renderCard(l, grade, true));
+novels.forEach(n => renderCard(n, novelGrid));
+
+// Firebase estrelas para livros
+livros.forEach(l => {
   db.ref("estrelas/"+l.id).on("value", snap => {
-    document.getElementById("stars-"+l.id).textContent = snap.val() || 0;
+    const el = document.getElementById("stars-"+l.id);
+    if(el) el.textContent = snap.val() || 0;
   });
 });
 
-grade.addEventListener("click", e => {
+// Listener global para click
+document.body.addEventListener("click", e => {
   const btnFav = e.target.closest(".fav");
-  if(btnFav) {
+  if(btnFav){
     const id = btnFav.dataset.id;
-    btnFav.setAttribute("aria-pressed", "true");
-    db.ref("estrelas/"+id).transaction(v => (v || 0) + 1);
+    btnFav.setAttribute("aria-pressed","true");
+    db.ref("estrelas/"+id).transaction(v => (v||0)+1);
     return;
   }
+
   const btnLer = e.target.closest(".ler");
-  if(btnLer) {
-    const livro = livros.find(l => l.id == btnLer.dataset.id);
-    if(livro) openDrawer(livro);
+  if(btnLer){
+    const id = btnLer.dataset.id;
+    const item = [...livros, ...novels].find(x => x.id == id);
+    if(item) openDrawer(item);
   }
 });
 
-// FUNÇÃO ABRIR DRAWER
-function openDrawer(livro){
-    const drawer = document.getElementById("drawer");
-    const content = document.querySelector(".drawer-content");
-    document.getElementById("drawerTitle").textContent = livro.titulo;
-    content.innerHTML = "";
-    for(let i=1; i<=livro.totalPaginas; i++) {
-        const img = document.createElement("img");
-        img.src = `${livro.pasta}/Pagina ${i}.png`;
-        content.appendChild(img);
-    }
-    drawer.classList.add("open");
+// Função drawer
+function openDrawer(item){
+  const drawer = document.getElementById("drawer");
+  const content = document.querySelector(".drawer-content");
+  document.getElementById("drawerTitle").textContent = item.titulo;
+  content.innerHTML = "";
+  for(let i=1;i<=item.totalPaginas;i++){
+    const img = document.createElement("img");
+    img.src = `${item.pasta}/Pagina ${i}.png`;
+    content.appendChild(img);
+  }
+  drawer.classList.add("open");
 }
 
-// FECHAR DRAWER
 document.getElementById("closeDrawer").onclick = () => {
-    document.getElementById("drawer").classList.remove("open");
+  document.getElementById("drawer").classList.remove("open");
 };
 
-// 💬 COMENTÁRIOS
+// Comentários
 const btnComment = document.querySelector(".btn-comment");
 const textarea = document.querySelector(".comment-section textarea");
 const section = document.querySelector(".comment-section");
 
 db.ref("comentarios").limitToLast(20).once("value", snap=>{
-    snap.forEach(c=>{
-        addComment(c.val().texto, c.val().pais||"Desconhecido");
-    });
+    snap.forEach(c=>addComment(c.val().texto, c.val().pais||"Desconhecido"));
 });
-
 db.ref("comentarios").limitToLast(1).on("child_added", snap=>{
     addComment(snap.val().texto, snap.val().pais||"Desconhecido");
 });
@@ -334,117 +321,6 @@ function addComment(text, country){
     p.innerHTML = `${text} <span class="comment-country">${country}</span>`;
     section.appendChild(p);
 }
-
-
-
-
-
-
-
-   <!-- NOVELS MÓDULO -->
-<aside class="novels">
-  <h2>Novels</h2>
-  <p style="font-size:0.8rem;color:#aab0bd">Histórias rápidas</p>
-  <div id="novelGrid" class="grid"></div>
-</aside>
-
-<style>
-.novels {
-  background: #000;
-  padding: 1rem;
-  overflow: auto;
-  border-left: 1px solid #1a0901;
-}
-</style>
-
-<script>
-// NOVELS DATA
-const novels = [
-  {
-    id: 101,
-    titulo: "O Último Sino",
-    autor: "Autor Desconhecido",
-    capa: "novel1.png",
-    pasta: "Novels/Sino",
-    totalPaginas: 4,
-    sinopse: "O sino toca apenas uma vez."
-  },
-  {
-    id: 102,
-    titulo: "Cinza no Cálice",
-    autor: "Autor Desconhecido",
-    capa: "novel2.png",
-    pasta: "Novels/Cinzas",
-    totalPaginas: 3,
-    sinopse: "Uma fé escrita por outra mão."
-  }
-];
-
-const novelGrid = document.getElementById("novelGrid");
-
-// Função genérica para renderizar cards (livros ou novels)
-function renderCard(item, container, includeFav = false){
-  const card = document.createElement("div");
-  card.className = "card-book";
-  card.innerHTML = `
-    <div class="cover"><img src="${item.capa}"></div>
-    <div class="meta">
-      <h3>${item.titulo}</h3>
-      <div class="author">Por: ${item.autor}</div>
-      <div class="synopsis">${item.sinopse}</div>
-    </div>
-    <div class="actions">
-      <button class="btn ler" data-id="${item.id}">Ler</button>
-      ${includeFav ? `<button class="btn fav" aria-pressed="false" data-id="${item.id}">
-        <span class="star-count" id="stars-${item.id}">0</span>
-      </button>` : ""}
-    </div>`;
-  container.appendChild(card);
-}
-
-// Render Novels (não incluem favoritos)
-novels.forEach(n => renderCard(n, novelGrid));
-
-// REMOVER LISTENERS DUPLICADOS: usar apenas um listener global
-document.body.addEventListener("click", e => {
-  const btnFav = e.target.closest(".fav");
-  if(btnFav){
-    const id = btnFav.dataset.id;
-    btnFav.setAttribute("aria-pressed", "true");
-    db.ref("estrelas/"+id).transaction(v => (v || 0) + 1);
-    return;
-  }
-
-  const btnLer = e.target.closest(".ler");
-  if(btnLer){
-    const id = btnLer.dataset.id;
-    // Procura entre livros + novels
-    const item = [...livros, ...novels].find(x => x.id == id);
-    if(item) openDrawer(item);
-  }
-});
-
-// REUTILIZA MESMO DRAWER (já existente)
-function openDrawer(item){
-  const drawer = document.getElementById("drawer");
-  const content = document.querySelector(".drawer-content");
-  document.getElementById("drawerTitle").textContent = item.titulo;
-
-  content.innerHTML = "";
-  for(let i=1;i<=item.totalPaginas;i++){
-    const img = document.createElement("img");
-    img.src = `${item.pasta}/Pagina ${i}.png`;
-    content.appendChild(img);
-  }
-
-  drawer.classList.add("open");
-}
-
-
-
-
-
-    
 </script>
 </body>
 </html>
