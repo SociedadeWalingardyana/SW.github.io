@@ -340,6 +340,99 @@ function addComment(text, country){
 
 
 
+    <!-- NOVELS MÓDULO COMPLETO INTEGRADO -->
+<aside class="novels">
+  <h2>Novels</h2>
+  <p style="font-size:0.8rem;color:#aab0bd">Sessão de histórias rápidas</p>
+  <div id="novelGrid" class="grid"></div>
+</aside>
+
+<style>
+/* NOVELS CSS */
+.novels {
+  background: #000;
+  padding: 1rem;
+  overflow: auto;
+  border-left: 1px solid #1a0901;
+}
+</style>
+
+<script>
+// NOVELS DATA
+const novels = [
+  {
+    id: 101,
+    titulo: "O Último Sino",
+    autor: "Autor Desconhecido",
+    capa: "novel1.png",
+    pasta: "Novels/Sino",
+    totalPaginas: 4,
+    sinopse: "O sino toca apenas uma vez."
+  },
+  {
+    id: 102,
+    titulo: "Cinza no Cálice",
+    autor: "Autor Desconhecido",
+    capa: "novel2.png",
+    pasta: "Novels/Cinzas",
+    totalPaginas: 3,
+    sinopse: "Uma fé escrita por outra mão."
+  }
+];
+
+const novelGrid = document.getElementById("novelGrid");
+
+// Função genérica para criar cards (livros ou novels)
+function renderCard(item, container){
+  const card = document.createElement("div");
+  card.className = "card-book";
+  card.innerHTML = `
+    <div class="cover"><img src="${item.capa}"></div>
+    <div class="meta">
+      <h3>${item.titulo}</h3>
+      <div class="author">Por: ${item.autor}</div>
+      <div class="synopsis">${item.sinopse}</div>
+    </div>
+    <div class="actions">
+      <button class="btn ler" data-id="${item.id}">Ler</button>
+    </div>`;
+  container.appendChild(card);
+}
+
+// Render livros existentes (garante que não some)
+livros.forEach(l => renderCard(l, document.getElementById("grade")));
+
+// Render Novels
+novels.forEach(n => renderCard(n, novelGrid));
+
+// Lógica única de abrir drawer
+document.body.addEventListener("click", e => {
+  const btn = e.target.closest(".ler");
+  if (!btn) return;
+
+  // busca entre livros + novels
+  const item = [...livros, ...novels].find(x => x.id == btn.dataset.id);
+  if (!item) return;
+
+  const drawer = document.getElementById("drawer");
+  const content = document.querySelector(".drawer-content");
+  document.getElementById("drawerTitle").textContent = item.titulo;
+  content.innerHTML = "";
+
+  for(let i=1; i<=item.totalPaginas; i++){
+    const img = document.createElement("img");
+    img.src = `${item.pasta}/Pagina ${i}.png`;
+    content.appendChild(img);
+  }
+
+  drawer.classList.add("open");
+});
+
+
+
+
+
+
 
 
 
