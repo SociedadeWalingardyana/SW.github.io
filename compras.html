@@ -101,10 +101,48 @@
                 },
             },
         });
-    </script>
+
+
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script>
+    const mp = new MercadoPago('APP_USR-6e5e23d3-3ec7-40b2-98b1-ce3c41e46d3a', {
+        locale: 'pt-BR'
+    });
+
+    async function carregarBotao() {
+        try {
+            // Chama a API que você criou na Vercel
+            const response = await fetch('/api/checkout');
+            const data = await response.json();
+
+            if (!data.id) throw new Error("ID não gerado");
+
+            mp.bricks().create("wallet", "walletWidget", {
+                initialization: {
+                    preferenceId: data.id,
+                },
+                customization: {
+                    texts: { valueProp: 'smart_option', action: 'pay' },
+                },
+            });
+        } catch (err) {
+            console.error("Erro ao carregar Mercado Pago:", err);
+        }
+    }
+
+    carregarBotao();
+</script>
+
+
+
+
+
+
+        
 
 </body>
 </html>
+
 
 
 
