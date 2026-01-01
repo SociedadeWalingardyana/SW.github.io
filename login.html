@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login / Cadastro - Sociedade Walingardyana</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      background-color: #000000;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 320px;
+      padding: 20px;
+      background: #111;
+      border-radius: 8px;
+      box-shadow: 0 0 15px #2563eb33;
+      border: 1px solid #222;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2563eb;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: #000;
+      color: white;
+      box-sizing: border-box;
+    }
+    .buttons-row {
+      display: flex; 
+      justify-content: space-between;
+    }
+    button {
+      width: 48%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      color: white;
+      background-color: #2563eb;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #1e40af;
+    }
+    #signupBtn {
+      background-color: #374151;
+    }
+    #signupBtn:hover {
+      background-color: #4b5563;
+    }
+    .message {
+      margin-top: 15px;
+      font-size: 13px;
+      min-height: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Sociedade Walingardyana</h2>
+  <input type="email" id="email" placeholder="E-mail" autocomplete="username" />
+  <input type="password" id="password" placeholder="Senha" autocomplete="current-password" />
+  
+  <div class="buttons-row">
+    <button id="loginBtn">Entrar</button>
+    <button id="signupBtn">Cadastrar</button>
+  </div>
+  <div class="message" id="message"></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+  // Suas credenciais reais extraídas das imagens enviadas
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
+    authDomain: "login-sw-14940.firebaseapp.com",
+    projectId: "login-sw-14940",
+    storageBucket: "login-sw-14940.firebasestorage.app",
+    messagingSenderId: "252978150700",
+    appId: "1:252978150700:web:2c7d3997389f7675058089",
+    measurementId: "G-5G7MWZHKCS"
+  };
+
+  // Inicializa Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const loginBtn = document.getElementById('loginBtn');
+  const signupBtn = document.getElementById('signupBtn');
+  const messageDiv = document.getElementById('message');
+
+  // Função para exibir mensagens traduzidas
+  function showMessage(msg, isError = true) {
+    messageDiv.style.color = isError ? '#f87171' : '#34d399';
+    
+    // Tradução simples de erros comuns do Firebase
+    let traduzida = msg;
+    if(msg.includes("auth/invalid-credential")) traduzida = "E-mail ou senha incorretos.";
+    if(msg.includes("auth/email-already-in-use")) traduzida = "Este e-mail já está cadastrado.";
+    if(msg.includes("auth/weak-password")) traduzida = "A senha deve ter pelo menos 6 caracteres.";
+    if(msg.includes("auth/invalid-email")) traduzida = "Formato de e-mail inválido.";
+    
+    messageDiv.textContent = traduzida;
+  }
+
+  // Ação de Login
+  loginBtn.addEventListener('click', () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    
+    if (!email || !password) {
+      showMessage('Preencha todos os campos.');
+      return;
+    }
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        showMessage('Login realizado! Entrando...', false);
+        setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+      })
+      .catch(error => { showMessage(error.message); });
+  });
+
+  // Ação de Cadastro
+  signupBtn.addEventListener('click', () => {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if (!email || !password) {
+      showMessage('Preencha todos os campos.');
+      return;
+    }
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        showMessage('Conta criada com sucesso!', false);
+        setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+      })
+      .catch(error => { showMessage(error.message); });
+  });
+</script>
+
+</body>
+</html>
