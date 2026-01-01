@@ -37,7 +37,6 @@
       overflow: hidden;
     }
 
-    /* Estilo do anúncio */
     #anuncio-flutuante {
       position: fixed;
       top: 100px;
@@ -69,7 +68,6 @@
     #anuncio-flutuante h3 { margin-top: 0; color: #007bff; font-size: 16px; }
     #anuncio-flutuante p { font-size: 14px; color: #555; text-align: left; margin-bottom: 10px; }
 
-    /* Estilos dos Botões de Topo */
     .top-button {
       position: fixed;
       top: 10px;
@@ -85,6 +83,21 @@
       transition: background 0.2s;
     }
     .top-button:hover { background: #333; }
+
+    /* Estilo para a mensagem de usuário logado */
+    #user-greeting {
+      position: fixed;
+      top: 10px;
+      right: 170px;
+      color: #ffd700; /* Cor dourada para destaque */
+      font-weight: bold;
+      z-index: 9999;
+      background: rgba(26, 26, 26, 0.8);
+      padding: 5px 15px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      display: none; /* Escondido por padrão */
+    }
   </style>
 </head>
 <body class="text-white">
@@ -144,6 +157,8 @@
     </div>
   </footer>
 
+  <div id="user-greeting"></div>
+
   <div id="login-btn" class="top-button" style="right: 170px; padding: 5px 15px;">
     Login
   </div>
@@ -162,8 +177,47 @@
     <li style="padding: 8px 12px; color: white; cursor: pointer;">English</li>
   </ul>
 
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+
   <script>
+    // 1. CONFIGURAÇÃO DO FIREBASE (Cole aqui a sua configuração do Firebase Console)
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "SEU_AUTH_DOMAIN",
+      projectId: "SEU_PROJECT_ID",
+      storageBucket: "SEU_STORAGE_BUCKET",
+      messagingSenderId: "SEU_SENDER_ID",
+      appId: "SEU_APP_ID"
+    };
+    
+    // Inicializar Firebase (compat)
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
     document.addEventListener('DOMContentLoaded', function() {
+      const loginBtn = document.getElementById('login-btn');
+      const userGreeting = document.getElementById('user-greeting');
+
+      // OBSERVAR ESTADO DE AUTENTICAÇÃO
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          // Usuário está logado
+          loginBtn.style.display = 'none';
+          
+          // Formatar o email (ex: mr.gabri...)
+          const email = user.email;
+          const displayEmail = email.length > 10 ? email.substring(0, 10) + "..." : email;
+          
+          userGreeting.textContent = `Olá, ${displayEmail}`;
+          userGreeting.style.display = 'block';
+        } else {
+          // Usuário não está logado
+          loginBtn.style.display = 'flex';
+          userGreeting.style.display = 'none';
+        }
+      });
+
       // Fechar Anúncio
       const botaoFechar = document.getElementById('fechar-anuncio');
       const caixaAnuncio = document.getElementById('anuncio-flutuante');
@@ -181,7 +235,7 @@
         window.location.href = 'SW Sistem.html';
       });
 
-      document.getElementById('login-btn').addEventListener('click', () => {
+      loginBtn.addEventListener('click', () => {
         window.location.href = 'login.html';
       });
 
