@@ -24,8 +24,6 @@
       line-height: 1.2;
     }
 
-    p { margin-bottom: 20px; line-height: 1.6; }
-
     /* Botões Superiores */
     .top-button {
       position: fixed;
@@ -45,20 +43,20 @@
     
     .top-button:hover { background: #333; }
 
-    /* Estilo da Saudação - IMPORTANTE */
+    /* Saudação do Usuário */
     #user-greeting {
       position: fixed;
       top: 10px;
-      right: 170px; /* Mesma posição do botão Login */
+      right: 170px;
       color: #ffd700;
       font-weight: bold;
-      z-index: 10000;
-      background: rgba(26, 26, 26, 0.9);
+      z-index: 10001; /* Camada acima do botão para garantir visibilidade */
+      background: #1a1a1a;
       padding: 5px 15px;
       border-radius: 5px;
-      display: none; /* Começa escondido */
+      display: none; 
       border: 1px solid #ffd700;
-      white-space: nowrap;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
     }
 
     header, footer { background-color: black; }
@@ -67,7 +65,7 @@
 <body>
 
   <div id="user-greeting"></div>
-  <div id="login-btn" class="top-button" style="right: 170px; padding: 5px 15px;">Login</div>
+  <button id="login-btn" class="top-button" style="right: 170px; padding: 5px 15px;">Login</button>
   
   <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">Direct Colab</div>
   <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">▼</div>
@@ -88,10 +86,7 @@
   <main class="container mx-auto mt-12 px-6 max-w-4xl">
     <h2 class="titulo-cinzel">Origem da Sociedade Walingardyana</h2>
     <p>A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino...</p>
-    
-    <h2 class="titulo-cinzel" style="margin-top: 4rem;">Visão para o futuro</h2>
-    <p>Nosso maior desejo a longo prazo é nos tornar a principal produtora...</p>
-  </main>
+    </main>
 
   <footer class="text-center p-8 mt-16">
     <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
@@ -101,7 +96,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
   <script>
-    // 1. Sua Configuração do Firebase
+    // 1. Configuração (Substitua pelos seus dados reais)
     const firebaseConfig = {
       apiKey: "SUA_API_KEY",
       authDomain: "SEU_PROJETO.firebaseapp.com",
@@ -112,31 +107,43 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // 2. Lógica de monitoramento do Login
+    // 2. Lógica de Verificação de Usuário
     auth.onAuthStateChanged((user) => {
       const loginBtn = document.getElementById('login-btn');
       const greeting = document.getElementById('user-greeting');
 
       if (user) {
-        // USUÁRIO LOGADO: Esconde botão, mostra "Olá"
-        loginBtn.style.setProperty('display', 'none', 'important');
+        console.log("Usuário detectado:", user.email);
         
-        // Formata o nome (ex: mr.gabri...)
-        const emailPrefix = user.email.split('@')[0];
-        const displayName = emailPrefix.length > 8 ? emailPrefix.substring(0, 8) + "..." : emailPrefix;
+        // Esconde o botão de login de forma agressiva
+        loginBtn.setAttribute('style', 'display: none !important');
         
-        greeting.textContent = `Olá, ${displayName}`;
-        greeting.style.display = 'flex';
+        // Trata o nome de exibição
+        const emailBase = user.email.split('@')[0];
+        const formatName = emailBase.length > 8 ? emailBase.substring(0, 8) + "..." : emailBase;
+        
+        greeting.innerHTML = `Olá, ${formatName}`;
+        greeting.style.display = 'block';
       } else {
-        // USUÁRIO DESLOGADO: Mostra botão, esconde "Olá"
+        console.log("Nenhum usuário logado.");
         loginBtn.style.display = 'flex';
         greeting.style.display = 'none';
       }
     });
 
-    // Redirecionamentos
-    document.getElementById('login-btn').onclick = () => window.location.href = 'login.html';
-    document.getElementById('direct-colab').onclick = () => window.location.href = 'SW Sistem.html';
+    // 3. Redirecionamentos e Cadastro para Compras
+    document.getElementById('login-btn').onclick = () => {
+      window.location.href = 'login.html';
+    };
+
+    // Exemplo de bloqueio para loja (opcional)
+    document.querySelector('a[href="loja.html"]').onclick = (e) => {
+      if (!auth.currentUser) {
+        e.preventDefault();
+        alert("Para comprar livros, você precisa estar logado!");
+        window.location.href = 'login.html';
+      }
+    };
   </script>
 </body>
 </html>
