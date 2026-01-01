@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sociedade Walingardyana</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
   
   <style>
@@ -15,26 +14,19 @@
       font-family: sans-serif;
       text-align: justify;
       margin: 0;
-      padding: 0;
     }
 
-    /* Títulos Épicos */
     .titulo-cinzel {
       font-family: 'Cinzel', serif;
       font-size: 3rem;
       text-align: center;
       margin-bottom: 2rem;
       line-height: 1.2;
-      color: #FFFFFF;
     }
 
-    p {
-      text-align: justify;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
+    p { margin-bottom: 20px; line-height: 1.6; }
 
-    /* Botões Superiores Corrigidos */
+    /* Botões Superiores */
     .top-button {
       position: fixed;
       top: 10px;
@@ -43,7 +35,7 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      z-index: 10000; /* Garante que fique acima de tudo */
+      z-index: 10000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -51,77 +43,40 @@
       border: 1px solid #333;
     }
     
-    .top-button:hover {
-      background: #333;
-    }
+    .top-button:hover { background: #333; }
 
+    /* Estilo da Saudação - IMPORTANTE */
     #user-greeting {
       position: fixed;
       top: 10px;
-      right: 170px;
+      right: 170px; /* Mesma posição do botão Login */
       color: #ffd700;
       font-weight: bold;
       z-index: 10000;
       background: rgba(26, 26, 26, 0.9);
       padding: 5px 15px;
       border-radius: 5px;
-      display: none;
+      display: none; /* Começa escondido */
       border: 1px solid #ffd700;
+      white-space: nowrap;
     }
 
-    /* Lista de Idiomas */
-    #language-list {
-      position: fixed;
-      top: 50px;
-      right: 10px;
-      width: 120px;
-      background: #1a1a1a;
-      border: 1px solid #444;
-      border-radius: 5px;
-      list-style: none;
-      padding: 5px 0;
-      display: none;
-      z-index: 10001;
-    }
-
-    #language-list li {
-      padding: 8px 12px;
-      color: white;
-      cursor: pointer;
-    }
-
-    #language-list li:hover {
-      background: #333;
-    }
-
-    /* Header e Nav */
-    header {
-      background-color: black;
-    }
-
-    footer {
-      background-color: black;
-    }
+    header, footer { background-color: black; }
   </style>
 </head>
 <body>
 
   <div id="user-greeting"></div>
   <div id="login-btn" class="top-button" style="right: 170px; padding: 5px 15px;">Login</div>
+  
   <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">Direct Colab</div>
   <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">▼</div>
 
-  <ul id="language-list">
-    <li>Português</li>
-    <li>Español</li>
-    <li>English</li>
-  </ul>
-
   <header class="p-4 shadow-md">
     <div class="container mx-auto flex flex-col items-center">
-      <img src="oficial.png" alt="Logo Walingardyana" class="w-32 h-auto mb-2" />
+      <img src="oficial.png" alt="Logo" class="w-32 h-auto mb-2" />
       <h1 class="text-2xl font-bold">Sociedade Walingardyana</h1>
-      <nav class="flex flex-wrap gap-4 justify-center mt-2">
+      <nav class="flex gap-4 mt-2">
         <a href="novidades.html" class="hover:underline">Notícias</a>
         <a href="loja.html" class="hover:underline">Loja</a>
         <a href="autores.html" class="hover:underline">Nossos Autores</a>
@@ -130,101 +85,58 @@
     </div>
   </header>
 
-  <section class="container mx-auto mt-6">
-    <div class="h-80 rounded overflow-hidden shadow-lg border border-gray-800">
-      <video class="w-full h-full object-cover" autoplay muted loop playsinline>
-        <source src="walinga.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeo.
-      </video>
-    </div>
-  </section>
-
   <main class="container mx-auto mt-12 px-6 max-w-4xl">
     <h2 class="titulo-cinzel">Origem da Sociedade Walingardyana</h2>
-    <p>
-      A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido. Com a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência.
-    </p>
-    <p>
-      Foi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo. Juntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir.
-    </p>
-    <p>
-      Posteriormente, um jovem escritor tão, ou mais talentoso que Gabryell, de nome Wellington Noves, resolveu especular sobre o funcionamento da ideia, momento em que, expressou interesse em investir na SW. Seu empenho inicialmente se deu como observador obstinado e por fim, devido ao seus excepcionais trabalhos, foi convidado a se tornar sócio da marca. Wellington assumiu integralmente o comando da SW Editorial como editor-chefe neste ano. A equipe conta com outros profissionais qualificados, como é o caso da Srta. Agatha Rosário, parceira de Gabryell em outra área, que entrou para o cargo de auditoria na SW.
-    </p>
-
-    <h2 class="titulo-cinzel" style="margin-top: 4rem;">Visão da Sociedade Walingardyana para o futuro</h2>
-    <p>
-      Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia. Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional.
-    </p>
+    <p>A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino...</p>
+    
+    <h2 class="titulo-cinzel" style="margin-top: 4rem;">Visão para o futuro</h2>
+    <p>Nosso maior desejo a longo prazo é nos tornar a principal produtora...</p>
   </main>
 
-  <footer class="text-white text-center p-8 mt-16 border-t border-gray-900">
-    <p class="mb-4">&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
-    <div class="flex justify-center space-x-6">
-      <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank" class="hover:text-red-600">YouTube</a>
-      <a href="https://discord.gg/JwsX9hcaGa" target="_blank" class="hover:text-blue-500">Discord</a>
-      <a href="https://www.instagram.com/walin_org/" target="_blank" class="hover:text-pink-500">Instagram</a>
-    </div>
+  <footer class="text-center p-8 mt-16">
+    <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
   </footer>
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
   <script>
-    // Inicialização segura para garantir que os cliques funcionem
-    window.onload = function() {
-      
-      // 1. CONFIGURAÇÃO FIREBASE (Substitua pelos seus dados para o login ativar)
-      const firebaseConfig = {
-        apiKey: "SUA_API_KEY",
-        authDomain: "SEU_PROJETO.firebaseapp.com",
-        projectId: "SEU_PROJETO",
-        appId: "SEU_APP_ID"
-      };
-      
-      try {
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        // Verificar Login
-        auth.onAuthStateChanged((user) => {
-          const loginBtn = document.getElementById('login-btn');
-          const greet = document.getElementById('user-greeting');
-          if (user) {
-            loginBtn.style.display = 'none';
-            const emailPart = user.email.split('@')[0];
-            const display = emailPart.length > 8 ? emailPart.substring(0, 8) + "..." : emailPart;
-            greet.textContent = `Olá, ${display}`;
-            greet.style.display = 'block';
-          }
-        });
-      } catch (e) { console.log("Firebase não configurado."); }
-
-      // 2. FUNCIONALIDADE DOS BOTÕES (Ação ao clicar)
-      
-      // Botão Login
-      document.getElementById('login-btn').onclick = function() {
-        window.location.href = 'login.html';
-      };
-
-      // Botão Direct Colab
-      document.getElementById('direct-colab').onclick = function() {
-        window.location.href = 'SW Sistem.html';
-      };
-
-      // Seletor de Idioma
-      const selector = document.getElementById('language-selector');
-      const list = document.getElementById('language-list');
-      
-      selector.onclick = function(e) {
-        e.stopPropagation();
-        list.style.display = (list.style.display === 'block') ? 'none' : 'block';
-      };
-
-      // Fechar lista de idioma se clicar fora
-      document.onclick = function() {
-        list.style.display = 'none';
-      };
+    // 1. Sua Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "SEU_PROJETO.firebaseapp.com",
+      projectId: "SEU_PROJETO",
+      appId: "SEU_APP_ID"
     };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // 2. Lógica de monitoramento do Login
+    auth.onAuthStateChanged((user) => {
+      const loginBtn = document.getElementById('login-btn');
+      const greeting = document.getElementById('user-greeting');
+
+      if (user) {
+        // USUÁRIO LOGADO: Esconde botão, mostra "Olá"
+        loginBtn.style.setProperty('display', 'none', 'important');
+        
+        // Formata o nome (ex: mr.gabri...)
+        const emailPrefix = user.email.split('@')[0];
+        const displayName = emailPrefix.length > 8 ? emailPrefix.substring(0, 8) + "..." : emailPrefix;
+        
+        greeting.textContent = `Olá, ${displayName}`;
+        greeting.style.display = 'flex';
+      } else {
+        // USUÁRIO DESLOGADO: Mostra botão, esconde "Olá"
+        loginBtn.style.display = 'flex';
+        greeting.style.display = 'none';
+      }
+    });
+
+    // Redirecionamentos
+    document.getElementById('login-btn').onclick = () => window.location.href = 'login.html';
+    document.getElementById('direct-colab').onclick = () => window.location.href = 'SW Sistem.html';
   </script>
 </body>
 </html>
