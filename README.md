@@ -2,6 +2,7 @@
 
 Devido as permissões de acesso ao código oferecidas pelo github sem o concentimento do dono do projeto SW, o download dos códigos aqui escritos estão permitidos para uma única finalidade: "Estudos". Está proibida a cópia, venda, ou assunção do projeto Sociedade Walingardyana, e da SW Editorial por terceiros, consumidores dos códigos. 
 
+________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
 © Walingardyana Society, 2025. All rights reserved. Reproduction or distribution of this code is not permitted without prior authorization.
 
