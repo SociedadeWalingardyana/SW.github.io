@@ -1,102 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script>
-    /* TRAVA DE SEGURANÇA IMEDIATA */
-    (function() {
-      if (localStorage.getItem('logado') !== 'true') {
-        // Redireciona para 'index2.html' se não houver login
-        window.location.href = 'index2.html';
-      }
-    })();
-  </script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sociedade Walingardyana</title>
-  
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
   
+  <!-- Fonte Cinzel para os títulos principais -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
   <style>
-    body { 
-      background-color: #281109 !important; 
-      color: #FFFFFF; 
-      font-family: sans-serif; 
-      text-align: justify; 
-    }
-    
-    #boas-vindas { 
-      font-family: 'Cinzel', serif; 
-      font-size: 3rem; 
-      text-align: center; 
-      margin-bottom: 2rem; 
-    }
-    
-    p { 
-      text-align: justify; 
-      margin-bottom: 20px; 
-    }
-    
-    body::before { 
-      content: ""; 
-      position: fixed; 
-      top: 0; left: 0; 
-      width: 100%; height: 100%; 
-      z-index: -1; 
-      overflow: hidden; 
+    body {
+      background-color: #281109 !important;
+      color: #FFFFFF;
+      font-family: sans-serif;
+      text-align: justify;
     }
 
-    /* Estilo do anúncio flutuante */
-    #anuncio-flutuante { 
-      position: fixed; 
-      top: 100px; 
-      right: 20px; 
-      z-index: 1000; 
-      width: 250px; 
-      padding: 15px; 
-      background-color: #f8f8f8; 
-      border: 1px solid #ccc; 
-      border-radius: 5px; 
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-      font-family: Arial, sans-serif; 
+    #boas-vindas {
+      font-family: 'Cinzel', serif;
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 2rem;
     }
-    
-    #fechar-anuncio { 
-      position: absolute; 
-      top: 5px; 
-      right: 10px; 
-      font-size: 18px; 
-      font-weight: bold; 
-      color: #333; 
-      cursor: pointer; 
-      border: none; 
-      background: none; 
-      padding: 0; 
-      line-height: 1; 
-    }
-    
-    #fechar-anuncio:hover { color: #ff0000; }
-    #anuncio-flutuante h3 { margin-top: 0; color: #007bff; font-size: 16px; }
-    #anuncio-flutuante p { font-size: 14px; color: #555; }
 
-    /* Estilos dos seletores superiores */
-    .btn-top-fixo {
+    p {
+      text-align: justify;
+      margin-bottom: 20px; /* Espaço entre estrofes */
+    }
+
+    body::before {
+      content: "";
       position: fixed;
-      top: 10px;
-      background: #1a1a1a;
-      color: white;
-      border-radius: 5px;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .flag {
+      width: 28px;
+      height: 20px;
       cursor: pointer;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    }
+
+    /* Estilo do anúncio */
+    #anuncio-flutuante {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      z-index: 1000;
+      width: 250px;
+      padding: 15px;
+      background-color: #f8f8f8;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-family: Arial, sans-serif;
+    }
+
+    #fechar-anuncio {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    #fechar-anuncio:hover {
+      color: #ff0000;
+    }
+
+    #anuncio-flutuante h3 {
+      margin-top: 0;
+      color: #007bff;
+      font-size: 16px;
+    }
+
+    #anuncio-flutuante p {
+      font-size: 14px;
+      color: #555;
     }
   </style>
 </head>
 <body class="text-white">
 
+  <!-- Cabeçalho principal -->
   <header class="bg-black text-white p-4 shadow-md">
     <div class="container mx-auto flex flex-col items-center">
       <img src="oficial.png" alt="Logo Walingardyana" class="w-32 h-auto mb-2" />
@@ -110,6 +105,7 @@
     </div>
   </header>
 
+  <!-- Seção de vídeo -->
   <section class="container mx-auto mt-6">
     <div class="h-80 rounded overflow-hidden shadow-lg">
       <video class="w-full h-full object-cover" autoplay muted loop>
@@ -119,6 +115,7 @@
     </div>
   </section>
 
+  <!-- Anúncio Flutuante -->
   <div id="anuncio-flutuante">
     <button id="fechar-anuncio" role="button" aria-label="Fechar Anúncio">X</button>
     <h3>Melissa</h3>
@@ -126,6 +123,17 @@
     <a href="#" style="color: #007bff; text-decoration: none; font-weight: bold;">Ver Detalhes</a>
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const botaoFechar = document.getElementById('fechar-anuncio');
+      const caixaAnuncio = document.getElementById('anuncio-flutuante');
+      botaoFechar.addEventListener('click', function() {
+        caixaAnuncio.style.display = 'none';
+      });
+    });
+  </script>
+
+  <!-- Seção: Origem -->
   <section class="text-white container mx-auto mt-6 text-lg font-medium">
     <p id="boas-vindas">Origem da Sociedade Walingardyana</p>
     <p id="explicativo1">
@@ -139,16 +147,18 @@
     </p> 
   </section>
 
+  <!-- Seção: Visão para o futuro -->
   <section class="text-white container mx-auto mt-6 text-lg font-medium">
-    <p id="boas-vindas-visao" class="text-center font-bold text-4xl mb-8" style="font-family: 'Cinzel', serif;">Visão da Sociedade Walingardyana para o futuro</p>
-    <p>
+    <p id="boas-vindas">Visão da Sociedade Walingardyana para o futuro</p>
+    <p id="explicativo1">
       Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia.
       Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional.
     </p>
   </section>
 
+  <!-- Rodapé totalmente centralizado -->
   <footer class="bg-black text-white text-center p-4 mt-16 space-y-2">
-    <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
+    <p style="text-align: center;">&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
     <div class="flex justify-center space-x-6">
       <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank" class="hover:underline">YouTube</a>
       <a href="https://discord.gg/JwsX9hcaGa" target="_blank" class="hover:underline">Discord</a>
@@ -156,89 +166,131 @@
     </div>
   </footer>
 
-  <div id="direct-colab" class="btn-top-fixo" style="right: 50px; padding: 5px 10px; font-weight: bold;">
+  <!-- Botão de idioma -->
+  <div id="language-selector" style="
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: #1a1a1a;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  ">
+    <span style="color: white; font-size: 16px; user-select: none;">▼</span>
+  </div>
+
+  <!-- Botão Direct Colab -->
+  <div id="direct-colab" style="
+      position: fixed;
+      top: 10px;
+      right: 50px;
+      background: #1a1a1a;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 9999;
+      text-align: center;
+  ">
     Direct Colab
   </div>
 
-  <div id="language-selector" class="btn-top-fixo" style="right: 10px; width: 30px; height: 30px;">
-    <span style="user-select: none;">▼</span>
-  </div>
-
-  <ul id="language-list" style="position: fixed; top: 45px; right: 10px; width: 120px; background: #222; border: 1px solid #ccc; border-radius: 5px; list-style: none; padding: 5px 0; display: none; z-index: 9999;">
-    <li style="padding: 8px 12px; color: white; cursor: pointer;">Português</li>
-    <li style="padding: 8px 12px; color: white; cursor: pointer;">Español</li>
-    <li style="padding: 8px 12px; color: white; cursor: pointer;">English</li>
+  <!-- Lista suspensa de idiomas -->
+  <ul id="language-list" style="
+    position: fixed;
+    top: 45px;
+    right: 10px;
+    width: 120px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #222;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    display: none;
+    z-index: 9999;
+  ">
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Português</li>
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Español</li>
+    <li style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
   </ul>
 
+  <!-- Script do seletor de idioma e Direct Colab -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // 1. Controle do Anúncio
-      const btnFechar = document.getElementById('fechar-anuncio');
-      const anuncio = document.getElementById('anuncio-flutuante');
-      if(btnFechar) {
-        btnFechar.onclick = () => anuncio.style.display = 'none';
-      }
+    const selector = document.getElementById('language-selector');
+    const list = document.getElementById('language-list');
 
-      // 2. Seletor de Idioma
-      const selector = document.getElementById('language-selector');
-      const list = document.getElementById('language-list');
-      
-      selector.onclick = (e) => {
-        list.style.display = (list.style.display === 'block') ? 'none' : 'block';
-        e.stopPropagation();
-      };
+    selector.addEventListener('click', () => {
+      list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+    });
 
-      document.onclick = (e) => {
-        if (!selector.contains(e.target) && !list.contains(e.target)) {
-          list.style.display = 'none';
-        }
-      };
-
-      const traducoes = {
-        pt: {
-          "titulo-principal": "Sociedade Walingardyana",
-          "nav-novidades": "Notícias",
-          "nav-loja": "Loja",
-          "nav-autores": "Nossos Autores",
-          "nav-biblioteca": "Biblioteca",
-          "boas-vindas": "Origem da Sociedade Walingardyana"
-        },
-        en: {
-          "titulo-principal": "Walingardyan Society",
-          "nav-novidades": "News",
-          "nav-loja": "Store",
-          "nav-autores": "Our Authors",
-          "nav-biblioteca": "Library",
-          "boas-vindas": "Origin of the Walingardyan Society"
-        },
-        es: {
-          "titulo-principal": "Sociedad Walingardyana",
-          "nav-novidades": "Noticias",
-          "nav-loja": "Tienda",
-          "nav-autores": "Nuestros Autores",
-          "nav-biblioteca": "Biblioteca",
-          "boas-vindas": "Origen de la Sociedad Walingardyana"
-        }
-      };
-
-      list.querySelectorAll('li').forEach((li) => {
-        li.onclick = () => {
-          let langCode = li.textContent === 'Português' ? 'pt' : (li.textContent === 'English' ? 'en' : 'es');
-          const t = traducoes[langCode];
-          for (const id in t) {
-            const el = document.getElementById(id);
-            if (el) el.textContent = t[id];
-          }
-          list.style.display = 'none';
-        };
-      });
-
-      // 3. Redirecionamento Direct Colab
-      const colab = document.getElementById('direct-colab');
-      if(colab) {
-        colab.onclick = () => window.location.href = 'SW Sistem.html';
+    document.addEventListener('click', (e) => {
+      if (!selector.contains(e.target) && !list.contains(e.target)) {
+        list.style.display = 'none';
       }
     });
+
+    const traducoes = {
+      pt: {
+        "titulo-principal": "Sociedade Walingardyana",
+        "nav-novidades": "Notícias",
+        "nav-loja": "Loja",
+        "nav-autores": "Nossos Autores",
+        "nav-biblioteca": "Biblioteca",
+        "boas-vindas": "Origem da Sociedade Walingardyana"
+      },
+      en: {
+        "titulo-principal": "Walingardyan Society",
+        "nav-novidades": "News",
+        "nav-loja": "Store",
+        "nav-autores": "Our Authors",
+        "nav-biblioteca": "Library",
+        "boas-vindas": "Origin of the Walingardyan Society"
+      },
+      es: {
+        "titulo-principal": "Sociedad Walingardyana",
+        "nav-novidades": "Noticias",
+        "nav-loja": "Tienda",
+        "nav-autores": "Nuestros Autores",
+        "nav-biblioteca": "Biblioteca",
+        "boas-vindas": "Origen de la Sociedad Walingardyana"
+      }
+    };
+
+    function setLanguage(lang) {
+      const t = traducoes[lang];
+      for (const id in t) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = t[id];
+      }
+    }
+
+    list.querySelectorAll('li').forEach((li) => {
+      li.addEventListener('click', () => {
+        let langCode = '';
+        switch (li.textContent) {
+          case 'Português': langCode = 'pt'; break;
+          case 'Español': langCode = 'es'; break;
+          case 'English': langCode = 'en'; break;
+        }
+        setLanguage(langCode);
+        list.style.display = 'none';
+      });
+    });
+
+    // Redirecionamento do Direct Colab
+    document.getElementById('direct-colab').addEventListener('click', function() {
+        window.location.href = 'SW Sistem.html';
+    });
   </script>
+
 </body>
 </html>
