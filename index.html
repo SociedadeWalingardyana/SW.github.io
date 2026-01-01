@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sociedade Walingardyana</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -14,7 +13,6 @@
       font-family: sans-serif;
       text-align: justify;
     }
-
     #boas-vindas {
       font-family: 'Cinzel', serif;
       font-size: 3rem;
@@ -22,52 +20,9 @@
       margin-bottom: 2rem;
       line-height: 1.2;
     }
-
-    p {
-      text-align: justify;
-      margin-bottom: 20px;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    #anuncio-flutuante {
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      z-index: 1000;
-      width: 250px;
-      padding: 15px;
-      background-color: #f8f8f8;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      font-family: Arial, sans-serif;
-    }
-
-    #fechar-anuncio {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-      cursor: pointer;
-      border: none;
-      background: none;
-      line-height: 1;
-    }
-
-    #fechar-anuncio:hover { color: #ff0000; }
-    #anuncio-flutuante h3 { margin-top: 0; color: #007bff; font-size: 16px; }
-    #anuncio-flutuante p { font-size: 14px; color: #555; text-align: left; margin-bottom: 10px; }
-
+    p { margin-bottom: 20px; }
+    
+    /* Botões Superiores */
     .top-button {
       position: fixed;
       top: 10px;
@@ -76,209 +31,138 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      z-index: 9999;
+      z-index: 10000;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.2s;
+      border: 1px solid #444;
     }
     .top-button:hover { background: #333; }
 
-    /* Estilo para a mensagem de usuário logado */
     #user-greeting {
       position: fixed;
       top: 10px;
       right: 170px;
-      color: #ffd700; /* Cor dourada para destaque */
+      color: #ffd700;
       font-weight: bold;
-      z-index: 9999;
-      background: rgba(26, 26, 26, 0.8);
+      z-index: 10000;
+      background: #1a1a1a;
       padding: 5px 15px;
       border-radius: 5px;
-      font-size: 0.9rem;
-      display: none; /* Escondido por padrão */
+      display: none;
+      border: 1px solid #ffd700;
     }
+
+    #language-list {
+      position: fixed;
+      top: 50px;
+      right: 10px;
+      width: 120px;
+      background: #222;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      list-style: none;
+      padding: 5px 0;
+      display: none;
+      z-index: 10001;
+    }
+    #language-list li { padding: 8px 12px; cursor: pointer; }
+    #language-list li:hover { background: #444; }
   </style>
 </head>
-<body class="text-white">
+<body>
 
-  <header class="bg-black text-white p-4 shadow-md">
-    <div class="container mx-auto flex flex-col items-center">
-      <img src="oficial.png" alt="Logo Walingardyana" class="w-32 h-auto mb-2" />
-      <h1 id="titulo-principal" class="text-2xl font-bold">Sociedade Walingardyana</h1>
-      <nav class="flex flex-wrap gap-4 justify-center mt-2">
-        <a id="nav-novidades" href="novidades.html" class="hover:underline">Notícias</a>
-        <a id="nav-loja" href="loja.html" class="hover:underline">Loja</a>
-        <a id="nav-autores" href="autores.html" class="hover:underline">Nossos Autores</a>
-        <a id="nav-biblioteca" href="Biblioteca.html" class="hover:underline">Biblioteca</a>
-      </nav>
-    </div>
+  <header class="bg-black p-4 shadow-md text-center">
+    <img src="oficial.png" alt="Logo" class="w-32 mx-auto mb-2" />
+    <h1 id="titulo-principal" class="text-2xl font-bold">Sociedade Walingardyana</h1>
+    <nav class="flex justify-center gap-4 mt-2">
+      <a href="novidades.html" class="hover:underline">Notícias</a>
+      <a href="loja.html" class="hover:underline">Loja</a>
+      <a href="autores.html" class="hover:underline">Nossos Autores</a>
+      <a href="Biblioteca.html" class="hover:underline">Biblioteca</a>
+    </nav>
   </header>
 
-  <section class="container mx-auto mt-6">
-    <div class="h-80 rounded overflow-hidden shadow-lg">
-      <video class="w-full h-full object-cover" autoplay muted loop>
-        <source src="walinga.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeo HTML5.
-      </video>
-    </div>
-  </section>
-
-  <div id="anuncio-flutuante">
-    <button id="fechar-anuncio" role="button" aria-label="Fechar Anúncio">X</button>
-    <h3>Melissa</h3>
-    <p>Do autor Wellington Novaes</p>
-    <a href="#" style="color: #007bff; text-decoration: none; font-weight: bold;">Ver Detalhes</a>
-  </div>
-
-  <section class="text-white container mx-auto mt-12 text-lg font-medium px-4">
-    <h2 id="boas-vindas">Origem da Sociedade Walingardyana</h2>
-    <p>
-      A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido. Com a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência. Foi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo. Juntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir.
-    </p>
-    <p>
-      Posteriormente, um jovem escritor tão, ou mais talentoso que Gabryell, de nome Wellington Noves, resolveu especular sobre o funcionamento da ideia, momento em que, expressou interesse em investir na SW. Seu empenho inicialmente se deu como observador obstinado e por fim, devido ao seus excepcionais trabalhos, foi convidado a se tornar sócio da marca. Wellington assumiu integralmente o comando da SW Editorial como editor-chefe neste ano. A equipe conta com outros profissionais qualificados, como é o caso da Srta. Agatha Rosário, parceira de Gabryell em outra área, que entrou para o cargo de auditoria na SW.
-    </p>
-  </section>
-
-  <section class="text-white container mx-auto mt-12 text-lg font-medium px-4">
-    <h2 id="visao-futuro" style="font-family: 'Cinzel', serif; font-size: 3rem; text-align: center; margin-bottom: 2rem;">Visão da Sociedade Walingardyana para o futuro</h2>
-    <p>
-      Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia. Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional.
-    </p>
-  </section>
-
-  <footer class="bg-black text-white text-center p-8 mt-16 space-y-4">
-    <p class="text-center w-full">&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
-    <div class="flex justify-center space-x-6">
-      <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank" class="hover:underline">YouTube</a>
-      <a href="https://discord.gg/JwsX9hcaGa" target="_blank" class="hover:underline">Discord</a>
-      <a href="https://www.instagram.com/walin_org/" target="_blank" class="hover:underline">Instagram</a>
-    </div>
-  </footer>
-
   <div id="user-greeting"></div>
+  <div id="login-btn" class="top-button" style="right: 170px; padding: 5px 15px;">Login</div>
+  <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">Direct Colab</div>
+  <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">▼</div>
 
-  <div id="login-btn" class="top-button" style="right: 170px; padding: 5px 15px;">
-    Login
-  </div>
-
-  <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">
-    Direct Colab
-  </div>
-
-  <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">
-    <span style="user-select: none;">▼</span>
-  </div>
-
-  <ul id="language-list" style="position: fixed; top: 50px; right: 10px; width: 120px; background: #222; border: 1px solid #ccc; border-radius: 5px; list-style: none; padding: 5px 0; display: none; z-index: 9999;">
-    <li style="padding: 8px 12px; color: white; cursor: pointer;">Português</li>
-    <li style="padding: 8px 12px; color: white; cursor: pointer;">Español</li>
-    <li style="padding: 8px 12px; color: white; cursor: pointer;">English</li>
+  <ul id="language-list">
+    <li>Português</li>
+    <li>Español</li>
+    <li>English</li>
   </ul>
 
-  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+  <main class="container mx-auto mt-12 px-4">
+    <h2 id="boas-vindas">Origem da Sociedade Walingardyana</h2>
+    <p>A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino...</p>
+    <p>Posteriormente, Wellington Noves ingressou como sócio e editor-chefe...</p>
+    
+    <h2 style="font-family: 'Cinzel', serif; font-size: 3rem; text-align: center; margin-top: 4rem;">Visão para o Futuro</h2>
+    <p>Nosso maior desejo a longo prazo é nos tornar a principal produtora de Terror, Fantasia Sombria e Alta Fantasia no Brasil...</p>
+  </main>
+
+  <footer class="bg-black text-center p-8 mt-16">
+    <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
   <script>
-    // 1. CONFIGURAÇÃO DO FIREBASE (Cole aqui a sua configuração do Firebase Console)
+    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "SUA_API_KEY",
-      authDomain: "SEU_AUTH_DOMAIN",
-      projectId: "SEU_PROJECT_ID",
-      storageBucket: "SEU_STORAGE_BUCKET",
-      messagingSenderId: "SEU_SENDER_ID",
-      appId: "SEU_APP_ID"
+      authDomain: "SEU_PROJETO.firebaseapp.com",
+      projectId: "SEU_PROJETO",
+      storageBucket: "SEU_PROJETO.appspot.com",
+      messagingSenderId: "ID",
+      appId: "APP_ID"
     };
-    
-    // Inicializar Firebase (compat)
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const loginBtn = document.getElementById('login-btn');
-      const userGreeting = document.getElementById('user-greeting');
+    // Referências do DOM
+    const loginBtn = document.getElementById('login-btn');
+    const userGreeting = document.getElementById('user-greeting');
+    const langBtn = document.getElementById('language-selector');
+    const langList = document.getElementById('language-list');
+    const colabBtn = document.getElementById('direct-colab');
 
-      // OBSERVAR ESTADO DE AUTENTICAÇÃO
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          // Usuário está logado
-          loginBtn.style.display = 'none';
-          
-          // Formatar o email (ex: mr.gabri...)
-          const email = user.email;
-          const displayEmail = email.length > 10 ? email.substring(0, 10) + "..." : email;
-          
-          userGreeting.textContent = `Olá, ${displayEmail}`;
-          userGreeting.style.display = 'block';
-        } else {
-          // Usuário não está logado
-          loginBtn.style.display = 'flex';
-          userGreeting.style.display = 'none';
-        }
-      });
+    // 1. Lógica de Autenticação
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        loginBtn.style.display = 'none';
+        const shortEmail = user.email.substring(0, 10) + "...";
+        userGreeting.textContent = `Olá, ${shortEmail}`;
+        userGreeting.style.display = 'block';
+      } else {
+        loginBtn.style.display = 'flex';
+        userGreeting.style.display = 'none';
+      }
+    });
 
-      // Fechar Anúncio
-      const botaoFechar = document.getElementById('fechar-anuncio');
-      const caixaAnuncio = document.getElementById('anuncio-flutuante');
-      botaoFechar.addEventListener('click', () => caixaAnuncio.style.display = 'none');
+    // 2. Eventos de Clique nos Botões
+    loginBtn.onclick = () => window.location.href = 'login.html';
+    colabBtn.onclick = () => window.location.href = 'SW Sistem.html';
+    
+    langBtn.onclick = (e) => {
+      e.stopPropagation();
+      langList.style.display = langList.style.display === 'block' ? 'none' : 'block';
+    };
 
-      // Seletor de Idioma
-      const selector = document.getElementById('language-selector');
-      const list = document.getElementById('language-list');
-      selector.addEventListener('click', () => {
-        list.style.display = (list.style.display === 'block') ? 'none' : 'block';
-      });
+    // Fechar menu de idioma ao clicar fora
+    document.onclick = () => langList.style.display = 'none';
 
-      // Redirecionamentos
-      document.getElementById('direct-colab').addEventListener('click', () => {
-        window.location.href = 'SW Sistem.html';
-      });
-
-      loginBtn.addEventListener('click', () => {
-        window.location.href = 'login.html';
-      });
-
-      // Fechar lista de idioma ao clicar fora
-      document.addEventListener('click', (e) => {
-        if (!selector.contains(e.target) && !list.contains(e.target)) {
-          list.style.display = 'none';
-        }
-      });
-
-      // Lógica de Tradução
-      const traducoes = {
-        pt: { 
-          "titulo-principal": "Sociedade Walingardyana", 
-          "nav-novidades": "Notícias", 
-          "boas-vindas": "Origem da Sociedade Walingardyana",
-          "visao-futuro": "Visão da Sociedade Walingardyana para o futuro"
-        },
-        en: { 
-          "titulo-principal": "Walingardyan Society", 
-          "nav-novidades": "News", 
-          "boas-vindas": "Origin of the Walingardyan Society",
-          "visao-futuro": "Vision of the Walingardyan Society for the future"
-        },
-        es: { 
-          "titulo-principal": "Sociedad Walingardyana", 
-          "nav-novidades": "Noticias", 
-          "boas-vindas": "Origen de la Sociedad Walingardyana",
-          "visao-futuro": "Visión de la Sociedad Walingardyana para el futuro"
-        }
+    // 3. Lógica de Tradução Simples
+    document.querySelectorAll('#language-list li').forEach(item => {
+      item.onclick = () => {
+        alert("Idioma alterado para: " + item.textContent);
+        langList.style.display = 'none';
       };
-
-      list.querySelectorAll('li').forEach((li) => {
-        li.addEventListener('click', () => {
-          let lang = li.textContent === 'Português' ? 'pt' : li.textContent === 'Español' ? 'es' : 'en';
-          const t = traducoes[lang];
-          for (const id in t) {
-            const el = document.getElementById(id);
-            if (el) el.textContent = t[id];
-          }
-          list.style.display = 'none';
-        });
-      });
     });
   </script>
 </body>
