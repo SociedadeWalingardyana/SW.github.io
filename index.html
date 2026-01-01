@@ -20,9 +20,16 @@
       margin-bottom: 2rem;
       line-height: 1.2;
     }
-    p { margin-bottom: 20px; }
-    
-    /* Botões Superiores */
+    p { text-align: justify; margin-bottom: 20px; }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    /* Estilos dos Botões de Topo */
     .top-button {
       position: fixed;
       top: 10px;
@@ -31,139 +38,95 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      z-index: 10000;
+      z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.2s;
-      border: 1px solid #444;
     }
     .top-button:hover { background: #333; }
-
     #user-greeting {
       position: fixed;
       top: 10px;
       right: 170px;
       color: #ffd700;
       font-weight: bold;
-      z-index: 10000;
-      background: #1a1a1a;
+      z-index: 9999;
+      background: rgba(26, 26, 26, 0.8);
       padding: 5px 15px;
       border-radius: 5px;
       display: none;
-      border: 1px solid #ffd700;
     }
-
-    #language-list {
-      position: fixed;
-      top: 50px;
-      right: 10px;
-      width: 120px;
-      background: #222;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      list-style: none;
-      padding: 5px 0;
-      display: none;
-      z-index: 10001;
-    }
-    #language-list li { padding: 8px 12px; cursor: pointer; }
-    #language-list li:hover { background: #444; }
   </style>
 </head>
-<body>
+<body class="text-white">
 
-  <header class="bg-black p-4 shadow-md text-center">
-    <img src="oficial.png" alt="Logo" class="w-32 mx-auto mb-2" />
-    <h1 id="titulo-principal" class="text-2xl font-bold">Sociedade Walingardyana</h1>
-    <nav class="flex justify-center gap-4 mt-2">
-      <a href="novidades.html" class="hover:underline">Notícias</a>
-      <a href="loja.html" class="hover:underline">Loja</a>
-      <a href="autores.html" class="hover:underline">Nossos Autores</a>
-      <a href="Biblioteca.html" class="hover:underline">Biblioteca</a>
-    </nav>
+  <header class="bg-black text-white p-4 shadow-md">
+    <div class="container mx-auto flex flex-col items-center">
+      <img src="oficial.png" alt="Logo Walingardyana" class="w-32 h-auto mb-2" />
+      <h1 id="titulo-principal" class="text-2xl font-bold">Sociedade Walingardyana</h1>
+      <nav class="flex flex-wrap gap-4 justify-center mt-2">
+        <a id="nav-novidades" href="novidades.html" class="hover:underline">Notícias</a>
+        <a id="nav-loja" href="loja.html" class="hover:underline">Loja</a>
+        <a id="nav-autores" href="autores.html" class="hover:underline">Nossos Autores</a>
+        <a id="nav-biblioteca" href="Biblioteca.html" class="hover:underline">Biblioteca</a>
+      </nav>
+    </div>
   </header>
+
+  <section class="container mx-auto mt-6">
+    <div class="h-80 rounded overflow-hidden shadow-lg">
+      <video class="w-full h-full object-cover" autoplay muted loop>
+        <source src="walinga.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </section>
+
+  <section class="text-white container mx-auto mt-12 text-lg font-medium px-4">
+    <h2 id="boas-vindas">Origem da Sociedade Walingardyana</h2>
+    <p>A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino...</p>
+    <p>Posteriormente, Wellington Noves ingressou...</p>
+    
+    <h2 id="visao-futuro" style="font-family: 'Cinzel', serif; font-size: 3rem; text-align: center; margin: 4rem 0 2rem;">Visão da Sociedade Walingardyana para o futuro</h2>
+    <p>Nosso maior desejo a longo prazo é nos tornar a principal produtora...</p>
+  </section>
+
+  <footer class="bg-black text-white text-center p-8 mt-16 space-y-4">
+    <p class="text-center w-full">&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
+    <div class="flex justify-center space-x-6">
+      <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank">YouTube</a>
+      <a href="https://discord.gg/JwsX9hcaGa" target="_blank">Discord</a>
+      <a href="https://www.instagram.com/walin_org/" target="_blank">Instagram</a>
+    </div>
+  </footer>
 
   <div id="user-greeting"></div>
   <div id="login-btn" class="top-button" style="right: 170px; padding: 5px 15px;">Login</div>
   <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">Direct Colab</div>
   <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">▼</div>
 
-  <ul id="language-list">
-    <li>Português</li>
-    <li>Español</li>
-    <li>English</li>
-  </ul>
-
-  <main class="container mx-auto mt-12 px-4">
-    <h2 id="boas-vindas">Origem da Sociedade Walingardyana</h2>
-    <p>A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino...</p>
-    <p>Posteriormente, Wellington Noves ingressou como sócio e editor-chefe...</p>
-    
-    <h2 style="font-family: 'Cinzel', serif; font-size: 3rem; text-align: center; margin-top: 4rem;">Visão para o Futuro</h2>
-    <p>Nosso maior desejo a longo prazo é nos tornar a principal produtora de Terror, Fantasia Sombria e Alta Fantasia no Brasil...</p>
-  </main>
-
-  <footer class="bg-black text-center p-8 mt-16">
-    <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
-  </footer>
-
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
 
   <script>
-    // Configuração do Firebase
-    const firebaseConfig = {
-      apiKey: "SUA_API_KEY",
-      authDomain: "SEU_PROJETO.firebaseapp.com",
-      projectId: "SEU_PROJETO",
-      storageBucket: "SEU_PROJETO.appspot.com",
-      messagingSenderId: "ID",
-      appId: "APP_ID"
-    };
-
+    // IMPORTANTE: Insira seus dados do Firebase aqui
+    const firebaseConfig = { apiKey: "SUA_KEY", authDomain: "SEU_DOMAIN" };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Referências do DOM
-    const loginBtn = document.getElementById('login-btn');
-    const userGreeting = document.getElementById('user-greeting');
-    const langBtn = document.getElementById('language-selector');
-    const langList = document.getElementById('language-list');
-    const colabBtn = document.getElementById('direct-colab');
-
-    // 1. Lógica de Autenticação
+    // Lógica para os botões funcionarem
     auth.onAuthStateChanged((user) => {
+      const loginBtn = document.getElementById('login-btn');
+      const userGreet = document.getElementById('user-greeting');
       if (user) {
         loginBtn.style.display = 'none';
-        const shortEmail = user.email.substring(0, 10) + "...";
-        userGreeting.textContent = `Olá, ${shortEmail}`;
-        userGreeting.style.display = 'block';
-      } else {
-        loginBtn.style.display = 'flex';
-        userGreeting.style.display = 'none';
+        userGreet.textContent = `Olá, ${user.email.substring(0,10)}...`;
+        userGreet.style.display = 'block';
       }
     });
 
-    // 2. Eventos de Clique nos Botões
-    loginBtn.onclick = () => window.location.href = 'login.html';
-    colabBtn.onclick = () => window.location.href = 'SW Sistem.html';
-    
-    langBtn.onclick = (e) => {
-      e.stopPropagation();
-      langList.style.display = langList.style.display === 'block' ? 'none' : 'block';
-    };
-
-    // Fechar menu de idioma ao clicar fora
-    document.onclick = () => langList.style.display = 'none';
-
-    // 3. Lógica de Tradução Simples
-    document.querySelectorAll('#language-list li').forEach(item => {
-      item.onclick = () => {
-        alert("Idioma alterado para: " + item.textContent);
-        langList.style.display = 'none';
-      };
-    });
+    document.getElementById('login-btn').onclick = () => window.location.href = 'login.html';
+    document.getElementById('direct-colab').onclick = () => window.location.href = 'SW Sistem.html';
   </script>
 </body>
 </html>
