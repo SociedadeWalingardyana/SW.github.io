@@ -18,7 +18,6 @@
       padding: 0;
     }
 
-    /* Títulos Épicos */
     .titulo-cinzel {
       font-family: 'Cinzel', serif;
       font-size: 3rem;
@@ -34,7 +33,6 @@
       line-height: 1.6;
     }
 
-    /* Botões Superiores Corrigidos */
     .top-button {
       position: fixed;
       top: 10px;
@@ -43,7 +41,7 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      z-index: 10000; /* Garante que fique acima de tudo */
+      z-index: 10000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -69,7 +67,6 @@
       border: 1px solid #ffd700;
     }
 
-    /* Lista de Idiomas */
     #language-list {
       position: fixed;
       top: 50px;
@@ -94,7 +91,6 @@
       background: #333;
     }
 
-    /* Header e Nav */
     header {
       background-color: black;
     }
@@ -157,8 +153,8 @@
     </p>
   </main>
 
-  <footer class="text-white text-center p-8 mt-16 border-t border-gray-900">
-    <p class="mb-4">&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
+  <footer class="text-white p-8 mt-16 border-t border-gray-900">
+    <p class="text-center w-full mb-4">&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
     <div class="flex justify-center space-x-6">
       <a href="https://www.youtube.com/@sociedadewalingardyana" target="_blank" class="hover:text-red-600">YouTube</a>
       <a href="https://discord.gg/JwsX9hcaGa" target="_blank" class="hover:text-blue-500">Discord</a>
@@ -170,10 +166,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
   <script>
-    // Inicialização segura para garantir que os cliques funcionem
     window.onload = function() {
-      
-      // 1. CONFIGURAÇÃO FIREBASE (Substitua pelos seus dados para o login ativar)
       const firebaseConfig = {
         apiKey: "SUA_API_KEY",
         authDomain: "SEU_PROJETO.firebaseapp.com",
@@ -185,7 +178,6 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Verificar Login
         auth.onAuthStateChanged((user) => {
           const loginBtn = document.getElementById('login-btn');
           const greet = document.getElementById('user-greeting');
@@ -199,19 +191,14 @@
         });
       } catch (e) { console.log("Firebase não configurado."); }
 
-      // 2. FUNCIONALIDADE DOS BOTÕES (Ação ao clicar)
-      
-      // Botão Login
       document.getElementById('login-btn').onclick = function() {
         window.location.href = 'login.html';
       };
 
-      // Botão Direct Colab
       document.getElementById('direct-colab').onclick = function() {
         window.location.href = 'SW Sistem.html';
       };
 
-      // Seletor de Idioma
       const selector = document.getElementById('language-selector');
       const list = document.getElementById('language-list');
       
@@ -220,7 +207,6 @@
         list.style.display = (list.style.display === 'block') ? 'none' : 'block';
       };
 
-      // Fechar lista de idioma se clicar fora
       document.onclick = function() {
         list.style.display = 'none';
       };
