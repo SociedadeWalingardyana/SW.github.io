@@ -1,61 +1,148 @@
-<script>
-        // Inicialização única do Mercado Pago
-        const mp = new MercadoPago('APP_USR-6e5e23d3-3ec7-40b2-98b1-ce3c41e46d3a', {
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Os Segredários</title>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            background-color: #111;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .capa-livro {
+            width: 220px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .sinopse {
+            font-size: 0.95rem;
+            color: #bbb;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .preco {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #009ee3;
+            margin-bottom: 30px;
+        }
+
+        #walletWidget {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="SEG.png" alt="Capa do Livro" class="capa-livro">
+        
+        <h1>Segredários</h1>
+
+        <div class="sinopse">
+            <p>Marco, João e Lucas vivem a rotina sem graça da Kenya Enlatados, uma pequena empresa de São Paulo que enlata legumes e sardinhas. Mas a monotonia acaba quando recebem um telefonema inesperado de Cleber F. Junior, do Amazonas: investigar um parque aquático abandonado, palco de uma tragédia que ainda assombra o local.</p>
+            <p>Aproveitando que suas férias estavam chegando, inventam um retiro espiritual para justificar a ausência, e claro, o chefe não entende nada! Munidos de curiosidade, improviso e sua van carateristicamente cômica, os Segredários partem rumo ao Amazonas.</p>
+            <p>No parque, descobrem que Cleber desapareceu misteriosamente e que a missão agora é coordenada por seu filho, Victor, que quer resolver o problema da propriedade para vendê-la. Entre mistérios, absurdos e perigos que ninguém ousaria enfrentar, Marco, João e Lucas vão aprender que segredos enterrados nem sempre ficam onde deveriam, e que a linha entre o banal e o bizarro pode ser mais fina do que imaginam.</p>
+        </div>
+
+        <p class="preco">R$ 7,00</p>
+
+        <div id="walletWidget"></div>
+    </div>
+
+    <script>
+        // Inicialização com a sua Public Key de produção fornecida
+        const mp = new MercadoPago('APP_USR-13d91b74-3c7a-4409-b164-d9c9828d73c9', {
             locale: 'pt-BR'
         });
 
-        async function carregarBotao() {
-            try {
-                // Busca o ID da preferência gerado na sua API Vercel
-                const response = await fetch('/api/checkout');
-                const data = await response.json();
+        mp.bricks().create("wallet", "walletWidget", {
+            initialization: {
+                // Lembre-se: Você precisa gerar o preferenceId no seu servidor usando seu Access Token
+                preferenceId: "8243465362432495", 
+            },
+            customization: {
+                texts: {
+                    valueProp: 'smart_option',
+                    action: 'pay',
+                },
+            },
+        });
 
-                if (!data.id) throw new Error("ID não gerado");
 
-                mp.bricks().create("wallet", "walletWidget", {
-                    initialization: {
-                        preferenceId: data.id,
-                    },
-                    customization: {
-                        texts: { 
-                            valueProp: 'smart_option', 
-                            action: 'pay' 
-                        },
-                    },
-                    callbacks: {
-                        onReady: () => {
-                            console.log("Botão Mercado Pago pronto.");
-                        },
-                        onSubmit: () => {
-                            // Esta função salva os dados localmente quando o usuário inicia o pagamento
-                            registrarVendaLocal();
-                        },
-                        onError: (error) => {
-                            console.error("Erro no Brick:", error);
-                        },
-                    },
-                });
-            } catch (err) {
-                console.error("Erro ao carregar Mercado Pago:", err);
-            }
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script>
+    const mp = new MercadoPago('APP_USR-6e5e23d3-3ec7-40b2-98b1-ce3c41e46d3a', {
+        locale: 'pt-BR'
+    });
+
+    async function carregarBotao() {
+        try {
+            // Chama a API que você criou na Vercel
+            const response = await fetch('/api/checkout');
+            const data = await response.json();
+
+            if (!data.id) throw new Error("ID não gerado");
+
+            mp.bricks().create("wallet", "walletWidget", {
+                initialization: {
+                    preferenceId: data.id,
+                },
+                customization: {
+                    texts: { valueProp: 'smart_option', action: 'pay' },
+                },
+            });
+        } catch (err) {
+            console.error("Erro ao carregar Mercado Pago:", err);
         }
+    }
 
-        // Função para conectar os dados ao SW Sistem via localStorage
-        function registrarVendaLocal() {
-            const vendas = JSON.parse(localStorage.getItem('vendas')) || [];
-            const novaVenda = {
-                book: "Segredários",
-                user: "Venda Direta", 
-                country: "Brasil",
-                valor: 7.00,
-                data: new Date().toLocaleString('pt-BR')
-            };
-            vendas.push(novaVenda);
-            localStorage.setItem('vendas', JSON.stringify(vendas));
-        }
+    carregarBotao();
+</script>
 
-        // Executa a carga do botão
-        carregarBotao();
-    </script>
+
+
+
+
+
+        
+
 </body>
 </html>
+
+
+
+
