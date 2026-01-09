@@ -159,7 +159,133 @@
       })
       .catch(error => { showMessage(error.message); });
   });
+
+
+
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  // Objeto isolado para evitar conflitos com seu código existente
+  const SW_Auth = {
+    config: {
+      apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
+      authDomain: "login-sw-14940.firebaseapp.com",
+      databaseURL: "https://sw-biblio-default-rtdb.europe-west1.firebasedatabase.app/",
+      projectId: "login-sw-14940"
+    },
+
+    init: function() {
+      // Inicializa apenas se ainda não houver um app Firebase rodando
+      if (!firebase.apps.length) {
+        firebase.initializeApp(this.config);
+      }
+      this.db = firebase.database();
+      this.auth = firebase.auth();
+      this.bindEvents();
+      this.observeAuthState();
+    },
+
+    observeAuthState: function() {
+      this.auth.onAuthStateChanged((user) => {
+        const authContainer = document.getElementById('auth-container');
+        const greet = document.getElementById('user-greeting');
+        
+        if (user) {
+          if (authContainer) authContainer.style.display = 'none';
+          if (greet) {
+            greet.textContent = `Olá, ${user.email.split('@')[0]}(...)`;
+            greet.style.display = 'block';
+          }
+          this.loadUserData(user.uid);
+        } else {
+          if (authContainer) authContainer.style.display = 'flex';
+          if (greet) greet.style.display = 'none';
+        }
+      });
+    },
+
+    loadUserData: function(uid) {
+      this.db.ref('usuarios/' + uid).once('value').then((snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          // Preenchimento automático dos campos se eles existirem na página
+          if(document.getElementById('db-nome')) document.getElementById('db-nome').value = data.nome || "";
+          if(document.getElementById('db-idade')) document.getElementById('db-idade').value = data.idade || "";
+          if(document.getElementById('db-cpf')) document.getElementById('db-cpf').value = data.cpf || "";
+          if(document.getElementById('db-endereco')) document.getElementById('db-endereco').value = data.endereco || "";
+          if(document.getElementById('db-pais')) document.getElementById('db-pais').value = data.pais || "";
+        }
+      });
+    },
+
+    saveData: function() {
+      const user = this.auth.currentUser;
+      if (!user) return alert("Erro: Usuário não autenticado.");
+
+      const payload = {
+        nome: document.getElementById('db-nome')?.value || "",
+        idade: document.getElementById('db-idade')?.value || "",
+        cpf: document.getElementById('db-cpf')?.value || "",
+        endereco: document.getElementById('db-endereco')?.value || "",
+        pais: document.getElementById('db-pais')?.value || ""
+      };
+
+      this.db.ref('usuarios/' + user.uid).set(payload)
+        .then(() => alert("Salvo no sistema"))
+        .catch((err) => alert("Erro ao salvar: " + err.message));
+    },
+
+    bindEvents: function() {
+      // Vincula o clique ao botão de login
+      document.getElementById('login-btn')?.addEventListener('click', () => {
+        const email = document.getElementById('email-field')?.value;
+        const pass = document.getElementById('pass-field')?.value;
+        if (email && pass) {
+          this.auth.signInWithEmailAndPassword(email, pass).catch(e => alert(e.message));
+        }
+      });
+
+      // Vincula o clique ao botão de salvar (ID correspondente ao seu botão de salvar)
+      document.getElementById('btn-salvar-realtime')?.addEventListener('click', () => this.saveData());
+      
+      // Logout
+      document.getElementById('logout-btn')?.addEventListener('click', () => {
+        this.auth.signOut().then(() => location.reload());
+      });
+    }
+  };
+
+  // Inicia o módulo automaticamente
+  SW_Auth.init();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 </script>
 
 </body>
+
 </html>
