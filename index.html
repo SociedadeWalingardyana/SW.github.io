@@ -198,9 +198,189 @@
         list.style.display = 'none';     
       };
     };
+
+
+
+
+
+
+
+<style>
+  #auth-container { position: fixed; top: 10px; right: 230px; z-index: 10000; display: flex; gap: 5px; background: rgba(26, 26, 26, 0.9); padding: 5px; border-radius: 5px; border: 1px solid #444; }
+  #auth-container input { padding: 2px 8px; border-radius: 3px; color: black; font-size: 13px; width: 120px; outline: none; }
+  
+  #user-greeting { position: fixed; top: 10px; right: 170px; color: #ffd700; font-weight: bold; z-index: 10000; background: rgba(26, 26, 26, 0.9); padding: 5px 15px; border-radius: 5px; display: none; border: 1px solid #ffd700; cursor: pointer; }
+  
+  #user-menu { position: fixed; top: 50px; right: 170px; background: #1a1a1a; border: 1px solid #ffd700; border-radius: 5px; display: none; z-index: 10001; min-width: 150px; list-style: none; padding: 0; }
+  #user-menu li { padding: 10px; color: white; cursor: pointer; border-bottom: 1px solid #333; font-size: 14px; text-align: left; }
+  #user-menu li:hover { background: #333; }
+
+  #modal-dados { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 20000; display: none; align-items: center; justify-content: center; }
+  .modal-content { background: #1a1a1a; padding: 2rem; border-radius: 8px; border: 1px solid #ffd700; width: 90%; max-width: 400px; text-align: left; }
+  .modal-content label { font-size: 12px; color: #ffd700; }
+  .modal-content input { width: 100%; padding: 8px; margin: 5px 0 15px 0; color: black; border-radius: 4px; border: none; }
+</style>
+
+<div id="auth-container">
+  <input type="email" id="email-field" placeholder="Email">
+  <input type="password" id="pass-field" placeholder="Senha">
+  <button id="login-btn" style="background:#b45309; color:white; padding: 2px 10px; border-radius: 3px; font-weight: bold; font-size: 13px;">Entrar</button>
+</div>
+
+<div id="user-greeting"></div>
+
+<ul id="user-menu">
+  <li id="btn-abrir-dados">⚙️ Alterar Dados</li>
+  <li id="logout-btn" style="color: #ff4444;">🚪 Sair</li>
+</ul>
+
+<div id="modal-dados">
+  <div class="modal-content">
+    <h3 style="font-family: 'Cinzel', serif; font-size: 1.5rem; margin-bottom: 1rem; color: #ffd700;">Dados da Conta</h3>
+    
+    <label>Nome Completo</label>
+    <input type="text" id="db-nome">
+    
+    <label>Idade</label>
+    <input type="number" id="db-idade">
+    
+    <label>CPF</label>
+    <input type="text" id="db-cpf">
+    
+    <label>Endereço</label>
+    <input type="text" id="db-endereco">
+    
+    <label>País</label>
+    <input type="text" id="db-pais">
+
+    <div style="display: flex; gap: 10px;">
+      <button id="btn-salvar-realtime" style="flex: 2; background: #15803d; color: white; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer;">Salvar no Sistema</button>
+      <button id="btn-fechar-modal" style="flex: 1; background: #374151; color: white; padding: 10px; border-radius: 4px; cursor: pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SW_Auth = {
+    config: {
+      apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
+      authDomain: "login-sw-14940.firebaseapp.com",
+      databaseURL: "https://sw-biblio-default-rtdb.europe-west1.firebasedatabase.app/",
+      projectId: "login-sw-14940"
+    },
+
+    init: function() {
+      if (!firebase.apps.length) firebase.initializeApp(this.config);
+      this.db = firebase.database();
+      this.auth = firebase.auth();
+      this.observeAuthState();
+      this.bindEvents();
+    },
+
+    observeAuthState: function() {
+      this.auth.onAuthStateChanged((user) => {
+        const authBar = document.getElementById('auth-container');
+        const greet = document.getElementById('user-greeting');
+        if (user) {
+          authBar.style.display = 'none';
+          greet.textContent = `Olá, ${user.email.split('@')[0]}`;
+          greet.style.display = 'block';
+          this.loadUserData(user.uid);
+        } else {
+          authBar.style.display = 'flex';
+          greet.style.display = 'none';
+          document.getElementById('user-menu').style.display = 'none';
+        }
+      });
+    },
+
+    loadUserData: function(uid) {
+      this.db.ref('usuarios/' + uid).once('value').then((snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          document.getElementById('db-nome').value = data.nome || "";
+          document.getElementById('db-idade').value = data.idade || "";
+          document.getElementById('db-cpf').value = data.cpf || "";
+          document.getElementById('db-endereco').value = data.endereco || "";
+          document.getElementById('db-pais').value = data.pais || "";
+        }
+      });
+    },
+
+    saveData: function() {
+      const user = this.auth.currentUser;
+      if (!user) return;
+      const payload = {
+        nome: document.getElementById('db-nome').value,
+        idade: document.getElementById('db-idade').value,
+        cpf: document.getElementById('db-cpf').value,
+        endereco: document.getElementById('db-endereco').value,
+        pais: document.getElementById('db-pais').value
+      };
+      this.db.ref('usuarios/' + user.uid).set(payload)
+        .then(() => { 
+          alert("Sistema atualizado!"); 
+          document.getElementById('modal-dados').style.display = 'none'; 
+        })
+        .catch(e => alert("Erro ao salvar: " + e.message));
+    },
+
+    bindEvents: function() {
+      // Ação de Login
+      document.getElementById('login-btn').onclick = () => {
+        const email = document.getElementById('email-field').value;
+        const pass = document.getElementById('pass-field').value;
+        if (email && pass) {
+          this.auth.signInWithEmailAndPassword(email, pass).catch(e => alert("Falha: " + e.message));
+        }
+      };
+
+      // Menu dropdown
+      document.getElementById('user-greeting').onclick = (e) => {
+        e.stopPropagation();
+        const menu = document.getElementById('user-menu');
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+      };
+
+      // Modal de dados
+      document.getElementById('btn-abrir-dados').onclick = () => {
+        document.getElementById('modal-dados').style.display = 'flex';
+        document.getElementById('user-menu').style.display = 'none';
+      };
+
+      document.getElementById('btn-fechar-modal').onclick = () => {
+        document.getElementById('modal-dados').style.display = 'none';
+      };
+
+      // Salvar informações
+      document.getElementById('btn-salvar-realtime').onclick = () => this.saveData();
+
+      // Logout
+      document.getElementById('logout-btn').onclick = () => {
+        this.auth.signOut().then(() => location.reload());
+      };
+
+      // Fechar menus ao clicar fora
+      document.addEventListener('click', () => {
+        document.getElementById('user-menu').style.display = 'none';
+      });
+    }
+  };
+
+  // Iniciar módulo
+  SW_Auth.init();
+</script>
+
+
+
+
+
+
+    
   </script>
 
 </body>
 </html>
+
 
 
