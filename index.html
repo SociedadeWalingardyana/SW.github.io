@@ -103,7 +103,6 @@
 <body>
 
   <div id="user-greeting"></div>
-  <div id="login-btn" class="top-button" style="right: 170px; padding: 5px 15px;">Login</div>
   <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">Direct Colab</div>
   <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">▼</div>
 
@@ -137,33 +136,38 @@
 
   <main class="container mx-auto mt-12 px-6 max-w-4xl">
     <h2 class="titulo-cinzel">Origem da Sociedade Walingardyana</h2>
+
     <p>
       A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido. Com a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência.
     </p>
+
     <p>
       Foi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo. Juntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir.
     </p>
+
     <p>
       Posteriormente, um jovem escritor tão, ou mais talentoso que Gabryell, de nome Wellington Noves, resolveu especular sobre o funcionamento da ideia, momento em que, expressou interesse em investir na SW. Seu empenho inicialmente se deu como observador obstinado e por fim, devido ao seus excepcionais trabalhos, foi convidado a se tornar sócio da marca. Wellington assumiu integralmente o comando da SW Editorial como editor-chefe neste ano. A equipe conta com outros profissionais qualificados, como é o caso da Srta. Agatha Rosário, parceira de Gabryell em outra área, que entrou para o cargo de auditoria na SW.
     </p>
 
     <h2 class="titulo-cinzel" style="margin-top: 4rem;">Visão da Sociedade Walingardyana para o futuro</h2>
+
     <p>
       Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia. Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional.
     </p>
 
-    <div class="cover"><img src="asa.jpg" style="margin-top-down: 98rem;" style="margin-right-left: 98rem"></div>
+    <div class="cover">
+      <img src="asa.jpg" style="margin-top-down: 98rem;" style="margin-right-left: 98rem">
+    </div>
 
     <h2 class="titulo-cinzel" style="margin-top: 4rem;">O livro que originou tudo</h2>
+
     <p>
       Trionte, O segredo do império - livro publicado em 2020 pela editora CRV. Na época, obra de Alta Fantasia, abriu espaço para a expansão do universo ao qual pertecia em um perfil comercial do Instagram. Primeiro como: https://www.instagram.com/trionte_oficial_/ , que seria mais focado no livro. Depois como: https://linktr.ee/triohnte e por último como: https://www.instagram.com/walin_org/ . Por fim, Sociedade Walingardyana, uma porta de entrada para leitores do universo. Já não se trata somente de Triohnte, mas do mundo de Walingardyn, onde Triohnte é um continente.
     </p>
+
     <p>
       Após críticas construtivas sobre o volume no ano seguinte a publicação, Gabriel decidiu reescrever, a fim de melhorar a porta de entrada do universo que construiu, e arrancar opiniões melhor fundamentadas por parte dos novos leitores. Triohnte, começou a ser reescrito oficialmente em 02 de Fevereiro de 2021 e se mantém no processo até hoje, sem previsão de lançamento. A demora excessiva é explicada pelo autor: Falta de tempo por outras prioridades, queda no interesse do público pelo gênero... As vezes a Sociedade Walingardyana aparece como principal impecilho para continuar o livro. Mesmo que a SW tenha sido derivada dele. Walingardyn é o universo em que triohnte se passa, isso já foi confirmado. Vamos ver como tudo se desenrrola, Gabryell Aweryan é cheio de surpresas. Triohnte não morreu, o autor faz questão de declarar, isso já conforta os fãs, ao menos um pouquinho.
     </p>
-
-
-    
   </main>
 
   <footer class="text-white p-8 mt-16 border-t border-gray-900">
@@ -175,38 +179,8 @@
     </div>
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
   <script>
     window.onload = function() {
-      const firebaseConfig = {
-        apiKey: "SUA_API_KEY",
-        authDomain: "SEU_PROJETO.firebaseapp.com",
-        projectId: "SEU_PROJETO",
-        appId: "SEU_APP_ID"
-      };
-      
-      try {
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        auth.onAuthStateChanged((user) => {
-          const loginBtn = document.getElementById('login-btn');
-          const greet = document.getElementById('user-greeting');
-          if (user) {
-            loginBtn.style.display = 'none';
-            const emailPart = user.email.split('@')[0];
-            const display = emailPart.length > 8 ? emailPart.substring(0, 8) + "..." : emailPart;
-            greet.textContent = `Olá, ${display}`;
-            greet.style.display = 'block';
-          }
-        });
-      } catch (e) { console.log("Firebase não configurado."); }
-
-      document.getElementById('login-btn').onclick = function() {
-        window.location.href = 'login.html';
-      };
 
       document.getElementById('direct-colab').onclick = function() {
         window.location.href = 'SW Sistem.html';
@@ -214,7 +188,7 @@
 
       const selector = document.getElementById('language-selector');
       const list = document.getElementById('language-list');
-      
+
       selector.onclick = function(e) {
         e.stopPropagation();
         list.style.display = (list.style.display === 'block') ? 'none' : 'block';
@@ -225,13 +199,6 @@
       };
     };
   </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
