@@ -377,39 +377,29 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
 <script>
-window.addEventListener('DOMContentLoaded', () => {
-
-  // =========================
-  // 1️⃣ Configuração Firebase
-  // =========================
   const firebaseConfig = {
     apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
-    authDomain: "login-sw-biblio.firebaseapp.com",
-    databaseURL: "https://sw-biblio-default-rtdb.europe-west1.firebasedatabase.app/",
-    projectId: "login-sw-biblio",
+    authDomain: "login-sw-14940.firebaseapp.com",
+    databaseURL: "https://sw-biblio-default-rtdb.europe-west1.firebasedatabase.app", 
+    projectId: "login-sw-14940",
+    storageBucket: "login-sw-14940.firebasestorage.app",
+    messagingSenderId: "252978150700",
     appId: "1:252978150700:web:2c7d3997389f7675058089"
   };
-  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const database = firebase.database();
 
-  // =========================
-  // 2️⃣ Monitoramento de Usuário
-  // =========================
-  const authContainer = document.getElementById('auth-container');
-  const userInfo = document.getElementById('user-info');
-  const userGreeting = document.getElementById('user-greeting');
-
   auth.onAuthStateChanged((user) => {
     if (user) {
-      authContainer?.classList.add('hidden');
-      userInfo?.classList.remove('hidden');
-
-      userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
-
+      document.getElementById('auth-container').classList.add('hidden');
+      document.getElementById('user-info').classList.remove('hidden');
+      document.getElementById('user-greeting').textContent = `Olá, ${user.email.split('@')[0]}`;
+      
       database.ref('usuarios/' + user.uid).once('value', (snap) => {
         const d = snap.val() || {};
         document.getElementById('db-nome').value = d.nome || "";
@@ -418,133 +408,46 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('db-endereco').value = d.endereco || "";
         document.getElementById('db-pais').value = d.pais || "";
       });
-
     } else {
-      authContainer?.classList.remove('hidden');
-      userInfo?.classList.add('hidden');
+      document.getElementById('auth-container').classList.remove('hidden');
+      document.getElementById('user-info').classList.add('hidden');
     }
   });
 
-  // =========================
-  // 3️⃣ Módulo: Login e Registro
-  // =========================
-  const loginBtn = document.getElementById('login-btn');
-  if(loginBtn) {
-    loginBtn.onclick = () => {
-      const email = document.getElementById('email-field').value;
-      const pass = document.getElementById('pass-field').value;
-
-      if(email && pass) {
-        // Login primeiro, se falhar tenta criar usuário
-        auth.signInWithEmailAndPassword(email, pass)
-          .catch(() => auth.createUserWithEmailAndPassword(email, pass))
-          .catch(err => alert("Erro: " + err.message));
-      }
-    };
-  }
-
-  // =========================
-  // 4️⃣ Módulo: Salvar Dados no Realtime
-  // =========================
-  const salvarBtn = document.getElementById('btn-salvar-realtime');
-  if(salvarBtn) {
-    salvarBtn.onclick = () => {
-      const user = auth.currentUser;
-      if(!user) return alert("Nenhum usuário logado.");
-
-      const dados = {
-        nome: document.getElementById('db-nome').value,
-        idade: document.getElementById('db-idade').value,
-        cpf: document.getElementById('db-cpf').value,
-        endereco: document.getElementById('db-endereco').value,
-        pais: document.getElementById('db-pais').value
-      };
-
-      database.ref('usuarios/' + user.uid).set(dados).then(() => {
-        alert("Dados salvos no Firebase.");
-        document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-      });
-    };
-  }
-
-
-
-
-
-// =========================
-// 5️⃣ Módulo: Direct Colab
-// =========================
-(function() {
-  const initDirectColab = () => {
-    const directBtn = document.getElementById('direct-colab');
-
-    if (directBtn) {
-      directBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Evita comportamentos inesperados
-        window.location.href = 'SW Sistem.html';
-      });
-    }
+  document.getElementById('login-btn').onclick = () => {
+    const e = document.getElementById('email-field').value;
+    const p = document.getElementById('pass-field').value;
+    if(e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert("Acesso negado: " + err.message));
   };
 
-  // Garante que o código rode mesmo que o script esteja no <head>
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initDirectColab);
-  } else {
-    initDirectColab();
-  }
-})();
-
-
-
-
-  
-
-  // =========================
-  // 6️⃣ Módulo: Seletor de Idiomas
-  // =========================
-  const langSelector = document.getElementById('language-selector');
-  const langList = document.getElementById('language-list');
-
-  if(langSelector && langList) {
-    langSelector.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const visible = langList.style.display === 'block';
-      langList.style.display = visible ? 'none' : 'block';
-    });
-  }
-
-  // =========================
-  // 7️⃣ Módulo: Configurações de Usuário
-  // =========================
-  userGreeting?.addEventListener('click', (e) => {
+  document.getElementById('user-greeting').onclick = (e) => {
     e.stopPropagation();
-    const drop = document.getElementById('settings-dropdown');
-    drop?.classList.toggle('hidden');
-  });
+    const dd = document.getElementById('settings-dropdown');
+    dd.classList.toggle('hidden');
+  };
 
-  document.getElementById('btn-abrir-modal')?.addEventListener('click', () => {
+  document.getElementById('btn-salvar-realtime').onclick = () => {
+    const user = auth.currentUser;
+    const dados = {
+      nome: document.getElementById('db-nome').value,
+      idade: document.getElementById('db-idade').value,
+      cpf: document.getElementById('db-cpf').value,
+      endereco: document.getElementById('db-endereco').value,
+      pais: document.getElementById('db-pais').value
+    };
+    database.ref('usuarios/' + user.uid).set(dados).then(() => {
+      alert("Sistema Walingardyano Atualizado.");
+      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+    });
+  };
+
+  document.getElementById('btn-abrir-modal').onclick = () => {
     document.getElementById('edit-modal').classList.replace('hidden', 'flex');
-    document.getElementById('settings-dropdown')?.classList.add('hidden');
-  });
-
-  document.getElementById('btn-fechar-modal')?.addEventListener('click', () => {
-    document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-  });
-
-  document.getElementById('logout-btn')?.addEventListener('click', () => {
-    auth.signOut().then(() => location.reload());
-  });
-
-  // =========================
-  // 8️⃣ Fechar menus ao clicar fora
-  // =========================
-  window.addEventListener('click', (e) => {
-    if(langList && !langSelector.contains(e.target)) langList.style.display = 'none';
-    const drop = document.getElementById('settings-dropdown');
-    if(drop && !userGreeting.contains(e.target)) drop.classList.add('hidden');
-  });
-
-});
+    document.getElementById('settings-dropdown').classList.add('hidden');
+  };
+  document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+  document.getElementById('logout-btn').onclick = () => auth.signOut().then(() => location.reload());
+  window.onclick = () => document.getElementById('settings-dropdown').classList.add('hidden');
 </script>
 
 
@@ -557,6 +460,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
