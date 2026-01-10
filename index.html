@@ -87,51 +87,6 @@
   <li style="padding:8px 12px; cursor:pointer;">English</li>
 </ul>
 
-<div class="absolute top-2 z-30 font-sans" style="right: 170px;">
-
-  <div id="auth-container" class="flex gap-2 bg-black bg-opacity-60 p-2 rounded-lg border-0">
-    <input id="email-field" type="email" placeholder="E-mail" class="px-3 py-1 text-sm rounded w-40 text-black">
-    <input id="pass-field" type="password" placeholder="Senha" class="px-3 py-1 text-sm rounded w-32 text-black">
-    <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded text-sm font-bold">
-      Entrar
-    </button>
-  </div>
-
-  <div id="user-info" class="hidden flex flex-col items-end">
-    <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-t-lg font-bold cursor-pointer border border-yellow-600 border-b-0"></div>
-    <div id="settings-dropdown" class="hidden bg-white text-gray-800 shadow-xl rounded-b-lg w-48 border border-yellow-600">
-      <button id="btn-abrir-modal" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">
-        Alterar Meus Dados
-      </button>
-      <button id="logout-btn" class="block w-full text-left px-4 py-2 text-red-600 font-bold hover:bg-red-50 text-sm">
-        Sair
-      </button>
-    </div>
-  </div>
-</div>
-
-<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50">
-  <div class="bg-white p-6 rounded-xl w-full max-w-sm">
-    <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
-
-    <div class="space-y-3">
-      <input id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded">
-      <input id="db-idade" placeholder="Idade" class="w-full border p-2 rounded">
-      <input id="db-cpf" placeholder="CPF" class="w-full border p-2 rounded">
-      <input id="db-endereco" placeholder="Endereço" class="w-full border p-2 rounded">
-      <input id="db-pais" placeholder="País" class="w-full border p-2 rounded">
-    </div>
-
-    <div class="flex gap-2 mt-6">
-      <button id="btn-salvar-realtime" class="bg-green-700 text-white flex-1 py-2 rounded font-bold">
-        Salvar
-      </button>
-      <button id="btn-fechar-modal" class="bg-gray-300 flex-1 py-2 rounded">
-        Voltar
-      </button>
-    </div>
-  </div>
-</div>
 
 <header class="p-4 shadow-md">
   <div class="container mx-auto flex flex-col items-center">
@@ -375,6 +330,7 @@
 
 </body>
 </html>
+
 
 
 
