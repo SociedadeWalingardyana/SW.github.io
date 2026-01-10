@@ -371,11 +371,14 @@
 
 
 
+
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
+  // 1. Configuração Única
   const firebaseConfig = {
     apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
     authDomain: "login-sw-14940.firebaseapp.com",
@@ -387,6 +390,7 @@
   const auth = firebase.auth();
   const database = firebase.database();
 
+  // 2. Monitoramento de Usuário (Auth)
   auth.onAuthStateChanged((user) => {
     if (user) {
       document.getElementById('auth-container').classList.add('hidden');
@@ -406,26 +410,19 @@
     }
   });
 
-  // CONSERTO DA LÓGICA DE ACESSO UNIVERSAL
+  // 3. Login e Registro Universal (Conserta o erro de credenciais)
   document.getElementById('login-btn').onclick = (e) => {
-    e.stopPropagation(); // Impede o window.onclick de interferir
+    e.stopPropagation();
     const email = document.getElementById('email-field').value;
     const pass = document.getElementById('pass-field').value;
     if(email && pass) {
-      // Tenta login; se falhar (usuário novo ou erro genérico), tenta criar a conta imediatamente.
       auth.signInWithEmailAndPassword(email, pass).catch(() => {
         return auth.createUserWithEmailAndPassword(email, pass);
-      }).catch(err => {
-        alert("Erro de Acesso: " + err.message);
-      });
+      }).catch(err => alert("Erro: " + err.message));
     }
   };
 
-  document.getElementById('user-greeting').onclick = (e) => {
-    e.stopPropagation();
-    document.getElementById('settings-dropdown').classList.toggle('hidden');
-  };
-
+  // 4. Salvar Dados
   document.getElementById('btn-salvar-realtime').onclick = () => {
     const user = auth.currentUser;
     if(user) {
@@ -437,10 +434,28 @@
         pais: document.getElementById('db-pais').value
       };
       database.ref('usuarios/' + user.uid).set(dados).then(() => {
-        alert("Sistema Walingardyano Atualizado.");
+        alert("Dados salvos no Firebase.");
         document.getElementById('edit-modal').classList.replace('flex', 'hidden');
       });
     }
+  };
+
+  // 5. Interface e Botões (Conserta Direct Colab e Idioma)
+  document.getElementById('direct-colab').onclick = (e) => {
+    e.stopPropagation();
+    window.location.href = 'SW Sistem.html';
+  };
+
+  const selector = document.getElementById('language-selector');
+  const list = document.getElementById('language-list');
+  selector.onclick = (e) => {
+    e.stopPropagation();
+    list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+  };
+
+  document.getElementById('user-greeting').onclick = (e) => {
+    e.stopPropagation();
+    document.getElementById('settings-dropdown').classList.toggle('hidden');
   };
 
   document.getElementById('btn-abrir-modal').onclick = () => {
@@ -449,34 +464,22 @@
   };
   document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
   document.getElementById('logout-btn').onclick = () => auth.signOut().then(() => location.reload());
-  
-  // CONSERTO DOS BOTÕES SUPERIORES (DENTRO DO SCRIPT PRINCIPAL)
-  document.getElementById('direct-colab').onclick = (e) => { 
-    e.stopPropagation();
-    window.location.href = 'SW Sistem.html'; 
-  };
-
-  const selector = document.getElementById('language-selector');
-  const list = document.getElementById('language-list');
-  selector.onclick = (e) => {
-    e.stopPropagation();
-    list.style.display = list.style.display === 'block' ? 'none' : 'block';
-  };
 
   window.onclick = () => {
-    const l = document.getElementById('language-list');
-    if(l) l.style.display = 'none';
-    const s = document.getElementById('settings-dropdown');
-    if(s) s.classList.add('hidden');
+    if(list) list.style.display = 'none';
+    const drop = document.getElementById('settings-dropdown');
+    if(drop) drop.classList.add('hidden');
   };
 </script>
 
 
   
+  
 
 
 </body>
 </html>
+
 
 
 
