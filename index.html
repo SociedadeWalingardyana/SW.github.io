@@ -210,9 +210,12 @@
 
 
 
-  
+
+
+
 <body>
 
+<!-- CONTAINER DE AUTENTICAÇÃO (CANTO SUPERIOR DIREITO) -->
 <div id="auth-container" class="flex flex-col gap-2 p-4">
   <input type="email" id="email-field" placeholder="Email" class="border p-2 rounded w-64">
   <input type="password" id="pass-field" placeholder="Senha" class="border p-2 rounded w-64">
@@ -222,6 +225,7 @@
   </div>
 </div>
 
+<!-- INFORMAÇÕES DO USUÁRIO LOGADO -->
 <div id="user-info" class="hidden flex flex-col items-end">
   <div id="user-greeting" class="bg-black bg-opacity-70 text-yellow-500 px-4 py-1 rounded-t-lg font-bold cursor-pointer border border-yellow-600 border-b-0"></div>
   <div id="settings-dropdown" class="hidden bg-white text-gray-800 shadow-xl rounded-b-lg rounded-tl-lg overflow-hidden border border-yellow-600 w-48">
@@ -230,6 +234,7 @@
   </div>
 </div>
 
+<!-- MODAL DE EDIÇÃO DE DADOS -->
 <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[60] p-4 font-sans">
   <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
     <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
@@ -289,7 +294,7 @@
     }
   });
 
-  // LOGIN
+  // LOGIN EXISTENTE
   document.getElementById('login-btn').onclick = () => {
     const e = document.getElementById('email-field').value;
     const p = document.getElementById('pass-field').value;
@@ -297,7 +302,7 @@
       .catch(err => alert("Acesso negado: " + err.message));
   };
 
-  // CADASTRO
+  // CADASTRO USANDO OS MESMOS CAMPOS DO LOGIN
   document.getElementById('signup-btn').onclick = () => {
     const e = document.getElementById('email-field').value;
     const p = document.getElementById('pass-field').value;
@@ -311,7 +316,7 @@
       .then((userCredential) => {
         const user = userCredential.user;
 
-        // Criar registro inicial no Realtime Database
+        // Cria registro inicial no Realtime Database
         database.ref('usuarios/' + user.uid).set({
           nome: "",
           idade: "",
@@ -364,6 +369,9 @@
 
 
 
+
+  
+
   
 
 
@@ -375,6 +383,7 @@
 
 </body>
 </html>
+
 
 
 
