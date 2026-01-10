@@ -374,7 +374,6 @@
 
 
 
-
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -382,7 +381,9 @@
 <script>
 window.addEventListener('DOMContentLoaded', () => {
 
-  // 1. Configuração Única
+  // =========================
+  // 1️⃣ Configuração Firebase
+  // =========================
   const firebaseConfig = {
     apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
     authDomain: "login-sw-biblio.firebaseapp.com",
@@ -391,17 +392,24 @@ window.addEventListener('DOMContentLoaded', () => {
     appId: "1:252978150700:web:2c7d3997389f7675058089"
   };
   if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
   const auth = firebase.auth();
   const database = firebase.database();
 
-  // 2. Monitoramento de Usuário
+  // =========================
+  // 2️⃣ Monitoramento de Usuário
+  // =========================
+  const authContainer = document.getElementById('auth-container');
+  const userInfo = document.getElementById('user-info');
+  const userGreeting = document.getElementById('user-greeting');
+
   auth.onAuthStateChanged((user) => {
-    const authCont = document.getElementById('auth-container');
-    const userInf = document.getElementById('user-info');
     if (user) {
-      if(authCont) authCont.classList.add('hidden');
-      if(userInf) userInf.classList.remove('hidden');
-      document.getElementById('user-greeting').textContent = `Olá, ${user.email.split('@')[0]}`;
+      authContainer?.classList.add('hidden');
+      userInfo?.classList.remove('hidden');
+
+      userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
+
       database.ref('usuarios/' + user.uid).once('value', (snap) => {
         const d = snap.val() || {};
         document.getElementById('db-nome').value = d.nome || "";
@@ -410,91 +418,111 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('db-endereco').value = d.endereco || "";
         document.getElementById('db-pais').value = d.pais || "";
       });
+
     } else {
-      if(authCont) authCont.classList.remove('hidden');
-      if(userInf) userInf.classList.add('hidden');
+      authContainer?.classList.remove('hidden');
+      userInfo?.classList.add('hidden');
     }
   });
 
-  // 3. Login e Registro Universal (Botão corrigido)
+  // =========================
+  // 3️⃣ Módulo: Login e Registro
+  // =========================
   const loginBtn = document.getElementById('login-btn');
   if(loginBtn) {
-    loginBtn.onclick = (e) => {
+    loginBtn.onclick = () => {
       const email = document.getElementById('email-field').value;
       const pass = document.getElementById('pass-field').value;
+
       if(email && pass) {
-        auth.signInWithEmailAndPassword(email, pass).catch(() => {
-          return auth.createUserWithEmailAndPassword(email, pass);
-        }).catch(err => alert("Erro: " + err.message));
+        // Login primeiro, se falhar tenta criar usuário
+        auth.signInWithEmailAndPassword(email, pass)
+          .catch(() => auth.createUserWithEmailAndPassword(email, pass))
+          .catch(err => alert("Erro: " + err.message));
       }
     };
   }
 
-  // 4. Salvar Dados
+  // =========================
+  // 4️⃣ Módulo: Salvar Dados no Realtime
+  // =========================
   const salvarBtn = document.getElementById('btn-salvar-realtime');
   if(salvarBtn) {
     salvarBtn.onclick = () => {
       const user = auth.currentUser;
-      if(user) {
-        const dados = {
-          nome: document.getElementById('db-nome').value,
-          idade: document.getElementById('db-idade').value,
-          cpf: document.getElementById('db-cpf').value,
-          endereco: document.getElementById('db-endereco').value,
-          pais: document.getElementById('db-pais').value
-        };
-        database.ref('usuarios/' + user.uid).set(dados).then(() => {
-          alert("Dados salvos no Firebase.");
-          document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-        });
-      }
+      if(!user) return alert("Nenhum usuário logado.");
+
+      const dados = {
+        nome: document.getElementById('db-nome').value,
+        idade: document.getElementById('db-idade').value,
+        cpf: document.getElementById('db-cpf').value,
+        endereco: document.getElementById('db-endereco').value,
+        pais: document.getElementById('db-pais').value
+      };
+
+      database.ref('usuarios/' + user.uid).set(dados).then(() => {
+        alert("Dados salvos no Firebase.");
+        document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+      });
     };
   }
 
-  // 5. Interface e Botões do Cabeçalho (Consertados)
+  // =========================
+  // 5️⃣ Módulo: Direct Colab
+  // =========================
   const directBtn = document.getElementById('direct-colab');
-  if(directBtn) directBtn.onclick = () => window.location.href = 'SW Sistem.html';
+  directBtn?.addEventListener('click', () => {
+    window.location.href = 'SW Sistem.html';
+  });
 
-  const selector = document.getElementById('language-selector');
-  const list = document.getElementById('language-list');
-  if(selector && list) {
-    selector.onclick = (e) => {
+  // =========================
+  // 6️⃣ Módulo: Seletor de Idiomas
+  // =========================
+  const langSelector = document.getElementById('language-selector');
+  const langList = document.getElementById('language-list');
+
+  if(langSelector && langList) {
+    langSelector.addEventListener('click', (e) => {
       e.stopPropagation();
-      list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
-    };
+      const visible = langList.style.display === 'block';
+      langList.style.display = visible ? 'none' : 'block';
+    });
   }
 
-  const userGreeting = document.getElementById('user-greeting');
-  if(userGreeting) {
-    userGreeting.onclick = (e) => {
-      e.stopPropagation();
-      const drop = document.getElementById('settings-dropdown');
-      if(drop) drop.classList.toggle('hidden');
-    };
-  }
-
-  const openModalBtn = document.getElementById('btn-abrir-modal');
-  if(openModalBtn) openModalBtn.onclick = () => {
-    document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+  // =========================
+  // 7️⃣ Módulo: Configurações de Usuário
+  // =========================
+  userGreeting?.addEventListener('click', (e) => {
+    e.stopPropagation();
     const drop = document.getElementById('settings-dropdown');
-    if(drop) drop.classList.add('hidden');
-  };
+    drop?.classList.toggle('hidden');
+  });
 
-  const closeModalBtn = document.getElementById('btn-fechar-modal');
-  if(closeModalBtn) closeModalBtn.onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+  document.getElementById('btn-abrir-modal')?.addEventListener('click', () => {
+    document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+    document.getElementById('settings-dropdown')?.classList.add('hidden');
+  });
 
-  const logoutBtn = document.getElementById('logout-btn');
-  if(logoutBtn) logoutBtn.onclick = () => auth.signOut().then(() => location.reload());
+  document.getElementById('btn-fechar-modal')?.addEventListener('click', () => {
+    document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+  });
 
-  // Fecha menus ao clicar fora, sem travar os inputs
-  window.onclick = (e) => {
-    if(list && !selector.contains(e.target)) list.style.display = 'none';
+  document.getElementById('logout-btn')?.addEventListener('click', () => {
+    auth.signOut().then(() => location.reload());
+  });
+
+  // =========================
+  // 8️⃣ Fechar menus ao clicar fora
+  // =========================
+  window.addEventListener('click', (e) => {
+    if(langList && !langSelector.contains(e.target)) langList.style.display = 'none';
     const drop = document.getElementById('settings-dropdown');
     if(drop && !userGreeting.contains(e.target)) drop.classList.add('hidden');
-  };
+  });
 
 });
 </script>
+
 
 
 
@@ -505,6 +533,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
