@@ -31,8 +31,9 @@
       line-height: 1.6;
     }
 
+    /* ALTERADO PARA ABSOLUTE PARA NÃO ACOMPANHAR O SCROLL */
     .top-button {
-      position: fixed;
+      position: absolute;
       top: 10px;
       background: #1a1a1a;
       color: white;
@@ -61,9 +62,6 @@
 
 <body>
 
-
-
-<!-- 🔘 BOTÕES SUPERIORES ORIGINAIS -->
 <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">
   Direct Colab
 </div>
@@ -73,7 +71,7 @@
 </div>
 
 <ul id="language-list" style="
-  position: fixed;
+  position: absolute; /* ALTERADO PARA ABSOLUTE */
   top: 50px;
   right: 10px;
   width: 120px;
@@ -89,17 +87,9 @@
   <li style="padding:8px 12px; cursor:pointer;">English</li>
 </ul>
 
-
-
-
-  
-
-<!-- 🔐 LOGIN / MEMBROS (SOMENTE ADIÇÃO) -->
-<div class="fixed top-2 z-30 font-sans" style="right: 170px;">
-
+<div class="absolute top-2 z-30 font-sans" style="right: 170px;">
 
   <div id="auth-container" class="flex gap-2 bg-black bg-opacity-60 p-2 rounded-lg border-0">
-
     <input id="email-field" type="email" placeholder="E-mail" class="px-3 py-1 text-sm rounded w-40 text-black">
     <input id="pass-field" type="password" placeholder="Senha" class="px-3 py-1 text-sm rounded w-32 text-black">
     <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded text-sm font-bold">
@@ -120,7 +110,6 @@
   </div>
 </div>
 
-<!-- 🧠 MODAL -->
 <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50">
   <div class="bg-white p-6 rounded-xl w-full max-w-sm">
     <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
@@ -144,7 +133,6 @@
   </div>
 </div>
 
-<!-- 🔰 HEADER ORIGINAL -->
 <header class="p-4 shadow-md">
   <div class="container mx-auto flex flex-col items-center">
     <img src="oficial.png" class="w-32 mb-2">
@@ -159,7 +147,6 @@
   </div>
 </header>
 
-<!-- 🎥 VÍDEO -->
 <section class="container mx-auto mt-6">
   <div class="h-80 rounded overflow-hidden shadow-lg">
     <video class="w-full h-full object-cover" autoplay muted loop playsinline>
@@ -168,7 +155,6 @@
   </div>
 </section>
 
-<!-- 📜 CONTEÚDO -->
 <main class="container mx-auto mt-12 px-6 max-w-4xl">
 
   <h2 class="titulo-cinzel">Origem da Sociedade Walingardyana</h2>
@@ -195,7 +181,6 @@
 
 </main>
 
-<!-- ⚓ FOOTER -->
 <footer class="p-8 mt-16 border-t border-gray-900 text-center">
   <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
   <div class="flex justify-center gap-6 mt-4">
@@ -205,7 +190,6 @@
   </div>
 </footer>
 
-<!-- 🔥 FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -278,9 +262,7 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
   window.onclick = () => document.getElementById('settings-dropdown').classList.add('hidden');
 </script>
 
-</body>
-
-  <script>
+<script>
   document.getElementById('direct-colab').onclick = function () {
     window.location.href = 'SW Sistem.html';
   };
@@ -298,22 +280,5 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
   });
 </script>
 
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
