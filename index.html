@@ -221,6 +221,7 @@ Entrar
   </div>
 </div>
 
+
    
 <!-- MODAL DE EDIÇÃO DE DADOS -->
 <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[60] p-4 font-sans">
@@ -282,19 +283,21 @@ Entrar
 });
 
       
-      database.ref('usuarios/' + user.uid).once('value', (snap) => {
-        const d = snap.val() || {};
-        document.getElementById('db-nome').value = d.nome || "";
-        document.getElementById('db-idade').value = d.idade || "";
-        document.getElementById('db-cpf').value = d.cpf || "";
-        document.getElementById('db-endereco').value = d.endereco || "";
-        document.getElementById('db-pais').value = d.pais || "";
-      });
-    } else {
-      document.getElementById('auth-container').classList.remove('hidden');
-      document.getElementById('user-info').classList.add('hidden');
-    }
-  });
+    database.ref('usuarios/' + user.uid).once('value', (snap) => {
+  const d = snap.val() || {};
+  const nome = d.nome && d.nome.trim() !== "" 
+    ? d.nome 
+    : user.email.split('@')[0];
+
+  document.getElementById('user-greeting').textContent = `Olá, ${nome}`;
+
+  document.getElementById('db-nome').value = d.nome || "";
+  document.getElementById('db-idade').value = d.idade || "";
+  document.getElementById('db-cpf').value = d.cpf || "";
+  document.getElementById('db-endereco').value = d.endereco || "";
+  document.getElementById('db-pais').value = d.pais || "";
+});
+
 
   // LOGIN EXISTENTE
   document.getElementById('login-btn').onclick = () => {
@@ -393,6 +396,7 @@ window.onclick = (e) => {
 
 </body>
 </html>
+
 
 
 
