@@ -373,6 +373,8 @@
 
 
 
+
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -390,11 +392,13 @@
   const auth = firebase.auth();
   const database = firebase.database();
 
-  // 2. Monitoramento de Usuário (Auth)
+  // 2. Monitoramento de Usuário
   auth.onAuthStateChanged((user) => {
+    const authCont = document.getElementById('auth-container');
+    const userInf = document.getElementById('user-info');
     if (user) {
-      document.getElementById('auth-container').classList.add('hidden');
-      document.getElementById('user-info').classList.remove('hidden');
+      if(authCont) authCont.classList.add('hidden');
+      if(userInf) userInf.classList.remove('hidden');
       document.getElementById('user-greeting').textContent = `Olá, ${user.email.split('@')[0]}`;
       database.ref('usuarios/' + user.uid).once('value', (snap) => {
         const d = snap.val() || {};
@@ -405,14 +409,13 @@
         document.getElementById('db-pais').value = d.pais || "";
       });
     } else {
-      document.getElementById('auth-container').classList.remove('hidden');
-      document.getElementById('user-info').classList.add('hidden');
+      if(authCont) authCont.classList.remove('hidden');
+      if(userInf) userInf.classList.add('hidden');
     }
   });
 
-  // 3. Login e Registro Universal (Conserta o erro de credenciais)
+  // 3. Login e Registro Universal (Botão corrigido)
   document.getElementById('login-btn').onclick = (e) => {
-    e.stopPropagation();
     const email = document.getElementById('email-field').value;
     const pass = document.getElementById('pass-field').value;
     if(email && pass) {
@@ -440,18 +443,19 @@
     }
   };
 
-  // 5. Interface e Botões (Conserta Direct Colab e Idioma)
-  document.getElementById('direct-colab').onclick = (e) => {
-    e.stopPropagation();
+  // 5. Interface e Botões do Cabeçalho (Consertados)
+  document.getElementById('direct-colab').onclick = () => {
     window.location.href = 'SW Sistem.html';
   };
 
   const selector = document.getElementById('language-selector');
   const list = document.getElementById('language-list');
-  selector.onclick = (e) => {
-    e.stopPropagation();
-    list.style.display = (list.style.display === 'block') ? 'none' : 'block';
-  };
+  if(selector) {
+    selector.onclick = (e) => {
+      e.stopPropagation();
+      list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+    };
+  }
 
   document.getElementById('user-greeting').onclick = (e) => {
     e.stopPropagation();
@@ -462,23 +466,28 @@
     document.getElementById('edit-modal').classList.replace('hidden', 'flex');
     document.getElementById('settings-dropdown').classList.add('hidden');
   };
+
   document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
   document.getElementById('logout-btn').onclick = () => auth.signOut().then(() => location.reload());
 
-  window.onclick = () => {
-    if(list) list.style.display = 'none';
+  // Fecha menus ao clicar fora, sem travar os inputs
+  window.onclick = (e) => {
+    if (list && !selector.contains(e.target)) list.style.display = 'none';
     const drop = document.getElementById('settings-dropdown');
-    if(drop) drop.classList.add('hidden');
+    if (drop && !document.getElementById('user-greeting').contains(e.target)) drop.classList.add('hidden');
   };
 </script>
 
 
+
+  
   
   
 
 
 </body>
 </html>
+
 
 
 
