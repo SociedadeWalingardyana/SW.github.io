@@ -61,6 +61,40 @@
 
 <body>
 
+
+
+<!-- 🔘 BOTÕES SUPERIORES ORIGINAIS -->
+<div id="direct-colab" class="top-button" style="right: 170px; padding: 5px 10px;">
+  Direct Colab
+</div>
+
+<div id="language-selector" class="top-button" style="right: 130px; width: 30px; height: 35px;">
+  ▼
+</div>
+
+<ul id="language-list" style="
+  position: fixed;
+  top: 50px;
+  right: 130px;
+  width: 120px;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 5px;
+  list-style: none;
+  padding: 5px 0;
+  display: none;
+  z-index: 60;
+">
+  <li style="padding:8px 12px; cursor:pointer;">Português</li>
+  <li style="padding:8px 12px; cursor:pointer;">Español</li>
+  <li style="padding:8px 12px; cursor:pointer;">English</li>
+</ul>
+
+
+
+
+  
+
 <!-- 🔐 LOGIN / MEMBROS (SOMENTE ADIÇÃO) -->
 <div class="fixed top-4 right-4 z-50 font-sans">
 
@@ -218,4 +252,24 @@
 </script>
 
 </body>
+
+  <script>
+  document.getElementById('direct-colab').onclick = function () {
+    window.location.href = 'SW Sistem.html';
+  };
+
+  const selector = document.getElementById('language-selector');
+  const list = document.getElementById('language-list');
+
+  selector.onclick = function (e) {
+    e.stopPropagation();
+    list.style.display = list.style.display === 'block' ? 'none' : 'block';
+  };
+
+  document.addEventListener('click', function () {
+    list.style.display = 'none';
+  });
+</script>
+
 </html>
+
