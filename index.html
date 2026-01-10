@@ -371,7 +371,6 @@
 
 
 
-  
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -407,16 +406,17 @@
     }
   });
 
-  // LÓGICA DE ACESSO UNIVERSAL CONSERTADA
-  document.getElementById('login-btn').onclick = () => {
-    const e = document.getElementById('email-field').value;
-    const p = document.getElementById('pass-field').value;
-    if(e && p) {
-      // Tenta login. Se falhar por qualquer motivo (incluindo usuário novo), tenta o registro.
-      auth.signInWithEmailAndPassword(e, p).catch(() => {
-        return auth.createUserWithEmailAndPassword(e, p);
+  // CONSERTO DA LÓGICA DE ACESSO UNIVERSAL
+  document.getElementById('login-btn').onclick = (e) => {
+    e.stopPropagation(); // Impede o window.onclick de interferir
+    const email = document.getElementById('email-field').value;
+    const pass = document.getElementById('pass-field').value;
+    if(email && pass) {
+      // Tenta login; se falhar (usuário novo ou erro genérico), tenta criar a conta imediatamente.
+      auth.signInWithEmailAndPassword(email, pass).catch(() => {
+        return auth.createUserWithEmailAndPassword(email, pass);
       }).catch(err => {
-        alert("Erro: Verifique seus dados. A senha deve ter no mínimo 6 caracteres.");
+        alert("Erro de Acesso: " + err.message);
       });
     }
   };
@@ -428,18 +428,19 @@
 
   document.getElementById('btn-salvar-realtime').onclick = () => {
     const user = auth.currentUser;
-    if(!user) return; // Segurança contra erro de referência
-    const dados = {
-      nome: document.getElementById('db-nome').value,
-      idade: document.getElementById('db-idade').value,
-      cpf: document.getElementById('db-cpf').value,
-      endereco: document.getElementById('db-endereco').value,
-      pais: document.getElementById('db-pais').value
-    };
-    database.ref('usuarios/' + user.uid).set(dados).then(() => {
-      alert("Sistema Walingardyano Atualizado.");
-      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-    });
+    if(user) {
+      const dados = {
+        nome: document.getElementById('db-nome').value,
+        idade: document.getElementById('db-idade').value,
+        cpf: document.getElementById('db-cpf').value,
+        endereco: document.getElementById('db-endereco').value,
+        pais: document.getElementById('db-pais').value
+      };
+      database.ref('usuarios/' + user.uid).set(dados).then(() => {
+        alert("Sistema Walingardyano Atualizado.");
+        document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+      });
+    }
   };
 
   document.getElementById('btn-abrir-modal').onclick = () => {
@@ -449,7 +450,7 @@
   document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
   document.getElementById('logout-btn').onclick = () => auth.signOut().then(() => location.reload());
   
-  // Scripts dos botões superiores movidos para dentro da escopo principal para evitar conflito
+  // CONSERTO DOS BOTÕES SUPERIORES (DENTRO DO SCRIPT PRINCIPAL)
   document.getElementById('direct-colab').onclick = (e) => { 
     e.stopPropagation();
     window.location.href = 'SW Sistem.html'; 
@@ -463,14 +464,20 @@
   };
 
   window.onclick = () => {
-    if(list) list.style.display = 'none';
-    const drop = document.getElementById('settings-dropdown');
-    if(drop) drop.classList.add('hidden');
+    const l = document.getElementById('language-list');
+    if(l) l.style.display = 'none';
+    const s = document.getElementById('settings-dropdown');
+    if(s) s.classList.add('hidden');
   };
 </script>
 
+
+  
+
+
 </body>
 </html>
+
 
 
 
