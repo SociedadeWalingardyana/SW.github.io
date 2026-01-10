@@ -215,7 +215,7 @@
     projectId: "login-sw-14940",
     appId: "1:252978150700:web:2c7d3997389f7675058089"
   };
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const database = firebase.database();
 
@@ -239,11 +239,28 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     }
   });
 
+  // --- MODIFICAÇÃO PARA REGISTRO UNIVERSAL ---
   document.getElementById('login-btn').onclick = () => {
     const e = document.getElementById('email-field').value;
     const p = document.getElementById('pass-field').value;
-    if(e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert("Acesso negado: " + err.message));
+    
+    if(e && p) {
+      // Tenta primeiro fazer o login
+      auth.signInWithEmailAndPassword(e, p).catch(err => {
+        // Se o erro for "usuário não encontrado", ele cria a conta automaticamente
+        if (err.code === 'auth/user-not-found') {
+          auth.createUserWithEmailAndPassword(e, p)
+            .then(() => alert("Bem-vindo! Sua conta foi criada com sucesso."))
+            .catch(regErr => alert("Erro ao registrar: " + regErr.message));
+        } else {
+          alert("Erro de Acesso: " + err.message);
+        }
+      });
+    } else {
+      alert("Preencha e-mail e senha.");
+    }
   };
+  // -------------------------------------------
 
   document.getElementById('user-greeting').onclick = (e) => {
     e.stopPropagation();
@@ -275,24 +292,7 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
   window.onclick = () => document.getElementById('settings-dropdown').classList.add('hidden');
 </script>
 
-<script>
-  document.getElementById('direct-colab').onclick = function () {
-    window.location.href = 'SW Sistem.html';
-  };
-
-  const selector = document.getElementById('language-selector');
-  const list = document.getElementById('language-list');
-
-  selector.onclick = function (e) {
-    e.stopPropagation();
-    list.style.display = list.style.display === 'block' ? 'none' : 'block';
-  };
-
-  document.addEventListener('click', function () {
-    list.style.display = 'none';
-  });
-</script>
-
 </body>
 </html>
+
 
