@@ -374,6 +374,47 @@
 
 
 
+<div class="fixed top-4 right-4 z-50 font-sans">
+  
+  <div id="auth-container" class="flex gap-2 bg-black bg-opacity-50 p-2 rounded-lg backdrop-blur-sm">
+    <input type="email" id="email-field" placeholder="E-mail" class="px-3 py-1 text-sm rounded border-none focus:ring-2 focus:ring-yellow-500 outline-none w-40">
+    <input type="password" id="pass-field" placeholder="Senha" class="px-3 py-1 text-sm rounded border-none focus:ring-2 focus:ring-yellow-500 outline-none w-32">
+    <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-bold px-4 py-1 rounded transition">Entrar</button>
+  </div>
+
+  <div id="user-info" class="hidden flex flex-col items-end">
+    <div id="user-greeting" class="bg-black bg-opacity-70 text-yellow-500 px-4 py-1 rounded-t-lg font-bold cursor-pointer border border-yellow-600 border-b-0">
+      </div>
+    <div id="settings-dropdown" class="hidden bg-white text-gray-800 shadow-xl rounded-b-lg rounded-tl-lg overflow-hidden border border-yellow-600 w-48">
+      <button id="btn-abrir-modal" class="block w-full text-left px-4 py-2 hover:bg-gray-100 border-b text-sm">Alterar Meus Dados</button>
+      <button id="logout-btn" class="block w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 text-sm font-bold">Sair</button>
+    </div>
+  </div>
+</div>
+
+<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[60] p-4 font-sans">
+  <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
+    <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
+    <div class="space-y-3">
+      <input type="text" id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded">
+      <input type="number" id="db-idade" placeholder="Idade" class="w-full border p-2 rounded">
+      <input type="text" id="db-cpf" placeholder="CPF" class="w-full border p-2 rounded">
+      <input type="text" id="db-endereco" placeholder="Endereço" class="w-full border p-2 rounded">
+      <input type="text" id="db-pais" placeholder="País" class="w-full border p-2 rounded">
+    </div>
+    <div class="flex gap-2 mt-6">
+      <button id="btn-salvar-realtime" class="bg-green-700 hover:bg-green-800 text-white flex-1 py-2 rounded font-bold transition">Salvar</button>
+      <button id="btn-fechar-modal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 flex-1 py-2 rounded transition">Voltar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+  
+
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -460,6 +501,7 @@
 
 </body>
 </html>
+
 
 
 
