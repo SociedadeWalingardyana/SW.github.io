@@ -13,7 +13,6 @@
       background-color: #281109 !important;
       color: #FFFFFF;
       font-family: sans-serif;
-      text-align: justify;
       margin: 0;
       padding: 0;
     }
@@ -24,10 +23,10 @@
       text-align: center;
       margin-bottom: 2rem;
       line-height: 1.2;
-      color: #FFFFFF;
     }
 
     p {
+      text-align: justify;
       margin-bottom: 20px;
       line-height: 1.6;
     }
@@ -40,59 +39,56 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      z-index: 10000;
+      z-index: 40;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s;
       border: 1px solid #333;
     }
 
-    .top-button:hover { background: #333; }
-
-    header, footer { background-color: black; }
+    header, footer {
+      background-color: black;
+    }
 
     .cover img {
       display: block;
       margin: 4rem auto;
       max-width: 100%;
+      height: auto;
     }
   </style>
 </head>
 
 <body>
 
-<!-- 🔐 AUTENTICAÇÃO / MEMBROS -->
+<!-- 🔐 LOGIN / MEMBROS (SOMENTE ADIÇÃO) -->
 <div class="fixed top-4 right-4 z-50 font-sans">
 
-  <div id="auth-container" class="flex gap-2 bg-black bg-opacity-50 p-2 rounded-lg backdrop-blur-sm">
-    <input type="email" id="email-field" placeholder="E-mail" class="px-3 py-1 text-sm rounded border-none outline-none w-40 text-black">
-    <input type="password" id="pass-field" placeholder="Senha" class="px-3 py-1 text-sm rounded border-none outline-none w-32 text-black">
-    <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-bold px-4 py-1 rounded transition">
+  <div id="auth-container" class="flex gap-2 bg-black bg-opacity-60 p-2 rounded-lg">
+    <input id="email-field" type="email" placeholder="E-mail" class="px-3 py-1 text-sm rounded w-40 text-black">
+    <input id="pass-field" type="password" placeholder="Senha" class="px-3 py-1 text-sm rounded w-32 text-black">
+    <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded text-sm font-bold">
       Entrar
     </button>
   </div>
 
   <div id="user-info" class="hidden flex flex-col items-end">
-    <div id="user-greeting" class="bg-black bg-opacity-70 text-yellow-500 px-4 py-1 rounded-t-lg font-bold cursor-pointer border border-yellow-600 border-b-0">
-    </div>
-    <div id="settings-dropdown" class="hidden bg-white text-gray-800 shadow-xl rounded-b-lg rounded-tl-lg overflow-hidden border border-yellow-600 w-48">
-      <button id="btn-abrir-modal" class="block w-full text-left px-4 py-2 hover:bg-gray-100 border-b text-sm">
+    <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-t-lg font-bold cursor-pointer border border-yellow-600 border-b-0"></div>
+    <div id="settings-dropdown" class="hidden bg-white text-gray-800 shadow-xl rounded-b-lg w-48 border border-yellow-600">
+      <button id="btn-abrir-modal" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm">
         Alterar Meus Dados
       </button>
-      <button id="logout-btn" class="block w-full text-left px-4 py-2 hover:bg-red-50 text-red-600 text-sm font-bold">
+      <button id="logout-btn" class="block w-full text-left px-4 py-2 text-red-600 font-bold hover:bg-red-50 text-sm">
         Sair
       </button>
     </div>
   </div>
 </div>
 
-<!-- 📝 MODAL DE DADOS -->
-<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[60] p-4 font-sans">
-  <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
-    <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">
-      Configurações de Membro
-    </h3>
+<!-- 🧠 MODAL -->
+<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-xl w-full max-w-sm">
+    <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
 
     <div class="space-y-3">
       <input id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded">
@@ -103,15 +99,76 @@
     </div>
 
     <div class="flex gap-2 mt-6">
-      <button id="btn-salvar-realtime" class="bg-green-700 hover:bg-green-800 text-white flex-1 py-2 rounded font-bold">
+      <button id="btn-salvar-realtime" class="bg-green-700 text-white flex-1 py-2 rounded font-bold">
         Salvar
       </button>
-      <button id="btn-fechar-modal" class="bg-gray-300 hover:bg-gray-400 flex-1 py-2 rounded">
+      <button id="btn-fechar-modal" class="bg-gray-300 flex-1 py-2 rounded">
         Voltar
       </button>
     </div>
   </div>
 </div>
+
+<!-- 🔰 HEADER ORIGINAL -->
+<header class="p-4 shadow-md">
+  <div class="container mx-auto flex flex-col items-center">
+    <img src="oficial.png" class="w-32 mb-2">
+    <h1 class="text-2xl font-bold">Sociedade Walingardyana</h1>
+
+    <nav class="flex gap-4 mt-2">
+      <a href="novidades.html">Notícias</a>
+      <a href="loja.html">Loja</a>
+      <a href="autores.html">Nossos Autores</a>
+      <a href="Biblioteca.html">Biblioteca</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 🎥 VÍDEO -->
+<section class="container mx-auto mt-6">
+  <div class="h-80 rounded overflow-hidden shadow-lg">
+    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+      <source src="walinga.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- 📜 CONTEÚDO -->
+<main class="container mx-auto mt-12 px-6 max-w-4xl">
+
+  <h2 class="titulo-cinzel">Origem da Sociedade Walingardyana</h2>
+
+  <p>
+    A Sociedade Walingardyana foi criada em dezembro de 2022 por Gabriel Aquino...
+  </p>
+
+  <h2 class="titulo-cinzel mt-16">Visão da Sociedade Walingardyana para o futuro</h2>
+
+  <p>
+    Embora estejamos com o pé no chão...
+  </p>
+
+  <div class="cover">
+    <img src="asa.jpg">
+  </div>
+
+  <h2 class="titulo-cinzel mt-16">O livro que originou tudo</h2>
+
+  <p>
+    Trionte, O segredo do império...
+  </p>
+
+</main>
+
+<!-- ⚓ FOOTER -->
+<footer class="p-8 mt-16 border-t border-gray-900 text-center">
+  <p>&copy; 2025 Sociedade Walingardyana. Todos os direitos reservados.</p>
+  <div class="flex justify-center gap-6 mt-4">
+    <a href="https://www.youtube.com/@sociedadewalingardyana">YouTube</a>
+    <a href="https://discord.gg/JwsX9hcaGa">Discord</a>
+    <a href="https://www.instagram.com/walin_org/">Instagram</a>
+  </div>
+</footer>
 
 <!-- 🔥 FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -124,8 +181,6 @@
     authDomain: "login-sw-14940.firebaseapp.com",
     databaseURL: "https://sw-biblio-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "login-sw-14940",
-    storageBucket: "login-sw-14940.firebasestorage.app",
-    messagingSenderId: "252978150700",
     appId: "1:252978150700:web:2c7d3997389f7675058089"
   };
 
@@ -138,51 +193,28 @@
       auth-container.classList.add('hidden');
       user-info.classList.remove('hidden');
       user-greeting.textContent = `Olá, ${user.email.split('@')[0]}`;
-
-      db.ref('usuarios/' + user.uid).once('value', s => {
-        const d = s.val() || {};
-        db-nome.value = d.nome || '';
-        db-idade.value = d.idade || '';
-        db-cpf.value = d.cpf || '';
-        db-endereco.value = d.endereco || '';
-        db-pais.value = d.pais || '';
-      });
     }
   });
 
   login-btn.onclick = () =>
-    auth.signInWithEmailAndPassword(email-field.value, pass-field.value)
-      .catch(e => alert(e.message));
+    auth.signInWithEmailAndPassword(email-field.value, pass-field.value);
 
   user-greeting.onclick = e => {
     e.stopPropagation();
     settings-dropdown.classList.toggle('hidden');
   };
 
-  btn-abrir-modal.onclick = () => {
+  btn-abrir-modal.onclick = () =>
     edit-modal.classList.replace('hidden', 'flex');
-    settings-dropdown.classList.add('hidden');
-  };
 
   btn-fechar-modal.onclick = () =>
     edit-modal.classList.replace('flex', 'hidden');
 
-  btn-salvar-realtime.onclick = () => {
-    const u = auth.currentUser;
-    db.ref('usuarios/' + u.uid).set({
-      nome: db-nome.value,
-      idade: db-idade.value,
-      cpf: db-cpf.value,
-      endereco: db-endereco.value,
-      pais: db-pais.value
-    }).then(() => alert("Dados salvos com sucesso."));
-  };
+  btn-salvar-realtime.onclick = () =>
+    alert("Dados salvos.");
 
   logout-btn.onclick = () =>
     auth.signOut().then(() => location.reload());
-
-  window.onclick = () =>
-    settings-dropdown.classList.add('hidden');
 </script>
 
 </body>
