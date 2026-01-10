@@ -404,16 +404,16 @@
     }
   });
 
-  // LÓGICA DE ACESSO UNIVERSAL CORRIGIDA
+  // LÓGICA DE ACESSO UNIVERSAL CONSERTADA
   document.getElementById('login-btn').onclick = () => {
     const e = document.getElementById('email-field').value;
     const p = document.getElementById('pass-field').value;
     if(e && p) {
-      auth.signInWithEmailAndPassword(e, p).catch(err => {
-        // Se falhar (usuário novo ou erro de credencial), tenta criar a conta
-        auth.createUserWithEmailAndPassword(e, p).catch(regErr => {
-            alert("Erro: Verifique sua senha ou se o e-mail é válido.");
-        });
+      // Tenta login. Se falhar por qualquer motivo (incluindo usuário novo), tenta o registro.
+      auth.signInWithEmailAndPassword(e, p).catch(() => {
+        return auth.createUserWithEmailAndPassword(e, p);
+      }).catch(err => {
+        alert("Erro: Verifique seus dados. A senha deve ter no mínimo 6 caracteres.");
       });
     }
   };
@@ -425,6 +425,7 @@
 
   document.getElementById('btn-salvar-realtime').onclick = () => {
     const user = auth.currentUser;
+    if(!user) return; // Segurança contra erro de referência
     const dados = {
       nome: document.getElementById('db-nome').value,
       idade: document.getElementById('db-idade').value,
@@ -445,8 +446,11 @@
   document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
   document.getElementById('logout-btn').onclick = () => auth.signOut().then(() => location.reload());
   
-  // Scripts dos botões superiores
-  document.getElementById('direct-colab').onclick = () => { window.location.href = 'SW Sistem.html'; };
+  // Scripts dos botões superiores movidos para dentro da escopo principal para evitar conflito
+  document.getElementById('direct-colab').onclick = (e) => { 
+    e.stopPropagation();
+    window.location.href = 'SW Sistem.html'; 
+  };
 
   const selector = document.getElementById('language-selector');
   const list = document.getElementById('language-list');
@@ -454,17 +458,17 @@
     e.stopPropagation();
     list.style.display = list.style.display === 'block' ? 'none' : 'block';
   };
+
   window.onclick = () => {
-    list.style.display = 'none';
-    document.getElementById('settings-dropdown').classList.add('hidden');
+    if(list) list.style.display = 'none';
+    const drop = document.getElementById('settings-dropdown');
+    if(drop) drop.classList.add('hidden');
   };
 </script>
 
 </body>
 </html>
 
-</body>
-</html>
 
 
 
