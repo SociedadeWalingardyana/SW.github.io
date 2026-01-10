@@ -370,8 +370,108 @@
 </footer>
 
 
+
+  
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
+    authDomain: "login-sw-14940.firebaseapp.com",
+    databaseURL: "https://sw-biblio-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "login-sw-14940",
+    appId: "1:252978150700:web:2c7d3997389f7675058089"
+  };
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const database = firebase.database();
+
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      document.getElementById('auth-container').classList.add('hidden');
+      document.getElementById('user-info').classList.remove('hidden');
+      document.getElementById('user-greeting').textContent = `Olá, ${user.email.split('@')[0]}`;
+      database.ref('usuarios/' + user.uid).once('value', (snap) => {
+        const d = snap.val() || {};
+        document.getElementById('db-nome').value = d.nome || "";
+        document.getElementById('db-idade').value = d.idade || "";
+        document.getElementById('db-cpf').value = d.cpf || "";
+        document.getElementById('db-endereco').value = d.endereco || "";
+        document.getElementById('db-pais').value = d.pais || "";
+      });
+    } else {
+      document.getElementById('auth-container').classList.remove('hidden');
+      document.getElementById('user-info').classList.add('hidden');
+    }
+  });
+
+  // LÓGICA DE ACESSO UNIVERSAL CONSERTADA
+  document.getElementById('login-btn').onclick = () => {
+    const e = document.getElementById('email-field').value;
+    const p = document.getElementById('pass-field').value;
+    if(e && p) {
+      // Tenta login. Se falhar por qualquer motivo (incluindo usuário novo), tenta o registro.
+      auth.signInWithEmailAndPassword(e, p).catch(() => {
+        return auth.createUserWithEmailAndPassword(e, p);
+      }).catch(err => {
+        alert("Erro: Verifique seus dados. A senha deve ter no mínimo 6 caracteres.");
+      });
+    }
+  };
+
+  document.getElementById('user-greeting').onclick = (e) => {
+    e.stopPropagation();
+    document.getElementById('settings-dropdown').classList.toggle('hidden');
+  };
+
+  document.getElementById('btn-salvar-realtime').onclick = () => {
+    const user = auth.currentUser;
+    if(!user) return; // Segurança contra erro de referência
+    const dados = {
+      nome: document.getElementById('db-nome').value,
+      idade: document.getElementById('db-idade').value,
+      cpf: document.getElementById('db-cpf').value,
+      endereco: document.getElementById('db-endereco').value,
+      pais: document.getElementById('db-pais').value
+    };
+    database.ref('usuarios/' + user.uid).set(dados).then(() => {
+      alert("Sistema Walingardyano Atualizado.");
+      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+    });
+  };
+
+  document.getElementById('btn-abrir-modal').onclick = () => {
+    document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+    document.getElementById('settings-dropdown').classList.add('hidden');
+  };
+  document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+  document.getElementById('logout-btn').onclick = () => auth.signOut().then(() => location.reload());
+  
+  // Scripts dos botões superiores movidos para dentro da escopo principal para evitar conflito
+  document.getElementById('direct-colab').onclick = (e) => { 
+    e.stopPropagation();
+    window.location.href = 'SW Sistem.html'; 
+  };
+
+  const selector = document.getElementById('language-selector');
+  const list = document.getElementById('language-list');
+  selector.onclick = (e) => {
+    e.stopPropagation();
+    list.style.display = list.style.display === 'block' ? 'none' : 'block';
+  };
+
+  window.onclick = () => {
+    if(list) list.style.display = 'none';
+    const drop = document.getElementById('settings-dropdown');
+    if(drop) drop.classList.add('hidden');
+  };
+</script>
+
 </body>
 </html>
+
 
 
 
