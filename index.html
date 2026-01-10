@@ -467,13 +467,37 @@ window.addEventListener('DOMContentLoaded', () => {
     };
   }
 
-  // =========================
-  // 5️⃣ Módulo: Direct Colab
-  // =========================
-  const directBtn = document.getElementById('direct-colab');
-  directBtn?.addEventListener('click', () => {
-    window.location.href = 'SW Sistem.html';
-  });
+
+
+
+
+// =========================
+// 5️⃣ Módulo: Direct Colab
+// =========================
+(function() {
+  const initDirectColab = () => {
+    const directBtn = document.getElementById('direct-colab');
+
+    if (directBtn) {
+      directBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Evita comportamentos inesperados
+        window.location.href = 'SW Sistem.html';
+      });
+    }
+  };
+
+  // Garante que o código rode mesmo que o script esteja no <head>
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDirectColab);
+  } else {
+    initDirectColab();
+  }
+})();
+
+
+
+
+  
 
   // =========================
   // 6️⃣ Módulo: Seletor de Idiomas
@@ -533,6 +557,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
