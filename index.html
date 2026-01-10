@@ -380,6 +380,8 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
+window.addEventListener('DOMContentLoaded', () => {
+
   // 1. Configuração Única
   const firebaseConfig = {
     apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
@@ -415,67 +417,83 @@
   });
 
   // 3. Login e Registro Universal (Botão corrigido)
-  document.getElementById('login-btn').onclick = (e) => {
-    const email = document.getElementById('email-field').value;
-    const pass = document.getElementById('pass-field').value;
-    if(email && pass) {
-      auth.signInWithEmailAndPassword(email, pass).catch(() => {
-        return auth.createUserWithEmailAndPassword(email, pass);
-      }).catch(err => alert("Erro: " + err.message));
-    }
-  };
-
-  // 4. Salvar Dados
-  document.getElementById('btn-salvar-realtime').onclick = () => {
-    const user = auth.currentUser;
-    if(user) {
-      const dados = {
-        nome: document.getElementById('db-nome').value,
-        idade: document.getElementById('db-idade').value,
-        cpf: document.getElementById('db-cpf').value,
-        endereco: document.getElementById('db-endereco').value,
-        pais: document.getElementById('db-pais').value
-      };
-      database.ref('usuarios/' + user.uid).set(dados).then(() => {
-        alert("Dados salvos no Firebase.");
-        document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-      });
-    }
-  };
-
-  // 5. Interface e Botões do Cabeçalho (Consertados)
-  document.getElementById('direct-colab').onclick = () => {
-    window.location.href = 'SW Sistem.html';
-  };
-
-  const selector = document.getElementById('language-selector');
-  const list = document.getElementById('language-list');
-  if(selector) {
-    selector.onclick = (e) => {
-      e.stopPropagation();
-      list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+  const loginBtn = document.getElementById('login-btn');
+  if(loginBtn) {
+    loginBtn.onclick = (e) => {
+      const email = document.getElementById('email-field').value;
+      const pass = document.getElementById('pass-field').value;
+      if(email && pass) {
+        auth.signInWithEmailAndPassword(email, pass).catch(() => {
+          return auth.createUserWithEmailAndPassword(email, pass);
+        }).catch(err => alert("Erro: " + err.message));
+      }
     };
   }
 
-  document.getElementById('user-greeting').onclick = (e) => {
-    e.stopPropagation();
-    document.getElementById('settings-dropdown').classList.toggle('hidden');
-  };
+  // 4. Salvar Dados
+  const salvarBtn = document.getElementById('btn-salvar-realtime');
+  if(salvarBtn) {
+    salvarBtn.onclick = () => {
+      const user = auth.currentUser;
+      if(user) {
+        const dados = {
+          nome: document.getElementById('db-nome').value,
+          idade: document.getElementById('db-idade').value,
+          cpf: document.getElementById('db-cpf').value,
+          endereco: document.getElementById('db-endereco').value,
+          pais: document.getElementById('db-pais').value
+        };
+        database.ref('usuarios/' + user.uid).set(dados).then(() => {
+          alert("Dados salvos no Firebase.");
+          document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+        });
+      }
+    };
+  }
 
-  document.getElementById('btn-abrir-modal').onclick = () => {
+  // 5. Interface e Botões do Cabeçalho (Consertados)
+  const directBtn = document.getElementById('direct-colab');
+  if(directBtn) directBtn.onclick = () => window.location.href = 'SW Sistem.html';
+
+  const selector = document.getElementById('language-selector');
+  const list = document.getElementById('language-list');
+  if(selector && list) {
+    selector.onclick = (e) => {
+      e.stopPropagation();
+      list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
+    };
+  }
+
+  const userGreeting = document.getElementById('user-greeting');
+  if(userGreeting) {
+    userGreeting.onclick = (e) => {
+      e.stopPropagation();
+      const drop = document.getElementById('settings-dropdown');
+      if(drop) drop.classList.toggle('hidden');
+    };
+  }
+
+  const openModalBtn = document.getElementById('btn-abrir-modal');
+  if(openModalBtn) openModalBtn.onclick = () => {
     document.getElementById('edit-modal').classList.replace('hidden', 'flex');
-    document.getElementById('settings-dropdown').classList.add('hidden');
+    const drop = document.getElementById('settings-dropdown');
+    if(drop) drop.classList.add('hidden');
   };
 
-  document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-  document.getElementById('logout-btn').onclick = () => auth.signOut().then(() => location.reload());
+  const closeModalBtn = document.getElementById('btn-fechar-modal');
+  if(closeModalBtn) closeModalBtn.onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+
+  const logoutBtn = document.getElementById('logout-btn');
+  if(logoutBtn) logoutBtn.onclick = () => auth.signOut().then(() => location.reload());
 
   // Fecha menus ao clicar fora, sem travar os inputs
   window.onclick = (e) => {
-    if (list && !selector.contains(e.target)) list.style.display = 'none';
+    if(list && !selector.contains(e.target)) list.style.display = 'none';
     const drop = document.getElementById('settings-dropdown');
-    if (drop && !document.getElementById('user-greeting').contains(e.target)) drop.classList.add('hidden');
+    if(drop && !userGreeting.contains(e.target)) drop.classList.add('hidden');
   };
+
+});
 </script>
 
 
@@ -487,6 +505,7 @@
 
 </body>
 </html>
+
 
 
 
