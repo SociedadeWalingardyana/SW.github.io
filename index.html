@@ -177,32 +177,33 @@
 
 <body>
 
-<div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-2 rounded-lg border border-gray-800 font-sans">
+<div class="absolute top-2 right-4 z-50 font-sans flex items-center gap-2">
   
-  <input id="email-field" type="email" placeholder="E-mail" 
-    class="px-3 py-1 text-sm rounded w-36 text-black outline-none border-none">
-  
-  <input id="pass-field" type="password" placeholder="Senha" 
-    class="px-3 py-1 text-sm rounded w-32 text-black outline-none border-none">
-
-  <div class="flex items-center gap-2">
-    <button id="login-btn" 
-      class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded text-sm font-bold transition-all whitespace-nowrap">
-      Entrar
-    </button>
+  <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1.5 rounded-lg">
     
-    <button id="signup-btn" 
-      class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded text-sm font-bold transition-all whitespace-nowrap">
-      Registrar
-    </button>
+    <input id="email-field" type="email" placeholder="E-mail" 
+      class="px-2 py-1 text-sm rounded w-32 text-black outline-none">
+    
+    <input id="pass-field" type="password" placeholder="Senha" 
+      class="px-2 py-1 text-sm rounded w-28 text-black outline-none">
+
+    <div class="flex gap-1">
+      <button id="login-btn" 
+        class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">
+        Entrar
+      </button>
+      
+      <button id="signup-btn" 
+        class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">
+        Registrar
+      </button>
+    </div>
+  </div>
+
+  <div id="user-info" class="hidden">
+    <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-lg font-bold border border-yellow-600 cursor-pointer"></div>
   </div>
 </div>
-
-<div id="user-info" class="hidden flex flex-col items-end">
-  <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-lg font-bold border border-yellow-600"></div>
-</div>
-
-
 
 
   
@@ -391,6 +392,7 @@ window.onclick = (e) => {
 
 </body>
 </html>
+
 
 
 
