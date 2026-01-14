@@ -274,7 +274,7 @@
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val() || {};
        const nome = d.nome && d.nome.trim() !== "" ? d.nome : user.email.split('@')[0];
-document.getElementById('user-greeting').textContent = `Olá, ${nome}`;
+document.getElementById('user-greeting').textContent = `Olá, ${email}`;
         
         // Preenche o modal (apenas se os campos existirem)
         if(document.getElementById('db-nome')) {
@@ -357,6 +357,7 @@ document.getElementById('user-greeting').textContent = `Olá, ${nome}`;
 
 </body>
 </html>
+
 
 
 
