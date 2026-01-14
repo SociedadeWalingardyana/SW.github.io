@@ -182,7 +182,6 @@
 
 
 
-
 <div class="absolute top-2 z-50 font-sans flex items-center gap-2" style="right: 180px;">
   
   <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1.5 rounded-lg border border-gray-800">
@@ -308,32 +307,27 @@
     document.getElementById('edit-modal').classList.replace('flex', 'hidden');
   };
 
-// SALVAR NO FIREBASE COM MENSAGEM DE CONFIRMAÇÃO
-document.getElementById('btn-salvar-realtime').onclick = () => {
-  const user = auth.currentUser; // Pega o usuário que está logado
-  if(!user) return; // Se não estiver logado, não faz nada
-  
-  // Coleta os dados digitados nos campos do modal
-  const dados = {
-    nome: document.getElementById('db-nome').value,
-    idade: document.getElementById('db-idade').value,
-    cpf: document.getElementById('db-cpf').value,
-    endereco: document.getElementById('db-endereco').value,
-    pais: document.getElementById('db-pais').value
-  };
-  
-  // Envia para o banco de dados
-  database.ref('usuarios/' + user.uid).update(dados).then(() => {
-    // ESTA É A MENSAGEM QUE APARECERÁ NA TELA
-    alert("Sistema Walingardyano: Dados salvos com sucesso!"); 
+  // --- SALVAR NO FIREBASE ---
+  document.getElementById('btn-salvar-realtime').onclick = () => {
+    const user = auth.currentUser;
+    if(!user) return;
     
-    // Fecha o modal automaticamente
-    document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-  }).catch((error) => {
-    // Caso haja erro de conexão
-    alert("Erro ao salvar: " + error.message);
-  });
-};
+    const dados = {
+      nome: document.getElementById('db-nome').value,
+      idade: document.getElementById('db-idade').value,
+      cpf: document.getElementById('db-cpf').value,
+      endereco: document.getElementById('db-endereco').value,
+      pais: document.getElementById('db-pais').value
+    };
+    
+    database.ref('usuarios/' + user.uid).update(dados).then(() => {
+      alert("Dados atualizados no Firebase!");
+      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+    });
+  };
+
+  document.getElementById('logout-btn').onclick = () => auth.signOut();
+
   // Fechar dropdown ao clicar fora
   window.onclick = () => document.getElementById('settings-dropdown').classList.add('hidden');
 </script>
@@ -349,6 +343,7 @@ document.getElementById('btn-salvar-realtime').onclick = () => {
 
 </body>
 </html>
+
 
 
 
