@@ -273,9 +273,8 @@
       // Busca dados do Realtime Database
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val() || {};
-        const nome = d.nome && d.nome.trim() !== "" ? d.nome : user.email.split('@')[0];
-
-        document.getElementById('user-greeting').textContent = `Olá, ${nome}`;
+       const nome = d.nome && d.nome.trim() !== "" ? d.nome : user.email.split('@')[0];
+document.getElementById('user-greeting').textContent = `Olá, ${nome}`;
         
         // Preenche o modal (apenas se os campos existirem)
         if(document.getElementById('db-nome')) {
@@ -358,6 +357,7 @@
 
 </body>
 </html>
+
 
 
 
