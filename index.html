@@ -177,57 +177,44 @@
 
 <body>
 
+
+  
+
+
+
+
 <div class="absolute top-2 z-50 font-sans flex items-center gap-2" style="right: 180px;">
   
   <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1.5 rounded-lg border border-gray-800">
-    
-    <input id="email-field" type="email" placeholder="E-mail" 
-      class="px-2 py-1 text-sm rounded w-32 text-black outline-none border-none">
-    
-    <input id="pass-field" type="password" placeholder="Senha" 
-      class="px-2 py-1 text-sm rounded w-28 text-black outline-none border-none">
-
+    <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-32 text-black outline-none">
+    <input id="pass-field" type="password" placeholder="Senha" class="px-2 py-1 text-sm rounded w-28 text-black outline-none">
     <div class="flex gap-1">
-      <button id="login-btn" 
-        class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all whitespace-nowrap">
-        Entrar
-      </button>
-      
-      <button id="signup-btn" 
-        class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all whitespace-nowrap">
-        Registrar
-      </button>
+      <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">Entrar</button>
+      <button id="signup-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">Registrar</button>
     </div>
   </div>
 
-  <div id="user-info" class="hidden">
-    <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-lg font-bold border border-yellow-600"></div>
+  <div id="user-info" class="hidden relative">
+    <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-lg font-bold border border-yellow-600 cursor-pointer hover:bg-opacity-100 transition-all">
+      Carregando...
+    </div>
+    
+    <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
+      <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados da conta</button>
+      <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
+    </div>
   </div>
 </div>
 
-  
-
-<!-- INFORMAÇÕES DO USUÁRIO LOGADO -->
-<div id="user-info" class="hidden flex flex-col items-end">
-  <div id="user-greeting" ...></div>
-  <div id="settings-dropdown" ...>
-    <button id="btn-abrir-modal">...</button>
-    <button id="logout-btn">...</button>
-  </div>
-</div>
-
-
-   
-<!-- MODAL DE EDIÇÃO DE DADOS -->
-<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[60] p-4 font-sans">
+<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[70] p-4 font-sans">
   <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
     <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
     <div class="space-y-3">
-      <input type="text" id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded">
-      <input type="number" id="db-idade" placeholder="Idade" class="w-full border p-2 rounded">
-      <input type="text" id="db-cpf" placeholder="CPF" class="w-full border p-2 rounded">
-      <input type="text" id="db-endereco" placeholder="Endereço" class="w-full border p-2 rounded">
-      <input type="text" id="db-pais" placeholder="País" class="w-full border p-2 rounded">
+      <input type="text" id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded text-black">
+      <input type="number" id="db-idade" placeholder="Idade" class="w-full border p-2 rounded text-black">
+      <input type="text" id="db-cpf" placeholder="CPF" class="w-full border p-2 rounded text-black">
+      <input type="text" id="db-endereco" placeholder="Endereço" class="w-full border p-2 rounded text-black">
+      <input type="text" id="db-pais" placeholder="País" class="w-full border p-2 rounded text-black">
     </div>
     <div class="flex gap-2 mt-6">
       <button id="btn-salvar-realtime" class="bg-green-700 hover:bg-green-800 text-white flex-1 py-2 rounded font-bold transition">Salvar</button>
@@ -236,7 +223,6 @@
   </div>
 </div>
 
-<!-- Firebase + Tailwind -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -253,15 +239,11 @@
     appId: "1:252978150700:web:2c7d3997389f7675058089"
   };
 
-
-
-  
-
   if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const database = firebase.database();
 
-  // --- MONITORAMENTO DE ESTADO ---
+  // --- LOGICA DE MONITORAMENTO ---
   auth.onAuthStateChanged((user) => {
     const authContainer = document.getElementById('auth-container');
     const userInfo = document.getElementById('user-info');
@@ -270,29 +252,28 @@
       authContainer.classList.add('hidden');
       userInfo.classList.remove('hidden');
 
-      // Busca dados do Realtime Database
+      // Escuta dados em tempo real
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val() || {};
-       const email = d.email && d.email.trim() !== "" ? d.email : user.email.split('@')[0];
-document.getElementById('user-greeting').textContent = `Olá, ${email}...`;
-        
-        // Preenche o modal (apenas se os campos existirem)
-        if(document.getElementById('db-nome')) {
-            document.getElementById('db-nome').value = d.nome || "";
-            document.getElementById('db-idade').value = d.idade || "";
-            document.getElementById('db-cpf').value = d.cpf || "";
-            document.getElementById('db-endereco').value = d.endereco || "";
-            document.getElementById('db-pais').value = d.pais || "";
-        }
+        // Se o nome no banco estiver vazio, usa o prefixo do email
+        const exibicao = (d.nome && d.nome.trim() !== "") ? d.nome : user.email.split('@')[0];
+        document.getElementById('user-greeting').textContent = `Olá, ${exibicao}...`;
+
+        // Preenche campos do modal
+        document.getElementById('db-nome').value = d.nome || "";
+        document.getElementById('db-idade').value = d.idade || "";
+        document.getElementById('db-cpf').value = d.cpf || "";
+        document.getElementById('db-endereco').value = d.endereco || "";
+        document.getElementById('db-pais').value = d.pais || "";
       });
     } else {
       authContainer.classList.remove('hidden');
       userInfo.classList.add('hidden');
+      document.getElementById('settings-dropdown').classList.add('hidden');
     }
-  }); // FECHAMENTO CORRETO DO MONITOR
+  });
 
-  // --- AÇÕES DE BOTÕES (FORA DO MONITOR) ---
-
+  // --- BOTÕES DE LOGIN E REGISTRO ---
   document.getElementById('login-btn').onclick = () => {
     const e = document.getElementById('email-field').value;
     const p = document.getElementById('pass-field').value;
@@ -304,19 +285,30 @@ document.getElementById('user-greeting').textContent = `Olá, ${email}...`;
     const p = document.getElementById('pass-field').value;
     if (!e || !p) return alert("Preencha email e senha.");
 
-    auth.createUserWithEmailAndPassword(e, p)
-      .then((u) => {
-        database.ref('usuarios/' + u.user.uid).set({ nome: "", idade: "", cpf: "", endereco: "", pais: "" });
-        alert("Cadastrado!");
-      })
-      .catch(err => alert("Erro: " + err.message));
+    auth.createUserWithEmailAndPassword(e, p).then((u) => {
+      database.ref('usuarios/' + u.user.uid).set({ 
+        nome: "", idade: "", cpf: "", endereco: "", pais: "" 
+      });
+      alert("Conta registrada!");
+    }).catch(err => alert("Erro no cadastro: " + err.message));
   };
 
+  // --- CONTROLE DO DROPDOWN E MODAL ---
   document.getElementById('user-greeting').onclick = (e) => {
     e.stopPropagation();
     document.getElementById('settings-dropdown').classList.toggle('hidden');
   };
 
+  document.getElementById('btn-abrir-modal').onclick = () => {
+    document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+    document.getElementById('settings-dropdown').classList.add('hidden');
+  };
+
+  document.getElementById('btn-fechar-modal').onclick = () => {
+    document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+  };
+
+  // --- SALVAR NO FIREBASE ---
   document.getElementById('btn-salvar-realtime').onclick = () => {
     const user = auth.currentUser;
     if(!user) return;
@@ -330,26 +322,21 @@ document.getElementById('user-greeting').textContent = `Olá, ${email}...`;
     };
     
     database.ref('usuarios/' + user.uid).update(dados).then(() => {
-      alert("Sistema Walingardyano Atualizado.");
+      alert("Dados atualizados no Firebase!");
       document.getElementById('edit-modal').classList.replace('flex', 'hidden');
     });
   };
 
-  document.getElementById('btn-abrir-modal').onclick = () => {
-    document.getElementById('edit-modal').classList.replace('hidden', 'flex');
-    document.getElementById('settings-dropdown').classList.add('hidden');
-  };
-
-  document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-
   document.getElementById('logout-btn').onclick = () => auth.signOut();
+
+  // Fechar dropdown ao clicar fora
+  window.onclick = () => document.getElementById('settings-dropdown').classList.add('hidden');
 </script>
-  
+
+
+
 
   
-
-
-
 
  
   
@@ -357,6 +344,7 @@ document.getElementById('user-greeting').textContent = `Olá, ${email}...`;
 
 </body>
 </html>
+
 
 
 
