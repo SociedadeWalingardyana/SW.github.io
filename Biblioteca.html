@@ -67,7 +67,6 @@ body {
     border-left: 2px solid #1a0901;
 }
 
-/* Título da coluna de novels */
 #novelGrid h2 {
     font-size: 1.2rem;
     font-weight: bold;
@@ -119,7 +118,7 @@ body {
     font-size: 0.85rem;
     color: #c0c0c0;
     line-height: 1.4;
-    white-space: pre-line; /* permite quebrar linhas da sinopse */
+    white-space: pre-line;
 }
 
 .actions { 
@@ -143,12 +142,6 @@ body {
     font-size: 0.9rem;
     width: 64px;
     height: 36px;
-}
-
-.fav::before { 
-    font-size: 16px; 
-    line-height: 1;
-    flex-shrink: 0;
 }
 
 .fav[aria-pressed="true"]::before { 
@@ -237,9 +230,7 @@ body {
     </aside>
 
     <main class="main">
-        <!-- Coluna esquerda: Livros -->
         <div id="grade"></div>
-        <!-- Coluna direita: Novels -->
         <div id="novelGrid">
             <h2>NOVELS SW</h2>
         </div>
@@ -270,34 +261,31 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 // LIVROS
+// Ajustado: Melissa (pasta paginas_compendio), Triohnte (prefixo vazio para 1.png, 2.png)
 const livros = [
-  {id:1, titulo:"Melissa", autor:"Wellington Novaes", capa:"Mellissa.png", pasta:"páginas compendio", totalPaginas:6, sinopse:"Uma jornada emocionante de descoberta e coragem."},
-  {id:2, titulo:"Triohnte", autor:"Gabryell Aweryan", capa:"capaT.png", pasta:"Triohnte", totalPaginas:3, sinopse:"Um épico de fantasia sombria e intrigas políticas."},
-  {id:3, titulo:"Virtudes", autor:"Francisco de Assis", capa:"Virtudes.png", pasta:"Virtudes", totalPaginas:3, sinopse:"Reflexões sobre a bondade e a espiritualidade."}
+  {id:1, titulo:"Melissa", autor:"Wellington Novaes", capa:"Mellissa.png", pasta:"paginas_compendio", totalPaginas:6, prefixo: "Pagina ", sinopse:"Uma jornada emocionante de descoberta e coragem."},
+  {id:2, titulo:"Triohnte", autor:"Gabryell Aweryan", capa:"capaT.png", pasta:"Triohnte", totalPaginas:3, prefixo: "", sinopse:"Um épico de fantasia sombria e intrigas políticas."},
+  {id:3, titulo:"Virtudes", autor:"Francisco de Assis", capa:"Virtudes.png", pasta:"Virtudes", totalPaginas:3, prefixo: "Pagina ", sinopse:"Reflexões sobre a bondade e a espiritualidade."}
 ];
 
 // NOVELS
+// Ajustado: Segredários (pasta S CAPS, prefixo S CAP para gerar S CAP 1.png)
 const novels = [
   {
     id:101, 
     titulo:"Segredários", 
     autor:"Gabryell Aweryan", 
     capa:"SEG.png", 
-    pasta:"Novels/Seg", 
-    totalPaginas:4, 
-    sinopse:`Marco, João e Lucas vivem a rotina sem graça da Kenya Enlatados, uma pequena empresa de São Paulo que enlata legumes e sardinhas. Mas a monotonia acaba quando recebem um telefonema inesperado de Cleber F. Junior, do Amazonas: investigar um parque aquático abandonado, palco de uma tragédia que ainda assombra o local.
-
-Aproveitando que suas férias estavam chegando, inventam um retiro espiritual para justificar a ausência, e claro, o chefe não entende nada! Munidos de curiosidade, improviso e sua van carateristicamente cômica, os Segredários partem rumo ao Amazonas.
-
-No parque, descobrem que Cleber desapareceu misteriosamente e que a missão agora é coordenada por seu filho, Victor, que quer resolver o problema da propriedade para vendê-la. Entre mistérios, absurdos e perigos que ninguém ousaria enfrentar, Marco, João e Lucas vão aprender que segredos enterrados nem sempre ficam onde deveriam, e que a linha entre o banal e o bizarro pode ser mais fina do que imaginam.`
-  },
-  {id:102, titulo:"Fora do ar", autor:"----", capa:"novel2.png", pasta:"Novels/Cinzas", totalPaginas:3, sinopse:"----"}
+    pasta:"S CAPS", 
+    totalPaginas:1, 
+    prefixo: "S CAP ",
+    sinopse:"Marco, João e Lucas vivem a rotina bizarra da Kenya Enlatados rumo ao Amazonas..."
+  }
 ];
 
 const grade = document.getElementById("grade");
 const novelGrid = document.getElementById("novelGrid");
 
-// Função genérica render card
 function renderCard(item, container, includeFav=false){
   const card = document.createElement("div");
   card.className = "card-book";
@@ -317,11 +305,9 @@ function renderCard(item, container, includeFav=false){
   container.appendChild(card);
 }
 
-// Render de livros e novels com votação
 livros.forEach(l => renderCard(l, grade, true));
 novels.forEach(n => renderCard(n, novelGrid, true));
 
-// Firebase estrelas
 [...livros, ...novels].forEach(item => {
   db.ref("estrelas/"+item.id).on("value", snap => {
     const el = document.getElementById("stars-"+item.id);
@@ -329,7 +315,6 @@ novels.forEach(n => renderCard(n, novelGrid, true));
   });
 });
 
-// Clique global
 document.body.addEventListener("click", e => {
   const btnFav = e.target.closest(".fav");
   if(btnFav){
@@ -347,17 +332,19 @@ document.body.addEventListener("click", e => {
   }
 });
 
-// Função drawer
 function openDrawer(item){
   const drawer = document.getElementById("drawer");
   const content = document.querySelector(".drawer-content");
   document.getElementById("drawerTitle").textContent = item.titulo;
   content.innerHTML = "";
-  for(let i=1;i<=item.totalPaginas;i++){
+  
+  for(let i=1; i<=item.totalPaginas; i++){
     const img = document.createElement("img");
-    img.src = `${item.pasta}/Pagina ${i}.png`;
+    // Lógica para nomes de arquivos dinâmicos (1.png ou S CAP 1.png ou Pagina 1.png)
+    img.src = `${item.pasta}/${item.prefixo}${i}.png`;
     content.appendChild(img);
   }
+  
   drawer.classList.add("open");
   document.body.style.overflow = "hidden";
 }
@@ -372,11 +359,8 @@ const btnComment = document.querySelector(".btn-comment");
 const textarea = document.querySelector(".comment-section textarea");
 const section = document.querySelector(".comment-section");
 
-db.ref("comentarios").limitToLast(20).once("value", snap=>{
+db.ref("comentarios").limitToLast(10).once("value", snap=>{
     snap.forEach(c=>addComment(c.val().texto, c.val().pais||"Desconhecido"));
-});
-db.ref("comentarios").limitToLast(1).on("child_added", snap=>{
-    addComment(snap.val().texto, snap.val().pais||"Desconhecido");
 });
 
 btnComment.onclick = () => {
@@ -391,7 +375,10 @@ btnComment.onclick = () => {
 
 function addComment(text, country){
     const p = document.createElement("p");
-    p.innerHTML = `${text} <span class="comment-country">${country}</span>`;
+    p.style.fontSize = "0.85rem";
+    p.style.borderBottom = "1px solid #333";
+    p.style.padding = "5px 0";
+    p.innerHTML = `${text} <br><small style="color:#888">${country}</small>`;
     section.appendChild(p);
 }
 </script>
