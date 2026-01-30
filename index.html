@@ -228,6 +228,37 @@
     }
   });
 
+
+
+
+
+// --- FUNÇÃO DO BOTÃO SALVAR ---
+  document.getElementById('btn-salvar-realtime').onclick = () => {
+    const user = auth.currentUser;
+    if (!user) return;
+    
+    // Pega o valor que você digitou na barra "Nome Completo"
+    const novoNome = document.getElementById('db-nome').value;
+    
+    const dados = {
+      nome: novoNome,
+      idade: document.getElementById('db-idade').value,
+      cpf: document.getElementById('db-cpf').value,
+      endereco: document.getElementById('db-endereco').value,
+      pais: document.getElementById('db-pais').value
+    };
+    
+    // Salva no Firebase
+    database.ref('usuarios/' + user.uid).update(dados).then(() => {
+      alert("Nome de conta atualizado com sucesso!");
+      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+    }).catch(err => alert("Erro ao salvar: " + err.message));
+  };
+
+
+
+    
+
     // Funções de Login/Registro
     document.getElementById('login-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
@@ -272,5 +303,6 @@
   </script>
 </body>
 </html>
+
 
 
