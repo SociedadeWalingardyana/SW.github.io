@@ -31,6 +31,7 @@
       line-height: 1.6;
     }
 
+    /* Ajuste de Z-Index para garantir que sejam clicáveis */
     .top-button {
       position: absolute;
       top: 10px;
@@ -39,7 +40,7 @@
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      z-index: 40;
+      z-index: 100; 
       display: flex;
       align-items: center;
       justify-content: center;
@@ -61,7 +62,7 @@
 
 <body>
 
-  <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">
+  <div id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;" onclick="alert('Iniciando Direct Colab...')">
     Direct Colab
   </div>
 
@@ -69,10 +70,10 @@
     ▼
   </div>
 
-  <ul id="language-list" style="position: absolute; top: 50px; right: 10px; width: 120px; border: 1px solid #444; border-radius: 5px; list-style: none; padding: 5px 0; display: none; z-index: 60; background: #1a1a1a;">
-    <li style="padding:8px 12px; cursor:pointer;">Português</li>
-    <li style="padding:8px 12px; cursor:pointer;">Español</li>
-    <li style="padding:8px 12px; cursor:pointer;">English</li>
+  <ul id="language-list" style="position: absolute; top: 50px; right: 10px; width: 120px; border: 1px solid #444; border-radius: 5px; list-style: none; padding: 5px 0; display: none; z-index: 110; background: #1a1a1a;">
+    <li style="padding:8px 12px; cursor:pointer;" onclick="console.log('PT')">Português</li>
+    <li style="padding:8px 12px; cursor:pointer;" onclick="console.log('ES')">Español</li>
+    <li style="padding:8px 12px; cursor:pointer;" onclick="console.log('EN')">English</li>
   </ul>
 
   <div class="absolute top-2 z-50 font-sans flex items-center gap-2" style="right: 180px;">
@@ -96,7 +97,7 @@
     </div>
   </div>
 
-  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[70] p-4 font-sans">
+  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[200] p-4 font-sans">
     <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
       <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
       <div class="space-y-3">
@@ -136,35 +137,23 @@
 
   <main class="container mx-auto mt-12 px-6 max-w-4xl">
     <h2 class="titulo-cinzel">Origem da SW Editorial</h2>
-    <p>
-      A SW Editorial foi criada em dezembro de 2022 por Gabriel Aquino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido. Com a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência.
-    </p>
+    <p>A SW Editorial foi criada em dezembro de 2022 por Gabriel Aquino, conhecido pelo pseudônimo Gabryell Aweryan, inicialmente como uma página dedicada a divulgar seu trabalho e angariar leitores. A marca original, chamada O Mundo de Triohnte, tinha como objetivo segmentar e organizar o material já produzido. Com a evolução de seu estilo e a profunda revisão de seu livro Trionte, impulsionada pelas críticas recebidas sobre o volume, Gabryell sentiu a necessidade de se dedicar ainda mais ao universo que havia criado, buscando construí-lo com rigor e consistência.</p>
 
-    <p>
-      Foi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo. Juntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir.
-    </p>
+    <p>Foi somente após o rompimento do pacto de publicação com a editora CRV, responsável pela primeira versão do livro, em outubro de 2023, que Aweryan decidiu estabelecer formalmente um nome para o que via, e segue vendo, como seu legado: a Sociedade Walingardyana. Essa decisão refletiu não apenas sua indignação diante do descaso editorial, mas também sua determinação em proteger, expandir e consolidar o legado literário que estava construindo. Juntando suas economias, Gabryell registrou a marca em 9 de julho de 2025, patenteando a Sociedade Walingardyana e tudo o que ela produzir.</p>
 
-    <p>
-      Posteriormente, um jovem escritor tão, ou mais talentoso que Gabryell, de nome Wellington Noves, resolveu especular sobre o funcionamento da ideia, momento em que, expressou interesse em investir na SW. Seu empenho inicialmente se deu como observador obstinado e por fim, devido ao seus excepcionais trabalhos, foi convidado a se tornar sócio da marca. Wellington assumiu integralmente o comando da SW Editorial como editor-chefe neste ano. A equipe conta com outros profissionais qualificados, como é o caso da Srta. Agatha Rosário, parceira de Gabryell em outra área, que entrou para o cargo de auditoria na SW.
-    </p>
+    <p>Posteriormente, um jovem escritor tão, ou mais talentoso que Gabryell, de nome Wellington Noves, resolveu especular sobre o funcionamento da ideia, momento em que, expressou interesse em investir na SW. Seu empenho inicialmente se deu como observador obstinado e por fim, devido ao seus excepcionais trabalhos, foi convidado a se tornar sócio da marca. Wellington assumiu integralmente o comando da SW Editorial como editor-chefe neste ano. A equipe conta com outros profissionais qualificados, como é o caso da Srta. Agatha Rosário, parceira de Gabryell em outra área, que entrou para o cargo de auditoria na SW.</p>
 
     <h2 class="titulo-cinzel mt-16">Visão da SW Editorial para o futuro</h2>
-    <p>
-      Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia. Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional.
-    </p>
+    <p>Embora estejamos com o “pé no chão” diante dos novos investimentos que surgiram desde o mostruário público da marca, estamos extremamente animados com o futuro. Nosso maior desejo a longo prazo é nos tornar a principal produtora, vendedora e promotora de produtos originais de alta qualidade dentro de três nichos que atualmente disputam espaço na literatura brasileira: Terror, Fantasia Sombria e Alta Fantasia. Tudo isso, claro, começando com a publicação do nosso grande destaque, Triohnte, com a expectativa de consolidá-lo como uma franquia próspera e duradoura, que servirá de base para expandir a presença da Sociedade Walingardyana no cenário literário nacional e internacional.</p>
 
     <div class="cover">
       <img src="asa.jpg" alt="Capa">
     </div>
 
     <h2 class="titulo-cinzel mt-16">O livro que originou tudo</h2>
-    <p>
-      Trionte, O segredo do império - livro publicado em 2020 pela editora CRV. Na época, obra de Alta Fantasia, abriu espaço para a expansão do universo ao qual pertecia em um perfil comercial do Instagram. Primeiro como: https://www.instagram.com/trionte_oficial_/ , que seria mais focado no livro. Depois como: https://linktr.ee/triohnte e por último como: https://www.instagram.com/walin_org/ . Por fim, Sociedade Walingardyana, uma porta de entrada para leitores do universo. Já não se trata somente de Triohnte, mas do mundo de Walingardyn, onde Triohnte é um continente.
-    </p>
+    <p>Trionte, O segredo do império - livro publicado em 2020 pela editora CRV. Na época, obra de Alta Fantasia, abriu espaço para a expansão do universo ao qual pertecia em um perfil comercial do Instagram. Primeiro como: https://www.instagram.com/trionte_oficial_/ , que seria mais focado no livro. Depois como: https://linktr.ee/triohnte e por último como: https://www.instagram.com/walin_org/ . Por fim, Sociedade Walingardyana, uma porta de entrada para leitores do universo. Já não se trata somente de Triohnte, mas do mundo de Walingardyn, onde Triohnte é um continente.</p>
 
-    <p>
-      Após críticas construtivas sobre o volume no ano seguinte a publicação, Gabriel decidiu reescrever, a fim de melhorar a porta de entrada do universo que construiu, e arrancar opiniões melhor fundamentadas por parte dos novos leitores. Triohnte, começou a ser reescrito oficialmente em 02 de Fevereiro de 2021 e se mantém no processo até hoje, sem previsão de lançamento. A demora excessiva é explicada pelo autor: Falta de tempo por outras prioridades, queda no interesse do público pelo gênero... As vezes a Sociedade Walingardyana aparece como principal impecilho para continuar o livro. Mesmo que a SW tenha sido derivada dele. Walingardyn é o universo em que triohnte se passa, isso já foi confirmado. Vamos ver como tudo se desenrrola, Gabryell Aweryan é cheio de surpresas. Triohnte não morreu, o autor faz questão de declarar, isso já conforta os fãs, ao menos um pouquinho.
-    </p>
+    <p>Após críticas construtivas sobre o volume no ano seguinte a publicação, Gabriel decidiu reescrever, a fim de melhorar a porta de entrada do universo que construiu, e arrancar opiniões melhor fundamentadas por parte dos novos leitores. Triohnte, começou a ser reescrito oficialmente em 02 de Fevereiro de 2021 e se mantém no processo até hoje, sem previsão de lançamento. A demora excessiva é explicada pelo autor: Falta de tempo por outras prioridades, queda no interesse do público pelo gênero... As vezes a Sociedade Walingardyana aparece como principal impecilho para continuar o livro. Mesmo que a SW tenha sido derivada dele. Walingardyn é o universo em que triohnte se passa, isso já foi confirmado. Vamos ver como tudo se desenrrola, Gabryell Aweryan é cheio de surpresas. Triohnte não morreu, o autor faz questão de declarar, isso já conforta os fãs, ao menos um pouquinho.</p>
   </main>
 
   <footer class="p-8 mt-16 border-t border-gray-900 text-center">
@@ -179,6 +168,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <script>
+    // Inicialização do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
       authDomain: "login-sw-14940.firebaseapp.com",
@@ -193,6 +183,14 @@
     const auth = firebase.auth();
     const database = firebase.database();
 
+    // Seletor de Idioma funcional
+    document.getElementById('language-selector').onclick = (e) => {
+      e.stopPropagation();
+      const list = document.getElementById('language-list');
+      list.style.display = list.style.display === 'none' ? 'block' : 'none';
+    };
+
+    // Monitoramento de Auth
     auth.onAuthStateChanged((user) => {
       const authContainer = document.getElementById('auth-container');
       const userInfo = document.getElementById('user-info');
@@ -203,11 +201,6 @@
           const d = snap.val() || {};
           const exibicao = (d.nome && d.nome.trim() !== "") ? d.nome : user.email.split('@')[0];
           document.getElementById('user-greeting').textContent = `Olá, ${exibicao}...`;
-          document.getElementById('db-nome').value = d.nome || "";
-          document.getElementById('db-idade').value = d.idade || "";
-          document.getElementById('db-cpf').value = d.cpf || "";
-          document.getElementById('db-endereco').value = d.endereco || "";
-          document.getElementById('db-pais').value = d.pais || "";
         });
       } else {
         authContainer.classList.remove('hidden');
@@ -215,28 +208,23 @@
       }
     });
 
+    // Funções de Login/Registro
     document.getElementById('login-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
       const p = document.getElementById('pass-field').value;
-      if(e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert("Erro: " + err.message));
+      if(e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
     };
 
     document.getElementById('signup-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
       const p = document.getElementById('pass-field').value;
-      if (!e || !p) return alert("Preencha email e senha.");
-      auth.createUserWithEmailAndPassword(e, p).then((u) => {
-        database.ref('usuarios/' + u.user.uid).set({ nome: "", idade: "", cpf: "", endereco: "", pais: "" });
-        alert("Conta registrada!");
-      }).catch(err => alert("Erro no cadastro: " + err.message));
+      if(e && p) auth.createUserWithEmailAndPassword(e, p).then(u => {
+        database.ref('usuarios/' + u.user.uid).set({ nome: "" });
+        alert("Sucesso!");
+      }).catch(err => alert(err.message));
     };
 
-    document.getElementById('language-selector').onclick = (e) => {
-      e.stopPropagation();
-      const list = document.getElementById('language-list');
-      list.style.display = list.style.display === 'none' ? 'block' : 'none';
-    };
-
+    // Modal Controls
     document.getElementById('user-greeting').onclick = (e) => {
       e.stopPropagation();
       document.getElementById('settings-dropdown').classList.toggle('hidden');
@@ -250,26 +238,12 @@
       document.getElementById('edit-modal').classList.replace('flex', 'hidden');
     };
 
-    document.getElementById('btn-salvar-realtime').onclick = () => {
-      const user = auth.currentUser;
-      if(!user) return;
-      const dados = {
-        nome: document.getElementById('db-nome').value,
-        idade: document.getElementById('db-idade').value,
-        cpf: document.getElementById('db-cpf').value,
-        endereco: document.getElementById('db-endereco').value,
-        pais: document.getElementById('db-pais').value
-      };
-      database.ref('usuarios/' + user.uid).update(dados).then(() => {
-        alert("Dados salvos!");
-        document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-      });
-    };
-
     document.getElementById('logout-btn').onclick = () => auth.signOut();
+
+    // Fechar tudo ao clicar fora
     window.onclick = () => {
-      document.getElementById('settings-dropdown').classList.add('hidden');
       document.getElementById('language-list').style.display = 'none';
+      document.getElementById('settings-dropdown').classList.add('hidden');
     };
   </script>
 </body>
