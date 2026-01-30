@@ -256,6 +256,63 @@
   };
 
 
+// --- OUTROS CONTROLES (LOGIN/INTERFACE) ---
+  document.getElementById('login-btn').onclick = () => {
+    const e = document.getElementById('email-field').value;
+    const p = document.getElementById('pass-field').value;
+    if(e && p) auth.signInWithEmailAndPassword(e, p);
+  };
+
+  document.getElementById('signup-btn').onclick = () => {
+    const e = document.getElementById('email-field').value;
+    const p = document.getElementById('pass-field').value;
+    if(e && p) auth.createUserWithEmailAndPassword(e, p).then(u => {
+      database.ref('usuarios/' + u.user.uid).set({ nome: "" });
+    });
+  };
+
+  document.getElementById('user-greeting').onclick = (e) => {
+    e.stopPropagation();
+    document.getElementById('settings-dropdown').classList.toggle('hidden');
+  };
+
+  document.getElementById('btn-abrir-modal').onclick = () => {
+    document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+    document.getElementById('settings-dropdown').classList.add('hidden');
+  };
+
+  document.getElementById('btn-fechar-modal').onclick = () => {
+    document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+  };
+
+  document.getElementById('logout-btn').onclick = () => auth.signOut();
+
+  document.getElementById('language-selector').onclick = (e) => {
+    e.stopPropagation();
+    const list = document.getElementById('language-list');
+    list.style.display = list.style.display === 'none' ? 'block' : 'none';
+  };
+
+  window.onclick = () => {
+    document.getElementById('language-list').style.display = 'none';
+    document.getElementById('settings-dropdown').classList.add('hidden');
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
 
     
 
@@ -303,6 +360,7 @@
   </script>
 </body>
 </html>
+
 
 
 
