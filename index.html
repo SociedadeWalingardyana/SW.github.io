@@ -190,44 +190,40 @@
     };
 
    // Monitoramento de Auth
-  auth.onAuthStateChanged((user) => {
-    const authContainer = document.getElementById('auth-container');
-    const userInfo = document.getElementById('user-info');
-    const userGreeting = document.getElementById('user-greeting');
+ auth.onAuthStateChanged((user) => {
+  const authContainer = document.getElementById('auth-container');
+  const userInfo = document.getElementById('user-info');
+  const userGreeting = document.getElementById('user-greeting');
 
-    if (user) {
-      authContainer.classList.add('hidden');
-      userInfo.classList.remove('hidden');
+  if (!user) {
+    authContainer.classList.remove('hidden');
+    userInfo.classList.add('hidden');
+    return;
+  }
 
-      // Lógica para pegar o início do e-mail antes dos dados do banco carregarem
-      const emailLocalPart = user.email.split('@')[0];
-      const emailResumido = emailLocalPart.length > 15 
-        ? emailLocalPart.substring(0, 15) + "..." 
-        : emailLocalPart;
-      
-      // Define o texto inicial como o e-mail
-      userGreeting.textContent = `Olá, ${emailResumido}`;
+  authContainer.classList.add('hidden');
+  userInfo.classList.remove('hidden');
 
-      // Escuta dados em tempo real (se houver um nome salvo, ele substitui o e-mail)
-      database.ref('usuarios/' + user.uid).on('value', (snap) => {
-        const d = snap.val() || {};
-        if (d.nome && d.nome.trim() !== "") {
-          userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}...`;
-        }
-        
-        // Preenche campos do modal
-        document.getElementById('db-nome').value = d.nome || "";
-        document.getElementById('db-idade').value = d.idade || "";
-        document.getElementById('db-cpf').value = d.cpf || "";
-        document.getElementById('db-endereco').value = d.endereco || "";
-        document.getElementById('db-pais').value = d.pais || "";
-      });
-    } else {
-      authContainer.classList.remove('hidden');
-      userInfo.classList.add('hidden');
+  const emailFallback = user.email.split('@')[0].slice(0, 15);
+
+  userGreeting.textContent = `Olá, ${emailFallback}`;
+
+  database.ref('usuarios/' + user.uid).on('value', (snap) => {
+    const d = snap.val();
+    if (!d) return;
+
+    if (d.nome && d.nome.trim()) {
+      const primeiroNome = d.nome.trim().split(' ')[0];
+      userGreeting.textContent = `Olá, ${primeiroNome}`;
     }
-  });
 
+    document.getElementById('db-nome').value = d.nome || "";
+    document.getElementById('db-idade').value = d.idade || "";
+    document.getElementById('db-cpf').value = d.cpf || "";
+    document.getElementById('db-endereco').value = d.endereco || "";
+    document.getElementById('db-pais').value = d.pais || "";
+  });
+});
 
 
 
@@ -238,7 +234,9 @@
     if (!user) return;
     
     // Pega o valor que você digitou na barra "Nome Completo"
-    const novoNome = document.getElementById('db-nome').value;
+   const novoNome = document.getElementById('db-nome').value.trim();
+
+
     
     const dados = {
       nome: novoNome,
@@ -250,7 +248,8 @@
     
     // Salva no Firebase
     database.ref('usuarios/' + user.uid).update(dados).then(() => {
-      alert("Nome de conta atualizado com sucesso!");
+     alert("Dados atualizados com sucesso.");
+
       document.getElementById('edit-modal').classList.replace('flex', 'hidden');
     }).catch(err => alert("Erro ao salvar: " + err.message));
   };
@@ -313,25 +312,26 @@
 
     
 
+document.getElementById('login-btn').onclick = () => {
+  const e = document.getElementById('email-field').value;
+  const p = document.getElementById('pass-field').value;
+  if (e && p) auth.signInWithEmailAndPassword(e, p);
+};
+
+document.getElementById('signup-btn').onclick = () => {
+  const e = document.getElementById('email-field').value;
+  const p = document.getElementById('pass-field').value;
+  if (e && p)
+    auth.createUserWithEmailAndPassword(e, p).then(u => {
+     database.ref('usuarios/' + u.user.uid).set({
+  nome: "Usuário"
+});
+    });
+};
 
     
 
-    // Funções de Login/Registro
-    document.getElementById('login-btn').onclick = () => {
-      const e = document.getElementById('email-field').value;
-      const p = document.getElementById('pass-field').value;
-      if(e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
-    };
-
-    document.getElementById('signup-btn').onclick = () => {
-      const e = document.getElementById('email-field').value;
-      const p = document.getElementById('pass-field').value;
-      if(e && p) auth.createUserWithEmailAndPassword(e, p).then(u => {
-        database.ref('usuarios/' + u.user.uid).set({ nome: "" });
-        alert("Conta registrada!");
-      }).catch(err => alert(err.message));
-    };
-
+ 
     // Dropdown de Configurações
     document.getElementById('user-greeting').onclick = (e) => {
       e.stopPropagation();
@@ -360,6 +360,7 @@
   </script>
 </body>
 </html>
+
 
 
 
