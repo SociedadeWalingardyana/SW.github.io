@@ -222,21 +222,7 @@
         if (d.nome && d.nome.trim() !== "") {
           userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}...`;
         }
-        
-        // Preenche campos do modal
-        document.getElementById('db-nome').value = d.nome || "";
-        document.getElementById('db-idade').value = d.idade || "";
-        document.getElementById('db-cpf').value = d.cpf || "";
-        document.getElementById('db-endereco').value = d.endereco || "";
-        document.getElementById('db-pais').value = d.pais || "";
-      });
-    } else {
-      authContainer.classList.remove('hidden');
-      userInfo.classList.add('hidden');
-      document.getElementById('settings-dropdown').classList.add('hidden');
-    }
-  });
-
+    
 
 
 
@@ -354,6 +340,7 @@
   </script>
 </body>
 </html>
+
 
 
 
