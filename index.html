@@ -104,6 +104,33 @@
 
 
 
+
+
+<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4 font-sans" style="z-index: 9999;">
+  <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm relative" style="pointer-events: auto;">
+    <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
+    <div class="space-y-3">
+      <input type="text" id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
+      <input type="number" id="db-idade" placeholder="Idade" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
+      <input type="text" id="db-cpf" placeholder="CPF" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
+      <input type="text" id="db-endereco" placeholder="Endereço" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
+      <input type="text" id="db-pais" placeholder="País" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
+    </div>
+    <div class="flex gap-2 mt-6">
+      <button id="btn-salvar-realtime" class="bg-green-700 hover:bg-green-800 text-white flex-1 py-2 rounded font-bold transition">Salvar</button>
+      <button id="btn-fechar-modal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 flex-1 py-2 rounded transition">Voltar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+  
+
   <header class="p-4 shadow-md">
     <div class="container mx-auto flex flex-col items-center">
       <img src="oficial.png" class="w-32 mb-2" alt="Logo">
@@ -345,6 +372,7 @@ document.getElementById('signup-btn').onclick = () => {
   </script>
 </body>
 </html>
+
 
 
 
