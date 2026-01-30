@@ -189,24 +189,45 @@
       list.style.display = list.style.display === 'none' ? 'block' : 'none';
     };
 
-    // Monitoramento Auth
-    auth.onAuthStateChanged((user) => {
-      const authContainer = document.getElementById('auth-container');
-      const userInfo = document.getElementById('user-info');
-      if (user) {
-        authContainer.classList.add('hidden');
-        userInfo.classList.remove('hidden');
-        database.ref('usuarios/' + user.uid).on('value', (snap) => {
-          const d = snap.val() || {};
-          const exibicao = (d.nome && d.nome.trim() !== "") ? d.nome : user.email.split('@')[0];
-          document.getElementById('user-greeting').textContent = `Olá, ${exibicao}...`;
-        });
-      } else {
-        authContainer.classList.remove('hidden');
-        userInfo.classList.add('hidden');
-      }
-    });
+   // Monitoramento de Auth
+  auth.onAuthStateChanged((user) => {
+    const authContainer = document.getElementById('auth-container');
+    const userInfo = document.getElementById('user-info');
+    const userGreeting = document.getElementById('user-greeting');
 
+    if (user) {
+      authContainer.classList.add('hidden');
+      userInfo.classList.remove('hidden');
+
+      // Lógica para pegar o início do e-mail antes dos dados do banco carregarem
+      const emailLocalPart = user.email.split('@')[0];
+      const emailResumido = emailLocalPart.length > 15 
+        ? emailLocalPart.substring(0, 15) + "..." 
+        : emailLocalPart;
+      
+      // Define o texto inicial como o e-mail
+      userGreeting.textContent = `Olá, ${emailResumido}`;
+
+      // Escuta dados em tempo real (se houver um nome salvo, ele substitui o e-mail)
+      database.ref('usuarios/' + user.uid).on('value', (snap) => {
+        const d = snap.val() || {};
+        if (d.nome && d.nome.trim() !== "") {
+          userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}...`;
+        }
+        
+        // Preenche campos do modal
+        document.getElementById('db-nome').value = d.nome || "";
+        document.getElementById('db-idade').value = d.idade || "";
+        document.getElementById('db-cpf').value = d.cpf || "";
+        document.getElementById('db-endereco').value = d.endereco || "";
+        document.getElementById('db-pais').value = d.pais || "";
+      });
+    } else {
+      authContainer.classList.remove('hidden');
+      userInfo.classList.add('hidden');
+      document.getElementById('settings-dropdown').classList.add('hidden');
+    }
+  });
     // Funções de Login/Registro
     document.getElementById('login-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
@@ -251,3 +272,4 @@
   </script>
 </body>
 </html>
+
