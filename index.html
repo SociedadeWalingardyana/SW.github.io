@@ -31,6 +31,7 @@
       line-height: 1.6;
     }
 
+    /* Botões do Topo */
     .top-button {
       position: absolute;
       top: 10px;
@@ -44,7 +45,11 @@
       align-items: center;
       justify-content: center;
       border: 1px solid #333;
-      text-decoration: none;
+      text-decoration: none; /* Garante que o link não tenha sublinhado */
+    }
+
+    .top-button:hover {
+      background: #333;
     }
 
     header, footer {
@@ -57,36 +62,10 @@
       max-width: 100%;
       height: auto;
     }
-
-    /* Modal Fix: Garante que os inputs sejam clicáveis */
-    #edit-modal {
-      z-index: 9999 !important;
-      pointer-events: auto;
-    }
-    #edit-modal > div {
-      pointer-events: auto;
-    }
   </style>
 </head>
 
 <body>
-
-  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4 font-sans">
-    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm relative" onclick="event.stopPropagation()">
-      <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
-      <div class="space-y-3">
-        <input type="text" id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded text-black bg-gray-50 outline-none focus:ring-2 focus:ring-green-500">
-        <input type="number" id="db-idade" placeholder="Idade" class="w-full border p-2 rounded text-black bg-gray-50 outline-none focus:ring-2 focus:ring-green-500">
-        <input type="text" id="db-cpf" placeholder="CPF" class="w-full border p-2 rounded text-black bg-gray-50 outline-none focus:ring-2 focus:ring-green-500">
-        <input type="text" id="db-endereco" placeholder="Endereço" class="w-full border p-2 rounded text-black bg-gray-50 outline-none focus:ring-2 focus:ring-green-500">
-        <input type="text" id="db-pais" placeholder="País" class="w-full border p-2 rounded text-black bg-gray-50 outline-none focus:ring-2 focus:ring-green-500">
-      </div>
-      <div class="flex gap-2 mt-6">
-        <button id="btn-salvar-realtime" class="bg-green-700 hover:bg-green-800 text-white flex-1 py-2 rounded font-bold transition">Salvar</button>
-        <button id="btn-fechar-modal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 flex-1 py-2 rounded transition">Voltar</button>
-      </div>
-    </div>
-  </div>
 
   <a href="SW Sistem.html" id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">
     Direct Colab
@@ -116,9 +95,26 @@
       <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-lg font-bold border border-yellow-600 cursor-pointer hover:bg-opacity-100 transition-all">
         Carregando...
       </div>
-      <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]" onclick="event.stopPropagation()">
+      <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
         <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados da conta</button>
         <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[200] p-4 font-sans">
+    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
+      <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
+      <div class="space-y-3">
+        <input type="text" id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded text-black">
+        <input type="number" id="db-idade" placeholder="Idade" class="w-full border p-2 rounded text-black">
+        <input type="text" id="db-cpf" placeholder="CPF" class="w-full border p-2 rounded text-black">
+        <input type="text" id="db-endereco" placeholder="Endereço" class="w-full border p-2 rounded text-black">
+        <input type="text" id="db-pais" placeholder="País" class="w-full border p-2 rounded text-black">
+      </div>
+      <div class="flex gap-2 mt-6">
+        <button id="btn-salvar-realtime" class="bg-green-700 hover:bg-green-800 text-white flex-1 py-2 rounded font-bold transition">Salvar</button>
+        <button id="btn-fechar-modal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 flex-1 py-2 rounded transition">Voltar</button>
       </div>
     </div>
   </div>
@@ -146,14 +142,27 @@
 
   <main class="container mx-auto mt-12 px-6 max-w-4xl">
     <h2 class="titulo-cinzel">Origem da SW Editorial</h2>
-    <p>A SW Editorial foi criada em dezembro de 2022 por Gabriel Aquino...</p>
+    <p>A SW Editorial foi criada em dezembro de 2022 por Gabriel Aquino, conhecido pelo pseudônimo Gabryell Aweryan...</p>
+    <p>Foi somente após o rompimento do pacto de publicação com a editora CRV...</p>
+    <p>Posteriormente, um jovem escritor... Wellington Noves...</p>
+
+    <h2 class="titulo-cinzel mt-16">Visão da SW Editorial para o futuro</h2>
+    <p>Embora estejamos com o “pé no chão”...</p>
+
     <div class="cover">
       <img src="asa.jpg" alt="Capa">
     </div>
+
+    <h2 class="titulo-cinzel mt-16">O livro que originou tudo</h2>
+    <p>Trionte, O segredo do império - livro publicado em 2020 pela editora CRV...</p>
+    <p>Após críticas construtivas sobre o volume... Gabriel decidiu reescrever...</p>
   </main>
 
   <footer class="p-8 mt-16 border-t border-gray-900 text-center">
     <p>&copy; 2025 SW Editorial. Todos os direitos reservados.</p>
+    <div class="flex justify-center gap-6 mt-4">
+      <a href="https://www.instagram.com/sw_editorial/">Instagram</a>
+    </div>
   </footer>
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -166,8 +175,6 @@
       authDomain: "login-sw-14940.firebaseapp.com",
       databaseURL: "https://sw-biblio-default-rtdb.europe-west1.firebasedatabase.app", 
       projectId: "login-sw-14940",
-      storageBucket: "login-sw-14940.firebasestorage.app",
-      messagingSenderId: "252978150700",
       appId: "1:252978150700:web:2c7d3997389f7675058089"
     };
 
@@ -175,29 +182,24 @@
     const auth = firebase.auth();
     const database = firebase.database();
 
+    // Toggle Seletor de Idioma
+    document.getElementById('language-selector').onclick = (e) => {
+      e.stopPropagation();
+      const list = document.getElementById('language-list');
+      list.style.display = list.style.display === 'none' ? 'block' : 'none';
+    };
+
+    // Monitoramento Auth
     auth.onAuthStateChanged((user) => {
       const authContainer = document.getElementById('auth-container');
       const userInfo = document.getElementById('user-info');
-      const userGreeting = document.getElementById('user-greeting');
-
       if (user) {
         authContainer.classList.add('hidden');
         userInfo.classList.remove('hidden');
-
-        const emailResumido = user.email.split('@')[0].substring(0, 12) + "...";
-        userGreeting.textContent = `Olá, ${emailResumido}`;
-
         database.ref('usuarios/' + user.uid).on('value', (snap) => {
           const d = snap.val() || {};
-          if (d.nome && d.nome.trim() !== "") {
-            const nomeExibicao = d.nome.length > 15 ? d.nome.substring(0, 15) + "..." : d.nome;
-            userGreeting.textContent = `Olá, ${nomeExibicao}`;
-          }
-          document.getElementById('db-nome').value = d.nome || "";
-          document.getElementById('db-idade').value = d.idade || "";
-          document.getElementById('db-cpf').value = d.cpf || "";
-          document.getElementById('db-endereco').value = d.endereco || "";
-          document.getElementById('db-pais').value = d.pais || "";
+          const exibicao = (d.nome && d.nome.trim() !== "") ? d.nome : user.email.split('@')[0];
+          document.getElementById('user-greeting').textContent = `Olá, ${exibicao}...`;
         });
       } else {
         authContainer.classList.remove('hidden');
@@ -205,47 +207,11 @@
       }
     });
 
-    document.getElementById('btn-salvar-realtime').onclick = () => {
-      const user = auth.currentUser;
-      if (!user) return;
-      const dados = {
-        nome: document.getElementById('db-nome').value,
-        idade: document.getElementById('db-idade').value,
-        cpf: document.getElementById('db-cpf').value,
-        endereco: document.getElementById('db-endereco').value,
-        pais: document.getElementById('db-pais').value
-      };
-      database.ref('usuarios/' + user.uid).update(dados).then(() => {
-        alert("Dados salvos!");
-        document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-      });
-    };
-
-    document.getElementById('language-selector').onclick = (e) => {
-      e.stopPropagation();
-      const list = document.getElementById('language-list');
-      list.style.display = list.style.display === 'none' ? 'block' : 'none';
-    };
-
-    document.getElementById('user-greeting').onclick = (e) => {
-      e.stopPropagation();
-      document.getElementById('settings-dropdown').classList.toggle('hidden');
-    };
-
-    document.getElementById('btn-abrir-modal').onclick = (e) => {
-      e.stopPropagation();
-      document.getElementById('edit-modal').classList.replace('hidden', 'flex');
-      document.getElementById('settings-dropdown').classList.add('hidden');
-    };
-
-    document.getElementById('btn-fechar-modal').onclick = () => {
-      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-    };
-
+    // Funções de Login/Registro
     document.getElementById('login-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
       const p = document.getElementById('pass-field').value;
-      if(e && p) auth.signInWithEmailAndPassword(e, p);
+      if(e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
     };
 
     document.getElementById('signup-btn').onclick = () => {
@@ -253,17 +219,35 @@
       const p = document.getElementById('pass-field').value;
       if(e && p) auth.createUserWithEmailAndPassword(e, p).then(u => {
         database.ref('usuarios/' + u.user.uid).set({ nome: "" });
-      });
+        alert("Conta registrada!");
+      }).catch(err => alert(err.message));
+    };
+
+    // Dropdown de Configurações
+    document.getElementById('user-greeting').onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById('settings-dropdown').classList.toggle('hidden');
+    };
+
+    document.getElementById('btn-abrir-modal').onclick = () => {
+      document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+    };
+
+    document.getElementById('btn-fechar-modal').onclick = () => {
+      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
     };
 
     document.getElementById('logout-btn').onclick = () => auth.signOut();
 
+    // Clique fora para fechar menus
     window.onclick = () => {
       document.getElementById('language-list').style.display = 'none';
       document.getElementById('settings-dropdown').classList.add('hidden');
     };
 
-    function changeLang(l) { document.getElementById('language-list').style.display = 'none'; }
+    function changeLang(lang) {
+      console.log("Idioma alterado para: " + lang);
+    }
   </script>
 </body>
 </html>
