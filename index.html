@@ -154,33 +154,23 @@
 
 
 
-<head>
     <style>
-        .quadrado-marrom {
-            /* Define a cor */
-            background-color: #a68b6d;
-            
-            /* Define o tamanho fixo (ajuste conforme necessário) */
-            width: 800px;  /* Largura */
-            height: 999px; /* Altura igual para ser um quadrado perfeito */
-            
-            /* Remove arredondamentos para ser um quadrado rígido */
-            border-radius: 0;
-            
-            /* Centraliza na tela para visualização */
-            margin: 50px auto;
-            
-            /* Opcional: uma sombra leve para dar profundidade */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        /* A CAMADA DO QUADRADO */
+        .quadrado-fundo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #a68b6d; /* Marrom claro */
+            z-index: -1; /* Joga para trás do texto */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-    </style>
-</head>
 
-<body>
-    <div class="quadrado-marrom"></div>
-</body>
+       </style> 
 
 
+  
 
 
 <main class="container mx-auto mt-12 px-6 max-w-4xl">
@@ -427,6 +417,7 @@ document.getElementById('signup-btn').onclick = () => {
   </script>
 </body>
 </html>
+
 
 
 
