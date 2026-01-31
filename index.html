@@ -153,36 +153,32 @@
   </section>
 
 
+
 <head>
     <style>
-        .caixa-texto-walingardyana {
-            /* A cor marrom claro que você escolheu */
-            background-color: #a68b6d; 
-            color: #1a0f0a;
+        .quadrado-marrom {
+            /* Define a cor */
+            background-color: #a68b6d;
             
-            /* Define o espaçamento entre o texto e a borda da caixa */
-            padding: 40px;
+            /* Define o tamanho fixo (ajuste conforme necessário) */
+            width: 400px;  /* Largura */
+            height: 400px; /* Altura igual para ser um quadrado perfeito */
             
-            /* Centraliza a caixa na tela */
-            margin: 40px auto;
+            /* Remove arredondamentos para ser um quadrado rígido */
+            border-radius: 0;
             
-            /* Largura máxima para não ficar esticado demais */
-            max-width: 900px;
+            /* Centraliza na tela para visualização */
+            margin: 50px auto;
             
-            /* Mantém os cantos quadrados ou levemente arredondados */
-            border-radius: 4px;
-            
-            /* Estilo do texto */
-            text-align: justify;
-            line-height: 1.6;
-            font-family: 'Times New Roman', serif;
-            
-            /* Sombra para dar destaque sobre o fundo escuro da página */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            /* Opcional: uma sombra leve para dar profundidade */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 
+<body>
+    <div class="quadrado-marrom"></div>
+</body>
 
 
 
@@ -431,6 +427,7 @@ document.getElementById('signup-btn').onclick = () => {
   </script>
 </body>
 </html>
+
 
 
 
