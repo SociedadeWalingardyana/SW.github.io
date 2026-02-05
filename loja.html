@@ -8,6 +8,7 @@
 </head>
 <body class="bg-black text-white p-8 min-h-screen flex flex-col items-center">
 
+  <!-- Seletor de idioma -->
   <div id="language-selector" style="position: fixed; top: 10px; right: 10px; width: 30px; height: 30px; background: #1a1a1a; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 9999;">
     <span style="color: white; font-size: 16px; user-select: none;">▼</span>
   </div>
@@ -20,64 +21,55 @@
 
   <h1 id="titulo-principal" class="text-3xl font-bold mb-6">Loja</h1>
 
+  <!-- Produtos -->
   <div class="grid grid-cols-1 gap-8 max-w-4xl w-full">
 
+    <!-- Triohnte -->
     <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <img src="capaT.png" alt="Compêndio" class="mx-auto mb-4 w-50 h-32" />
       <h2 id="Capa.png" class="text-xl font-semibold mb-2">Triohnte e-book</h2>
       <p id="produto-1-desc" class="text-sm mb-2">Download desabilitado pela proteção de dados.</p>
       <p id="produto-1-preco" class="text-lg font-bold mb-4">Preço: R$ 32,90</p>
-
       <p id="Sinópse" class="text-lg mb-2">Obra de Gabryell Aweryan.</p>
-
     </div>
 
-<div class="grid grid-cols-1 gap-8 max-w-4xl w-full">
-
+    <!-- Mellissa -->
     <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <img src="Mellissa.png" alt="Compêndio" class="mx-auto mb-4 w-50 h-32" />
       <h2 id="Mellissa.png" class="text-xl font-semibold mb-2">Mellissa e-book</h2>
       <p id="produto-1-desc" class="text-sm mb-2">Download desabilitado pela proteção de dados.</p>
       <p id="produto-1-preco" class="text-lg font-bold mb-4">Preço: R$ 32,90</p>
+      <p id="Sinópse" class="text-lg mb-2">Obra de Wellington Novaes.</p>
+    </div>
 
-      <p id="Sinópse" class="text-lg mb-2">Obra de Wellington Novaes.</p>        
-</div>
-
-      
-<div class="grid grid-cols-1 gap-8 max-w-4xl w-full">
-
+    <!-- Virtudes -->
     <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <img src="Virtudes.png" alt="Compêndio" class="mx-auto mb-4 w-50 h-32" />
       <h2 id="Virtudes.png" class="text-xl font-semibold mb-2">Virtudes e-book</h2>
       <p id="produto-1-desc" class="text-sm mb-2">Download desabilitado pela proteção de dados.</p>
       <p id="produto-1-preco" class="text-lg font-bold mb-4">Preço: R$ 32,90</p>
-
       <p id="Sinópse" class="text-lg mb-2">Obra de Francisco de Assis.</p>
+    </div>
 
-</div>
-
-  <div class="grid grid-cols-1 gap-8 max-w-4xl w-full">
-
+    <!-- Segredários -->
     <div class="p-6 rounded-lg shadow-lg text-center" style="background-color: #281109;">
       <img src="SEG.png" alt="Compêndio" class="mx-auto mb-4 w-50 h-32" />
-      <h2 id="Mellissa.png" class="text-xl font-semibold mb-2">Segredários (Novel)</h2>
-      <p id="produto-1-desc" class="text-sm mb-2">Download desabilitado pela proteção de dados.</p>
-      <p id="produto-1-preco" class="text-lg font-bold mb-4">Preço: R$ 7,00</p>
+      <h2 class="text-xl font-semibold mb-2">Segredários (Novel)</h2>
+      <p class="text-sm mb-2">Download desabilitado pela proteção de dados.</p>
+      <p class="text-lg font-bold mb-4">Preço: R$ 7,00</p>
+      <p class="text-lg mb-2">De: Gabryell Aweryan.</p>
+      <button id="botao-pdf" style="background-color: #000000; color: white;" class="px-8 py-3 rounded-full font-bold transition-colors hover:opacity-90">
+        Comprar
+      </button>
+    </div>
 
-      <p id="Sinópse" class="text-lg mb-2">De: Gabryell Aweryan.</p>
-
-     <button onclick="registrarCompraPDF()" 
-        id="botao-pdf" 
-        style="background-color: #000000; color: white;"
-        class="px-8 py-3 rounded-full font-bold transition-colors hover:opacity-90">
-  Comprar
-</button>
-    
-</div>
+  </div>
 
   <a href="index.html" id="link-voltar" class="mt-12 text-blue-400 hover:underline">← Voltar para a página inicial</a>
 
+  <!-- JS -->
   <script>
+    // Seletor de idioma
     const selector = document.getElementById('language-selector');
     const list = document.getElementById('language-list');
 
@@ -103,7 +95,7 @@
       en: {
         "titulo-principal": "Store",
         "Capa.png": "Triohnte e-book",
-        "produto-1-desc": "Download disabled by data protection..",
+        "produto-1-desc": "Download disabled by data protection.",
         "produto-1-preco": "Price: R$ 32.90",
         "botao-pdf": "Buy Now",
         "link-voltar": "← Back to the homepage"
@@ -141,56 +133,55 @@
         list.style.display = 'none';
       });
     });
+  </script>
 
-   
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
- <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script>
+    // Inicializa Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
+      authDomain: "login-sw-14940.firebaseapp.com",
+      databaseURL: "https://login-sw-14940-default-rtdb.europe-west1.firebasedatabase.app/",
+      projectId: "login-sw-14940",
+      appId: "1:252978150700:web:2c7d3997389f7675058089"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
 
-<script>
-    const selector = document.getElementById('language-selector');
-    const list = document.getElementById('language-list');
-    ...
+    // Função de registrar compra
+    function registrarCompraPDF(livroId) {
+      const user = auth.currentUser;
 
+      if (!user) {
+        alert("Faça login para comprar.");
+        return;
+      }
 
-  
-  // Aqui você inicializa o Firebase (adicione se ainda não tiver)
-  const firebaseConfig = {
-    apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
-    authDomain: "login-sw-14940.firebaseapp.com",
-    databaseURL: "https://login-sw-14940-default-rtdb.europe-west1.firebasedatabase.app/",
-    projectId: "login-sw-14940",
-    appId: "1:252978150700:web:2c7d3997389f7675058089"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.database();
-
-  // --- Coloque aqui a função ---
-  function registrarCompraPDF(livroId) {
-    const user = auth.currentUser;
-
-    if (!user) {
-      alert("Faça login para comprar.");
-      return;
+      db.ref(`usuarios/${user.uid}/livros_comprados/${livroId}`)
+        .set(true)
+        .then(() => {
+          alert("Compra registrada com sucesso!");
+          window.location.href = "compras.html";
+        })
+        .catch(err => {
+          alert("Erro ao registrar compra.");
+          console.error(err);
+        });
     }
 
-    db.ref(`usuarios/${user.uid}/livros_comprados/${livroId}`)
-      .set(true)
-      .then(() => {
-        alert("Compra registrada com sucesso!");
-        window.location.href = "biblioteca.html";
-      })
-      .catch(err => {
-        alert("Erro ao registrar compra.");
-        console.error(err);
+    // Configura botão de compra do Segredários
+    const botaoSegredarios = document.getElementById('botao-pdf');
+    if (botaoSegredarios) {
+      botaoSegredarios.addEventListener('click', () => {
+        registrarCompraPDF('segredarios');
       });
-  }
+    }
+  </script>
 
-  // Depois você pode chamar ela no botão de compra, por exemplo:
-  document.getElementById('botao-pdf').onclick = () => registrarCompraPDF('triohnte');
-</script>
-    
 </body>
 </html>
