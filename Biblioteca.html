@@ -83,8 +83,8 @@ const firebaseConfig = {
   appId: "1:252978150700:web:2c7d3997389f7675058089"
 };
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
 const auth = firebase.auth();
+const db = firebase.database();
 
 const livros = [
   {id:1, titulo:"Melissa", autor:"Wellington Novaes", capa:"Mellissa.png", pasta:"paginas_compendio", totalPaginas:6, prefixo: "Pagina ", sinopse:"Uma jornada emocionante de descoberta e coragem."},
