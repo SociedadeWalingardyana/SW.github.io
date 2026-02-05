@@ -160,7 +160,51 @@
     const selector = document.getElementById('language-selector');
     const list = document.getElementById('language-list');
     ...
+
+
+
+
+<script>
+  // Aqui você inicializa o Firebase (adicione se ainda não tiver)
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
+    authDomain: "login-sw-14940.firebaseapp.com",
+    databaseURL: "https://login-sw-14940-default-rtdb.europe-west1.firebasedatabase.app/",
+    projectId: "login-sw-14940",
+    appId: "1:252978150700:web:2c7d3997389f7675058089"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
+
+  // --- Coloque aqui a função ---
+  function registrarCompraPDF(livroId) {
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert("Faça login para comprar.");
+      return;
+    }
+
+    db.ref(`usuarios/${user.uid}/livros_comprados/${livroId}`)
+      .set(true)
+      .then(() => {
+        alert("Compra registrada com sucesso!");
+        window.location.href = "biblioteca.html";
+      })
+      .catch(err => {
+        alert("Erro ao registrar compra.");
+        console.error(err);
+      });
+  }
+
+  // Depois você pode chamar ela no botão de compra, por exemplo:
+  document.getElementById('botao-pdf').onclick = () => registrarCompraPDF('triohnte');
 </script>
+
+
+
+  
   
 
 
