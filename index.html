@@ -153,29 +153,15 @@
   </section>
 
 
-  
 
-
-
-    <style>
-        /* A CAMADA DO QUADRADO */
-        .quadrado-fundo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #a68b6d; /* Marrom claro */
-            z-index: -1; /* Joga para trás do texto */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-       </style> 
 
 
   
 
-<main class="container mx-auto mt-12 px-6 max-w-4xl">
+<main class="container mx-auto mt-12 px-6 max-w-4xl relative">
+
+  <!-- Card de fundo -->
+  <div class="absolute inset-0 bg-yellow-100 rounded-lg shadow-lg -z-10"></div>
   
 
   <h2 class="titulo-cinzel">Origem da Sociedade Walingardyana</h2>
@@ -427,6 +413,7 @@ document.getElementById('signup-btn').onclick = () => {
   </script>
 </body>
 </html>
+
 
 
 
