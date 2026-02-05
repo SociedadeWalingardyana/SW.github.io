@@ -142,15 +142,7 @@
       });
     });
 
-    function registrarCompraPDF() {
-      const produtos = JSON.parse(localStorage.getItem('produtosComprados') || '[]');
-      if (!produtos.includes('compendio')) {
-        produtos.push('compendio');
-        localStorage.setItem('produtosComprados', JSON.stringify(produtos));
-      }
-      // Redireciona para a página de compras
-      window.location.href = "compras.html";
-    }
+   
 
  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
