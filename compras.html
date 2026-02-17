@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Compra - Os Segredários</title>
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <style>
         body {
             background-color: black;
@@ -54,14 +53,25 @@
         .preco {
             font-size: 1.8rem;
             font-weight: bold;
-            color: #009ee3;
+            color: #00bfa5; /* Cor ajustada para o tom da Wise */
             margin-bottom: 30px;
         }
 
-        #walletWidget {
-            width: 100%;
-            display: flex;
-            justify-content: center;
+        /* Estilização do Botão da Wise para manter o padrão */
+        .btn-wise {
+            display: inline-block;
+            background-color: #00bfa5;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 15px 40px;
+            border-radius: 50px;
+            transition: background 0.3s ease;
+            width: 80%;
+        }
+
+        .btn-wise:hover {
+            background-color: #25ffda;
         }
     </style>
 </head>
@@ -80,69 +90,12 @@
 
         <p class="preco">R$ 7,00</p>
 
-        <div id="walletWidget"></div>
+        <div id="payment-area">
+            <a href="https://wise.com/pay/r/3cFzzWVCJZe_bqY" class="btn-wise">
+                Pagar com Wise
+            </a>
+        </div>
     </div>
-
-    <script>
-        // Inicialização com a sua Public Key de produção fornecida
-        const mp = new MercadoPago('APP_USR-13d91b74-3c7a-4409-b164-d9c9828d73c9', {
-            locale: 'pt-BR'
-        });
-
-        mp.bricks().create("wallet", "walletWidget", {
-            initialization: {
-                // Lembre-se: Você precisa gerar o preferenceId no seu servidor usando seu Access Token
-                preferenceId: "8243465362432495", 
-            },
-            customization: {
-                texts: {
-                    valueProp: 'smart_option',
-                    action: 'pay',
-                },
-            },
-        });
-
-
-<script src="https://sdk.mercadopago.com/js/v2"></script>
-<script>
-    const mp = new MercadoPago('APP_USR-6e5e23d3-3ec7-40b2-98b1-ce3c41e46d3a', {
-        locale: 'pt-BR'
-    });
-
-    async function carregarBotao() {
-        try {
-            // Chama a API que você criou na Vercel
-            const response = await fetch('/api/checkout');
-            const data = await response.json();
-
-            if (!data.id) throw new Error("ID não gerado");
-
-            mp.bricks().create("wallet", "walletWidget", {
-                initialization: {
-                    preferenceId: data.id,
-                },
-                customization: {
-                    texts: { valueProp: 'smart_option', action: 'pay' },
-                },
-            });
-        } catch (err) {
-            console.error("Erro ao carregar Mercado Pago:", err);
-        }
-    }
-
-    carregarBotao();
-</script>
-
-
-
-
-
-
-        
 
 </body>
 </html>
-
-
-
-
