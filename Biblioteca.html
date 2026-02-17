@@ -33,7 +33,6 @@ body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
 .comment-section textarea { width: 100%; height: 80px; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 0.5rem; box-sizing: border-box; }
 .btn-comment { margin-top: 0.5rem; width: 100%; background: #000; color: #fff; padding: 0.6rem; border: none; border-radius: 8px; cursor: pointer; }
 
-/* ESTILO PARA LISTA DE COMENTÁRIOS */
 #listaComentarios { margin-top: 1.5rem; max-height: 400px; overflow-y: auto; scrollbar-width: thin; }
 .comentario-item { border-bottom: 1px solid #333; padding: 10px 0; }
 .comentario-texto { font-size: 0.9rem; color: #e7e9ee; margin: 0; }
@@ -59,7 +58,6 @@ body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
             <h3>Deixe seu comentário</h3>
             <textarea id="commentText" placeholder="O que você está lendo hoje?"></textarea>
             <button class="btn-comment" id="btnComment">Enviar</button>
-            
             <div id="listaComentarios"></div>
         </div>
     </aside>
@@ -104,7 +102,16 @@ const livros = [
 ];
 
 const novels = [
-  {id:101, titulo:"Segredários", autor:"Gabryell Aweryan", capa:"SEG.png", pasta:"S CAPS", totalPaginas:1, prefixo: "S CAP ", sinopse:"Marco, João e Lucas vivem a rotina bizarra da Kenya Enlatados..."}
+  {
+    id:101, 
+    titulo:"Segredários", 
+    autor:"Gabryell Aweryan", 
+    capa:"SEG.png", 
+    pasta:"S CAPS", 
+    totalPaginas:1, 
+    prefixo: "S CAP ", 
+    sinopse: "Marco, João e Lucas vivem a rotina sem graça da Kenya Enlatados, uma pequena empresa de São Paulo que enlata legumes e sardinhas. Mas a monotonia acaba quando recebem um telefonema inesperado de Cleber F. Junior, do Amazonas: investigar um parque aquático abandonado, palco de uma tragédia que ainda assombra o local.\n\nAproveitando que suas férias estavam chegando, inventam um retiro espiritual para justificar a ausência, e claro, o chefe não entende nada! Munidos de curiosidade, improviso e sua van carateristicamente cômica, os Segredários partem rumo ao Amazonas.\n\nNo parque, descobrem que Cleber desapareceu misteriosamente e que a missão agora é coordenada por seu filho, Victor, que quer resolver o problema da propriedade para vendê-la. Entre mistérios, absurdos e perigos que ninguém ousaria enfrentar, Marco, João e Lucas vão aprender que segredos enterrados nem sempre ficam onde deveriam, e que a linha entre o banal e o bizarro pode ser mais fina do que imaginam."
+  }
 ];
 
 const grade = document.getElementById("grade");
@@ -194,7 +201,7 @@ document.getElementById("closeDrawer").onclick = () => {
   document.body.style.overflow = "auto";
 };
 
-/* --- SISTEMA DE COMENTÁRIOS (FUNCIONANDO) --- */
+/* --- SISTEMA DE COMENTÁRIOS --- */
 const btnComment = document.getElementById("btnComment");
 const textarea = document.getElementById("commentText");
 
@@ -214,7 +221,6 @@ btnComment.onclick = () => {
     });
 };
 
-// Listener para exibir comentários na tela em tempo real
 db.ref("comentarios").on("child_added", (snapshot) => {
     const dados = snapshot.val();
     const lista = document.getElementById("listaComentarios");
@@ -225,7 +231,7 @@ db.ref("comentarios").on("child_added", (snapshot) => {
         <p class="comentario-texto">${dados.texto}</p>
         <small class="comentario-meta">${dados.pais} • ${new Date(dados.data).toLocaleDateString()}</small>
     `;
-    lista.prepend(div); // Novos no topo
+    lista.prepend(div);
 });
 
 /* --- ESTRELAS --- */
