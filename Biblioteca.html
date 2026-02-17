@@ -24,7 +24,6 @@ body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
 .actions { display: flex; gap: .5rem; padding: 0.8rem 1rem 1rem 1rem; align-items: center; }
 .btn { padding: .5rem .8rem; border-radius: 12px; border: none; cursor: pointer; background: #000; color: #e7e9ee; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.9rem; width: 64px; height: 36px; }
 
-/* ESTILO PARA BOTÃO DESATIVADO */
 .btn:disabled { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); }
 
 .fav[aria-pressed="true"]::before { content: "★"; color: #fff; }
@@ -33,6 +32,13 @@ body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
 .comment-section { margin-top: 2rem; background: #1a0901; padding: 1rem; border-radius: 12px; }
 .comment-section textarea { width: 100%; height: 80px; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; padding: 0.5rem; box-sizing: border-box; }
 .btn-comment { margin-top: 0.5rem; width: 100%; background: #000; color: #fff; padding: 0.6rem; border: none; border-radius: 8px; cursor: pointer; }
+
+/* ESTILO PARA LISTA DE COMENTÁRIOS */
+#listaComentarios { margin-top: 1.5rem; max-height: 400px; overflow-y: auto; scrollbar-width: thin; }
+.comentario-item { border-bottom: 1px solid #333; padding: 10px 0; }
+.comentario-texto { font-size: 0.9rem; color: #e7e9ee; margin: 0; }
+.comentario-meta { color: #aab0bd; font-size: 0.75rem; display: block; margin-top: 4px; }
+
 .drawer { position: fixed; inset:0; background: rgba(0,0,0,.95); display:flex; flex-direction:column; transform:translateY(100%); transition: transform .2s ease; z-index:50; }
 .drawer.open { transform: translateY(0); }
 .drawer-content { overflow-y:auto; padding:1rem; display:flex; flex-direction:column; align-items:center; }
@@ -53,6 +59,8 @@ body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
             <h3>Deixe seu comentário</h3>
             <textarea id="commentText" placeholder="O que você está lendo hoje?"></textarea>
             <button class="btn-comment" id="btnComment">Enviar</button>
+            
+            <div id="listaComentarios"></div>
         </div>
     </aside>
 
@@ -110,7 +118,7 @@ function renderCard(item, container, includeFav=false){
     <div class="meta">
       <h3>${item.titulo}</h3>
       <div class="author">Por: ${item.autor}</div>
-      <div class="synopsis">${item.sinopse}</div>
+      <div class="synopsis">${item.synopsis}</div>
     </div>
     <div class="actions">
       <button class="btn ler" data-id="${item.id}" disabled>Ler</button>
@@ -124,20 +132,16 @@ function renderCard(item, container, includeFav=false){
 livros.forEach(l => renderCard(l, grade, true));
 novels.forEach(n => renderCard(n, novelGrid, true));
 
-/* --- FUNÇÃO DE GESTÃO DE ACESSO (BLOQUEIO DE BOTÃO) --- */
+/* --- GESTÃO DE ACESSO --- */
 function atualizarPermissoesBotao(emailLogado) {
     const permissoes = JSON.parse(localStorage.getItem('sw_permissoes')) || [];
     const botoesLer = document.querySelectorAll('.btn.ler');
-
     botoesLer.forEach(botao => {
         const idDoLivro = botao.getAttribute('data-id');
-        
-        // Verifica se o email tem permissão para este ID no localStorage
         const temAcesso = permissoes.some(p => 
             p.email.toLowerCase() === emailLogado.toLowerCase() && 
             p.bookId.toString() === idDoLivro.toString()
         );
-
         if (temAcesso) {
             botao.disabled = false;
             botao.innerText = "Ler";
@@ -148,7 +152,6 @@ function atualizarPermissoesBotao(emailLogado) {
     });
 }
 
-// Monitorar login para ativar botões
 auth.onAuthStateChanged(user => {
     if (user && user.email) {
         atualizarPermissoesBotao(user.email);
@@ -164,7 +167,6 @@ document.body.addEventListener("click", e => {
     if(item) openDrawer(item);
     return;
   }
-
   const btnFav = e.target.closest(".fav");
   if(btnFav){
     const id = btnFav.dataset.id;
@@ -192,13 +194,15 @@ document.getElementById("closeDrawer").onclick = () => {
   document.body.style.overflow = "auto";
 };
 
-// COMENTÁRIOS E ESTRELAS MANTIDOS...
+/* --- SISTEMA DE COMENTÁRIOS (FUNCIONANDO) --- */
 const btnComment = document.getElementById("btnComment");
 const textarea = document.getElementById("commentText");
+
 btnComment.onclick = () => {
     const user = auth.currentUser;
     if(!user) return alert("Faça login para comentar.");
     if(!textarea.value.trim()) return;
+
     db.ref(`usuarios/${user.uid}`).once('value', snap => {
         const d = snap.val() || {};
         db.ref("comentarios").push({
@@ -209,6 +213,22 @@ btnComment.onclick = () => {
         textarea.value = "";
     });
 };
+
+// Listener para exibir comentários na tela em tempo real
+db.ref("comentarios").on("child_added", (snapshot) => {
+    const dados = snapshot.val();
+    const lista = document.getElementById("listaComentarios");
+    
+    const div = document.createElement("div");
+    div.className = "comentario-item";
+    div.innerHTML = `
+        <p class="comentario-texto">${dados.texto}</p>
+        <small class="comentario-meta">${dados.pais} • ${new Date(dados.data).toLocaleDateString()}</small>
+    `;
+    lista.prepend(div); // Novos no topo
+});
+
+/* --- ESTRELAS --- */
 [...livros, ...novels].forEach(item => {
   db.ref("estrelas/"+item.id).on("value", snap => {
     const el = document.getElementById("stars-"+item.id);
