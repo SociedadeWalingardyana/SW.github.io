@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Biblioteca - SW Editorial</title>
 <style>
-/* Mantendo seu CSS original */
+/* CSS ORIGINAL MANTIDO */
 body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
 .topbar { padding: 1rem; background: #1a0901; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 10; }
 .layout { display: flex; min-height: calc(100vh - 58px); }
@@ -23,6 +23,10 @@ body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
 .meta .synopsis { font-size: 0.85rem; color: #c0c0c0; line-height: 1.4; white-space: pre-line; }
 .actions { display: flex; gap: .5rem; padding: 0.8rem 1rem 1rem 1rem; align-items: center; }
 .btn { padding: .5rem .8rem; border-radius: 12px; border: none; cursor: pointer; background: #000; color: #e7e9ee; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.9rem; width: 64px; height: 36px; }
+
+/* ESTILO PARA BOTÃO DESATIVADO */
+.btn:disabled { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); }
+
 .fav[aria-pressed="true"]::before { content: "★"; color: #fff; }
 .fav[aria-pressed="false"]::before { content: "☆"; }
 .star-count { color: #fff; font-weight: 400; font-size: 0.7rem; }
@@ -98,11 +102,9 @@ const novels = [
 const grade = document.getElementById("grade");
 const novelGrid = document.getElementById("novelGrid");
 
-// RENDERIZAÇÃO
 function renderCard(item, container, includeFav=false){
   const card = document.createElement("div");
   card.className = "card-book";
-  card.setAttribute('data-book-id', item.id); // Identificador para o filtro
   card.innerHTML = `
     <div class="cover"><img src="${item.capa}"></div>
     <div class="meta">
@@ -111,7 +113,7 @@ function renderCard(item, container, includeFav=false){
       <div class="synopsis">${item.sinopse}</div>
     </div>
     <div class="actions">
-      <button class="btn ler" data-id="${item.id}">Ler</button>
+      <button class="btn ler" data-id="${item.id}" disabled>Ler</button>
       ${includeFav ? `<button class="btn fav" aria-pressed="false" data-id="${item.id}">
         <span class="star-count" id="stars-${item.id}">0</span>
       </button>` : ""}
@@ -122,50 +124,43 @@ function renderCard(item, container, includeFav=false){
 livros.forEach(l => renderCard(l, grade, true));
 novels.forEach(n => renderCard(n, novelGrid, true));
 
-/* --- FUNÇÃO DE ACESSO (Vindo do SW Sistem) --- */
-function verificarAcesso(emailLogado) {
+/* --- FUNÇÃO DE GESTÃO DE ACESSO (BLOQUEIO DE BOTÃO) --- */
+function atualizarPermissoesBotao(emailLogado) {
     const permissoes = JSON.parse(localStorage.getItem('sw_permissoes')) || [];
-    const cards = document.querySelectorAll('.card-book');
+    const botoesLer = document.querySelectorAll('.btn.ler');
 
-    cards.forEach(card => {
-        const idDoLivro = card.getAttribute('data-book-id');
+    botoesLer.forEach(botao => {
+        const idDoLivro = botao.getAttribute('data-id');
         
-        // Verifica se existe permissão para esse email + esse livro no localStorage
+        // Verifica se o email tem permissão para este ID no localStorage
         const temAcesso = permissoes.some(p => 
             p.email.toLowerCase() === emailLogado.toLowerCase() && 
             p.bookId.toString() === idDoLivro.toString()
         );
 
-        // Se não tiver acesso, o livro some da biblioteca
-        if (!temAcesso) {
-            card.style.display = 'none';
+        if (temAcesso) {
+            botao.disabled = false;
+            botao.innerText = "Ler";
         } else {
-            card.style.display = 'flex';
+            botao.disabled = true;
+            botao.innerText = "🔒";
         }
     });
 }
 
-// MONITORAR LOGIN E APLICAR FILTRO
+// Monitorar login para ativar botões
 auth.onAuthStateChanged(user => {
     if (user && user.email) {
-        verificarAcesso(user.email);
+        atualizarPermissoesBotao(user.email);
     }
 });
 
 /* --- EVENTOS DE CLIQUE --- */
 document.body.addEventListener("click", e => {
   const btnLer = e.target.closest(".ler");
-  if(btnLer){
+  if(btnLer && !btnLer.disabled){
     const id = btnLer.dataset.id;
     const item = [...livros, ...novels].find(x => x.id == id);
-    const user = auth.currentUser;
-
-    if (!user) {
-        alert("🔒 Faça login para acessar.");
-        return;
-    }
-    
-    // Abre o livro (A trava visual de sumir o card já é feita pela função verificarAcesso)
     if(item) openDrawer(item);
     return;
   }
@@ -197,15 +192,13 @@ document.getElementById("closeDrawer").onclick = () => {
   document.body.style.overflow = "auto";
 };
 
-// COMENTÁRIOS
+// COMENTÁRIOS E ESTRELAS MANTIDOS...
 const btnComment = document.getElementById("btnComment");
 const textarea = document.getElementById("commentText");
-
 btnComment.onclick = () => {
     const user = auth.currentUser;
     if(!user) return alert("Faça login para comentar.");
     if(!textarea.value.trim()) return;
-
     db.ref(`usuarios/${user.uid}`).once('value', snap => {
         const d = snap.val() || {};
         db.ref("comentarios").push({
@@ -216,8 +209,6 @@ btnComment.onclick = () => {
         textarea.value = "";
     });
 };
-
-// Monitorar estrelas (Real-time)
 [...livros, ...novels].forEach(item => {
   db.ref("estrelas/"+item.id).on("value", snap => {
     const el = document.getElementById("stars-"+item.id);
