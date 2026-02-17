@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Biblioteca - SW Editorial</title>
 <style>
-/* ... Mantive todo o seu CSS original intacto ... */
+/* Mantendo seu CSS original */
 body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
 .topbar { padding: 1rem; background: #1a0901; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 10; }
 .layout { display: flex; min-height: calc(100vh - 58px); }
@@ -40,15 +40,15 @@ body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
 </head>
 <body>
 
-<header class="topbar">Biblioteca</header>
+<header class="topbar">Biblioteca SW</header>
 
 <div class="layout">
     <aside class="sidebar">
         <h2>Suas obras reunidas em um só lugar.</h2>
         <div class="comment-section">
             <h3>Deixe seu comentário</h3>
-            <textarea placeholder="O que você está lendo hoje?"></textarea>
-            <button class="btn-comment">Enviar</button>
+            <textarea id="commentText" placeholder="O que você está lendo hoje?"></textarea>
+            <button class="btn-comment" id="btnComment">Enviar</button>
         </div>
     </aside>
 
@@ -77,7 +77,6 @@ body { margin: 0; font-family: sans-serif; background: #000; color: #e7e9ee; }
 const firebaseConfig = {
   apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
   authDomain: "login-sw-14940.firebaseapp.com",
-  // O segredo está aqui: use o mesmo banco do login!
   databaseURL: "https://login-sw-14940-default-rtdb.europe-west1.firebasedatabase.app/", 
   projectId: "login-sw-14940",
   appId: "1:252978150700:web:2c7d3997389f7675058089"
@@ -99,9 +98,11 @@ const novels = [
 const grade = document.getElementById("grade");
 const novelGrid = document.getElementById("novelGrid");
 
+// RENDERIZAÇÃO
 function renderCard(item, container, includeFav=false){
   const card = document.createElement("div");
   card.className = "card-book";
+  card.setAttribute('data-book-id', item.id); // Identificador para o filtro
   card.innerHTML = `
     <div class="cover"><img src="${item.capa}"></div>
     <div class="meta">
@@ -121,15 +122,37 @@ function renderCard(item, container, includeFav=false){
 livros.forEach(l => renderCard(l, grade, true));
 novels.forEach(n => renderCard(n, novelGrid, true));
 
-// Monitorar estrelas
-[...livros, ...novels].forEach(item => {
-  db.ref("estrelas/"+item.id).on("value", snap => {
-    const el = document.getElementById("stars-"+item.id);
-    if(el) el.textContent = snap.val() || 0;
-  });
+/* --- FUNÇÃO DE ACESSO (Vindo do SW Sistem) --- */
+function verificarAcesso(emailLogado) {
+    const permissoes = JSON.parse(localStorage.getItem('sw_permissoes')) || [];
+    const cards = document.querySelectorAll('.card-book');
+
+    cards.forEach(card => {
+        const idDoLivro = card.getAttribute('data-book-id');
+        
+        // Verifica se existe permissão para esse email + esse livro no localStorage
+        const temAcesso = permissoes.some(p => 
+            p.email.toLowerCase() === emailLogado.toLowerCase() && 
+            p.bookId.toString() === idDoLivro.toString()
+        );
+
+        // Se não tiver acesso, o livro some da biblioteca
+        if (!temAcesso) {
+            card.style.display = 'none';
+        } else {
+            card.style.display = 'flex';
+        }
+    });
+}
+
+// MONITORAR LOGIN E APLICAR FILTRO
+auth.onAuthStateChanged(user => {
+    if (user && user.email) {
+        verificarAcesso(user.email);
+    }
 });
 
-// EVENTO DE CLIQUE COM TRAVA DE SEGURANÇA
+/* --- EVENTOS DE CLIQUE --- */
 document.body.addEventListener("click", e => {
   const btnLer = e.target.closest(".ler");
   if(btnLer){
@@ -138,18 +161,12 @@ document.body.addEventListener("click", e => {
     const user = auth.currentUser;
 
     if (!user) {
-        alert("🔒 Acesso restrito. Faça login para ler suas obras.");
+        alert("🔒 Faça login para acessar.");
         return;
     }
-
-    // Verifica se o ID do livro está marcado como 'true' para este usuário
-    db.ref(`usuarios/${user.uid}/livros_comprados/${id}`).once('value', snap => {
-        if (snap.exists() && snap.val() === true) {
-            if(item) openDrawer(item);
-        } else {
-            alert("❌ Você ainda não possui esta obra em sua coleção. Visite nossa loja!");
-        }
-    });
+    
+    // Abre o livro (A trava visual de sumir o card já é feita pela função verificarAcesso)
+    if(item) openDrawer(item);
     return;
   }
 
@@ -180,7 +197,10 @@ document.getElementById("closeDrawer").onclick = () => {
   document.body.style.overflow = "auto";
 };
 
-// Comentários (com proteção de login)
+// COMENTÁRIOS
+const btnComment = document.getElementById("btnComment");
+const textarea = document.getElementById("commentText");
+
 btnComment.onclick = () => {
     const user = auth.currentUser;
     if(!user) return alert("Faça login para comentar.");
@@ -196,6 +216,14 @@ btnComment.onclick = () => {
         textarea.value = "";
     });
 };
+
+// Monitorar estrelas (Real-time)
+[...livros, ...novels].forEach(item => {
+  db.ref("estrelas/"+item.id).on("value", snap => {
+    const el = document.getElementById("stars-"+item.id);
+    if(el) el.textContent = snap.val() || 0;
+  });
+});
 </script>
 </body>
 </html>
