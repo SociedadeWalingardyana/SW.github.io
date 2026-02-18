@@ -61,10 +61,44 @@
       max-width: 100%;
       height: auto;
     }
+
+    /* Estilo do Novo Aviso */
+    #aviso-politica {
+      display: flex;
+    }
   </style>
 </head>
 
 <body>
+
+  <div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 z-[10000] flex items-center justify-center p-4">
+    <div class="bg-white text-black p-8 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <h2 class="text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2">Nova Política de captação SW</h2>
+      
+      <div class="space-y-4 text-gray-800">
+        <p class="font-semibold text-lg italic">"Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial, o nosso modelo de pagamentos atual agora é o banco internacional, Wize."</p>
+        
+        <h3 class="font-bold text-xl mt-4">"Por que e como isso acontece?"</h3>
+        <p>"O modelo automático de captação financeira que grandes sites utilizam, ao momento é um grande desafio para o setor de programação da SW, de modo que nós da administração geral, optamos pelo recebimento de valores e o envio dos livros após a confirmação de pagamento, em até 2 dias úteis."</p>
+        
+        <h3 class="font-bold text-xl mt-4">"Para efetuar a compra dos volumes digitais siga os passos abaixo."</h3>
+        <ol class="list-decimal ml-6 space-y-2 font-medium">
+          <li>Registre usuário na barra de login (Email + Senha).</li>
+          <li>Entre em usuário criado.</li>
+          <li>Vá até Loja, depois clique em (Comprar) para obter o livro desejado.</li>
+          <li>Você será encaminhado para a aba de compra, onde poderá fazer o envio. Pronto, após dois dias úteis, seu livro estará disponível para leitura em nossa biblioteca. Claro, se seu pagamento for autorizado.</li>
+        </ol>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mt-6">
+          <p class="mb-0 text-sm font-bold">"Aviso: Sem login, sem pagamento, os livros continuam aparecendo para você, mas estarão bloqueados para leitura."</p>
+        </div>
+      </div>
+
+      <button id="fechar-aviso" class="mt-8 w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest">
+        Compreendi e desejo prosseguir
+      </button>
+    </div>
+  </div>
 
   <a href="SW Sistem.html" id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">
     Direct Colab
@@ -139,23 +173,6 @@
     </div>
   </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
   <footer class="flex flex-col items-center p-8 mt-16">
     <p>&copy; 2025 SW Editorial. Todos os direitos reservados.</p>
     <div class="flex justify-center gap-6 mt-4">
@@ -179,6 +196,11 @@
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const database = firebase.database();
+
+    // LÓGICA DO FECHAMENTO DO AVISO
+    document.getElementById('fechar-aviso').onclick = () => {
+      document.getElementById('aviso-politica').style.display = 'none';
+    };
 
     // --- CONTROLE DE INTERFACE ---
     document.getElementById('language-selector').onclick = (e) => {
@@ -225,11 +247,9 @@
       authContainer.classList.add('hidden');
       userInfo.classList.remove('hidden');
 
-      // Nome padrão baseado no e-mail
       let displayNome = user.email.split('@')[0];
       userGreeting.textContent = `Olá, ${displayNome}`;
 
-      // Busca dados em tempo real
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val();
         if (d) {
@@ -295,4 +315,3 @@
   </script>
 </body>
 </html>
-
