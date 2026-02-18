@@ -165,7 +165,7 @@
       db.ref(`usuarios/${user.uid}/livros_comprados/${livroId}`)
         .set(true)
         .then(() => {
-          alert("Compra registrada com sucesso!");
+          alert("Encaminhando usuário para compra.");
           window.location.href = "compras.html";
         })
         .catch(err => {
