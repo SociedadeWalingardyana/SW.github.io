@@ -15,7 +15,7 @@
       font-family: sans-serif;
       margin: 0;
       padding: 0;
-      overflow-x: hidden; /* Evita que o site "dance" para os lados no celular */
+      overflow-x: hidden; /* Evita rolagem horizontal */
     }
 
     .titulo-cinzel {
@@ -26,9 +26,9 @@
       line-height: 1.2;
     }
 
-    /* Responsividade para o título */
-    @media (max-width: 640px) {
-      .titulo-cinzel { font-size: 2rem; }
+    /* Ajuste de título para telas menores */
+    @media (max-width: 768px) {
+      .titulo-cinzel { font-size: 1.8rem; }
     }
 
     p {
@@ -53,23 +53,12 @@
       text-decoration: none;
     }
 
-    /* Ajuste para botões não sumirem no celular */
+    /* REGRAS DE RESPONSIVIDADE PARA O TOPO (LOGIN E BOTÕES) */
     @media (max-width: 1024px) {
-      .top-button, #auth-container {
-        position: static !important;
-        margin: 5px auto;
-      }
-      .top-bar-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: black;
-        padding: 10px;
-      }
-    }
-
-    .top-button:hover {
-      background: #333;
+      .top-button { position: relative; top: 0; right: 0 !important; margin: 5px; }
+      #auth-container-wrapper { position: relative !important; top: 0 !important; right: 0 !important; flex-direction: column; padding: 10px; }
+      #auth-container { flex-direction: column; width: 100%; }
+      header { padding-top: 10px; }
     }
 
     header, footer {
@@ -124,35 +113,14 @@
     </div>
   </div>
 
-  <div class="top-bar-wrapper">
-    <a href="SW Sistem.html" id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">
-      Direct Colab
-    </a>
+  <div class="flex flex-wrap justify-end p-2 lg:p-0">
+      <a href="SW Sistem.html" id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">
+        Direct Colab
+      </a>
 
-    <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">
-      ▼
-    </div>
-
-    <div id="auth-container-wrapper" class="lg:absolute top-2 z-50 font-sans flex items-center gap-2" style="right: 180px;">
-      <div id="auth-container" class="flex flex-wrap justify-center items-center gap-2 bg-black bg-opacity-60 p-1.5 rounded-lg border border-gray-800">
-        <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-32 text-black outline-none">
-        <input id="pass-field" type="password" placeholder="Senha" class="px-2 py-1 text-sm rounded w-28 text-black outline-none">
-        <div class="flex gap-1">
-          <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">Entrar</button>
-          <button id="signup-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">Registrar</button>
-        </div>
+      <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">
+        ▼
       </div>
-
-      <div id="user-info" class="hidden relative">
-        <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-lg font-bold border border-yellow-600 cursor-pointer hover:bg-opacity-100 transition-all">
-          Carregando...
-        </div>
-        <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
-          <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados da conta</button>
-          <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <ul id="language-list" style="position: absolute; top: 50px; right: 10px; width: 120px; border: 1px solid #444; border-radius: 5px; list-style: none; padding: 5px 0; display: none; z-index: 110; background: #1a1a1a;">
@@ -160,6 +128,27 @@
     <li style="padding:8px 12px; cursor:pointer;" onclick="changeLang('ES')">Español</li>
     <li style="padding:8px 12px; cursor:pointer;" onclick="changeLang('EN')">English</li>
   </ul>
+
+  <div id="auth-container-wrapper" class="absolute top-2 z-50 font-sans flex items-center gap-2" style="right: 180px;">
+    <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1.5 rounded-lg border border-gray-800">
+      <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-32 text-black outline-none">
+      <input id="pass-field" type="password" placeholder="Senha" class="px-2 py-1 text-sm rounded w-28 text-black outline-none">
+      <div class="flex gap-1">
+        <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">Entrar</button>
+        <button id="signup-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">Registrar</button>
+      </div>
+    </div>
+
+    <div id="user-info" class="hidden relative">
+      <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-lg font-bold border border-yellow-600 cursor-pointer hover:bg-opacity-100 transition-all">
+        Carregando...
+      </div>
+      <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
+        <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados da conta</button>
+        <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
+      </div>
+    </div>
+  </div>
 
   <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4 font-sans" style="z-index: 9999;">
     <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm relative" style="pointer-events: auto;">
@@ -192,7 +181,7 @@
   </header>
 
   <section class="container mx-auto mt-6 px-4">
-    <div class="h-64 md:h-80 rounded overflow-hidden shadow-lg">
+    <div class="h-auto md:h-80 rounded overflow-hidden shadow-lg">
       <video class="w-full h-full object-cover" autoplay muted loop playsinline>
         <source src="walinga.mp4" type="video/mp4">
       </video>
@@ -201,15 +190,18 @@
 
   <section style="position: relative; z-index: 0; max-width: 900px; margin: 2rem auto; padding: 5%; background-color: #281109; border-radius: 15px; overflow: hidden; clear: both;">
     <img src="ban.png" alt="Fundo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; z-index: -1;">
+
     <div style="position: relative;">
       <h2 class="titulo-cinzel" style="color: #FFFFFF; margin-bottom: 20px; text-align: center;">SW Editora</h2>
-      <p style="color: #FFFFFF;">
+      
+      <p style="color: #FFFFFF; text-align: justify; line-height: 1.6; margin-bottom: 20px;">
         A <strong style="color: #d97706;">SW Editora</strong> surgiu para ir contra a maré de mediocridade do mercado literário. 
         Fundada em 2025 por amigos que participavam de um grupo de escritores de fantasia, a proposta 
         do empreendimento é encontrar jovens talentos e divulgar os autores brasileiros consagrados 
         para um público que preza pela <em style="font-style: italic;">qualidade textual e intelectual</em>.
       </p>
-      <p style="color: #FFFFFF;">
+
+      <p style="color: #FFFFFF; text-align: justify; line-height: 1.6;">
         O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar 
         obras literárias bem escritas, respeitando a capacidade cognitiva dos leitores exigentes. 
         Antes de tudo, acreditamos que a <strong style="color: #d97706;">leitura é um mecanismo de mudança social</strong> 
@@ -271,25 +263,21 @@
       document.getElementById('settings-dropdown').classList.add('hidden');
     };
 
-    function changeLang(lang) { console.log("Idioma alterado para: " + lang); }
+    function changeLang(lang) { console.log("Idioma:", lang); }
 
     auth.onAuthStateChanged((user) => {
       const authContainer = document.getElementById('auth-container');
       const userInfo = document.getElementById('user-info');
       const userGreeting = document.getElementById('user-greeting');
-
       if (!user) {
         authContainer.classList.remove('hidden');
         userInfo.classList.add('hidden');
         return;
       }
-
       authContainer.classList.add('hidden');
       userInfo.classList.remove('hidden');
-
       let displayNome = user.email.split('@')[0];
       userGreeting.textContent = `Olá, ${displayNome}`;
-
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val();
         if (d) {
@@ -306,11 +294,8 @@
     document.getElementById('login-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
       const p = document.getElementById('pass-field').value;
-      if (e && p) {
-        auth.signInWithEmailAndPassword(e, p).catch(err => alert("Erro ao entrar: " + err.message));
-      } else {
-        alert("Preencha e-mail e senha.");
-      }
+      if (e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
+      else alert("Preencha e-mail e senha.");
     };
 
     document.getElementById('signup-btn').onclick = () => {
@@ -318,13 +303,9 @@
       const p = document.getElementById('pass-field').value;
       if (e && p) {
         auth.createUserWithEmailAndPassword(e, p)
-          .then(u => {
-            return database.ref('usuarios/' + u.user.uid).set({ nome: "Membro SW", email: e });
-          })
-          .catch(err => alert("Erro ao registrar: " + err.message));
-      } else {
-        alert("Preencha e-mail e senha para registrar.");
-      }
+          .then(u => database.ref('usuarios/' + u.user.uid).set({ nome: "Membro SW", email: e }))
+          .catch(err => alert(err.message));
+      } else alert("Preencha e-mail e senha para registrar.");
     };
 
     document.getElementById('logout-btn').onclick = () => auth.signOut();
@@ -332,7 +313,6 @@
     document.getElementById('btn-salvar-realtime').onclick = () => {
       const user = auth.currentUser;
       if (!user) return;
-      
       const dados = {
         nome: document.getElementById('db-nome').value,
         idade: document.getElementById('db-idade').value,
@@ -340,7 +320,6 @@
         endereco: document.getElementById('db-endereco').value,
         pais: document.getElementById('db-pais').value
       };
-      
       database.ref('usuarios/' + user.uid).update(dados)
         .then(() => {
           alert("Dados atualizados!");
@@ -349,5 +328,6 @@
         .catch(err => alert("Erro ao salvar: " + err.message));
     };
   </script>
+
 </body>
 </html>
