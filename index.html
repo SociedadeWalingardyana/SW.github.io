@@ -26,7 +26,7 @@
       line-height: 1.2;
     }
 
-    /* Ajuste de título para telas menores */
+    /* Responsividade do título */
     @media (max-width: 768px) {
       .titulo-cinzel { font-size: 1.8rem; }
     }
@@ -37,13 +37,13 @@
       line-height: 1.6;
     }
 
-    /* --- ORGANIZAÇÃO DOS BOTÕES (ALINHAMENTO IGUAL À IMAGEM) --- */
+    /* --- ALINHAMENTO DOS BOTÕES CONFORME SOLICITADO --- */
     .top-bar-container {
       position: absolute;
       top: 10px;
       right: 10px;
       display: flex;
-      align-items: stretch; /* Garante mesma altura para todos */
+      align-items: stretch;
       gap: 8px;
       z-index: 100;
     }
@@ -58,24 +58,21 @@
       align-items: center;
       justify-content: center;
       padding: 0 12px;
-      height: 38px; /* Altura fixa para alinhar todos */
+      height: 38px;
       transition: all 0.2s;
       text-decoration: none;
       font-size: 14px;
     }
 
-    /* Destaque para o botão de usuário/login (Borda Laranja) */
     .user-btn-border {
       border: 1px solid #d97706 !important;
       color: #d97706;
       cursor: pointer;
     }
 
-    .btn-top-estilo:hover {
-      background: #333;
-    }
+    .btn-top-estilo:hover { background: #333; }
 
-    /* RESPONSIVIDADE PARA CELULAR */
+    /* Ajuste para Celular */
     @media (max-width: 1024px) {
       .top-bar-container {
         position: relative;
@@ -86,13 +83,8 @@
         background: black;
         flex-wrap: wrap;
       }
-      #auth-container {
-        flex-direction: column;
-        width: 100%;
-      }
-      #auth-container input {
-        width: 100% !important;
-      }
+      #auth-container { flex-direction: column; width: 100%; }
+      #auth-container input { width: 100% !important; }
     }
 
     header, footer { background-color: black; }
@@ -138,7 +130,6 @@
   </div>
 
   <div class="top-bar-container">
-    
     <div id="auth-section" class="flex items-center gap-2">
       <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1 rounded-lg border border-gray-800">
         <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-28 text-black outline-none h-[30px]">
@@ -148,9 +139,7 @@
       </div>
 
       <div id="user-info" class="hidden relative">
-        <div id="user-greeting" class="btn-top-estilo user-btn-border">
-          Carregando...
-        </div>
+        <div id="user-greeting" class="btn-top-estilo user-btn-border">Carregando...</div>
         <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
           <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados da conta</button>
           <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
@@ -158,12 +147,18 @@
       </div>
     </div>
 
-    <a href="SW Sistem.html" id="direct-colab" class="btn-top-estilo">
-      Direct Colab
-    </a>
+    <a href="SW Sistem.html" id="direct-colab" class="btn-top-estilo">Direct Colab</a>
+    <div id="language-selector" class="btn-top-estilo w-[40px]">▼</div>
+  </div>
 
-    <div id="language-selector" class="btn-top-estilo w-[40px]">
-      ▼
+  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4 z-[9999]">
+    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
+      <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Alterar Nome</h3>
+      <input type="text" id="db-nome" placeholder="Seu nome real" class="w-full border p-2 rounded text-black mb-4 outline-none">
+      <div class="flex gap-2">
+        <button id="btn-salvar-realtime" class="bg-green-700 text-white flex-1 py-2 rounded font-bold">Salvar</button>
+        <button id="btn-fechar-modal" class="bg-gray-300 text-gray-800 flex-1 py-2 rounded">Cancelar</button>
+      </div>
     </div>
   </div>
 
@@ -197,29 +192,16 @@
   <section style="position: relative; z-index: 0; max-width: 900px; margin: 2rem auto; padding: 5%; background-color: #281109; border-radius: 15px; overflow: hidden;">
     <img src="ban.png" alt="Fundo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; z-index: -1;">
     <div style="position: relative;">
-      <h2 class="titulo-cinzel" style="color: #FFFFFF; margin-bottom: 20px; text-align: center;">SW Editora</h2>
-      <p style="color: #FFFFFF;">
-        A <strong style="color: #d97706;">SW Editora</strong> Surgiu para ir contra a maré de mediocridade do mercado literário. 
+      <h2 class="titulo-cinzel">SW Editora</h2>
+      <p>A <strong style="color: #d97706;">SW Editora</strong> Surgiu para ir contra a maré de mediocridade do mercado literário.</p> 
 
-      Fundada em 2025 por amigos que participavam de um grupo de escritores de fantasia, a proposta 
-
+      <p>Fundada em 2025 por amigos que participavam de um grupo de escritores de fantasia, a proposta 
       do empreendimento é encontrar jovens talentos e divulgar os autores brasileiros consagrados 
-
       para um público que preza pela qualidade textual e intelectual.</p>
 
-<div>
-
-     <p> O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar 
-
+      <p>O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar 
       obras literárias bem escritas, respeitando a capacidade cognitiva dos leitores exigentes. 
-
       Antes de tudo, acreditamos que a leitura é um mecanismo de mudança social que deve ser usado para tornar uma sociedade mais justa e instruída.</p>
-
-
-
-
-        
-      </p>
     </div>
   </section>
 
@@ -243,39 +225,85 @@
     const auth = firebase.auth();
     const database = firebase.database();
 
-    // Lógica de UI
+    // UI
     document.getElementById('fechar-aviso').onclick = () => document.getElementById('aviso-politica').style.display = 'none';
-    document.getElementById('language-selector').onclick = (e) => {
-      e.stopPropagation();
-      const list = document.getElementById('language-list');
-      list.style.display = list.style.display === 'none' ? 'block' : 'none';
+    
+    document.getElementById('btn-abrir-modal').onclick = () => {
+      document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+      document.getElementById('settings-dropdown').classList.add('hidden');
     };
-    document.getElementById('user-greeting').onclick = (e) => {
-      e.stopPropagation();
-      document.getElementById('settings-dropdown').classList.toggle('hidden');
-    };
+    
+    document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
 
     auth.onAuthStateChanged((user) => {
       const authContainer = document.getElementById('auth-container');
       const userInfo = document.getElementById('user-info');
       const userGreeting = document.getElementById('user-greeting');
-      if (!user) { authContainer.classList.remove('hidden'); userInfo.classList.add('hidden'); return; }
+      
+      if (!user) {
+        authContainer.classList.remove('hidden');
+        userInfo.classList.add('hidden');
+        return;
+      }
       authContainer.classList.add('hidden');
       userInfo.classList.remove('hidden');
+
+      // 1. Define o email como nome provisório
+      userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
+
+      // 2. Busca o nome real no Realtime Database
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val();
-        userGreeting.textContent = d && d.nome ? `Olá, ${d.nome.split(' ')[0]}` : `Olá, ${user.email.split('@')[0]}`;
+        if (d && d.nome) {
+          userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}`;
+          document.getElementById('db-nome').value = d.nome;
+        }
       });
     });
+
+    document.getElementById('btn-salvar-realtime').onclick = () => {
+      const user = auth.currentUser;
+      const nome = document.getElementById('db-nome').value;
+      if (user && nome) {
+        database.ref('usuarios/' + user.uid).update({ nome: nome })
+          .then(() => {
+            alert("Dados salvos!");
+            document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+          });
+      }
+    };
 
     document.getElementById('login-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
       const p = document.getElementById('pass-field').value;
       if (e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
     };
+
+    document.getElementById('signup-btn').onclick = () => {
+      const e = document.getElementById('email-field').value;
+      const p = document.getElementById('pass-field').value;
+      if (e && p) {
+        auth.createUserWithEmailAndPassword(e, p).then(u => {
+          database.ref('usuarios/' + u.user.uid).set({ email: e, nome: "" });
+        }).catch(err => alert(err.message));
+      }
+    };
+
     document.getElementById('logout-btn').onclick = () => auth.signOut();
-    function changeLang(lang) { console.log("Lang:", lang); }
+    document.getElementById('user-greeting').onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById('settings-dropdown').classList.toggle('hidden');
+    };
+    document.getElementById('language-selector').onclick = (e) => {
+      e.stopPropagation();
+      const list = document.getElementById('language-list');
+      list.style.display = list.style.display === 'none' ? 'block' : 'none';
+    };
+    window.onclick = () => {
+      document.getElementById('settings-dropdown').classList.add('hidden');
+      document.getElementById('language-list').style.display = 'none';
+    };
+    function changeLang(lang) { console.log(lang); }
   </script>
 </body>
 </html>
-
