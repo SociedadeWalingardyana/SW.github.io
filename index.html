@@ -36,6 +36,7 @@
       line-height: 1.6;
     }
 
+    /* --- BARRA SUPERIOR E DROPDOWN --- */
     .top-bar-container {
       position: absolute;
       top: 10px;
@@ -43,7 +44,7 @@
       display: flex;
       align-items: stretch;
       gap: 8px;
-      z-index: 100;
+      z-index: 1000; /* Garante que a barra fique no topo */
     }
 
     .btn-top-estilo {
@@ -68,6 +69,12 @@
       cursor: pointer;
     }
 
+    /* Ajuste crucial para o Dropdown aparecer na frente de tudo */
+    #settings-dropdown {
+      z-index: 9999 !important; 
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
+
     @media (max-width: 1024px) {
       .top-bar-container {
         position: relative;
@@ -84,34 +91,28 @@
 
     header, footer { background-color: black; }
 
-    #aviso-politica {
-      position: fixed;
-      inset: 0;
-      z-index: 2147483647;
-      display: flex;
+    #aviso-politica, #edit-modal {
+      z-index: 10001; /* Maior que o dropdown */
     }
   </style>
 </head>
 
 <body>
 
-  <div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 z-[10000] flex items-center justify-center p-4">
+  <div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4">
     <div class="bg-white text-black p-8 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
       <h2 class="text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2">Nova Política de captação SW</h2>
       <div class="space-y-4 text-gray-800">
         <p class="font-semibold text-lg italic">Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial, o nosso modelo de pagamentos atual agora é o banco internacional, Wize.</p>
         <h3 class="font-bold text-xl mt-4">Por que e como isso acontece?</h3>
-        <p>O modelo automático de captação financeira que grandes sites utilizam é um grande desafio para o setor de programação da SW, de modo que nós, optamos pelo recebimento de valores e o envio dos livros após a confirmação de pagamento, em até 2 dias úteis. Priorizamos a segurança dos dados dos clientes, portanto, optamos por esse método manual.</p>
+        <p>O modelo automático de captação financeira que grandes sites utilizam é um grande desafio para o setor de programação da SW...</p>
         <h3 class="font-bold text-xl mt-4">Para efetuar a compra dos volumes digitais siga os passos abaixo.</h3>
         <ol class="list-decimal ml-6 space-y-2 font-medium">
           <li>Registre usuário na barra de login (Email + Senha).</li>
           <li>Entre em usuário criado.</li>
           <li>Vá até Loja, depois clique em (Comprar) para obter o livro desejado.</li>
-          <li>Você será encaminhado para a aba de compra, onde poderá fazer o envio. Pronto, após dois dias úteis, seu livro estará disponível para leitura em nossa biblioteca. Claro, se seu pagamento for autorizado.</li>
+          <li>Você será encaminhado para a aba de compra, onde poderá fazer o envio.</li>
         </ol>
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mt-6">
-          <p class="mb-0 text-sm font-bold">Aviso: Sem login, sem pagamento, os livros continuam aparecendo para você, mas estarão bloqueados para leitura.</p>
-        </div>
       </div>
       <button id="fechar-aviso" class="mt-8 w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest">
         Compreendi e desejo prosseguir
@@ -129,8 +130,9 @@
       </div>
 
       <div id="user-info" class="hidden relative">
-        <div id="user-greeting" class="btn-top-estilo user-btn-border">Aguardando...</div>
-        <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
+        <div id="user-greeting" class="btn-top-estilo user-btn-border">Olá, ...</div>
+        
+        <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
           <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados de usuário</button>
           <button id="btn-reset-pass" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar senha</button>
           <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
@@ -139,10 +141,10 @@
     </div>
 
     <a href="SW Sistem.html" id="direct-colab" class="btn-top-estilo">Direct Colab</a>
-    <div id="language-selector" class="btn-top-estilo w-[40px]">▼</div>
+    <div id="language-selector" class="btn-top-estilo w-[40px] cursor-pointer">▼</div>
   </div>
 
-  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4 z-[9999]">
+  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4">
     <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md text-black">
       <h3 class="text-xl font-bold mb-4 border-b pb-2">Configurações de Usuário</h3>
       <div class="space-y-3">
@@ -168,21 +170,15 @@
     </div>
   </div>
 
-  <ul id="language-list" style="position: absolute; top: 50px; right: 10px; width: 120px; border: 1px solid #444; border-radius: 5px; list-style: none; padding: 5px 0; display: none; z-index: 110; background: #1a1a1a;">
-    <li style="padding:8px 12px; cursor:pointer;" onclick="changeLang('PT')">Português</li>
-    <li style="padding:8px 12px; cursor:pointer;" onclick="changeLang('ES')">Español</li>
-    <li style="padding:8px 12px; cursor:pointer;" onclick="changeLang('EN')">English</li>
-  </ul>
-
-  <header class="p-4 shadow-md">
+  <header class="p-4 shadow-md bg-black">
     <div class="container mx-auto flex flex-col items-center">
       <img src="oficial.png" class="w-32 mb-2" alt="Logo">
       <h1 class="text-2xl font-bold">SW Editorial</h1>
       <nav class="flex flex-wrap justify-center gap-4 mt-2">
-        <a href="novidades.html">Notícias</a>
-        <a href="loja.html">Loja</a>
-        <a href="autores.html">Nossos Autores</a>
-        <a href="Biblioteca.html">Biblioteca</a>
+        <a href="novidades.html" class="hover:text-yellow-600">Notícias</a>
+        <a href="loja.html" class="hover:text-yellow-600">Loja</a>
+        <a href="autores.html" class="hover:text-yellow-600">Nossos Autores</a>
+        <a href="Biblioteca.html" class="hover:text-yellow-600">Biblioteca</a>
       </nav>
     </div>
   </header>
@@ -195,7 +191,7 @@
     </div>
   </section>
 
-  <section style="position: relative; z-index: 0; max-width: 900px; margin: 2rem auto; padding: 5%; background-color: #000000; border-radius: 15px; overflow: hidden;">
+  <section style="position: relative; z-index: 1; max-width: 900px; margin: 2rem auto; padding: 5%; background-color: #000000; border-radius: 15px; overflow: hidden;">
     <img src="ban.png" alt="Fundo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; z-index: -1;">
     <div style="position: relative;">
       <h2 class="titulo-cinzel">SW Editorial</h2>
@@ -205,7 +201,7 @@
     </div>
   </section>
 
-  <footer class="flex flex-col items-center p-8 mt-16">
+  <footer class="flex flex-col items-center p-8 mt-16 bg-black">
     <p>&copy; 2025 SW Editorial. Todos os direitos reservados.</p>
   </footer>
 
@@ -225,23 +221,26 @@
     const auth = firebase.auth();
     const database = firebase.database();
 
-    // INTERFACE
-    document.getElementById('fechar-aviso').onclick = () => document.getElementById('aviso-politica').style.display = 'none';
-    document.getElementById('btn-abrir-modal').onclick = () => {
+    // Controle de UI
+    document.getElementById('fechar-aviso').onclick = () => document.getElementById('aviso-politica').classList.add('hidden');
+    
+    document.getElementById('btn-abrir-modal').onclick = (e) => {
+      e.stopPropagation();
       document.getElementById('edit-modal').classList.replace('hidden', 'flex');
       document.getElementById('settings-dropdown').classList.add('hidden');
     };
+    
     document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
 
-    // ALTERAR SENHA
+    // Recuperação de Senha
     document.getElementById('btn-reset-pass').onclick = () => {
       const email = auth.currentUser.email;
       auth.sendPasswordResetEmail(email).then(() => {
         alert("E-mail de redefinição enviado para: " + email);
-      }).catch(err => alert(err.message));
+      }).catch(err => alert("Erro: " + err.message));
     };
 
-    // AUTH OBSERVER
+    // Monitoramento de Login
     auth.onAuthStateChanged((user) => {
       const authContainer = document.getElementById('auth-container');
       const userInfo = document.getElementById('user-info');
@@ -269,7 +268,7 @@
       });
     });
 
-    // SALVAR NO FIREBASE
+    // Salvar Dados
     document.getElementById('btn-salvar-realtime').onclick = () => {
       const user = auth.currentUser;
       const dados = {
@@ -281,16 +280,17 @@
       };
       if (user) {
         database.ref('usuarios/' + user.uid).update(dados).then(() => {
-          alert("Dados salvos com sucesso!");
+          alert("Dados atualizados!");
           document.getElementById('edit-modal').classList.replace('flex', 'hidden');
         });
       }
     };
 
+    // Login e Registro
     document.getElementById('login-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
       const p = document.getElementById('pass-field').value;
-      if (e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
+      if (e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert("Erro: " + err.message));
     };
 
     document.getElementById('signup-btn').onclick = () => {
@@ -298,26 +298,23 @@
       const p = document.getElementById('pass-field').value;
       if (e && p) {
         auth.createUserWithEmailAndPassword(e, p).then(u => {
-          database.ref('usuarios/' + u.user.uid).set({ email: e, nome: "", cpf: "", endereco: "", idade: "", genero: "" });
-        }).catch(err => alert(err.message));
+          database.ref('usuarios/' + u.user.uid).set({ email: e, nome: "" });
+        }).catch(err => alert("Erro: " + err.message));
       }
     };
 
     document.getElementById('logout-btn').onclick = () => auth.signOut();
+
+    // Toggle do Dropdown
     document.getElementById('user-greeting').onclick = (e) => {
       e.stopPropagation();
       document.getElementById('settings-dropdown').classList.toggle('hidden');
     };
-    document.getElementById('language-selector').onclick = (e) => {
-      e.stopPropagation();
-      const list = document.getElementById('language-list');
-      list.style.display = list.style.display === 'none' ? 'block' : 'none';
-    };
+
+    // Fechar ao clicar fora
     window.onclick = () => {
       document.getElementById('settings-dropdown').classList.add('hidden');
-      document.getElementById('language-list').style.display = 'none';
     };
-    function changeLang(lang) { console.log(lang); }
   </script>
 </body>
 </html>
