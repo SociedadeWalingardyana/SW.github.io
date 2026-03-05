@@ -26,7 +26,6 @@
       line-height: 1.2;
     }
 
-    /* Responsividade do título */
     @media (max-width: 768px) {
       .titulo-cinzel { font-size: 1.8rem; }
     }
@@ -37,7 +36,6 @@
       line-height: 1.6;
     }
 
-    /* --- ALINHAMENTO DOS BOTÕES CONFORME SOLICITADO --- */
     .top-bar-container {
       position: absolute;
       top: 10px;
@@ -70,9 +68,6 @@
       cursor: pointer;
     }
 
-    .btn-top-estilo:hover { background: #333; }
-
-    /* Ajuste para Celular */
     @media (max-width: 1024px) {
       .top-bar-container {
         position: relative;
@@ -103,13 +98,10 @@
   <div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 z-[10000] flex items-center justify-center p-4">
     <div class="bg-white text-black p-8 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
       <h2 class="text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2">Nova Política de captação SW</h2>
-      
       <div class="space-y-4 text-gray-800">
         <p class="font-semibold text-lg italic">Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial, o nosso modelo de pagamentos atual agora é o banco internacional, Wize.</p>
-        
         <h3 class="font-bold text-xl mt-4">Por que e como isso acontece?</h3>
         <p>O modelo automático de captação financeira que grandes sites utilizam é um grande desafio para o setor de programação da SW, de modo que nós, optamos pelo recebimento de valores e o envio dos livros após a confirmação de pagamento, em até 2 dias úteis. Priorizamos a segurança dos dados dos clientes, portanto, optamos por esse método manual.</p>
-        
         <h3 class="font-bold text-xl mt-4">Para efetuar a compra dos volumes digitais siga os passos abaixo.</h3>
         <ol class="list-decimal ml-6 space-y-2 font-medium">
           <li>Registre usuário na barra de login (Email + Senha).</li>
@@ -117,12 +109,10 @@
           <li>Vá até Loja, depois clique em (Comprar) para obter o livro desejado.</li>
           <li>Você será encaminhado para a aba de compra, onde poderá fazer o envio. Pronto, após dois dias úteis, seu livro estará disponível para leitura em nossa biblioteca. Claro, se seu pagamento for autorizado.</li>
         </ol>
-
         <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mt-6">
           <p class="mb-0 text-sm font-bold">Aviso: Sem login, sem pagamento, os livros continuam aparecendo para você, mas estarão bloqueados para leitura.</p>
         </div>
       </div>
-
       <button id="fechar-aviso" class="mt-8 w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest">
         Compreendi e desejo prosseguir
       </button>
@@ -134,14 +124,15 @@
       <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1 rounded-lg border border-gray-800">
         <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-28 text-black outline-none h-[30px]">
         <input id="pass-field" type="password" placeholder="Senha" class="px-2 py-1 text-sm rounded w-24 text-black outline-none h-[30px]">
-        <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-2 py-1 rounded text-xs font-bold transition-all h-[30px]">Entrar</button>
-        <button id="signup-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-2 py-1 rounded text-xs font-bold transition-all h-[30px]">Registrar</button>
+        <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-2 py-1 rounded text-xs font-bold h-[30px]">Entrar</button>
+        <button id="signup-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-2 py-1 rounded text-xs font-bold h-[30px]">Registrar</button>
       </div>
 
       <div id="user-info" class="hidden relative">
-        <div id="user-greeting" class="btn-top-estilo user-btn-border">Carregando...</div>
-        <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
-          <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados da conta</button>
+        <div id="user-greeting" class="btn-top-estilo user-btn-border">Aguardando...</div>
+        <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
+          <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados de usuário</button>
+          <button id="btn-reset-pass" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar senha</button>
           <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
         </div>
       </div>
@@ -152,12 +143,27 @@
   </div>
 
   <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4 z-[9999]">
-    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
-      <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Alterar Nome</h3>
-      <input type="text" id="db-nome" placeholder="Seu nome real" class="w-full border p-2 rounded text-black mb-4 outline-none">
-      <div class="flex gap-2">
+    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md text-black">
+      <h3 class="text-xl font-bold mb-4 border-b pb-2">Configurações de Usuário</h3>
+      <div class="space-y-3">
+        <div><label class="text-xs font-bold">NOME COMPLETO</label><input type="text" id="db-nome" class="w-full border p-2 rounded"></div>
+        <div><label class="text-xs font-bold">CPF</label><input type="text" id="db-cpf" class="w-full border p-2 rounded"></div>
+        <div><label class="text-xs font-bold">ENDEREÇO</label><input type="text" id="db-endereco" class="w-full border p-2 rounded"></div>
+        <div class="flex gap-2">
+          <div class="w-1/2"><label class="text-xs font-bold">IDADE</label><input type="number" id="db-idade" class="w-full border p-2 rounded"></div>
+          <div class="w-1/2"><label class="text-xs font-bold">GÊNERO</label>
+            <select id="db-genero" class="w-full border p-2 rounded">
+              <option value="">Selecione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-2 mt-6">
         <button id="btn-salvar-realtime" class="bg-green-700 text-white flex-1 py-2 rounded font-bold">Salvar</button>
-        <button id="btn-fechar-modal" class="bg-gray-300 text-gray-800 flex-1 py-2 rounded">Cancelar</button>
+        <button id="btn-fechar-modal" class="bg-gray-300 flex-1 py-2 rounded">Cancelar</button>
       </div>
     </div>
   </div>
@@ -194,14 +200,8 @@
     <div style="position: relative;">
       <h2 class="titulo-cinzel">SW Editorial</h2>
       <p>A <strong style="color: #ffffff;">SW Editorial</strong> Surgiu para ir contra a maré de mediocridade do mercado literário.</p> 
-
-      <p>Fundada em 2025 por amigos que participavam de um grupo de escritores de fantasia, a proposta 
-      do empreendimento é encontrar jovens talentos e divulgar os autores brasileiros consagrados 
-      para um público que preza pela qualidade textual e intelectual.</p>
-
-      <p>O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar 
-      obras literárias bem escritas, respeitando a capacidade cognitiva dos leitores exigentes. 
-      Antes de tudo, acreditamos que a leitura é um mecanismo de mudança social que deve ser usado para tornar uma sociedade mais justa e instruída.</p>
+      <p>Fundada em 2025 por amigos que participavam de um grupo de escritores de fantasia, a proposta do empreendimento é encontrar jovens talentos e divulgar os autores brasileiros consagrados para um público que preza pela qualidade textual e intelectual.</p>
+      <p>O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar obras literárias bem escritas, respeitando a capacidade cognitiva dos leitores exigentes. Antes de tudo, acreditamos que a leitura é um mecanismo de mudança social que deve ser usado para tornar uma sociedade mais justa e instruída.</p>
     </div>
   </section>
 
@@ -225,16 +225,23 @@
     const auth = firebase.auth();
     const database = firebase.database();
 
-    // UI
+    // INTERFACE
     document.getElementById('fechar-aviso').onclick = () => document.getElementById('aviso-politica').style.display = 'none';
-    
     document.getElementById('btn-abrir-modal').onclick = () => {
       document.getElementById('edit-modal').classList.replace('hidden', 'flex');
       document.getElementById('settings-dropdown').classList.add('hidden');
     };
-    
     document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
 
+    // ALTERAR SENHA
+    document.getElementById('btn-reset-pass').onclick = () => {
+      const email = auth.currentUser.email;
+      auth.sendPasswordResetEmail(email).then(() => {
+        alert("E-mail de redefinição enviado para: " + email);
+      }).catch(err => alert(err.message));
+    };
+
+    // AUTH OBSERVER
     auth.onAuthStateChanged((user) => {
       const authContainer = document.getElementById('auth-container');
       const userInfo = document.getElementById('user-info');
@@ -247,29 +254,36 @@
       }
       authContainer.classList.add('hidden');
       userInfo.classList.remove('hidden');
-
-      // 1. Define o email como nome provisório
       userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
 
-      // 2. Busca o nome real no Realtime Database
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val();
-        if (d && d.nome) {
-          userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}`;
-          document.getElementById('db-nome').value = d.nome;
+        if (d) {
+          if (d.nome) userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}`;
+          document.getElementById('db-nome').value = d.nome || "";
+          document.getElementById('db-cpf').value = d.cpf || "";
+          document.getElementById('db-endereco').value = d.endereco || "";
+          document.getElementById('db-idade').value = d.idade || "";
+          document.getElementById('db-genero').value = d.genero || "";
         }
       });
     });
 
+    // SALVAR NO FIREBASE
     document.getElementById('btn-salvar-realtime').onclick = () => {
       const user = auth.currentUser;
-      const nome = document.getElementById('db-nome').value;
-      if (user && nome) {
-        database.ref('usuarios/' + user.uid).update({ nome: nome })
-          .then(() => {
-            alert("Dados salvos!");
-            document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-          });
+      const dados = {
+        nome: document.getElementById('db-nome').value,
+        cpf: document.getElementById('db-cpf').value,
+        endereco: document.getElementById('db-endereco').value,
+        idade: document.getElementById('db-idade').value,
+        genero: document.getElementById('db-genero').value
+      };
+      if (user) {
+        database.ref('usuarios/' + user.uid).update(dados).then(() => {
+          alert("Dados salvos com sucesso!");
+          document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+        });
       }
     };
 
@@ -284,7 +298,7 @@
       const p = document.getElementById('pass-field').value;
       if (e && p) {
         auth.createUserWithEmailAndPassword(e, p).then(u => {
-          database.ref('usuarios/' + u.user.uid).set({ email: e, nome: "" });
+          database.ref('usuarios/' + u.user.uid).set({ email: e, nome: "", cpf: "", endereco: "", idade: "", genero: "" });
         }).catch(err => alert(err.message));
       }
     };
@@ -307,4 +321,3 @@
   </script>
 </body>
 </html>
-
