@@ -15,11 +15,12 @@
       font-family: sans-serif;
       margin: 0;
       padding: 0;
+      overflow-x: hidden; /* Evita scroll horizontal em celulares */
     }
 
     .titulo-cinzel {
       font-family: 'Cinzel', serif;
-      font-size: 3rem;
+      font-size: clamp(1.5rem, 8vw, 2.5rem); /* Tamanho adaptável */
       text-align: center;
       margin-bottom: 2rem;
       line-height: 1.2;
@@ -31,221 +32,199 @@
       line-height: 1.6;
     }
 
-    .top-button {
+    /* Ajuste de Botões Superiores para Mobile */
+    .top-bar-actions {
       position: absolute;
       top: 10px;
+      right: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      z-index: 100;
+      width: calc(100% - 20px);
+    }
+
+    .top-button {
       background: #1a1a1a;
       color: white;
       border-radius: 5px;
-      cursor: pointer;
+      padding: 5px 12px;
       font-weight: bold;
-      z-index: 100; 
-      display: flex;
-      align-items: center;
-      justify-content: center;
       border: 1px solid #333;
       text-decoration: none;
-    }
-
-    .top-button:hover {
-      background: #333;
+      font-size: 0.8rem;
+      white-space: nowrap;
     }
 
     header, footer {
       background-color: black;
     }
 
-    .cover img {
-      display: block;
-      margin: 4rem auto;
-      max-width: 100%;
-      height: auto;
+    /* Ajuste da Seção Sobre */
+    .about-section {
+      position: relative; 
+      z-index: 0; 
+      max-width: 900px; 
+      margin: 2rem auto; 
+      padding: 2rem; 
+      background-color: #281109; 
+      border-radius: 15px; 
+      overflow: hidden;
     }
-  
 
+    /* Responsividade do Header e Nav */
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+      #auth-container {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+      }
+      .top-bar-actions {
+        position: relative;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        background: rgba(0,0,0,0.5);
+        justify-content: center;
+        width: 100%;
+      }
+    }
 
-#aviso-politica {
-  position: fixed;
-  inset: 0;
-  z-index: 2147483647;
-  isolation: isolate;
-}
-
-
-
-
-
-
-
-    
-
-    /* Estilo do Novo Aviso */
     #aviso-politica {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
       display: flex;
+      background-color: rgba(0,0,0,0.9);
     }
   </style>
 </head>
 
 <body>
 
-  <div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 z-[10000] flex items-center justify-center p-4">
-    <div class="bg-white text-black p-8 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-      <h2 class="text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2">Nova Política de captação SW</h2>
+  <div id="aviso-politica" class="items-center justify-center p-4">
+    <div class="bg-white text-black p-6 md:p-8 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <h2 class="text-xl md:text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2">Nova Política de captação SW</h2>
       
-      <div class="space-y-4 text-gray-800">
-        <p class="font-semibold text-lg italic">Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial, o nosso modelo de pagamentos atual agora é o banco internacional, Wize.</p>
+      <div class="space-y-4 text-gray-800 text-sm md:text-base">
+        <p class="font-semibold italic">Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial, o nosso modelo de pagamentos atual é o banco Wize.</p>
         
-        <h3 class="font-bold text-xl mt-4">Por que e como isso acontece?</h3>
-        <p>O modelo automático de captação financeira que grandes sites utilizam é um grande desafio para o setor de programação da SW, de modo que nós, optamos pelo recebimento de valores e o envio dos livros após a confirmação de pagamento, em até 2 dias úteis. Priorizamos a segurança dos dados dos clientes, portanto, optamos por esse método manual.</p>
+        <h3 class="font-bold text-lg mt-4">Por que e como isso acontece?</h3>
+        <p>Priorizamos a segurança dos dados dos clientes, portanto, optamos por esse método manual de confirmação em até 2 dias úteis.</p>
         
-        <h3 class="font-bold text-xl mt-4">Para efetuar a compra dos volumes digitais siga os passos abaixo.</h3>
+        <h3 class="font-bold text-lg mt-4">Como comprar:</h3>
         <ol class="list-decimal ml-6 space-y-2 font-medium">
-          <li>Registre usuário na barra de login (Email + Senha).</li>
-          <li>Entre em usuário criado.</li>
-          <li>Vá até Loja, depois clique em (Comprar) para obter o livro desejado.</li>
-          <li>Você será encaminhado para a aba de compra, onde poderá fazer o envio. Pronto, após dois dias úteis, seu livro estará disponível para leitura em nossa biblioteca. Claro, se seu pagamento for autorizado.</li>
+          <li>Registre-se na barra de login.</li>
+          <li>Acesse sua conta.</li>
+          <li>Na Loja, clique em comprar.</li>
+          <li>Após o envio e confirmação, o livro estará na sua biblioteca em 2 dias.</li>
         </ol>
 
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 mt-6">
-          <p class="mb-0 text-sm font-bold">Aviso: Sem login, sem pagamento, os livros continuam aparecendo para você, mas estarão bloqueados para leitura.</p>
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-3 mt-4">
+          <p class="text-xs font-bold">Aviso: Sem login/pagamento, os livros permanecerão bloqueados para leitura.</p>
         </div>
       </div>
 
-      <button id="fechar-aviso" class="mt-8 w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest">
+      <button id="fechar-aviso" class="mt-6 w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest text-sm">
         Compreendi e desejo prosseguir
       </button>
     </div>
   </div>
 
-  <a href="SW Sistem.html" id="direct-colab" class="top-button" style="right: 50px; padding: 5px 10px;">
-    Direct Colab
-  </a>
+  <div class="top-bar-actions">
+    <a href="SW Sistem.html" class="top-button">Direct Colab</a>
+    <div id="language-selector" class="top-button cursor-pointer">Idioma ▼</div>
+    
+    <div id="auth-area" class="flex items-center">
+      <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1.5 rounded-lg border border-gray-800">
+        <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-24 md:w-32 text-black outline-none">
+        <input id="pass-field" type="password" placeholder="Senha" class="px-2 py-1 text-sm rounded w-24 md:w-28 text-black outline-none">
+        <button id="login-btn" class="bg-yellow-600 text-white px-2 py-1 rounded text-xs font-bold">Entrar</button>
+        <button id="signup-btn" class="bg-yellow-600 text-white px-2 py-1 rounded text-xs font-bold">Registrar</button>
+      </div>
 
-  <div id="language-selector" class="top-button" style="right: 10px; width: 30px; height: 35px;">
-    ▼
+      <div id="user-info" class="hidden relative">
+        <div id="user-greeting" class="bg-black text-yellow-500 px-3 py-1 rounded-lg font-bold border border-yellow-600 cursor-pointer text-sm">
+          Carregando...
+        </div>
+        <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border z-[60]">
+          <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados</button>
+          <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair</button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <ul id="language-list" style="position: absolute; top: 50px; right: 10px; width: 120px; border: 1px solid #444; border-radius: 5px; list-style: none; padding: 5px 0; display: none; z-index: 110; background: #1a1a1a;">
-    <li style="padding:8px 12px; cursor:pointer;" onclick="changeLang('PT')">Português</li>
-    <li style="padding:8px 12px; cursor:pointer;" onclick="changeLang('ES')">Español</li>
-    <li style="padding:8px 12px; cursor:pointer;" onclick="changeLang('EN')">English</li>
+  <ul id="language-list" class="absolute hidden bg-[#1a1a1a] border border-gray-700 rounded p-2 z-[110]" style="top: 50px; right: 130px;">
+    <li class="p-2 cursor-pointer hover:bg-gray-800" onclick="changeLang('PT')">Português</li>
+    <li class="p-2 cursor-pointer hover:bg-gray-800" onclick="changeLang('ES')">Español</li>
+    <li class="p-2 cursor-pointer hover:bg-gray-800" onclick="changeLang('EN')">English</li>
   </ul>
 
-  <div class="absolute top-2 z-50 font-sans flex items-center gap-2" style="right: 180px;">
-    <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1.5 rounded-lg border border-gray-800">
-      <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-32 text-black outline-none">
-      <input id="pass-field" type="password" placeholder="Senha" class="px-2 py-1 text-sm rounded w-28 text-black outline-none">
-      <div class="flex gap-1">
-        <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">Entrar</button>
-        <button id="signup-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-bold transition-all">Registrar</button>
-      </div>
-    </div>
-
-    <div id="user-info" class="hidden relative">
-      <div id="user-greeting" class="bg-black bg-opacity-80 text-yellow-500 px-4 py-1 rounded-lg font-bold border border-yellow-600 cursor-pointer hover:bg-opacity-100 transition-all">
-        Carregando...
-      </div>
-      <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-[60]">
-        <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Alterar dados da conta</button>
-        <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4 font-sans" style="z-index: 9999;">
-    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm relative" style="pointer-events: auto;">
-      <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2 italic">Configurações de Membro</h3>
-      <div class="space-y-3">
-        <input type="text" id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
-        <input type="number" id="db-idade" placeholder="Idade" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
-        <input type="text" id="db-cpf" placeholder="CPF" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
-        <input type="text" id="db-endereco" placeholder="Endereço" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
-        <input type="text" id="db-pais" placeholder="País" class="w-full border p-2 rounded text-black bg-gray-50 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none">
-      </div>
-      <div class="flex gap-2 mt-6">
-        <button id="btn-salvar-realtime" class="bg-green-700 hover:bg-green-800 text-white flex-1 py-2 rounded font-bold transition">Salvar</button>
-        <button id="btn-fechar-modal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 flex-1 py-2 rounded transition">Voltar</button>
-      </div>
-    </div>
-  </div>
-
-  <header class="p-4 shadow-md">
+  <header class="p-4 pt-16 md:pt-4">
     <div class="container mx-auto flex flex-col items-center">
-      <img src="oficial.png" class="w-32 mb-2" alt="Logo">
-      <h1 class="text-2xl font-bold">SW Editorial</h1>
-      <nav class="flex gap-4 mt-2">
-        <a href="novidades.html">Notícias</a>
-        <a href="loja.html">Loja</a>
-        <a href="autores.html">Nossos Autores</a>
-        <a href="Biblioteca.html">Biblioteca</a>
+      <img src="oficial.png" class="w-24 md:w-32 mb-2" alt="Logo">
+      <h1 class="text-xl md:text-2xl font-bold">SW Editorial</h1>
+      <nav class="flex gap-4 mt-2 text-sm md:text-base">
+        <a href="novidades.html" class="hover:text-yellow-500">Notícias</a>
+        <a href="loja.html" class="hover:text-yellow-500">Loja</a>
+        <a href="autores.html" class="hover:text-yellow-500">Autores</a>
+        <a href="Biblioteca.html" class="hover:text-yellow-500">Biblioteca</a>
       </nav>
     </div>
   </header>
 
-  <section class="container mx-auto mt-6">
-    <div class="h-80 rounded overflow-hidden shadow-lg">
+  <section class="container mx-auto mt-6 px-4">
+    <div class="h-48 md:h-80 rounded overflow-hidden shadow-lg">
       <video class="w-full h-full object-cover" autoplay muted loop playsinline>
         <source src="walinga.mp4" type="video/mp4">
       </video>
     </div>
   </section>
 
+  <section class="about-section mx-4 md:mx-auto">
+    <img src="ban.png" alt="Fundo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; z-index: -1;">
+    <div class="relative">
+      <h2 class="titulo-cinzel">SW Editora</h2>
+      <p>A <strong class="text-yellow-600">SW Editora</strong> surgiu para ir contra a maré de mediocridade do mercado literário...</p>
+      <p>Acreditamos que a <strong class="text-yellow-600">leitura é um mecanismo de mudança social</strong>.</p>
+    </div>
+  </section>
 
-
-
-
-
-
-
-
-
-
-  
-
-
-<section style="position: relative; z-index: 0; max-width: 900px; margin: 2rem auto; padding: 50px; background-color: #281109; border-radius: 15px; overflow: hidden; clear: both;">
-  
-  <img src="ban.png" alt="Fundo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; z-index: -1;">
-
-  <div style="position: relative;">
-    <h2 class="titulo-cinzel" style="font-size: 2.5rem; color: #FFFFFF; margin-bottom: 20px; text-align: center;">SW Editora</h2>
-    
-    <p style="color: #FFFFFF; text-align: justify; line-height: 1.6; margin-bottom: 20px;">
-      A <strong style="color: #d97706;">SW Editora</strong> surgiu para ir contra a maré de mediocridade do mercado literário. 
-      Fundada em 2025 por amigos que participavam de um grupo de escritores de fantasia, a proposta 
-      do empreendimento é encontrar jovens talentos e divulgar os autores brasileiros consagrados 
-      para um público que preza pela <em style="font-style: italic;">qualidade textual e intelectual</em>.
-    </p>
-
-    <p style="color: #FFFFFF; text-align: justify; line-height: 1.6;">
-      O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar 
-      obras literárias bem escritas, respeitando a capacidade cognitiva dos leitores exigentes. 
-      Antes de tudo, acreditamos que a <strong style="color: #d97706;">leitura é um mecanismo de mudança social</strong> 
-      que deve ser usado para tornar uma sociedade mais justa e instruída.
-    </p>
+  <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4 z-[9999]">
+    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
+      <h3 class="text-lg font-bold mb-4 text-gray-800 italic">Configurações de Membro</h3>
+      <div class="space-y-3">
+        <input type="text" id="db-nome" placeholder="Nome Completo" class="w-full border p-2 rounded text-black text-sm">
+        <input type="number" id="db-idade" placeholder="Idade" class="w-full border p-2 rounded text-black text-sm">
+        <input type="text" id="db-pais" placeholder="País" class="w-full border p-2 rounded text-black text-sm">
+      </div>
+      <div class="flex gap-2 mt-6">
+        <button id="btn-salvar-realtime" class="bg-green-700 text-white flex-1 py-2 rounded font-bold text-sm">Salvar</button>
+        <button id="btn-fechar-modal" class="bg-gray-300 text-gray-800 flex-1 py-2 rounded text-sm">Voltar</button>
+      </div>
+    </div>
   </div>
-</section>
-  <footer class="flex flex-col items-center p-8 mt-16">
-    <p>&copy; 2025 SW Editorial. Todos os direitos reservados.</p>
+
+  <footer class="flex flex-col items-center p-8 mt-16 text-center">
+    <p class="text-sm">&copy; 2025 SW Editorial. Todos os direitos reservados.</p>
     <div class="flex justify-center gap-6 mt-4">
-      <a href="https://www.instagram.com/sw_editorial/">Instagram</a>
+      <a href="https://www.instagram.com/sw_editorial/" class="text-yellow-500">Instagram</a>
     </div>
   </footer>
-
-
-
-
-
-
-
-
-  
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <script>
+    // Configuração e Lógica JS mantidas e otimizadas para os novos IDs
     const firebaseConfig = {
       apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
       authDomain: "login-sw-14940.firebaseapp.com",
@@ -258,16 +237,12 @@
     const auth = firebase.auth();
     const database = firebase.database();
 
-    // LÓGICA DO FECHAMENTO DO AVISO
-    document.getElementById('fechar-aviso').onclick = () => {
-      document.getElementById('aviso-politica').style.display = 'none';
-    };
+    document.getElementById('fechar-aviso').onclick = () => document.getElementById('aviso-politica').style.display = 'none';
 
-    // --- CONTROLE DE INTERFACE ---
     document.getElementById('language-selector').onclick = (e) => {
       e.stopPropagation();
       const list = document.getElementById('language-list');
-      list.style.display = list.style.display === 'none' ? 'block' : 'none';
+      list.classList.toggle('hidden');
     };
 
     document.getElementById('user-greeting').onclick = (e) => {
@@ -276,24 +251,14 @@
     };
 
     document.getElementById('btn-abrir-modal').onclick = () => {
-      document.getElementById('edit-modal').classList.replace('hidden', 'flex');
-      document.getElementById('settings-dropdown').classList.add('hidden');
+      document.getElementById('edit-modal').classList.remove('hidden');
+      document.getElementById('edit-modal').classList.add('flex');
     };
 
     document.getElementById('btn-fechar-modal').onclick = () => {
-      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+      document.getElementById('edit-modal').classList.add('hidden');
     };
 
-    window.onclick = () => {
-      document.getElementById('language-list').style.display = 'none';
-      document.getElementById('settings-dropdown').classList.add('hidden');
-    };
-
-    function changeLang(lang) {
-      console.log("Idioma alterado para: " + lang);
-    }
-
-    // --- LÓGICA DE AUTENTICAÇÃO ---
     auth.onAuthStateChanged((user) => {
       const authContainer = document.getElementById('auth-container');
       const userInfo = document.getElementById('user-info');
@@ -307,93 +272,48 @@
 
       authContainer.classList.add('hidden');
       userInfo.classList.remove('hidden');
-
-      let displayNome = user.email.split('@')[0];
-      userGreeting.textContent = `Olá, ${displayNome}`;
+      userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
 
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val();
-        if (d) {
-          if (d.nome) userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}`;
-          document.getElementById('db-nome').value = d.nome || "";
-          document.getElementById('db-idade').value = d.idade || "";
-          document.getElementById('db-cpf').value = d.cpf || "";
-          document.getElementById('db-endereco').value = d.endereco || "";
-          document.getElementById('db-pais').value = d.pais || "";
-        }
+        if (d && d.nome) userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}`;
       });
     });
 
-    // Botão Login
     document.getElementById('login-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
       const p = document.getElementById('pass-field').value;
-      if (e && p) {
-        auth.signInWithEmailAndPassword(e, p).catch(err => alert("Erro ao entrar: " + err.message));
-      } else {
-        alert("Preencha e-mail e senha.");
-      }
+      if (e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
     };
 
-    // Botão Registrar
     document.getElementById('signup-btn').onclick = () => {
       const e = document.getElementById('email-field').value;
       const p = document.getElementById('pass-field').value;
       if (e && p) {
         auth.createUserWithEmailAndPassword(e, p)
-          .then(u => {
-            return database.ref('usuarios/' + u.user.uid).set({ nome: "Membro SW", email: e });
-          })
-          .catch(err => alert("Erro ao registrar: " + err.message));
-      } else {
-        alert("Preencha e-mail e senha para registrar.");
+          .then(u => database.ref('usuarios/' + u.user.uid).set({ nome: "Membro SW", email: e }))
+          .catch(err => alert(err.message));
       }
     };
 
-    // Botão Sair
     document.getElementById('logout-btn').onclick = () => auth.signOut();
 
-    // Botão Salvar Dados
     document.getElementById('btn-salvar-realtime').onclick = () => {
       const user = auth.currentUser;
       if (!user) return;
-      
       const dados = {
         nome: document.getElementById('db-nome').value,
         idade: document.getElementById('db-idade').value,
-        cpf: document.getElementById('db-cpf').value,
-        endereco: document.getElementById('db-endereco').value,
         pais: document.getElementById('db-pais').value
       };
-      
-      database.ref('usuarios/' + user.uid).update(dados)
-        .then(() => {
-          alert("Dados atualizados!");
-          document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-        })
-        .catch(err => alert("Erro ao salvar: " + err.message));
+      database.ref('usuarios/' + user.uid).update(dados).then(() => {
+        alert("Sucesso!");
+        document.getElementById('edit-modal').classList.add('hidden');
+      });
     };
+
+    function changeLang(lang) { console.log("Lang:", lang); }
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
