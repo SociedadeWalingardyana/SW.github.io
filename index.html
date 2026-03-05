@@ -268,32 +268,33 @@
       });
     });
 
-    // Localize este trecho no seu script e adicione o console.log e o else:
-document.getElementById('btn-salvar-realtime').onclick = () => {
-  const user = auth.currentUser;
-  console.log("Botão clicado. Usuário atual:", user); // Verificação no console
+// Localize o evento de salvar e substitua por este:
+document.getElementById('btn-salvar-realtime').onclick = function() {
+    console.log("Tentando salvar..."); // Isso deve aparecer no F12
+    
+    const user = auth.currentUser;
+    if (!user) {
+        alert("Erro: Você não está logado!");
+        return;
+    }
 
-  const dados = {
-    nome: document.getElementById('db-nome').value,
-    cpf: document.getElementById('db-cpf').value,
-    endereco: document.getElementById('db-endereco').value,
-    idade: document.getElementById('db-idade').value,
-    genero: document.getElementById('db-genero').value
-  };
+    const dados = {
+        nome: document.getElementById('db-nome').value,
+        cpf: document.getElementById('db-cpf').value,
+        endereco: document.getElementById('db-endereco').value,
+        idade: document.getElementById('db-idade').value,
+        genero: document.getElementById('db-genero').value
+    };
 
-  if (user) {
     database.ref('usuarios/' + user.uid).update(dados)
-      .then(() => {
-        alert("Dados atualizados!");
-        document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-      })
-      .catch((error) => {
-        console.error("Erro do Firebase:", error);
-        alert("Erro ao salvar: " + error.message);
-      });
-  } else {
-    alert("Erro: Sistema não detectou seu login. Tente deslogar e logar novamente.");
-  }
+        .then(() => {
+            alert("✅ Dados salvos no Firebase!");
+            document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+        })
+        .catch((erro) => {
+            console.error("Erro técnico:", erro);
+            alert("❌ Erro de permissão: " + erro.message);
+        });
 };
 
     // Login e Registro
@@ -328,6 +329,7 @@ document.getElementById('btn-salvar-realtime').onclick = () => {
   </script>
 </body>
 </html>
+
 
 
 
