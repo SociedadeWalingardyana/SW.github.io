@@ -6,19 +6,47 @@
   <title>Podium dos autores</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <style>
-    /* Força o alinhamento justificado nos parágrafos de biografia */
-    .bio-text p {
+    /* Aplica o alinhamento justificado em todos os parágrafos de biografia */
+    .bio-content p {
       text-align: justify;
     }
   </style>
 </head>
 <body class="bg-black text-white p-8 min-h-screen flex flex-col items-center">
 
-  <div id="language-selector" style="position: fixed; top: 10px; right: 10px; width: 30px; height: 30px; background: #1a1a1a; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 9999;">
+  <div id="language-selector" style="
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: #1a1a1a;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  ">
     <span style="color: white; font-size: 16px; user-select: none;">▼</span>
   </div>
 
-  <ul id="language-list" style="position: fixed; top: 45px; right: 10px; width: 120px; max-height: 150px; overflow-y: auto; background: #222; border: 1px solid #ccc; border-radius: 5px; list-style: none; padding: 5px 0; margin: 0; display: none; z-index: 9999;">
+  <ul id="language-list" style="
+    position: fixed;
+    top: 45px;
+    right: 10px;
+    width: 120px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #222;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    display: none;
+    z-index: 9999;
+  ">
     <li data-lang="pt" style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Português</li>
     <li data-lang="es" style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">Español</li>
     <li data-lang="en" style="padding: 8px 12px; color: white; cursor: pointer; user-select: none;">English</li>
@@ -33,9 +61,9 @@
       <div class="mb-8">
         <img src="wellington.png" alt="Foto de Wellington Novaes" class="rounded-full shadow-lg mx-auto w-48 h-48 object-cover">
       </div>
-      <div class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-200 bio-text">
-        <p data-paragraph-id="wellington-paragrafo-1"><strong>Wellington Novaes</strong> é um escritor paulistano que ao longo de treze anos se esforçou em criar histórias, sombrias e bizarras, que exploram os aspectos estranhos e inquietantes da experiência humana. Já teve contos publicados em diversas antologias literárias, como “Horas Sombrias” da Editora Andross e “Diário Macabro, N° 3” da Editora Diário Macabro.</p>
-        <p data-paragraph-id="wellington-paragrafo-2">Sua coletânea de ficção gótica sobrenatural, intitulada “Melissa — Desespero, Amor e Morte”, mergulha em temas como o medo existencial, a decadência social e as fronteiras borradas entre realidade e ilusão, cuja principal inspiração vem da vivência em São Paulo, uma megalópole caótica e cinzenta.</p>
+      <div class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-200 bio-content">
+        <p data-paragraph-id="wellington-paragrafo-1"><strong>Wellington Novaes</strong> Me chamo Wellington Novaes, sou um escritor paulistano que ao longo de treze anos se esforçou em criar histórias, sombrias e bizarras, que exploram os aspectos estranhos e inquietantes da experiência humana. Já teve contos publicados em diversas antologias literárias, como “Horas Sombrias” da Editora Andross e “Diário Macabro, N° 3” da Editora Diário Macabro.</p>
+        <p data-paragraph-id="wellington-paragrafo-2">É com grande entusiasmo que submeto minha coletânea de ficção gótica sobrenatural para a consideração de vocês, intitulada: “Melissa — Desespero, Amor e Morte”, que mergulha em temas como o medo existencial, a decadência social e as fronteiras borradas entre realidade e ilusão, cuja principal inspiração vem da minha vivência em São Paulo, uma megalópole caótica e cinzenta. A energia frenética e a imprevisibilidade da cidade inevitavelmente permeiam minha escrita. Meu estilo busca revelar as emoções perturbadoras que se escondem sob a superfície, oferecendo uma voz única no gênero do horror.</p>
       </div>
     </div>
 
@@ -46,9 +74,9 @@
       <div class="mb-8">
         <img src="ariosto.png" alt="Foto de Ariosto Junior" class="rounded-full shadow-lg mx-auto w-48 h-48 object-cover">
       </div>
-      <div class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-200 bio-text">
-        <p data-paragraph-id="ariosto-paragrafo-1"><strong>Ariosto Junior</strong> é um autor dedicado à exploração das complexidades do espírito humano e das tensões sociais contemporâneas. Com um estilo que transita entre o realismo e a introspecção filosófica, suas obras buscam provocar reflexão sobre o cotidiano e as escolhas que moldam nosso destino.</p>
-        <p data-paragraph-id="ariosto-paragrafo-2">Ariosto acredita que a literatura é uma ferramenta essencial para o diálogo e para a construção de novas perspectivas sobre o mundo ao nosso redor. Suas narrativas são marcadas por personagens densos, refletindo uma observação atenta das nuances da vida e da sociedade.</p>
+      <div class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-200 bio-content">
+        <p data-paragraph-id="ariosto-paragrafo-1"><strong>Ariosto Junior</strong> é um autor dedicado à exploração das complexidades do espírito humano e das tensões sociais contemporâneas. Com um estilo que transita entre o realismo e a introspecção filosófica, suas obras buscam provocar reflexão sobre o cotidiano e as escolhas que moldam nosso destino através de narrativas imersivas e provocativas.</p>
+        <p data-paragraph-id="ariosto-paragrafo-2">Ariosto acredita que a literatura é uma ferramenta essencial para o diálogo e para a construção de novas perspectivas sobre o mundo ao nosso redor. Suas narrativas são marcadas por personagens densos e diálogos afiados, refletindo uma observação atenta das nuances da vida brasileira, buscando sempre o equilíbrio entre a estética literária e a crítica social.</p>
       </div>
     </div>
 
@@ -59,10 +87,11 @@
       <div class="mb-8">
         <img src="image.png" alt="Foto de Francisco de Assis" class="rounded-full shadow-lg mx-auto w-48 h-48 object-cover">
       </div>
-      <div class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-200 bio-text">
+      <div class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-200 bio-content">
         <p data-paragraph-id="francisco-paragrafo-1"><strong>Francisco de Assis</strong> apresenta-se como alguém movido pela palavra, pelo mistério e pela experiência vivida. Natural de Joinville, Francisco reside atualmente em Palhoça, Santa Catarina. É graduando em Licenciatura em Pedagogia, área que dialoga diretamente com sua vocação formadora e sensível à linguagem.</p>
-        <p data-paragraph-id="francisco-paragrafo-2">Sua trajetória na escrita teve início em 2016, somando quase uma década de amadurecimento literário, tentativas, descobertas e persistência. Apaixonado por esportes, acompanhou e praticou sempre que possível, incluindo dois anos dedicados à capoeira, experiência que lhe ensinou ritmo e resistência.</p>
-        <p data-paragraph-id="francisco-paragrafo-3">Trabalhou ao lado do pai viajando de caminhão por Santa Catarina, uma fase intensa que se transformou em uma de suas maiores aventuras. Sua escrita nasce desse mosaico: estrada, movimento, silêncio, esporte, educação e poesia. Um autor em constante travessia.</p>
+        <p data-paragraph-id="francisco-paragrafo-2">Sua trajetória na escrita teve início em 2016, somando quase uma década de amadurecimento literário, tentativas, descobertas e persistência, o tipo de caminhada que molda estilo e caráter. A disciplina e o movimento também fazem parte de sua vida. Apaixonado por esportes, acompanha e pratica sempre que possível. Durante dois anos, dedicou-se à capoeira, experiência que lhe ensinou ritmo, resistência e leitura do tempo, elementos que, de algum modo, também atravessam sua escrita.</p>
+        <p data-paragraph-id="francisco-paragrafo-3">Nascido em 17 de dezembro de 1997, Francisco tem 28 anos e carrega consigo uma bagagem construída tanto pelo afeto quanto pelo deslocamento. Trabalhou ao lado do pai viajando de caminhão por Santa Catarina, uma fase intensa, desafiadora e profundamente marcante, que se transformou em uma de suas maiores aventuras pessoais.</p>
+        <p data-paragraph-id="francisco-paragrafo-4">Ao longo da vida, morou em diferentes cidades do estado, como Santo Amaro da Imperatriz, Biguaçu e novamente Joinville, onde, em 2006, assistiu pela primeira vez a uma Copa do Mundo, memória inaugural de encantamento coletivo, emoção e pertencimento. Sua escrita nasce desse mosaico: estrada, movimento, silêncio, esporte, educação e poesia. Um autor em constante travessia, que escreve para compreender e permanece escrevendo porque não sabe, e não quer, fazer diferente.</p>
       </div>
     </div>
 
@@ -73,10 +102,11 @@
       <div class="mb-8">
         <img src="ooop.png" alt="Foto de Gabryell Aweryan" class="rounded-full shadow-lg mx-auto w-48 h-48 object-cover">
       </div>
-      <div class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-200 bio-text">
-        <p data-paragraph-id="gabryell-paragrafo-1"><strong>Gabriel Araújo Aquino Felismino</strong>, conhecido pelo pseudônimo <strong>Gabryell Aweryan</strong>, nasceu em Rondônia, Brasil, no dia 4 de julho de 2002. Viveu parte de sua infância com a família paterna e sua adolescência com a família materna, período marcado por batalhas judiciais intensas causadas pela separação conturbada de seus pais.</p>
-        <p data-paragraph-id="gabryell-paragrafo-2">Antes de se tornar escritor, foi cineasta amador. Em 2014, desenvolveu o projeto <em>Prince Afftthon e a Relíquia do Império</em>. Mais tarde, fundou a <strong>Treehouse Films</strong> em 2019, mas esbarrou em divergências de visão com colaboradores, levando ao cancelamento do projeto cinematográfico.</p>
-        <p data-paragraph-id="gabryell-paragrafo-3">Exausto de ver seu esforço sabotado, Gabriel decidiu seguir sozinho. O resultado foi <em>Cyannon, e a Batalha das Ilhas Galápagos</em>, um conto breve que narra a batalha entre espanhóis e equatorianos pelo domínio de um reino feito de pedras cor ciana.</p>
+      <div class="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed text-gray-200 bio-content">
+        <p data-paragraph-id="gabryell-paragrafo-1"><strong>Gabriel Araújo Aquino Felismino</strong>, conhecido pelo pseudônimo <strong>Gabryell Aweryan</strong>, nasceu em Rondônia, Brasil, no dia 4 de julho de 2002. Viveu parte de sua infância com a família paterna e sua adolescência com a família materna, período marcado por batalhas judiciais intensas causadas pela separação conturbada de seus pais, iniciada em 2010, quando se mudou para Pernambuco.</p>
+        <p data-paragraph-id="gabryell-paragrafo-2">Antes de se tornar escritor, foi cineasta amador. Em 2014, começou a desenvolver um projeto solo: um curta-metragem ambientado no universo de Harry Potter, intitulado <em>Prince Afftthon e a Relíquia do Império</em>. A ideia era criar uma conexão temporal inédita dentro do universo da saga, mas o projeto não avançou por divergências criativas, desmantelando sua recém-formada equipe.</p>
+        <p data-paragraph-id="gabryell-paragrafo-3">Em 2019, Gabryell fundou uma nova equipe: a <strong>Treehouse Films</strong>. Mais uma vez, tentou dar vida ao projeto, mas novamente esbarrou em divergências de visão com os colaboradores, levando ao cancelamento do projeto.</p>
+        <p data-paragraph-id="gabryell-paragrafo-4">Exausto de ver seu esforço ser sabotado por terceiros, Gabriel decidiu seguir sozinho. Deprimido, em uma madrugada solitária, começou a escrever algo que nem sabia se era conto ou não, apenas sentou e escreveu. O resultado foi <em>Cyannon, e a Batalha das Ilhas Galápagos</em>, um conto breve que narrava a batalha entre espanhóis e equatorianos pelo domínio de um ilha recém-descoberta, que abrigava um reino feito de pedras cor ciana.</p>
       </div>
     </div>
 
@@ -96,70 +126,96 @@
       "wellington-novaes": {
         "titulo": { pt: "Wellington Novaes", en: "Wellington Novaes", es: "Wellington Novaes" },
         "paragrafo-1": {
-          pt: "<strong>Wellington Novaes</strong> é um escritor paulistano que ao longo de treze anos se esforçou em criar histórias, sombrias e bizarras, que exploram os aspectos estranhos e inquietantes da experiência humana...",
-          en: "<strong>Wellington Novaes</strong> is a writer from São Paulo who for thirteen years has strived to create dark and bizarre stories that explore the strange and unsettling aspects of the human experience...",
-          es: "<strong>Wellington Novaes</strong> es un escritor paulistano que a lo largo de trece años se ha esforzado en crear historias sombrías y bizarras, que exploran los aspectos extraños e inquietantes de la experiencia humana..."
+          pt: "<strong>Wellington Novaes</strong> Me chamo Wellington Novaes, sou um escritor paulistano que ao longo de treze anos se esforçou em criar histórias, sombrias e bizarras, que exploram os aspectos estranhos e inquietantes da experiência humana. Já teve contos publicados em diversas antologias literárias, como “Horas Sombrias” da Editora Andross e “Diário Macabro, N° 3” da Editora Diário Macabro.",
+          en: "<strong>Wellington Novaes</strong> My name is Wellington Novaes, I am a writer from São Paulo who for thirteen years has strived to create dark and bizarre stories that explore the strange and unsettling aspects of the human experience. I have already had short stories published in several literary anthologies, such as 'Horas Sombrias' from Editora Andross and 'Diário Macabro, N° 3' from Editora Diário Macabro.",
+          es: "<strong>Wellington Novaes</strong> Me llamo Wellington Novaes, soy un escritor paulistano que a lo largo de trece años se ha esforzado en crear historias sombrías y bizarras, que exploran los aspectos extraños e inquietantes de la experiencia humana. Ya he publicado cuentos en diversas antologías literarias, como 'Horas Sombrias' de Editora Andross y 'Diário Macabro, N° 3' de Editora Diário Macabro."
         },
         "paragrafo-2": {
-          pt: "Sua coletânea de ficção gótica sobrenatural, intitulada “Melissa — Desespero, Amor e Morte”, mergulha em temas como o medo existencial e a decadência social.",
-          en: "His collection of supernatural Gothic fiction, titled 'Melissa — Despair, Love and Death', dives into themes such as existential fear and social decay.",
-          es: "Su colección de ficción gótica sobrenatural, titulada 'Melissa — Desespero, Amor y Morte', se sumerge en temas como el miedo existencial e la decadencia social."
+          pt: "É com grande entusiasmo que submeto minha coletânea de ficção gótica sobrenatural para a consideração de vocês, intitulada: “Melissa — Desespero, Amor e Morte”, que mergulha em temas como o medo existencial, a decadência social e as fronteiras borradas entre realidade e ilusão, cuja principal inspiração vem da minha vivência em São Paulo, uma megalópole caótica e cinzenta. A energia frenética e a imprevisibilidade da cidade inevitavelmente permeiam minha escrita. Meu estilo busca revelar as emoções perturbadoras que se escondem sob a superfície, oferecendo uma voz única no gênero do horror.",
+          en: "It is with great enthusiasm that I submit my collection of supernatural Gothic fiction for your consideration, titled: 'Melissa — Despair, Love and Death', which dives into themes such as existential fear, social decay and the blurred borders between reality and illusion, whose main inspiration comes from my experience in São Paulo, a chaotic and gray megalopolis. The frenetic energy and unpredictability of the city inevitably permeate my writing. My style seeks to reveal the disturbing emotions that hide beneath the surface, offering a unique voice in the horror genre.",
+          es: "Es con gran entusiasmo que presento mi colección de ficción gótica sobrenatural para su consideración, titulada: 'Melissa — Desespero, Amor y Morte', que se sumerge en temas como el miedo existencial, la decadencia social y las fronteras borrosas entre la realidad y la ilusión, cuya principal inspiración proviene de mi experiencia en São Paulo, una megalópolis caótica y gris. La energía frenética y la imprevisibilidad de la ciudad permean inevitablemente mi escritura. Mi estilo busca revelar as emociones perturbadoras que se esconden bajo la superficie, ofreciendo una voz única en el género del horror."
         }
       },
       "ariosto-junior": {
         "titulo": { pt: "Ariosto Junior", en: "Ariosto Junior", es: "Ariosto Junior" },
         "paragrafo-1": {
-          pt: "<strong>Ariosto Junior</strong> é um autor dedicado à exploração das complexidades do espírito humano e das tensões sociais contemporâneas.",
-          en: "<strong>Ariosto Junior</strong> is an author dedicated to exploring the complexities of the human spirit and contemporary social tensions.",
-          es: "<strong>Ariosto Junior</strong> es un autor dedicado a la exploración de las complejidades del espíritu humano y las tensiones sociales contemporáneas."
+          pt: "<strong>Ariosto Junior</strong> é um autor dedicado à exploração das complexidades do espírito humano e das tensões sociais contemporâneas. Com um estilo que transita entre o realismo e a introspecção filosófica, suas obras buscam provocar reflexão sobre o cotidiano e as escolhas que moldam nosso destino através de narrativas imersivas e provocativas.",
+          en: "<strong>Ariosto Junior</strong> is an author dedicated to exploring the complexities of the human spirit and contemporary social tensions. With a style that moves between realism and philosophical introspection, his works seek to provoke reflection on daily life and the choices that shape our destiny through immersive and provocative narratives.",
+          es: "<strong>Ariosto Junior</strong> es un autor dedicado a la exploración de las complejidades del espíritu humano y las tensiones sociales contemporáneas. Con un estilo que transita entre el realismo y la introspección filosófica, sus obras buscan provocar la reflexión sobre lo cotidiano y las elecciones que marcan nuestro destino a través de narrativas inmersivas y provocadoras."
         },
         "paragrafo-2": {
-          pt: "Ariosto acredita que a literatura é uma ferramenta essencial para o diálogo e para a construção de novas perspectivas sobre o mundo.",
-          en: "Ariosto believes that literature is an essential tool for dialogue and for building new perspectives on the world.",
-          es: "Ariosto cree que la literatura es una herramienta esencial para el diálogo y para la construcción de nuevas perspectivas sobre el mundo."
+          pt: "Ariosto acredita que a literatura é uma ferramenta essencial para o diálogo e para a construção de novas perspectivas sobre o mundo ao nosso redor. Suas narrativas são marcadas por personagens densos e diálogos afiados, refletindo uma observação atenta das nuances da vida brasileira, buscando sempre o equilíbrio entre a estética literária e a crítica social.",
+          en: "Ariosto believes that literature is an essential tool for dialogue and for building new perspectives on the world around us. His narratives are marked by dense characters and sharp dialogues, reflecting a careful observation of the nuances of Brazilian life, always seeking the balance between literary aesthetics and social criticism.",
+          es: "Ariosto cree que la literatura es una herramienta esencial para el diálogo y para la construcción de nuevas perspectivas sobre el mundo que nos rodea. Sus narrativas están marcadas por personajes densos y diálogos agudos, que reflejan una observación atenta de los matices de la vida brasileña, buscando siempre el equilibrio entre la estética literaria y la crítica social."
         }
       },
       "francisco-de-assis": {
         "titulo": { pt: "Francisco de Assis", en: "Francisco de Assis", es: "Francisco de Assis" },
         "paragrafo-1": {
-          pt: "<strong>Francisco de Assis</strong> apresenta-se como alguém movido pela palavra, pelo mistério e pela experiência vivida. Natural de Joinville...",
-          en: "<strong>Francisco de Assis</strong> presents himself as someone driven by words, mystery, and lived experience. Born in Joinville...",
-          es: "<strong>Francisco de Assis</strong> se presenta como alguien movido por la palabra, el misterio y la experiencia vivida. Nacido en Joinville..."
+          pt: "<strong>Francisco de Assis</strong> apresenta-se como alguém movido pela palavra, pelo mistério e pela experiência vivida. Natural de Joinville, Francisco reside atualmente em Palhoça, Santa Catarina. É graduando em Licenciatura em Pedagogia, área que dialoga diretamente com sua vocação formadora e sensível à linguagem.",
+          en: "<strong>Francisco de Assis</strong> presents himself as someone driven by words, mystery, and lived experience. A native of Joinville, Francisco currently resides in Palhoça, Santa Catarina. He is pursuing a degree in Pedagogy, an area that directly aligns with his formative vocation and sensitivity to language.",
+          es: "<strong>Francisco de Assis</strong> se presenta como alguien movido por la palabra, el misterio y la experiencia vivida. Originario de Joinville, Francisco reside actualmente en Palhoça, Santa Catarina. Es estudiante de Licenciatura en Pedagogía, un área que dialoga directamente con su vocación formativa y sensibilidad hacia el lenguaje."
+        },
+        "paragrafo-2": {
+          pt: "Sua trajetória na escrita teve início em 2016, somando quase uma década de amadurecimento literário, tentativas, descobertas e persistência, o tipo de caminhada que molda estilo e caráter. A disciplina e o movimento também fazem parte de sua vida. Apaixonado por esportes, acompanha e pratica sempre que possível. Durante dois anos, dedicou-se à capoeira, experiência que lhe ensinou ritmo, resistência e leitura do tempo, elementos que, de algum modo, também atravessam sua escrita.",
+          en: "His writing journey began in 2016, amounting to almost a decade of literary maturity, attempts, discoveries, and persistence—the kind of journey that shapes style and character. Discipline and movement are also part of his life. Passionate about sports, he watches and practices whenever possible. For two years, he dedicated himself to Capoeira, an experience that taught him rhythm, resistance, and the reading of time—elements that, in some way, also permeate his writing.",
+          es: "Su trayectoria en la escritura comenzó en 2016, sumando casi una década de madurez literaria, intentos, descubrimientos y persistencia — el tipo de camino que moldea el estilo y el carácter. La disciplina y el movimiento también forman parte de su vida. Apasionado por los deportes, los sigue y los practica siempre que es posible. Durante dos años, se dedicó a la capoeira, una experiencia que le enseñó ritmo, resistencia y la lectura del tiempo — elementos que, de algún modo, también atraviesan su escritura."
+        },
+        "paragrafo-3": {
+          pt: "Nascido em 17 de dezembro de 1997, Francisco tem 28 anos e carrega consigo uma bagagem construída tanto pelo afeto quanto pelo deslocamento. Trabalhou ao lado do pai viajando de caminhão por Santa Catarina, uma fase intensa, desafiadora e profundamente marcante, que se transformou em uma de suas maiores aventuras pessoais.",
+          en: "Born on December 17, 1997, Francisco is 28 years old and carries a baggage built both by affection and displacement. He worked alongside his father, traveling by truck across Santa Catarina, an intense, challenging, and profoundly memorable phase that became one of his greatest personal adventures.",
+          es: "Nacido el 17 de diciembre de 1997, Francisco tiene 28 años y lleva consigo un bagaje construido tanto por el afecto como por el desplazamiento. Trabajó junto a su padre viajando en camión por Santa Catarina, una fase intensa, desafiante y profundamente memorable, que se convirtió en una de sus mayores aventuras personales."
+        },
+        "paragrafo-4": {
+          pt: "Ao longo da vida, morou em diferentes cidades do estado, como Santo Amaro da Imperatriz, Biguaçu e novamente Joinville, onde, em 2006, assistiu pela primeira vez a uma Copa do Mundo, memória inaugural de encantamento coletivo, emoção e pertencimento. Sua escrita nasce desse mosaico: estrada, movimento, silêncio, esporte, educação e poesia. Um autor em constante travessia, que escreve para compreender e permanece escrevendo porque não sabe, e não quer, fazer diferente.",
+          en: "Throughout his life, he has lived in different cities in the state, such as Santo Amaro da Imperatriz, Biguaçu, and again Joinville, where, in 2006, he watched a World Cup for the first time—an inaugural memory of collective enchantment, emotion, and belonging. His writing originates from this mosaic: the road, movement, silence, sport, education, and poetry. An author in constant transit, who writes to understand and continues writing because he does not know—and does not want—to do otherwise.",
+          es: "A lo largo de su vida, vivió en diferentes ciudades del estado, como Santo Amaro da Imperatriz, Biguaçu y nuevamente Joinville, donde, en 2006, vio por primera vez una Copa del Mundo — un recuerdo inaugural de encanto colectivo, emoción y pertenencia. Su escritura nace de este mosaico: carretera, movimiento, silencio, deporte, educación y poesía. Un autor en constante tránsito, que escribe para comprender y continúa escribiendo porque no sabe, y no quiere, hacerlo de otra manera."
         }
-        // ... (repetir lógica para parágrafos 2 e 3)
       },
       "gabryell-aweryan": {
         "titulo": { pt: "Gabryell Aweryan", en: "Gabryell Aweryan", es: "Gabryell Aweryan" },
         "paragrafo-1": {
-          pt: "<strong>Gabriel Araújo Aquino Felismino</strong>, conhecido pelo pseudônimo <strong>Gabryell Aweryan</strong>, nasceu em Rondônia, Brasil...",
-          en: "<strong>Gabriel Araújo Aquino Felismino</strong>, known by the pseudonym <strong>Gabryell Aweryan</strong>, was born in Rondônia, Brazil...",
-          es: "<strong>Gabriel Araújo Aquino Felismino</strong>, conocido por el seudónimo <strong>Gabryell Aweryan</strong>, nació en Rondônia, Brasil..."
+          pt: "<strong>Gabriel Araújo Aquino Felismino</strong>, conhecido pelo pseudônimo <strong>Gabryell Aweryan</strong>, nasceu em Rondônia, Brasil, no dia 4 de julho de 2002. Viveu parte de sua infância com a família paterna e sua adolescência com a família materna, período marcado por batalhas judiciais intensas causadas pela separação conturbada de seus pais, iniciada em 2010, quando se mudou para Pernambuco.",
+          en: "<strong>Gabriel Araújo Aquino Felismino</strong>, known by the pseudonym <strong>Gabryell Aweryan</strong>, was born in Rondônia, Brazil, on July 4th, 2002. He spent part of his childhood with his paternal family and his adolescence with his maternal family, a period marked by intense legal battles caused by his parents’ troubled separation, which began in 2010 when he moved to Pernambuco.",
+          es: "<strong>Gabriel Araújo Aquino Felismino</strong>, conocido por el seudónimo <strong>Gabryell Aweryan</strong>, nació en Rondônia, Brasil, el 4 de julio de 2002. Pasó parte de su infancia con la familia paterna y su adolescência con la familia materna, período marcado por intensas batallas legales causadas por la separación turbulenta de sus padres, iniciada en 2010, cuando se mudó a Pernambuco."
+        },
+        "paragrafo-2": {
+          pt: "Antes de se tornar escritor, foi cineasta amador. Em 2014, começou a desenvolver um projeto solo: um curta-metragem ambientado no universo de Harry Potter, intitulado <em>Prince Afftthon e a Relíquia do Império</em>. A ideia era criar uma conexão temporal inédita dentro do universo da saga, mas o projeto não avançou por divergências criativas, desmantelando sua recém-formada equipe.",
+          en: "Before becoming a writer, he was an amateur filmmaker. In 2014, he started developing a solo project: a short film set in the Harry Potter universe titled <em>Prince Afftthon and the Relic of the Empire</em>. The idea was to create a unique time connection within the saga's universe, but the project didn’t progress due to creative differences, dismantling his newly formed team.",
+          es: "Antes de convertirse en escritor, fue cineasta amateur. En 2014, comenzó a desarrollar un proyecto en solitario: un cortometraje ambientado en el universo de Harry Potter, titulado <em>Prince Afftthon y la Reliquia del Imperio</em>. La idea era crear una conexión temporal inédita dentro del universo de la saga, pero el proyecto no avanzó debido a diferencias creativas, desmantelando su equipo recién formado."
+        },
+        "paragrafo-3": {
+          pt: "Em 2019, Gabryell fundou uma nova equipe: a <strong>Treehouse Films</strong>. Mais uma vez, tentou dar vida ao projeto, mas novamente esbarrou em divergências de visão com os colaboradores, levando ao cancelamento do projeto.",
+          en: "In 2019, Gabryell founded a new team: <strong>Treehouse Films</strong>. Once again, he tried to bring the project to life but again clashed with collaborators’ differing visions, leading to the project's cancellation.",
+          es: "En 2019, Gabryell fundó un nuevo equipo: <strong>Treehouse Films</strong>. Una vez más, intentó dar vida al proyecto, pero nuevamente chocó con diferencias de visión con los colaboradores, lo que llevó a la cancelación del proyecto."
+        },
+        "paragrafo-4": {
+          pt: "Exausto de ver seu esforço ser sabotado por terceiros, Gabriel decidiu seguir sozinho. Deprimido, em uma madrugada solitária, começou a escrever algo que nem sabia se era conto ou não, apenas sentou e escreveu. O resultado foi <em>Cyannon, e a Batalha das Ilhas Galápagos</em>, um conto breve que narrava a batalha entre espanhóis e equatorianos pelo domínio de uma ilha recém-descoberta, que abrigava um reino feito de pedras cor ciana.",
+          en: "Exhausted from seeing his effort sabotaged by others, Gabriel decided to go solo. Depressed, in a lonely early morning, he started writing something he didn’t even know was a story or not — he just sat down and wrote. The result was <em>Cyannon and the Battle of the Galápagos Islands</em>, a short story narrating the battle between Spaniards and Ecuadorians over the control of a newly discovered island that harbored a kingdom made of cyan-colored stones.",
+          es: "Agotado de ver que sus esfuerzos fueran sabotados por terceros, Gabriel decidió seguir solo. Deprimido, en una madrugada solitaria, comenzó a escribir algo que ni siquiera sabía si era un cuento o no, simplemente se sentó y escribió. El resultado fue <em>Cyannon y la Batalla de las Islas Galápagos</em>, un cuento breve que narraba la batalla entre españoles y ecuatorianos por el dominio de una isla recién descubierta que albergaba un reino hecho de piedras de color cian."
         }
-        // ... (repetir lógica para parágrafos 2 e 3)
       }
     };
 
-    // Função simples para trocar idioma
+    // Lógica para alternar idioma
     document.querySelectorAll('#language-list li').forEach(item => {
       item.addEventListener('click', () => {
         const lang = item.getAttribute('data-lang');
         list.style.display = 'none';
         
-        // Tradução do título principal
-        const titulos = { pt: "Podium dos autores", en: "Authors' Podium", es: "Podio de los autores" };
-        document.getElementById('titulo-principal').innerText = titulos[lang];
+        const titulosPrincipais = { pt: "Podium dos autores", en: "Authors' Podium", es: "Podio de los autores" };
+        document.getElementById('titulo-principal').innerText = titulosPrincipais[lang];
 
-        // Tradução dos conteúdos dos autores
         Object.keys(dadosAutores).forEach(id => {
           const autor = dadosAutores[id];
           if (document.getElementById(`titulo-${id}`)) {
             document.getElementById(`titulo-${id}`).innerText = autor.titulo[lang];
           }
-          // Itera sobre os parágrafos que existem no objeto
+          
           Object.keys(autor).forEach(key => {
             if (key.startsWith('paragrafo')) {
-              const p = document.querySelector(`[data-paragraph-id="${id}-${key}"]`);
-              if (p) p.innerHTML = autor[key][lang];
+              const el = document.querySelector(`[data-paragraph-id="${id}-${key}"]`);
+              if (el) el.innerHTML = autor[key][lang];
             }
           });
         });
