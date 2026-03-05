@@ -314,7 +314,7 @@ document.getElementById('btn-salvar-realtime').onclick = function() {
 
     database.ref('usuarios/' + user.uid).update(dados)
         .then(() => {
-            alert("✅ Dados salvos no Firebase!");
+            alert("Dados salvos com sucesso!");
             document.getElementById('edit-modal').classList.replace('flex', 'hidden');
         })
         .catch((erro) => {
@@ -355,6 +355,7 @@ document.getElementById('btn-salvar-realtime').onclick = function() {
   </script>
 </body>
 </html>
+
 
 
 
