@@ -268,23 +268,33 @@
       });
     });
 
-    // Salvar Dados
-    document.getElementById('btn-salvar-realtime').onclick = () => {
-      const user = auth.currentUser;
-      const dados = {
-        nome: document.getElementById('db-nome').value,
-        cpf: document.getElementById('db-cpf').value,
-        endereco: document.getElementById('db-endereco').value,
-        idade: document.getElementById('db-idade').value,
-        genero: document.getElementById('db-genero').value
-      };
-      if (user) {
-        database.ref('usuarios/' + user.uid).update(dados).then(() => {
-          alert("Dados atualizados!");
-          document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-        });
-      }
-    };
+    // Localize este trecho no seu script e adicione o console.log e o else:
+document.getElementById('btn-salvar-realtime').onclick = () => {
+  const user = auth.currentUser;
+  console.log("Botão clicado. Usuário atual:", user); // Verificação no console
+
+  const dados = {
+    nome: document.getElementById('db-nome').value,
+    cpf: document.getElementById('db-cpf').value,
+    endereco: document.getElementById('db-endereco').value,
+    idade: document.getElementById('db-idade').value,
+    genero: document.getElementById('db-genero').value
+  };
+
+  if (user) {
+    database.ref('usuarios/' + user.uid).update(dados)
+      .then(() => {
+        alert("Dados atualizados!");
+        document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+      })
+      .catch((error) => {
+        console.error("Erro do Firebase:", error);
+        alert("Erro ao salvar: " + error.message);
+      });
+  } else {
+    alert("Erro: Sistema não detectou seu login. Tente deslogar e logar novamente.");
+  }
+};
 
     // Login e Registro
     document.getElementById('login-btn').onclick = () => {
@@ -318,6 +328,7 @@
   </script>
 </body>
 </html>
+
 
 
 
