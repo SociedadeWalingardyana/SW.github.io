@@ -209,60 +209,54 @@
 
 
   
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
-      authDomain: "login-sw-14940.firebaseapp.com",
-      databaseURL: "https://login-sw-14940-default-rtdb.europe-west1.firebasedatabase.app/", 
-      projectId: "login-sw-14940",
-      appId: "1:252978150700:web:2c7d3997389f7675058089"
-    };
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const database = firebase.database();
+<script>
+  // Configuração
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
+    authDomain: "login-sw-14940.firebaseapp.com",
+    databaseURL: "https://login-sw-14940-default-rtdb.europe-west1.firebasedatabase.app/", 
+    projectId: "login-sw-14940",
+    appId: "1:252978150700:web:2c7d3997389f7675058089"
+  };
+  
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const database = firebase.database();
 
-    // Controle de UI
-    document.getElementById('fechar-aviso').onclick = () => document.getElementById('aviso-politica').classList.add('hidden');
+  // Controle UI Modal
+  document.getElementById('fechar-aviso').onclick = () => document.getElementById('aviso-politica').classList.add('hidden');
+  document.getElementById('btn-abrir-modal').onclick = (e) => {
+    e.stopPropagation();
+    document.getElementById('edit-modal').classList.replace('hidden', 'flex');
+    document.getElementById('settings-dropdown').classList.add('hidden');
+  };
+  document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+
+  // Monitoramento de Login (CORRIGIDO PARA EXIBIR NOME)
+  auth.onAuthStateChanged((user) => {
+    const authContainer = document.getElementById('auth-container');
+    const userInfo = document.getElementById('user-info');
+    const userGreeting = document.getElementById('user-greeting');
     
-    document.getElementById('btn-abrir-modal').onclick = (e) => {
-      e.stopPropagation();
-      document.getElementById('edit-modal').classList.replace('hidden', 'flex');
-      document.getElementById('settings-dropdown').classList.add('hidden');
-    };
-    
-    document.getElementById('btn-fechar-modal').onclick = () => document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-
-    // Recuperação de Senha
-    document.getElementById('btn-reset-pass').onclick = () => {
-      const email = auth.currentUser.email;
-      auth.sendPasswordResetEmail(email).then(() => {
-        alert("E-mail de redefinição enviado para: " + email);
-      }).catch(err => alert("Erro: " + err.message));
-    };
-
-    // Monitoramento de Login
-    auth.onAuthStateChanged((user) => {
-      const authContainer = document.getElementById('auth-container');
-      const userInfo = document.getElementById('user-info');
-      const userGreeting = document.getElementById('user-greeting');
-      
-      if (!user) {
-        authContainer.classList.remove('hidden');
-        userInfo.classList.add('hidden');
-        return;
-      }
+    if (user) {
       authContainer.classList.add('hidden');
       userInfo.classList.remove('hidden');
-      userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
-
+      
+      // Busca o nome no banco de dados
       database.ref('usuarios/' + user.uid).on('value', (snap) => {
         const d = snap.val();
-        if (d) {
-          if (d.nome) userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}`;
+        if (d && d.nome) {
+          userGreeting.textContent = `Olá, ${d.nome.split(' ')[0]}`;
+        } else {
+          userGreeting.textContent = `Olá, ${user.email.split('@')[0]}`;
+        }
+        
+        // Preenche os campos do modal se existirem
+        if(d) {
           document.getElementById('db-nome').value = d.nome || "";
           document.getElementById('db-cpf').value = d.cpf || "";
           document.getElementById('db-endereco').value = d.endereco || "";
@@ -270,67 +264,57 @@
           document.getElementById('db-genero').value = d.genero || "";
         }
       });
-    });
-
-// Localize o evento de salvar e substitua por este:
-document.getElementById('btn-salvar-realtime').onclick = function() {
-    console.log("Tentando salvar..."); // Isso deve aparecer no F12
-    
-    const user = auth.currentUser;
-    if (!user) {
-        alert("Erro: Você não está logado!");
-        return;
+    } else {
+      authContainer.classList.remove('hidden');
+      userInfo.classList.add('hidden');
     }
+  });
+
+  // Salvar Dados
+  document.getElementById('btn-salvar-realtime').onclick = function() {
+    const user = auth.currentUser;
+    if (!user) return alert("Logue-se primeiro!");
 
     const dados = {
-        nome: document.getElementById('db-nome').value,
-        cpf: document.getElementById('db-cpf').value,
-        endereco: document.getElementById('db-endereco').value,
-        idade: document.getElementById('db-idade').value,
-        genero: document.getElementById('db-genero').value
+      nome: document.getElementById('db-nome').value,
+      cpf: document.getElementById('db-cpf').value,
+      endereco: document.getElementById('db-endereco').value,
+      idade: document.getElementById('db-idade').value,
+      genero: document.getElementById('db-genero').value
     };
 
-    database.ref('usuarios/' + user.uid).update(dados)
-        .then(() => {
-            alert("Dados salvos com sucesso!");
-            document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-        })
-        .catch((erro) => {
-            console.error("Erro técnico:", erro);
-            alert("❌ Erro de permissão: " + erro.message);
-        });
-};
+    database.ref('usuarios/' + user.uid).update(dados).then(() => {
+      alert("Dados salvos!");
+      document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+    });
+  };
 
-    // Login e Registro
-    document.getElementById('login-btn').onclick = () => {
-      const e = document.getElementById('email-field').value;
-      const p = document.getElementById('pass-field').value;
-      if (e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert("Erro: " + err.message));
-    };
+  // Login, Registro e Logout
+  document.getElementById('login-btn').onclick = () => {
+    const e = document.getElementById('email-field').value;
+    const p = document.getElementById('pass-field').value;
+    if (e && p) auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
+  };
 
-    document.getElementById('signup-btn').onclick = () => {
-      const e = document.getElementById('email-field').value;
-      const p = document.getElementById('pass-field').value;
-      if (e && p) {
-        auth.createUserWithEmailAndPassword(e, p).then(u => {
-          database.ref('usuarios/' + u.user.uid).set({ email: e, nome: "" });
-        }).catch(err => alert("Erro: " + err.message));
-      }
-    };
+  document.getElementById('signup-btn').onclick = () => {
+    const e = document.getElementById('email-field').value;
+    const p = document.getElementById('pass-field').value;
+    if (e && p) {
+      auth.createUserWithEmailAndPassword(e, p).then(u => {
+        database.ref('usuarios/' + u.user.uid).set({ email: e, nome: "" });
+      }).catch(err => alert(err.message));
+    }
+  };
 
-    document.getElementById('logout-btn').onclick = () => auth.signOut();
-
-    // Toggle do Dropdown
-    document.getElementById('user-greeting').onclick = (e) => {
-      e.stopPropagation();
-      document.getElementById('settings-dropdown').classList.toggle('hidden');
-    };
-
-    // Fechar ao clicar fora
-    window.onclick = () => {
-      document.getElementById('settings-dropdown').classList.add('hidden');
-    };
-  </script>
+  document.getElementById('logout-btn').onclick = () => auth.signOut();
+  
+  document.getElementById('user-greeting').onclick = (e) => {
+    e.stopPropagation();
+    document.getElementById('settings-dropdown').classList.toggle('hidden');
+  };
+  
+  window.onclick = () => document.getElementById('settings-dropdown').classList.add('hidden');
+</script>
 </body>
 </html>
 
