@@ -103,52 +103,53 @@ z-index:10001;
 <body>
 
 <!-- POPUP -->
-<div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4">
+<div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-[10001]">
 
-<div class="bg-white text-black p-4 md:p-8 rounded-xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
+    <div class="bg-white text-black p-6 md:p-8 rounded-xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
 
-<h2 class="text-lg md:text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2">
-Nova Política de captação SW
-</h2>
+        <h2 class="text-lg md:text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2 flex-shrink-0">
+            Nova Política de captação SW
+        </h2>
 
-<div class="space-y-4 text-gray-800">
+        <div class="space-y-4 text-gray-800 overflow-y-auto pr-2 custom-scrollbar text-sm md:text-base">
 
-<p class="font-semibold text-lg italic">
-Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial,
-o nosso modelo de pagamentos atual agora é pela Wise Payments Limited.
-Banco e casa de Câmbio em tempo real, facilitando o envio e recebimento
-de valores dos nossos produtos em qualquer moeda do mundo.
-</p>
+            <p class="font-semibold italic">
+                Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial, 
+                o nosso modelo de pagamentos atual agora é pela Wise Payments Limited. 
+                Banco e casa de Câmbio em tempo real, facilitando o envio e recebimento 
+                de valores dos nossos produtos em qualquer moeda do mundo.
+            </p>
 
-<h3 class="font-bold text-xl mt-4">Por que?</h3>
+            <h3 class="font-bold text-lg mt-4">Por que?</h3>
 
-<p>
-O modelo automático de captação financeira que grandes sites utilizam atualmente é um grande desafio para o setor de programação da SW, mas isso é bom, pois detemos total controle dos dados aqui recebidos e do tratamento que estes dados recebem. Compartilhamento, ou venda a terceiros não acontece.
-</p>
+            <p>
+                O modelo automático de captação financeira que grandes sites utilizam atualmente é um grande desafio para o setor de programação da SW, mas isso é bom, pois detemos total controle dos dados aqui recebidos e do tratamento que estes dados recebem. Compartilhamento, ou venda a terceiros não acontece.
+            </p>
 
-<h3 class="font-bold text-xl mt-4">
-Para efetuar a compra de qualquer produto no site, siga os passos abaixo. Sem login, não é possivel comprar, ou acessar nossos serviços.
-</h3>
+            <h3 class="font-bold text-lg mt-4">
+                Para efetuar a compra de qualquer produto no site, siga os passos abaixo. Sem login, não é possivel comprar, ou acessar nossos serviços.
+            </h3>
 
-<ol class="list-decimal ml-6 space-y-2 font-medium">
-<li>Registre usuário na barra de login (Email + Senha).</li>
-<li>Volte a digitar o email e senha, e clique em "Entrar".</li>
-<li>Vá até Loja, depois clique em "comprar" para obter o item desejado. Você será encaminhado para a aba de compra, onde poderá fazer o envio do valor do produto a conta da SW.</li>
-</ol>
+            <ol class="list-decimal ml-6 space-y-2 font-medium">
+                <li>Registre usuário na barra de login (Email + Senha).</li>
+                <li>Volte a digitar o email e senha, e clique em "Entrar".</li>
+                <li>Vá até Loja, depois clique em "comprar" para obter o item desejado. Você será encaminhado para a aba de compra, onde poderá fazer o envio do valor do produto a conta da SW.</li>
+            </ol>
 
-<p class="mt-4">
-Lembre-se de que o produto será liberado apenas após dois dias úteis decorridos a partir do pagamento. Tal tempo é necessário para que nosso financeiro possa analisar o pagamento e autorizar o envio. Vale ressaltar que, para que o envio de itens comprados na loja seja liberado, é preciso que o usuário acesse dados e declare-os em "Alterar Dados de Usuário", depois em "Configurações de Usuário", deve-se preencher todos os campos e clicar em salvar.
-</p>
+            <p class="mt-4">
+                Lembre-se de que o produto será liberado apenas após dois dias úteis decorridos a partir do pagamento. Tal tempo é necessário para que nosso financeiro possa analisar o pagamento e autorizar o envio. Vale ressaltar que, para que o envio de itens comprados na loja seja liberado, é preciso que o usuário acesse dados e declare-os em "Alterar Dados de Usuário", depois em "Configurações de Usuário", deve-se preencher todos os campos e clicar em salvar.
+            </p>
 
+        </div>
+
+        <button id="fechar-aviso"
+            class="mt-6 w-full bg-black text-white py-4 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest flex-shrink-0">
+            Compreendi e desejo prosseguir
+        </button>
+
+    </div>
 </div>
 
-<button id="fechar-aviso"
-class="mt-8 w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest">
-Compreendi e desejo prosseguir
-</button>
-
-</div>
-</div>
 
 <!-- TODO O RESTO DO SITE PERMANECE EXATAMENTE IGUAL -->
 <!-- (top bar, login, firebase, scripts, dropdown, header, video, etc.) -->
