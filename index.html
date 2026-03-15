@@ -83,8 +83,6 @@
         background: black;
         flex-wrap: wrap;
       }
-      #auth-container { flex-direction: column; width: 100%; }
-      #auth-container input { width: 100% !important; }
     }
 
     header, footer { background-color: black; }
@@ -93,10 +91,9 @@
       z-index: 10001;
     }
 
-    /* ESSENCIAL PARA O MOBILE NÃO CORTAR O TEXTO */
     .modal-scroll-area {
       overflow-y: auto;
-      max-height: 60vh; /* Limita a altura do texto para o botão sempre aparecer */
+      max-height: 60vh;
       padding-right: 8px;
     }
     .modal-scroll-area::-webkit-scrollbar { width: 4px; }
@@ -108,42 +105,24 @@
 
 <div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-[10001]">
     <div class="bg-white text-black p-6 md:p-8 rounded-xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl">
-        
         <h2 class="text-lg md:text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2 flex-shrink-0">
             Nova Política de captação SW
         </h2>
-
         <div class="modal-scroll-area space-y-4 text-gray-800">
             <p class="font-semibold text-lg italic">
-                Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial,
-                o nosso modelo de pagamentos atual agora é pela Wise Payments Limited.
-                Banco e casa de Câmbio em tempo real, facilitando o envio e recebimento
-                de valores dos nossos produtos em qualquer moeda do mundo.
+                Caros clientes, devido a mudanças recentes no sistema logístico da SW Editorial, o nosso modelo de pagamentos atual agora é pela Wise Payments Limited.
             </p>
-
             <h3 class="font-bold text-xl mt-4">Por que?</h3>
-
-            <p>
-                O modelo automático de captação financeira que grandes sites utilizam atualmente é um grande desafio para o setor de programação da SW, mas isso é bom, pois detemos total controle dos dados aqui recebidos e do tratamento que estes dados recebem. Compartilhamento, ou venda a terceiros não acontece.
-            </p>
-
-            <h3 class="font-bold text-xl mt-4">
-                Para efetuar a compra de qualquer product no site, siga os passos abaixo. Sem login, não é possivel comprar, ou acessar nossos serviços.
-            </h3>
-
+            <p>O modelo automático de captação financeira que grandes sites utilizam atualmente é um grande desafio para o setor de programação da SW... detemos total controle dos dados aqui recebidos.</p>
+            <h3 class="font-bold text-xl mt-4">Como comprar:</h3>
             <ol class="list-decimal ml-6 space-y-2 font-medium">
                 <li>Registre usuário na barra de login (Email + Senha).</li>
                 <li>Volte a digitar o email e senha, e clique em "Entrar".</li>
-                <li>Vá até Loja, depois clique em "comprar" para obter o item desejado. Você será encaminhado para a aba de compra, onde poderá fazer o envio do valor do produto a conta da SW.</li>
+                <li>Vá até Loja, depois clique em "comprar".</li>
             </ol>
-
-            <p class="mt-4">
-                Lembre-se de que o produto será liberado apenas após dois dias úteis decorridos a partir do pagamento. Tal tempo é necessário para que nosso financeiro possa analisar o pagamento e autorizar o envio. Vale ressaltar que, para que o envio de itens comprados na loja seja liberado, é preciso que o usuário acesse dados e declare-os em "Alterar Dados de Usuário", depois em "Configurações de Usuário", deve-se preencher todos os campos e clicar em salvar.
-            </p>
+            <p class="mt-4">Lembre-se de que o produto será liberado apenas após dois dias úteis decorridos a partir do pagamento.</p>
         </div>
-
-        <button id="fechar-aviso"
-            class="mt-6 w-full bg-black text-white py-4 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest flex-shrink-0">
+        <button id="fechar-aviso" class="mt-6 w-full bg-black text-white py-4 rounded-lg font-bold hover:bg-gray-800 transition-colors uppercase tracking-widest flex-shrink-0">
             Compreendi e desejo prosseguir
         </button>
     </div>
@@ -161,8 +140,8 @@
     <div id="user-info" class="hidden relative">
       <div id="user-greeting" class="btn-top-estilo user-btn-border">Olá, ...</div>
       <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden text-black">
-        <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 border-b">Alterar dados de usuário</button>
-        <button id="btn-reset-pass" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 border-b">Alterar senha</button>
+        <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 border-b text-gray-800">Configurações de Usuário</button>
+        <button id="btn-reset-pass" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 border-b text-gray-800">Alterar senha</button>
         <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
       </div>
     </div>
@@ -171,12 +150,36 @@
   <div id="language-selector" class="btn-top-estilo w-[40px] cursor-pointer">▼</div>
 </div>
 
+<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4">
+    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md text-black">
+      <h3 class="text-xl font-bold mb-4 border-b pb-2">Configurações de Usuário</h3>
+      <div class="space-y-3">
+        <div><label class="text-xs font-bold">NOME COMPLETO</label><input type="text" id="db-nome" class="w-full border p-2 rounded"></div>
+        <div><label class="text-xs font-bold">CPF</label><input type="text" id="db-cpf" class="w-full border p-2 rounded"></div>
+        <div><label class="text-xs font-bold">ENDEREÇO</label><input type="text" id="db-endereco" class="w-full border p-2 rounded"></div>
+        <div class="flex gap-2">
+          <div class="w-1/2"><label class="text-xs font-bold">IDADE</label><input type="number" id="db-idade" class="w-full border p-2 rounded"></div>
+          <div class="w-1/2"><label class="text-xs font-bold">GÊNERO</label>
+            <select id="db-genero" class="w-full border p-2 rounded">
+              <option value="">Selecione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-2 mt-6">
+        <button id="btn-salvar-realtime" class="bg-green-700 text-white flex-1 py-2 rounded font-bold">Salvar</button>
+        <button id="btn-fechar-modal" class="bg-gray-300 flex-1 py-2 rounded">Cancelar</button>
+      </div>
+    </div>
+</div>
+
 <header class="p-4 shadow-md bg-black">
   <div class="container mx-auto flex flex-col items-center">
     <img src="oficial.png" class="w-32 mb-2" alt="Logo">
     <h1 class="text-2xl font-bold">SW Editorial</h1>
     <nav class="flex flex-wrap justify-center gap-4 mt-2">
-      <a href="novidades.html" class="hover:text-yellow-600">Notícias</a>
       <a href="loja.html" class="hover:text-yellow-600">Loja</a>
       <a href="autores.html" class="hover:text-yellow-600">Nossos Autores</a>
       <a href="Biblioteca.html" class="hover:text-yellow-600">Biblioteca</a>
@@ -184,32 +187,17 @@
   </div>
 </header>
 
-<section class="container mx-auto mt-6 px-4">
-  <div class="h-auto md:h-80 rounded overflow-hidden shadow-lg">
-    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
-      <source src="walinga.mp4" type="video/mp4">
-    </video>
-  </div>
-</section>
-
-<section style="position: relative; max-width: 900px; margin: 2rem auto; padding: 5%; background: #000000; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #000000;">
-  <div style="position: relative; color: #ffffff; text-align: justify;">
-    <h2 class="titulo-cinzel">SW Editorial</h2>
-    <p>A <strong style="color: #ffffff;">SW Editorial</strong> Surgiu para ir contra a maré de mediocridade do mercado literário.</p> 
-    <p>Fundada em 2025 por amigos que participavam de um grupo de escritores de fantasia, a proposta do empreendimento é encontrar jovens talentos e divulgar os autores brasileiros consagrados para um público que preza pela qualidade textual e intelectual.</p>
-    <p>O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar obras literárias bem escritas, respeitando a capacidade cognitiva dos leitores exigentes. Antes de tudo, acreditamos que a leitura é um mecanismo de mudança social que deve ser usado para tornar uma sociedade mais justa e instruída.</p>
-  </div>
+<section class="max-w-4xl mx-auto my-8 px-6 py-10 bg-black border border-gray-900 rounded-2xl shadow-2xl">
+  <h2 class="titulo-cinzel">SW Editorial</h2>
+  <p>A <strong style="color: #ffffff;">SW Editorial</strong> Surgiu para ir contra a maré de mediocridade do mercado literário.</p> 
+  <p>Fundada em 2025 por amigos que participavam de um grupo de escritores de fantasia...</p>
 </section>
 
 <footer class="flex flex-col items-center p-8 mt-16 bg-black">
   <p>&copy; 2025 SW Editorial. Todos os direitos reservados.</p>
 </footer>
 
-
-
-
-  
- <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -317,4 +305,3 @@
 </script>
 </body>
 </html>
-
