@@ -10,8 +10,8 @@
 
   <style>
     body {
-      background-color: #281109 !important;
-      color: #FFFFFF;
+      background-color: #ffffff !important;
+      color: #000000;
       font-family: sans-serif;
       margin: 0;
       padding: 0;
@@ -24,6 +24,7 @@
       text-align: center;
       margin-bottom: 2rem;
       line-height: 1.2;
+      color: #000000;
     }
 
     @media (max-width: 768px) {
@@ -34,6 +35,7 @@
       text-align: justify;
       margin-bottom: 20px;
       line-height: 1.6;
+      color: #1a1a1a;
     }
 
     .top-bar-container {
@@ -47,9 +49,9 @@
     }
 
     .btn-top-estilo {
-      background: #1a1a1a;
-      color: white;
-      border: 1px solid #333;
+      background: #000000;
+      color: #ffffff;
+      border: 1px solid #000000;
       border-radius: 5px;
       font-weight: bold;
       display: flex;
@@ -62,15 +64,24 @@
       font-size: 14px;
     }
 
+    .btn-top-estilo:hover {
+      background: #333333;
+    }
+
     .user-btn-border {
-      border: 1px solid #d97706 !important;
-      color: #d97706;
+      border: 1px solid #000000 !important;
+      color: #000000;
+      background: #ffffff;
       cursor: pointer;
+    }
+
+    .user-btn-border:hover {
+      background: #f3f4f6;
     }
 
     #settings-dropdown {
       z-index: 9999 !important; 
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
     }
 
     @media (max-width: 1024px) {
@@ -80,12 +91,18 @@
         right: 0;
         justify-content: center;
         padding: 15px;
-        background: black;
+        background: #000000;
         flex-wrap: wrap;
+      }
+
+      .user-btn-border {
+        color: #ffffff;
+        background: #000000;
+        border-color: #ffffff !important;
       }
     }
 
-    header, footer { background-color: black; }
+    header, footer { background-color: #000000; }
 
     #aviso-politica, #edit-modal {
       z-index: 10001;
@@ -97,18 +114,18 @@
       padding-right: 8px;
     }
     .modal-scroll-area::-webkit-scrollbar { width: 4px; }
-    .modal-scroll-area::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 10px; }
+    .modal-scroll-area::-webkit-scrollbar-thumb { background: #888888; border-radius: 10px; }
   </style>
 </head>
 
 <body>
 
-<div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-[10001]">
-    <div class="bg-white text-black p-6 md:p-8 rounded-xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl">
-        <h2 class="text-lg md:text-2xl font-bold mb-4 text-red-700 border-b-2 border-red-700 pb-2 flex-shrink-0">
+<div id="aviso-politica" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[10001]">
+    <div class="bg-white text-black p-6 md:p-8 rounded-xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-black">
+        <h2 class="text-lg md:text-2xl font-bold mb-4 text-black border-b-2 border-black pb-2 flex-shrink-0">
             Política de captação E. Gravura
         </h2>
-        <div class="modal-scroll-area space-y-4 text-gray-800">
+        <div class="modal-scroll-area space-y-4 text-gray-900">
             <p class="font-semibold text-lg italic">
                 Caros clientes, devido a mudanças recentes no sistema logístico da Editora, o nosso modelo de pagamentos atual agora é pela Wise Payments Limited.
             </p>
@@ -130,37 +147,37 @@
 
 <div class="top-bar-container">
   <div id="auth-section" class="flex items-center gap-2">
-    <div id="auth-container" class="flex items-center gap-2 bg-black bg-opacity-60 p-1 rounded-lg border border-gray-800">
-      <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-28 text-black outline-none h-[30px]">
-      <input id="pass-field" type="password" placeholder="Senha" class="px-2 py-1 text-sm rounded w-24 text-black outline-none h-[30px]">
-      <button id="login-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-2 py-1 rounded text-xs font-bold h-[30px]">Entrar</button>
-      <button id="signup-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white px-2 py-1 rounded text-xs font-bold h-[30px]">Registrar</button>
+    <div id="auth-container" class="flex items-center gap-2 bg-black p-1 rounded-lg border border-gray-800">
+      <input id="email-field" type="email" placeholder="E-mail" class="px-2 py-1 text-sm rounded w-28 text-black bg-white outline-none h-[30px]">
+      <input id="pass-field" type="password" placeholder="Senha" class="px-2 py-1 text-sm rounded w-24 text-black bg-white outline-none h-[30px]">
+      <button id="login-btn" class="bg-white hover:bg-gray-200 text-black px-2 py-1 rounded text-xs font-bold h-[30px] border border-black">Entrar</button>
+      <button id="signup-btn" class="bg-gray-800 hover:bg-black text-white px-2 py-1 rounded text-xs font-bold h-[30px]">Registrar</button>
     </div>
 
     <div id="user-info" class="hidden relative">
       <div id="user-greeting" class="btn-top-estilo user-btn-border">Olá, ...</div>
-      <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden text-black">
-        <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 border-b text-gray-800">Configurações de Usuário</button>
-        <button id="btn-reset-pass" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 border-b text-gray-800">Alterar senha</button>
-        <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-bold">Sair da conta</button>
+      <div id="settings-dropdown" class="hidden absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-black overflow-hidden text-black">
+        <button id="btn-abrir-modal" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 border-b border-gray-200 text-black font-medium">Configurações de Usuário</button>
+        <button id="btn-reset-pass" class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 border-b border-gray-200 text-black font-medium">Alterar senha</button>
+        <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-black hover:bg-gray-200 font-bold bg-gray-100">Sair da conta</button>
       </div>
     </div>
   </div>
   <a href="SW Sistem.html" id="direct-colab" class="btn-top-estilo">Direct Colab</a>
-    <div id="language-selector" class="btn-top-estilo w-[40px] cursor-pointer">▼</div>
-  </div>
+  <div id="language-selector" class="btn-top-estilo w-[40px] cursor-pointer">▼</div>
+</div>
 
-<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center p-4">
-    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md text-black">
-      <h3 class="text-xl font-bold mb-4 border-b pb-2">Configurações de Usuário</h3>
+<div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center p-4">
+    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-md text-black border border-black">
+      <h3 class="text-xl font-bold mb-4 border-b border-black pb-2">Configurações de Usuário</h3>
       <div class="space-y-3">
-        <div><label class="text-xs font-bold">NOME COMPLETO</label><input type="text" id="db-nome" class="w-full border p-2 rounded"></div>
-        <div><label class="text-xs font-bold">CPF</label><input type="text" id="db-cpf" class="w-full border p-2 rounded"></div>
-        <div><label class="text-xs font-bold">ENDEREÇO</label><input type="text" id="db-endereco" class="w-full border p-2 rounded"></div>
+        <div><label class="text-xs font-bold">NOME COMPLETO</label><input type="text" id="db-nome" class="w-full border border-gray-400 p-2 rounded"></div>
+        <div><label class="text-xs font-bold">CPF</label><input type="text" id="db-cpf" class="w-full border border-gray-400 p-2 rounded"></div>
+        <div><label class="text-xs font-bold">ENDEREÇO</label><input type="text" id="db-endereco" class="w-full border border-gray-400 p-2 rounded"></div>
         <div class="flex gap-2">
-          <div class="w-1/2"><label class="text-xs font-bold">IDADE</label><input type="number" id="db-idade" class="w-full border p-2 rounded"></div>
+          <div class="w-1/2"><label class="text-xs font-bold">IDADE</label><input type="number" id="db-idade" class="w-full border border-gray-400 p-2 rounded"></div>
           <div class="w-1/2"><label class="text-xs font-bold">GÊNERO</label>
-            <select id="db-genero" class="w-full border p-2 rounded">
+            <select id="db-genero" class="w-full border border-gray-400 p-2 rounded">
               <option value="">Selecione</option>
               <option value="Masculino">Masculino</option>
               <option value="Feminino">Feminino</option>
@@ -169,35 +186,34 @@
         </div>
       </div>
       <div class="flex gap-2 mt-6">
-        <button id="btn-salvar-realtime" class="bg-green-700 text-white flex-1 py-2 rounded font-bold">Salvar</button>
-        <button id="btn-fechar-modal" class="bg-gray-300 flex-1 py-2 rounded">Cancelar</button>
+        <button id="btn-salvar-realtime" class="bg-black text-white hover:bg-gray-800 flex-1 py-2 rounded font-bold transition-colors">Salvar</button>
+        <button id="btn-fechar-modal" class="bg-gray-200 text-black hover:bg-gray-300 flex-1 py-2 rounded font-medium transition-colors">Cancelar</button>
       </div>
     </div>
 </div>
 
-<header class="p-4 shadow-md bg-black">
+<header class="p-4 shadow-md bg-black text-white">
   <div class="container mx-auto flex flex-col items-center">
-    <img src="db.png" class="w-32 mb-2" alt="Logo">
-    <h1 class="text-2xl font-bold">Editora Gravura</h1>
-    <nav class="flex flex-wrap justify-center gap-4 mt-2">
-      <a href="novidades.html" class="hover:text-yellow-600">Notícias</a>
-        <a href="loja.html" class="hover:text-yellow-600">Loja</a>
-        <a href="autores.html" class="hover:text-yellow-600">Nossos Autores</a>
-        <a href="Biblioteca.html" class="hover:text-yellow-600">Biblioteca</a>
+    <img src="db.png" class="w-32 mb-2 invert-0" alt="Logo">
+    <h1 class="text-2xl font-bold tracking-wide">Editora Gravura</h1>
+    <nav class="flex flex-wrap justify-center gap-6 mt-3">
+      <a href="novidades.html" class="hover:text-gray-300 transition-colors">Notícias</a>
+      <a href="loja.html" class="hover:text-gray-300 transition-colors">Loja</a>
+      <a href="autores.html" class="hover:text-gray-300 transition-colors">Nossos Autores</a>
+      <a href="Biblioteca.html" class="hover:text-gray-300 transition-colors">Biblioteca</a>
     </nav>
   </div>
 </header>
 
-<section class="max-w-4xl mx-auto my-8 px-6 py-10 bg-black border border-gray-900 rounded-2xl shadow-2xl">
+<section class="max-w-4xl mx-auto my-12 px-8 py-10 bg-white border border-black rounded-2xl shadow-xl">
   <h2 class="titulo-cinzel">Editora Gravura</h2>
-  <p>A <strong style="color: #ffffff;">Editora Gravura</strong> Surgiu para ir contra a maré de mediocridade do mercado literário.</p> 
-      <p>Fundada em Abril de 2025 por Gabriel Aquino, posteriormente agregando seus amigos, que participavam de um grupo de escritores de fantasia no qual o fundador também participava, a proposta do empreendimento é encontrar jovens talentos e divulgar os autores brasileiros consagrados para um público que preza pela qualidade textual e intelectual.</p>
-    <p>O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar obras literárias bem escritas, respeitando a capacidade cognitiva dos leitores exigentes. Antes de tudo, acreditamos que a leitura é um mecanismo de mudança social que deve ser usado para tornar uma sociedade mais justa e instruída.</p>
+  <p>A <strong>Editora Gravura</strong> surgiu para ir contra a maré de mediocridade do mercado literário.</p> 
+  <p>Fundada em Abril de 2025 por Gabriel Aquino, posteriormente agregando seus amigos, que participavam de um grupo de escritores de fantasia no qual o fundador também participava, a proposta do empreendimento é encontrar jovens talentos e divulgar os autores brasileiros consagrados para um público que preza pela qualidade textual e intelectual.</p>
+  <p>O que iniciou como um projeto de divulgação de um dos membros, tornou-se um sonho de lançar obras literárias bem escritas, respeitando a capacidade cognitiva dos leitores exigentes. Antes de tudo, acreditamos que a leitura é um mecanismo de mudança social que deve ser usado para tornar uma sociedade mais justa e instruída.</p>
   <p>Atualmente a Editora Gravura está com suas atividades pausadas, aguardando aval de alguns autores. O que para muitos pode soar como abandono do projeto, é na verdade silêncio estratégico.</p>
-
 </section>
 
-<footer class="w-full bg-black py-10 mt-auto border-t border-gray-900">
+<footer class="w-full bg-black text-white py-10 mt-auto border-t border-gray-800">
     <div class="text-center text-gray-400 text-xs md:text-sm">
         &copy; 2025 Editora Gravura. Todos os direitos reservados.
     </div>
