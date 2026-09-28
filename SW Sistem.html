@@ -20,8 +20,8 @@
         body {
             margin: 0;
             font-family: 'Cinzel', serif;
-            background: #050505;
-            color: #e5c585;
+            background: #000000;
+            color: #ffffff;
         }
         
         .hidden {
@@ -39,61 +39,68 @@
         }
         
         .card {
-            background: #0d0d0d;
-            border: 1px solid #c59b27;
+            background: #0a0a0a;
+            border: 1px solid #333333;
             padding: 1.5rem;
             border-radius: 14px;
             margin-bottom: 1rem;
-            box-shadow: 0 0 15px rgba(197, 155, 39, 0.08);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
         }
         
         input, textarea, button, select {
             width: 100%;
             padding: .7rem;
             border-radius: 10px;
-            border: 1px solid #c59b27;
+            border: 1px solid #333333;
             margin-top: .5rem;
-            background: #141414;
-            color: #e5c585;
+            background: #121212;
+            color: #ffffff;
             font-family: 'Cinzel', serif;
         }
         
         input::placeholder, textarea::placeholder {
-            color: #7a652a;
+            color: #666666;
         }
         
         button {
-            background: #c59b27;
-            color: #050505;
+            background: #ffffff;
+            color: #000000;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            border: 1px solid #ffffff;
+            transition: background 0.3s, color 0.3s;
         }
         
         button:hover {
-            background: #dfae30;
+            background: #cccccc;
+            border-color: #cccccc;
         }
         
         .top {
             display: flex;
             gap: 1rem;
             padding: 1rem;
-            background: #0d0d0d;
-            border-bottom: 1px solid #c59b27;
+            background: #0a0a0a;
+            border-bottom: 1px solid #333333;
             flex-wrap: wrap;
         }
         
         .tab {
             cursor: pointer;
-            opacity: .6;
-            color: #e5c585;
+            opacity: .5;
+            color: #ffffff;
+            transition: opacity 0.2s;
+        }
+        
+        .tab:hover {
+            opacity: .8;
         }
         
         .tab.active {
             opacity: 1;
             font-weight: bold;
-            color: #f3d06c;
-            border-bottom: 2px solid #c59b27;
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
         }
         
         .section {
@@ -108,7 +115,8 @@
         #map {
             height: 420px;
             border-radius: 12px;
-            border: 1px solid #c59b27;
+            border: 1px solid #333333;
+            filter: grayscale(100%) invert(90%) hue-rotate(180deg);
         }
 
         /* Oculta o selo/marca d'água do Leaflet */
@@ -118,11 +126,11 @@
         
         .small {
             font-size: .85rem;
-            opacity: .7;
+            opacity: .6;
         }
         
         .forum-post {
-            border-bottom: 1px solid #33260c;
+            border-bottom: 1px solid #222222;
             padding: .5rem 0;
             margin-top: 0.5rem;
         }
@@ -144,17 +152,18 @@
         th, td {
             text-align: left;
             padding: 8px;
-            border-bottom: 1px solid #33260c;
+            border-bottom: 1px solid #222222;
         }
         
         th {
-            color: #f3d06c;
+            color: #ffffff;
+            border-bottom: 2px solid #333333;
         }
         
         .btn-del {
-            background: #5a1a1a;
-            color: #ff9999;
-            border: 1px solid #ff4444;
+            background: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #666666;
             padding: 4px 8px;
             font-size: 10px;
             width: auto;
@@ -162,14 +171,15 @@
         }
         
         .btn-del:hover {
-            background: #ff4444;
-            color: #fff;
+            background: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
         }
 
         .btn-pdf {
-            background: #c59b27;
-            color: #050505;
-            border: 1px solid #dfae30;
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #ffffff;
             padding: 10px;
             margin-top: 1rem;
             font-family: 'Cinzel', serif;
@@ -177,18 +187,19 @@
         }
         
         .btn-pdf:hover {
-            background: #dfae30;
+            background: #cccccc;
+            border-color: #cccccc;
         }
 
         .total-box {
             margin-top: 1rem;
             padding: 10px;
-            background: #141414;
-            border: 1px solid #c59b27;
+            background: #121212;
+            border: 1px solid #333333;
             border-radius: 10px;
             text-align: right;
             font-size: 1.1rem;
-            color: #f3d06c;
+            color: #ffffff;
             font-weight: bold;
         }
     </style>
@@ -198,10 +209,10 @@
     <!-- Tela de Login -->
     <div id="login" class="center">
         <div class="card" style="width:320px">
-            <h2 style="color:#f3d06c; text-align:center; margin-top:0;">Admin Sistem</h2>
+            <h2 style="color:#ffffff; text-align:center; margin-top:0;">Admin Sistem</h2>
             <input id="code" placeholder="Código de acesso">
             <button onclick="login()">Entrar</button>
-            <p id="error" class="small" style="color:#ff9999; text-align:center;"></p>
+            <p id="error" class="small" style="color:#ffffff; text-align:center;"></p>
         </div>
     </div>
 
@@ -217,13 +228,13 @@
 
         <div id="demo" class="section active">
             <div class="card">
-                <h3 style="color:#f3d06c">Leitores / Compradores Globais</h3>
+                <h3 style="color:#ffffff">Leitores / Compradores Globais</h3>
                 <div id="map"></div>
             </div>
 
             <!-- Países onde Triohnte está vendendo -->
             <div class="card" style="margin-top: 1.5rem;">
-                <h3 style="color:#f3d06c">Países com Vendas Ativas</h3>
+                <h3 style="color:#ffffff">Países com Vendas Ativas</h3>
                 <div style="display:flex; gap:5px; flex-wrap: wrap; margin-bottom: 1rem;">
                     <input id="countryName" placeholder="Nome do País" style="flex: 2; min-width: 180px;">
                     <input id="countryCount" placeholder="Qtd. Leitores / Vendas" type="number" style="flex: 1; min-width: 120px;">
@@ -244,7 +255,7 @@
 
         <div id="fin" class="section">
             <div class="card">
-                <h3 style="color:#f3d06c">Histórico de Vendas</h3>
+                <h3 style="color:#ffffff">Histórico de Vendas</h3>
                 <div style="display:flex; gap:5px; flex-wrap: wrap;">
                     <input id="saleItem" placeholder="Item / Livro" style="flex: 1.8; min-width: 130px;">
                     <input id="saleEmail" placeholder="E-mail do Comprador" style="flex: 1.8; min-width: 140px;">
@@ -276,7 +287,7 @@
 
         <div id="plan" class="section">
             <div class="card">
-                <h3 style="color:#f3d06c">Fórum Interno</h3>
+                <h3 style="color:#ffffff">Fórum Interno</h3>
                 <textarea id="idea" placeholder="Escreva sua ideia ou planejamento..."></textarea>
                 <button onclick="postIdea()">Publicar</button>
                 <div id="forum"></div>
@@ -285,7 +296,7 @@
 
         <div id="gestao" class="section">
             <div class="card">
-                <h3 style="color:#f3d06c">Liberar Livros para Usuários</h3>
+                <h3 style="color:#ffffff">Liberar Livros para Usuários</h3>
                 <div style="display:flex; gap:5px;">
                     <input id="userEmail" placeholder="E-mail do Usuário">
                     <input id="bookID" placeholder="ID do Livro">
@@ -307,7 +318,7 @@
 
         <div id="conf" class="section">
             <div class="card">
-                <h3 style="color:#f3d06c">Conferência SW</h3>
+                <h3 style="color:#ffffff">Conferência SW</h3>
                 <button onclick="startCall()">Iniciar Sala</button>
                 <div id="callArea" class="hidden">
                     <iframe id="callFrame"></iframe>
@@ -633,7 +644,7 @@
                     const p = data[key];
                     const div = document.createElement('div');
                     div.className = 'forum-post';
-                    div.innerHTML = `<strong style="color:#f3d06c">${p.user}</strong> <span class="small">(${p.date})</span><p style="margin:5px 0 0 0">${p.text}</p>`;
+                    div.innerHTML = `<strong style="color:#ffffff">${p.user}</strong> <span class="small">(${p.date})</span><p style="margin:5px 0 0 0">${p.text}</p>`;
                     forum.appendChild(div);
                 });
             } catch (e) {
@@ -677,8 +688,8 @@
         }
 
         function criarMarcadorNoMapa(lat, lng, dbKey) {
-            const yellowIcon = L.icon({
-                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+            const blackIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
                 iconSize: [25, 41],
                 iconAnchor: [12, 41],
@@ -686,7 +697,7 @@
                 shadowSize: [41, 41]
             });
 
-            const marker = L.marker([lat, lng], { icon: yellowIcon }).addTo(map);
+            const marker = L.marker([lat, lng], { icon: blackIcon }).addTo(map);
             
             marker.on('add', function() {
                 const el = marker.getElement();
