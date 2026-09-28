@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem - Admin</title>
+    <title>Sistem - Admin (Projeto: 807217634413)</title>
     
     <!-- Bibliotecas externas -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -210,6 +210,7 @@
     <div id="login" class="center">
         <div class="card" style="width:320px">
             <h2 style="color:#ffffff; text-align:center; margin-top:0;">Admin Sistem</h2>
+            <p class="small" style="text-align:center; margin-bottom:1rem; color:#888888;">Projeto: 807217634413</p>
             <input id="code" placeholder="Código de acesso">
             <button onclick="login()">Entrar</button>
             <p id="error" class="small" style="color:#ffffff; text-align:center;"></p>
@@ -329,9 +330,11 @@
 
     <!-- Scripts da Aplicação -->
     <script>
+        const PROJECT_ID = '807217634413';
+        const DB_URL = 'https://swstore-47926-default-rtdb.europe-west1.firebasedatabase.app/';
+
         const users = { 'G200207': 'Gabriel' };
         let currentUser = '';
-        const DB_URL = 'https://triohnte-database-default-rtdb.europe-west1.firebasedatabase.app/';
 
         function login() {
             const code = document.getElementById('code').value.trim();
@@ -366,7 +369,7 @@
         /* Lógica de Países (Firebase Realtime Database) */
         async function loadCountries() {
             try {
-                const response = await fetch(`${DB_URL}/paises.json`);
+                const response = await fetch(`${DB_URL}paises.json`);
                 const data = await response.json() || {};
                 const list = document.getElementById('countriesList');
                 list.innerHTML = '';
@@ -392,7 +395,7 @@
             if (!nome) return alert("Preencha o nome do país");
 
             try {
-                await fetch(`${DB_URL}/paises.json`, {
+                await fetch(`${DB_URL}paises.json`, {
                     method: 'POST',
                     body: JSON.stringify({ nome, quantidade: quantidade || '1' })
                 });
@@ -406,7 +409,7 @@
 
         async function removerPais(key) {
             try {
-                await fetch(`${DB_URL}/paises/${key}.json`, {
+                await fetch(`${DB_URL}paises/${key}.json`, {
                     method: 'DELETE'
                 });
                 loadCountries();
@@ -459,7 +462,7 @@
         /* Lógica de Finanças / Histórico de Vendas (Firebase Realtime Database) */
         async function loadSales() {
             try {
-                const response = await fetch(`${DB_URL}/vendas.json`);
+                const response = await fetch(`${DB_URL}vendas.json`);
                 const data = await response.json() || {};
                 const list = document.getElementById('salesList');
                 list.innerHTML = '';
@@ -515,9 +518,9 @@
             if (!item || !valor) return alert("Preencha pelo menos o item e o valor da venda");
 
             try {
-                await fetch(`${DB_URL}/vendas.json`, {
+                await fetch(`${DB_URL}vendas.json`, {
                     method: 'POST',
-                    body: JSON.stringify({ item, email, formato, valor, mesAno })
+                    body: JSON.stringify({ item, email, formato, valor, mesAno, projectId: PROJECT_ID })
                 });
                 document.getElementById('saleItem').value = '';
                 document.getElementById('saleEmail').value = '';
@@ -531,7 +534,7 @@
 
         async function removerVenda(key) {
             try {
-                await fetch(`${DB_URL}/vendas/${key}.json`, {
+                await fetch(`${DB_URL}vendas/${key}.json`, {
                     method: 'DELETE'
                 });
                 loadSales();
@@ -542,7 +545,7 @@
 
         async function baixarPDFVendas() {
             try {
-                const response = await fetch(`${DB_URL}/vendas.json`);
+                const response = await fetch(`${DB_URL}vendas.json`);
                 const data = await response.json() || {};
                 
                 const { jsPDF } = window.jspdf;
@@ -616,12 +619,13 @@
             if (!text) return alert("Escreva algo para publicar");
 
             try {
-                await fetch(`${DB_URL}/forum.json`, {
+                await fetch(`${DB_URL}forum.json`, {
                     method: 'POST',
                     body: JSON.stringify({
                         user: currentUser,
                         text: text,
-                        date: new Date().toLocaleString()
+                        date: new Date().toLocaleString(),
+                        projectId: PROJECT_ID
                     })
                 });
                 document.getElementById('idea').value = '';
@@ -636,7 +640,7 @@
             forum.innerHTML = '';
             
             try {
-                const response = await fetch(`${DB_URL}/forum.json`);
+                const response = await fetch(`${DB_URL}forum.json`);
                 const data = await response.json() || {};
                 
                 const postsKeys = Object.keys(data);
@@ -675,7 +679,7 @@
             markersGroup = [];
 
             try {
-                const response = await fetch(`${DB_URL}/pins.json`);
+                const response = await fetch(`${DB_URL}pins.json`);
                 const data = await response.json() || {};
 
                 Object.keys(data).forEach(key => {
@@ -715,9 +719,9 @@
 
         async function adicionarPinNoBanco(lat, lng) {
             try {
-                await fetch(`${DB_URL}/pins.json`, {
+                await fetch(`${DB_URL}pins.json`, {
                     method: 'POST',
-                    body: JSON.stringify({ lat, lng })
+                    body: JSON.stringify({ lat, lng, projectId: PROJECT_ID })
                 });
                 carregarPins();
             } catch (e) {
@@ -727,7 +731,7 @@
 
         async function removerPinDoBanco(dbKey) {
             try {
-                await fetch(`${DB_URL}/pins/${dbKey}.json`, {
+                await fetch(`${DB_URL}pins/${dbKey}.json`, {
                     method: 'DELETE'
                 });
                 carregarPins();
