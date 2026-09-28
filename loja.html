@@ -1,83 +1,825 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja - Editora Gravura</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
+  <title>Loja - Editora Gravura</title>
 
-        .card-loja {
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 350px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 24px;
-            text-align: center;
-        }
+  <!-- Tailwind -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  >
 
-        .card-loja .editora {
-            font-size: 0.9rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        .card-loja h2 {
-            font-size: 1.5rem;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-        }
+    body {
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      font-family: "Times New Roman", Times, serif;
+    }
 
-        .card-loja .preco {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 16px;
-        }
+    .produto {
+      background: linear-gradient(145deg, #181818, #0a0a0a);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+    }
 
-        .card-loja button {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
+    .produto:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
 
-        .card-loja button:hover {
-            background-color: #333333;
-        }
-    </style>
+    .botao-comprar {
+      background: #000;
+      color: #fff;
+      border: 1px solid #fff;
+      transition: all 0.25s ease;
+    }
+
+    .botao-comprar:hover {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    .idioma-item:hover {
+      background: #333;
+    }
+
+    .mensagem {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      min-width: 280px;
+      max-width: 90%;
+      padding: 14px 18px;
+      border-radius: 8px;
+      background: #171717;
+      border: 1px solid #ffffff;
+      color: white;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(255,255,255,.1);
+    }
+
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  </style>
 </head>
-<body>
 
-    <div class="card-loja">
-        <div class="editora">Editora Gravura</div>
-        <h2>Triohnte</h2>
-        <div class="preco">R$ 49,90</div>
-        <button>Comprar Agora</button>
+<body class="p-6 md:p-10">
+
+  <!-- ========================================================= -->
+  <!-- MENSAGEM -->
+  <!-- ========================================================= -->
+
+  <div id="mensagem" class="mensagem"></div>
+
+
+  <!-- ========================================================= -->
+  <!-- SELETOR DE IDIOMA -->
+  <!-- ========================================================= -->
+
+  <div
+    id="language-selector"
+    style="
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 38px;
+      height: 38px;
+      background: #1a1a1a;
+      border: 1px solid #555;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    "
+    aria-label="Selecionar idioma"
+  >
+    <span style="color:white;font-size:15px;">▼</span>
+  </div>
+
+
+  <ul
+    id="language-list"
+    style="
+      position: fixed;
+      top: 55px;
+      right: 10px;
+      width: 150px;
+      max-height: 180px;
+      overflow-y: auto;
+      background: #111;
+      border: 1px solid #555;
+      border-radius: 6px;
+      list-style: none;
+      padding: 5px 0;
+      margin: 0;
+      display: none;
+      z-index: 9999;
+    "
+  >
+    <li
+      class="idioma-item"
+      data-lang="pt"
+      style="padding:10px 14px;color:white;cursor:pointer;"
+    >
+      Português
+    </li>
+
+    <li
+      class="idioma-item"
+      data-lang="es"
+      style="padding:10px 14px;color:white;cursor:pointer;"
+    >
+      Español
+    </li>
+
+    <li
+      class="idioma-item"
+      data-lang="en"
+      style="padding:10px 14px;color:white;cursor:pointer;"
+    >
+      English
+    </li>
+  </ul>
+
+
+  <!-- ========================================================= -->
+  <!-- CONTEÚDO PRINCIPAL -->
+  <!-- ========================================================= -->
+
+  <main class="w-full max-w-5xl mx-auto">
+
+    <header class="text-center mb-10">
+
+      <h1
+        id="titulo-principal"
+        class="text-4xl md:text-5xl font-bold mb-3 tracking-wide"
+      >
+        Loja
+      </h1>
+
+      <p
+        id="subtitulo"
+        class="text-gray-400 text-sm md:text-base"
+      >
+        Obras e publicações da Editora Gravura
+      </p>
+
+    </header>
+
+
+    <!-- ======================================================= -->
+    <!-- PRODUTOS -->
+    <!-- ======================================================= -->
+
+    <section
+      class="grid grid-cols-1 gap-8 justify-items-center"
+    >
+
+      <!-- ===================================================== -->
+      <!-- SEGREDÁRIOS -->
+      <!-- ===================================================== -->
+
+      <article
+        class="produto p-6 md:p-8 rounded-xl text-center w-full max-w-md"
+      >
+
+        <img
+          id="imagem-produto-1"
+          src="segredarios.png"
+          alt="Capa de Segredários"
+          class="mx-auto mb-6 w-full max-w-xs h-64 object-cover rounded-lg border border-gray-800"
+          onerror="this.style.display='none';"
+        >
+
+        <div class="mb-5">
+
+          <h2
+            id="produto-1-titulo"
+            class="text-2xl font-bold mb-3 text-white"
+          >
+            Segredários
+          </h2>
+
+          <p
+            id="produto-1-tipo"
+            class="text-sm text-gray-400 mb-3"
+          >
+            Novel
+          </p>
+
+          <p
+            id="produto-1-desc"
+            class="text-sm text-gray-300 mb-4 leading-relaxed"
+          >
+            Download desabilitado pela proteção de dados.
+          </p>
+
+          <p
+            id="produto-1-preco"
+            class="text-2xl font-bold mb-3 text-white"
+          >
+            R$ 1,99
+          </p>
+
+          <p
+            id="produto-1-autor"
+            class="text-sm text-gray-400"
+          >
+            De: Gabryell Aweryan
+          </p>
+
+        </div>
+
+
+        <button
+          id="botao-pdf"
+          type="button"
+          class="botao-comprar w-full px-8 py-3 rounded-full font-bold uppercase tracking-wider"
+        >
+          Comprar
+        </button>
+
+      </article>
+
+    </section>
+
+
+    <!-- ======================================================= -->
+    <!-- STATUS DO USUÁRIO -->
+    <!-- ======================================================= -->
+
+    <div
+      id="status-usuario"
+      class="text-center mt-8 text-sm text-gray-500"
+    >
+      Verificando sessão...
     </div>
+
+
+    <!-- ======================================================= -->
+    <!-- VOLTAR -->
+    <!-- ======================================================= -->
+
+    <div class="text-center">
+
+      <a
+        href="index.html"
+        id="link-voltar"
+        class="inline-block mt-12 text-gray-300 hover:text-white hover:underline transition-colors"
+      >
+        ← Voltar para a página inicial
+      </a>
+
+    </div>
+
+  </main>
+
+
+  <!-- ========================================================= -->
+  <!-- FIREBASE -->
+  <!-- ========================================================= -->
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+
+  <script>
+
+    /* =========================================================
+       CONFIGURAÇÃO FIREBASE
+       ========================================================= */
+
+    const firebaseConfig = {
+
+      apiKey: "AIzaSyBPSH4g1rtk27n9wCCBJZ2KG1UKCMH-Yjs",
+
+      authDomain:
+        "login-sw-14940.firebaseapp.com",
+
+      databaseURL:
+        "https://login-sw-14940-default-rtdb.europe-west1.firebasedatabase.app/",
+
+      projectId:
+        "login-sw-14940",
+
+      appId:
+        "1:252978150700:web:2c7d3997389f7675058089"
+
+    };
+
+
+    /* =========================================================
+       INICIALIZAR FIREBASE
+       ========================================================= */
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    const auth = firebase.auth();
+
+    const db = firebase.database();
+
+
+    /* =========================================================
+       ELEMENTOS
+       ========================================================= */
+
+    const selector =
+      document.getElementById("language-selector");
+
+    const list =
+      document.getElementById("language-list");
+
+    const botaoCompra =
+      document.getElementById("botao-pdf");
+
+    const statusUsuario =
+      document.getElementById("status-usuario");
+
+    const mensagem =
+      document.getElementById("mensagem");
+
+
+    /* =========================================================
+       SISTEMA DE MENSAGEM
+       ========================================================= */
+
+    function mostrarMensagem(texto, tempo = 3000) {
+
+      mensagem.textContent = texto;
+
+      mensagem.style.display = "block";
+
+      setTimeout(() => {
+
+        mensagem.style.display = "none";
+
+      }, tempo);
+
+    }
+
+
+    /* =========================================================
+       IDIOMAS
+       ========================================================= */
+
+    const traducoes = {
+
+      pt: {
+
+        tituloPrincipal:
+          "Loja",
+
+        subtitulo:
+          "Obras e publicações da Editora Gravura",
+
+        produtoTitulo:
+          "Segredários",
+
+        produtoTipo:
+          "Novel",
+
+        produtoDesc:
+          "Download desabilitado pela proteção de dados.",
+
+        produtoPreco:
+          "R$ 1,99",
+
+        produtoAutor:
+          "De: Gabryell Aweryan",
+
+        botaoComprar:
+          "Comprar",
+
+        linkVoltar:
+          "← Voltar para a página inicial",
+
+        verificando:
+          "Verificando sessão...",
+
+        conectado:
+          "Você está conectado.",
+
+        desconectado:
+          "Você precisa estar conectado para comprar.",
+
+        login:
+          "Faça login para continuar.",
+
+        encaminhando:
+          "Encaminhando para a página de compra...",
+
+        erro:
+          "Não foi possível iniciar a compra."
+
+      },
+
+
+      en: {
+
+        tituloPrincipal:
+          "Store",
+
+        subtitulo:
+          "Works and publications from Editora Gravura",
+
+        produtoTitulo:
+          "Segredários",
+
+        produtoTipo:
+          "Novel",
+
+        produtoDesc:
+          "Download disabled by data protection.",
+
+        produtoPreco:
+          "R$ 1.99",
+
+        produtoAutor:
+          "By: Gabryell Aweryan",
+
+        botaoComprar:
+          "Buy Now",
+
+        linkVoltar:
+          "← Back to the homepage",
+
+        verificando:
+          "Checking session...",
+
+        conectado:
+          "You are signed in.",
+
+        desconectado:
+          "You need to sign in to purchase.",
+
+        login:
+          "Please sign in to continue.",
+
+        encaminhando:
+          "Redirecting to the purchase page...",
+
+        erro:
+          "Unable to start the purchase."
+
+      },
+
+
+      es: {
+
+        tituloPrincipal:
+          "Tienda",
+
+        subtitulo:
+          "Obras y publicaciones de Editora Gravura",
+
+        produtoTitulo:
+          "Segredários",
+
+        produtoTipo:
+          "Novela",
+
+        produtoDesc:
+          "Descarga deshabilitada por protección de datos.",
+
+        produtoPreco:
+          "R$ 1,99",
+
+        produtoAutor:
+          "De: Gabryell Aweryan",
+
+        botaoComprar:
+          "Comprar",
+
+        linkVoltar:
+          "← Volver a la página principal",
+
+        verificando:
+          "Verificando sesión...",
+
+        conectado:
+          "Has iniciado sesión.",
+
+        desconectado:
+          "Debes iniciar sesión para comprar.",
+
+        login:
+          "Inicia sesión para continuar.",
+
+        encaminhando:
+          "Redirigiendo a la página de compra...",
+
+        erro:
+          "No se pudo iniciar la compra."
+
+      }
+
+    };
+
+
+    /* =========================================================
+       IDIOMA ATUAL
+       ========================================================= */
+
+    let idiomaAtual =
+      localStorage.getItem("idioma") || "pt";
+
+
+    /* =========================================================
+       APLICAR IDIOMA
+       ========================================================= */
+
+    function setLanguage(lang) {
+
+      if (!traducoes[lang]) {
+        lang = "pt";
+      }
+
+      idiomaAtual = lang;
+
+      const t =
+        traducoes[lang];
+
+
+      document.documentElement.lang =
+        lang === "pt"
+          ? "pt-BR"
+          : lang;
+
+
+      document.title =
+        t.tituloPrincipal +
+        " - Editora Gravura";
+
+
+      document.getElementById(
+        "titulo-principal"
+      ).textContent =
+        t.tituloPrincipal;
+
+
+      document.getElementById(
+        "subtitulo"
+      ).textContent =
+        t.subtitulo;
+
+
+      document.getElementById(
+        "produto-1-titulo"
+      ).textContent =
+        t.produtoTitulo;
+
+
+      document.getElementById(
+        "produto-1-tipo"
+      ).textContent =
+        t.produtoTipo;
+
+
+      document.getElementById(
+        "produto-1-desc"
+      ).textContent =
+        t.produtoDesc;
+
+
+      document.getElementById(
+        "produto-1-preco"
+      ).textContent =
+        t.produtoPreco;
+
+
+      document.getElementById(
+        "produto-1-autor"
+      ).textContent =
+        t.produtoAutor;
+
+
+      document.getElementById(
+        "botao-pdf"
+      ).textContent =
+        t.botaoComprar;
+
+
+      document.getElementById(
+        "link-voltar"
+      ).textContent =
+        t.linkVoltar;
+
+
+      localStorage.setItem(
+        "idioma",
+        lang
+      );
+
+
+      atualizarStatusUsuario();
+
+    }
+
+
+    /* =========================================================
+       MENU DE IDIOMAS
+       ========================================================= */
+
+    selector.addEventListener(
+      "click",
+      function(event) {
+
+        event.stopPropagation();
+
+        const aberto =
+          list.style.display === "block";
+
+        list.style.display =
+          aberto
+            ? "none"
+            : "block";
+
+      }
+    );
+
+
+    document.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          !selector.contains(event.target) &&
+          !list.contains(event.target)
+        ) {
+
+          list.style.display =
+            "none";
+
+        }
+
+      }
+    );
+
+
+    document
+      .querySelectorAll(".idioma-item")
+      .forEach(function(item) {
+
+        item.addEventListener(
+          "click",
+          function() {
+
+            const idioma =
+              this.dataset.lang;
+
+            setLanguage(idioma);
+
+            list.style.display =
+              "none";
+
+          }
+        );
+
+      });
+
+
+    /* =========================================================
+       ESTADO DO LOGIN
+       ========================================================= */
+
+    let usuarioAtual = null;
+
+
+    auth.onAuthStateChanged(
+      function(user) {
+
+        usuarioAtual = user;
+
+        atualizarStatusUsuario();
+
+      }
+    );
+
+
+    /* =========================================================
+       ATUALIZAR STATUS DO USUÁRIO
+       ========================================================= */
+
+    function atualizarStatusUsuario() {
+
+      if (!statusUsuario) {
+        return;
+      }
+
+
+      const t =
+        traducoes[idiomaAtual] ||
+        traducoes.pt;
+
+
+      if (usuarioAtual) {
+
+        statusUsuario.textContent =
+          t.conectado;
+
+        statusUsuario.className =
+          "text-center mt-8 text-sm text-gray-300";
+
+      } else {
+
+        statusUsuario.textContent =
+          t.desconectado;
+
+        statusUsuario.className =
+          "text-center mt-8 text-sm text-gray-500";
+
+      }
+
+    }
+
+
+    /* =========================================================
+       COMPRAR SEGREDÁRIOS
+       ========================================================= */
+
+    function iniciarCompra() {
+
+      const t =
+        traducoes[idiomaAtual] ||
+        traducoes.pt;
+
+
+      if (!usuarioAtual) {
+
+        mostrarMensagem(
+          t.login
+        );
+
+        return;
+      }
+
+
+      botaoCompra.classList.add(
+        "loading"
+      );
+
+
+      botaoCompra.textContent =
+        t.encaminhando;
+
+
+      window.location.href =
+        "compras.html?produto=segredarios";
+
+    }
+
+
+    /* =========================================================
+       BOTÃO
+       ========================================================= */
+
+    botaoCompra.addEventListener(
+      "click",
+      iniciarCompra
+    );
+
+
+    /* =========================================================
+       INICIALIZAÇÃO
+       ========================================================= */
+
+    window.addEventListener(
+      "load",
+      function() {
+
+        setLanguage(
+          localStorage.getItem("idioma") || "pt"
+        );
+
+      }
+    );
+
+  </script>
 
 </body>
 </html>
