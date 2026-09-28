@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -26,25 +25,28 @@
     }
 
     .produto {
-      background: linear-gradient(145deg, #281109, #160805);
-      border: 1px solid rgba(180, 130, 70, 0.25);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      background: linear-gradient(145deg, #181818, #0a0a0a);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
 
     .produto:hover {
       transform: translateY(-4px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 15px 40px rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
     .botao-comprar {
       background: #000;
-      border: 1px solid #6b4628;
+      color: #fff;
+      border: 1px solid #fff;
       transition: all 0.25s ease;
     }
 
     .botao-comprar:hover {
-      background: #211007;
-      border-color: #a87945;
+      background: #fff;
+      color: #000;
+      border-color: #fff;
     }
 
     .idioma-item:hover {
@@ -63,10 +65,10 @@
       padding: 14px 18px;
       border-radius: 8px;
       background: #171717;
-      border: 1px solid #6b4628;
+      border: 1px solid #ffffff;
       color: white;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,.5);
+      box-shadow: 0 10px 30px rgba(255,255,255,.1);
     }
 
     .loading {
@@ -98,7 +100,7 @@
       width: 38px;
       height: 38px;
       background: #1a1a1a;
-      border: 1px solid #444;
+      border: 1px solid #555;
       border-radius: 6px;
       cursor: pointer;
       display: flex;
@@ -121,7 +123,7 @@
       width: 150px;
       max-height: 180px;
       overflow-y: auto;
-      background: #222;
+      background: #111;
       border: 1px solid #555;
       border-radius: 6px;
       list-style: none;
@@ -167,7 +169,7 @@
 
       <h1
         id="titulo-principal"
-        class="text-4xl md:text-5xl font-bold mb-3"
+        class="text-4xl md:text-5xl font-bold mb-3 tracking-wide"
       >
         Loja
       </h1>
@@ -212,7 +214,7 @@
           id="imagem-produto-1"
           src="segredarios.png"
           alt="Capa de Segredários"
-          class="mx-auto mb-6 w-full max-w-xs h-64 object-cover rounded-lg"
+          class="mx-auto mb-6 w-full max-w-xs h-64 object-cover rounded-lg border border-gray-800"
           onerror="this.style.display='none';"
         >
 
@@ -220,7 +222,7 @@
 
           <h2
             id="produto-1-titulo"
-            class="text-2xl font-bold mb-3"
+            class="text-2xl font-bold mb-3 text-white"
           >
             Segredários
           </h2>
@@ -241,7 +243,7 @@
 
           <p
             id="produto-1-preco"
-            class="text-2xl font-bold mb-3"
+            class="text-2xl font-bold mb-3 text-white"
           >
             R$ 1,99
           </p>
@@ -259,7 +261,7 @@
         <button
           id="botao-pdf"
           type="button"
-          class="botao-comprar w-full px-8 py-3 rounded-full font-bold"
+          class="botao-comprar w-full px-8 py-3 rounded-full font-bold uppercase tracking-wider"
         >
           Comprar
         </button>
@@ -290,7 +292,7 @@
       <a
         href="index.html"
         id="link-voltar"
-        class="inline-block mt-12 text-blue-400 hover:underline"
+        class="inline-block mt-12 text-gray-300 hover:text-white hover:underline transition-colors"
       >
         ← Voltar para a página inicial
       </a>
@@ -757,7 +759,7 @@
           t.conectado;
 
         statusUsuario.className =
-          "text-center mt-8 text-sm text-green-500";
+          "text-center mt-8 text-sm text-gray-300";
 
       } else {
 
@@ -868,4 +870,3 @@
 
 </body>
 </html>
-```
