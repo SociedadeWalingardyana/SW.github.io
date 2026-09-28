@@ -177,7 +177,7 @@
 
 <header class="p-4 shadow-md bg-black">
   <div class="container mx-auto flex flex-col items-center">
-    <img src="oficial.png" class="w-32 mb-2" alt="Logo">
+    <img src="db.png" class="w-32 mb-2" alt="Logo">
     <h1 class="text-2xl font-bold">Editora Gravura</h1>
     <nav class="flex flex-wrap justify-center gap-4 mt-2">
       <a href="novidades.html" class="hover:text-yellow-600">Notícias</a>
@@ -197,15 +197,11 @@
 
 </section>
 
-
-
 <footer class="w-full bg-black py-10 mt-auto border-t border-gray-900">
     <div class="text-center text-gray-400 text-xs md:text-sm">
         &copy; 2025 Editora Gravura. Todos os direitos reservados.
     </div>
 </footer>
-
-
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -270,34 +266,33 @@
       });
     });
 
-// Localize o evento de salvar e substitua por este:
-document.getElementById('btn-salvar-realtime').onclick = function() {
-    console.log("Tentando salvar..."); // Isso deve aparecer no F12
-    
-    const user = auth.currentUser;
-    if (!user) {
-        alert("Erro: Você não está logado!");
-        return;
-    }
+    document.getElementById('btn-salvar-realtime').onclick = function() {
+        console.log("Tentando salvar...");
+        
+        const user = auth.currentUser;
+        if (!user) {
+            alert("Erro: Você não está logado!");
+            return;
+        }
 
-    const dados = {
-        nome: document.getElementById('db-nome').value,
-        cpf: document.getElementById('db-cpf').value,
-        endereco: document.getElementById('db-endereco').value,
-        idade: document.getElementById('db-idade').value,
-        genero: document.getElementById('db-genero').value
+        const dados = {
+            nome: document.getElementById('db-nome').value,
+            cpf: document.getElementById('db-cpf').value,
+            endereco: document.getElementById('db-endereco').value,
+            idade: document.getElementById('db-idade').value,
+            genero: document.getElementById('db-genero').value
+        };
+
+        database.ref('usuarios/' + user.uid).update(dados)
+            .then(() => {
+                alert("Dados salvos com sucesso!");
+                document.getElementById('edit-modal').classList.replace('flex', 'hidden');
+            })
+            .catch((erro) => {
+                console.error("Erro técnico:", erro);
+                alert("❌ Erro de permissão: " + erro.message);
+            });
     };
-
-    database.ref('usuarios/' + user.uid).update(dados)
-        .then(() => {
-            alert("Dados salvos com sucesso!");
-            document.getElementById('edit-modal').classList.replace('flex', 'hidden');
-        })
-        .catch((erro) => {
-            console.error("Erro técnico:", erro);
-            alert("❌ Erro de permissão: " + erro.message);
-        });
-};
 
     // Login e Registro
     document.getElementById('login-btn').onclick = () => {
@@ -331,4 +326,3 @@ document.getElementById('btn-salvar-realtime').onclick = function() {
   </script>
 </body>
 </html>
-
