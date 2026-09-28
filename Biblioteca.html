@@ -7,9 +7,12 @@
 <title>Biblioteca</title>
 
 <style>
-/* ================================
-   PALETA PRETA E BRANCA
-================================ */
+
+/* =========================================================
+   PALETA
+   CABEÇALHO: BRANCO
+   RESTANTE: PRETO
+========================================================= */
 
 body {
     margin: 0;
@@ -18,17 +21,34 @@ body {
     color: #fff;
 }
 
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
 .topbar {
     padding: 1rem;
-    background: #000;
+    background: #fff;
+    color: #000;
     display: flex;
     align-items: center;
     gap: 1rem;
     position: sticky;
     top: 0;
     z-index: 10;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #000;
+    box-sizing: border-box;
 }
+
+.topbar h1,
+.topbar h2,
+.topbar span,
+.topbar div {
+    color: #000;
+}
+
+/* =========================================================
+   ESTRUTURA
+========================================================= */
 
 .layout {
     display: flex;
@@ -42,6 +62,12 @@ body {
     border-right: 1px solid #fff;
     width: 260px;
     flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.sidebar h2,
+.sidebar h3 {
+    color: #fff;
 }
 
 .main {
@@ -50,9 +76,14 @@ body {
     gap: 1.5rem;
     padding: 1rem;
     align-items: flex-start;
+    background: #000;
+    box-sizing: border-box;
 }
 
-/* Grade de livros principal */
+/* =========================================================
+   GRADE DE LIVROS
+========================================================= */
+
 #grade {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -60,7 +91,10 @@ body {
     flex: 1;
 }
 
-/* Coluna de Novels */
+/* =========================================================
+   NOVELS
+========================================================= */
+
 #novelGrid {
     width: 300px;
     background: #000;
@@ -70,6 +104,7 @@ body {
     padding: 1rem;
     border-left: 1px solid #fff;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 #novelGrid h2 {
@@ -77,10 +112,13 @@ body {
     font-weight: bold;
     text-align: center;
     color: #fff;
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.5rem 0;
 }
 
-/* Cards */
+/* =========================================================
+   CARDS
+========================================================= */
+
 .card-book {
     background: #000;
     border-radius: 20px;
@@ -89,11 +127,12 @@ body {
     flex-direction: column;
     border: 1px solid #fff;
     height: auto;
+    box-sizing: border-box;
 }
 
 .cover {
     width: 100%;
-    aspect-ratio: 3/4;
+    aspect-ratio: 3 / 4;
     background: #000;
     flex-shrink: 0;
 }
@@ -102,6 +141,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .meta {
@@ -117,7 +157,6 @@ body {
 
 .meta .author {
     color: #fff;
-    opacity: 0.7;
     font-size: 0.9rem;
     font-style: italic;
     margin-bottom: 0.8rem;
@@ -126,12 +165,14 @@ body {
 .meta .synopsis {
     font-size: 0.85rem;
     color: #fff;
-    opacity: 0.8;
     line-height: 1.5;
     white-space: pre-line;
 }
 
-/* Botões */
+/* =========================================================
+   AÇÕES
+========================================================= */
+
 .actions {
     display: flex;
     gap: 0.8rem;
@@ -156,6 +197,7 @@ body {
     width: 70px;
     height: 38px;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .btn:hover {
@@ -164,9 +206,9 @@ body {
 }
 
 .btn:disabled {
-    opacity: 0.3;
+    opacity: 0.35;
     cursor: not-allowed;
-    filter: grayscale(1);
+    filter: none;
 }
 
 .btn:disabled:hover {
@@ -190,9 +232,9 @@ body {
     font-size: 0.75rem;
 }
 
-/* ================================
+/* =========================================================
    COMENTÁRIOS
-================================ */
+========================================================= */
 
 .comment-section {
     margin-top: 2rem;
@@ -200,6 +242,7 @@ body {
     padding: 1rem;
     border: 1px solid #fff;
     border-radius: 12px;
+    box-sizing: border-box;
 }
 
 .comment-section textarea {
@@ -216,7 +259,7 @@ body {
 
 .comment-section textarea::placeholder {
     color: #fff;
-    opacity: 0.5;
+    opacity: 0.65;
 }
 
 .btn-comment {
@@ -252,20 +295,19 @@ body {
 
 .comentario-meta {
     color: #fff;
-    opacity: 0.6;
     font-size: 0.75rem;
     display: block;
     margin-top: 6px;
 }
 
-/* ================================
+/* =========================================================
    DRAWER
-================================ */
+========================================================= */
 
 .drawer {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.98);
+    background: #000;
     display: flex;
     flex-direction: column;
     transform: translateY(100%);
@@ -283,6 +325,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: #000;
 }
 
 .drawer-content img {
@@ -292,14 +335,22 @@ body {
     margin-bottom: 1rem;
 }
 
+/* Cabeçalho do Drawer também branco */
+
 #drawer .topbar {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     padding: 1rem;
-    background: #000;
-    border-bottom: 1px solid #fff;
+    background: #fff;
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+
+#drawer .topbar h2 {
+    color: #000;
+    margin: 0;
 }
 
 #drawer .topbar #closeDrawer {
@@ -312,9 +363,29 @@ body {
     right: 1rem;
 }
 
-/* ================================
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+}
+
+/* =========================================================
    RESPONSIVIDADE
-================================ */
+========================================================= */
 
 @media (max-width: 900px) {
 
@@ -323,7 +394,7 @@ body {
     }
 
     .sidebar {
-        width: auto;
+        width: 100%;
         border-right: none;
         border-bottom: 1px solid #fff;
     }
@@ -337,17 +408,20 @@ body {
     }
 
     #novelGrid {
-        width: auto;
+        width: 100%;
         border-left: none;
         border-top: 1px solid #fff;
     }
 }
+
 </style>
 </head>
 
 <body>
 
-<header class="topbar">Biblioteca</header>
+<header class="topbar">
+    Biblioteca
+</header>
 
 <div class="layout">
 
@@ -479,312 +553,4 @@ function renderCard(item, container, includeFav = false) {
             <h3>${item.titulo}</h3>
 
             <div class="author">
-                Por: ${item.autor}
-            </div>
-
-            <div class="synopsis">
-                ${item.synopsis}
-            </div>
-        </div>
-
-        <div class="actions">
-
-            <button
-                class="btn ler"
-                data-id="${item.id}"
-                disabled
-            >
-                Ler
-            </button>
-
-            ${
-                includeFav
-                ?
-                `
-                <button
-                    class="btn fav"
-                    aria-pressed="false"
-                    data-id="${item.id}"
-                >
-                    <span
-                        class="star-count"
-                        id="stars-${item.id}"
-                    >
-                        0
-                    </span>
-                </button>
-                `
-                :
-                ""
-            }
-
-        </div>
-    `;
-
-    container.appendChild(card);
-}
-
-livros.forEach(l => renderCard(l, grade, true));
-novels.forEach(n => renderCard(n, novelGrid, true));
-
-
-/* ================================
-   GESTÃO DE ACESSO
-================================ */
-
-function atualizarPermissoesBotao(emailLogado) {
-
-    const permissoes =
-        JSON.parse(localStorage.getItem("sw_permissoes")) || [];
-
-    const botoesLer =
-        document.querySelectorAll(".btn.ler");
-
-    botoesLer.forEach(botao => {
-
-        const idDoLivro =
-            botao.getAttribute("data-id");
-
-        const temAcesso =
-            permissoes.some(p =>
-                p.email.toLowerCase() === emailLogado.toLowerCase() &&
-                p.bookId.toString() === idDoLivro.toString()
-            );
-
-        if (temAcesso) {
-
-            botao.disabled = false;
-            botao.innerText = "Ler";
-
-        } else {
-
-            botao.disabled = true;
-            botao.innerText = "🔒";
-
-        }
-
-    });
-}
-
-auth.onAuthStateChanged(user => {
-
-    if (user && user.email) {
-        atualizarPermissoesBotao(user.email);
-    }
-
-});
-
-
-/* ================================
-   EVENTOS DE CLIQUE
-================================ */
-
-document.body.addEventListener("click", e => {
-
-    const btnLer =
-        e.target.closest(".ler");
-
-    if (btnLer && !btnLer.disabled) {
-
-        const id =
-            btnLer.dataset.id;
-
-        const item =
-            [...livros, ...novels]
-                .find(x => x.id == id);
-
-        if (item) {
-            openDrawer(item);
-        }
-
-        return;
-    }
-
-    const btnFav =
-        e.target.closest(".fav");
-
-    if (btnFav) {
-
-        const id =
-            btnFav.dataset.id;
-
-        btnFav.setAttribute(
-            "aria-pressed",
-            "true"
-        );
-
-        db.ref("estrelas/" + id)
-            .transaction(v => (v || 0) + 1);
-    }
-
-});
-
-
-/* ================================
-   DRAWER
-================================ */
-
-function openDrawer(item) {
-
-    const drawer =
-        document.getElementById("drawer");
-
-    const content =
-        document.querySelector(".drawer-content");
-
-    document.getElementById("drawerTitle")
-        .textContent = item.titulo;
-
-    content.innerHTML = "";
-
-    for (
-        let i = 1;
-        i <= item.totalPaginas;
-        i++
-    ) {
-
-        const img =
-            document.createElement("img");
-
-        img.src =
-            `${item.pasta}/${item.prefixo}${i}.png`;
-
-        content.appendChild(img);
-    }
-
-    drawer.classList.add("open");
-
-    document.body.style.overflow = "hidden";
-}
-
-document.getElementById("closeDrawer").onclick = () => {
-
-    document
-        .getElementById("drawer")
-        .classList.remove("open");
-
-    document.body.style.overflow = "auto";
-
-};
-
-
-/* ================================
-   SISTEMA DE COMENTÁRIOS
-================================ */
-
-const btnComment =
-    document.getElementById("btnComment");
-
-const textarea =
-    document.getElementById("commentText");
-
-btnComment.onclick = () => {
-
-    const user =
-        auth.currentUser;
-
-    if (!user) {
-        return alert("Faça login para comentar.");
-    }
-
-    if (!textarea.value.trim()) {
-        return;
-    }
-
-    db.ref(`usuarios/${user.uid}`)
-        .once("value", snap => {
-
-            const d =
-                snap.val() || {};
-
-            db.ref("comentarios").push({
-
-                texto:
-                    textarea.value,
-
-                data:
-                    Date.now(),
-
-                pais:
-                    `- de ${
-                        d.nome ||
-                        user.email.split("@")[0]
-                    } (${
-                        d.pais ||
-                        "Walingardyn"
-                    })`
-
-            });
-
-            textarea.value = "";
-
-        });
-};
-
-
-db.ref("comentarios")
-    .on("child_added", snapshot => {
-
-        const dados =
-            snapshot.val();
-
-        const lista =
-            document.getElementById(
-                "listaComentarios"
-            );
-
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "comentario-item";
-
-        div.innerHTML = `
-
-            <p class="comentario-texto">
-                ${dados.texto}
-            </p>
-
-            <small class="comentario-meta">
-                ${dados.pais}
-                •
-                ${new Date(dados.data)
-                    .toLocaleDateString()}
-            </small>
-
-        `;
-
-        lista.prepend(div);
-
-    });
-
-
-/* ================================
-   ESTRELAS
-================================ */
-
-[...livros, ...novels]
-    .forEach(item => {
-
-        db.ref("estrelas/" + item.id)
-            .on("value", snap => {
-
-                const el =
-                    document.getElementById(
-                        "stars-" + item.id
-                    );
-
-                if (el) {
-                    el.textContent =
-                        snap.val() || 0;
-                }
-
-            });
-
-    });
-
-</script>
-
-</body>
-</html>
-```
+                Por: ${
