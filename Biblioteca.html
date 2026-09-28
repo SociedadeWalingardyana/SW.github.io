@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -201,4 +200,1903 @@ header {
 
     position: relative;
 
-   
+    border: 1px solid #222;
+}
+
+.cover img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform .5s ease;
+}
+
+.card-book:hover .cover img {
+    transform: scale(1.025);
+}
+
+.meta {
+    padding: 22px 2px 10px;
+}
+
+.meta h3 {
+    font-size: 1.55rem;
+
+    font-weight: normal;
+
+    margin: 0 0 8px;
+}
+
+.author {
+    font-family: Arial, sans-serif;
+
+    font-size: .7rem;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+    color: #888;
+
+    margin-bottom: 18px;
+}
+
+.synopsis {
+    font-family: Arial, sans-serif;
+
+    font-size: .83rem;
+
+    line-height: 1.65;
+
+    color: #aaa;
+
+    white-space: pre-line;
+}
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.actions {
+    display: flex;
+
+    gap: 8px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #222;
+}
+
+.btn {
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: 1px solid #fff;
+
+    background: #000;
+
+    color: #fff;
+
+    font-family: Arial, sans-serif;
+
+    font-size: .7rem;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        .2s ease;
+}
+
+.btn:hover:not(:disabled) {
+    background: #fff;
+    color: #000;
+}
+
+.btn:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+}
+
+.fav {
+    width: 80px;
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    font-size: 1rem;
+}
+
+.fav[aria-pressed="true"]::before {
+    content: "★";
+}
+
+.fav[aria-pressed="false"]::before {
+    content: "☆";
+}
+
+.star-count {
+    font-family: Arial, sans-serif;
+
+    font-size: .65rem;
+
+    margin-left: 4px;
+}
+
+/* =========================================================
+   NOVELS
+========================================================= */
+
+#novelGrid {
+    width: auto;
+
+    background: #000;
+
+    border-left: 1px solid #fff;
+
+    padding-left: 30px;
+}
+
+#novelGrid > h2 {
+    margin: 0 0 28px;
+
+    font-size: 1.7rem;
+
+    font-weight: normal;
+}
+
+#novelGrid .card-book {
+    margin-bottom: 45px;
+}
+
+#novelGrid .meta h3 {
+    font-size: 1.35rem;
+}
+
+#novelGrid .cover {
+    aspect-ratio: 3 / 4;
+}
+
+/* =========================================================
+   COMENTÁRIOS
+========================================================= */
+
+.comments {
+    margin-top: 90px;
+
+    padding-top: 35px;
+
+    border-top: 1px solid #fff;
+}
+
+.comments-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: baseline;
+
+    margin-bottom: 30px;
+}
+
+.comments-header h2 {
+    margin: 0;
+
+    font-size: 1.8rem;
+
+    font-weight: normal;
+}
+
+.comments-header span {
+    font-family: Arial, sans-serif;
+
+    font-size: .65rem;
+
+    letter-spacing: .2em;
+
+    text-transform: uppercase;
+
+    color: #888;
+}
+
+.comment-form {
+    display: grid;
+
+    grid-template-columns:
+        1fr 130px;
+
+    gap: 10px;
+
+    margin-bottom: 40px;
+}
+
+.comment-form textarea {
+    height: 90px;
+
+    resize: none;
+
+    background: #000;
+
+    color: #fff;
+
+    border: 1px solid #333;
+
+    padding: 15px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: .85rem;
+
+    outline: none;
+}
+
+.comment-form textarea:focus {
+    border-color: #fff;
+}
+
+.comment-form textarea::placeholder {
+    color: #555;
+}
+
+.btn-comment {
+    background: #fff;
+
+    color: #000;
+
+    border: 1px solid #fff;
+
+    cursor: pointer;
+
+    font-family: Arial, sans-serif;
+
+    font-size: .7rem;
+
+    letter-spacing: .15em;
+
+    text-transform: uppercase;
+}
+
+.btn-comment:hover {
+    background: #000;
+
+    color: #fff;
+}
+
+.btn-comment:disabled {
+    opacity: .5;
+
+    cursor: wait;
+}
+
+#listaComentarios {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 25px;
+}
+
+.comentario-item {
+    border-top: 1px solid #333;
+
+    padding-top: 15px;
+}
+
+.comentario-texto {
+    font-family: Georgia, serif;
+
+    font-size: 1rem;
+
+    line-height: 1.5;
+
+    margin: 0;
+}
+
+.comentario-meta {
+    display: block;
+
+    color: #666;
+
+    font-family: Arial, sans-serif;
+
+    font-size: .65rem;
+
+    margin-top: 12px;
+}
+
+/* =========================================================
+   LEITOR
+========================================================= */
+
+.drawer {
+    position: fixed;
+
+    inset: 0;
+
+    background: #000;
+
+    display: flex;
+
+    flex-direction: column;
+
+    transform: translateY(100%);
+
+    transition:
+        transform .35s ease;
+
+    z-index: 500;
+}
+
+.drawer.open {
+    transform: translateY(0);
+}
+
+.drawer-header {
+    min-height: 75px;
+
+    background: #fff;
+
+    color: #000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    padding: 15px 80px;
+}
+
+.drawer-header h2 {
+    margin: 0;
+
+    font-size: 1.15rem;
+
+    font-weight: normal;
+
+    text-align: center;
+}
+
+.drawer-header .btn {
+    position: absolute;
+
+    border-color: #000;
+
+    background: #fff;
+
+    color: #000;
+}
+
+#closeDrawer {
+    left: 20px;
+}
+
+#toggleSlide {
+    right: 20px;
+}
+
+.drawer-content {
+    overflow-y: auto;
+
+    padding: 35px 20px 100px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.drawer-content img {
+    width: 100%;
+
+    max-width: 850px;
+
+    height: auto;
+
+    display: block;
+
+    margin-bottom: 20px;
+}
+
+/* =========================================================
+   MENSAGEM DE SISTEMA
+========================================================= */
+
+.system-message {
+    padding: 30px 0;
+
+    color: #777;
+
+    font-family: Arial, sans-serif;
+
+    font-size: .8rem;
+
+    line-height: 1.6;
+}
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .library-layout {
+        grid-template-columns: 1fr;
+    }
+
+    #novelGrid {
+        border-left: none;
+
+        border-top: 1px solid #fff;
+
+        padding: 40px 0 0;
+    }
+
+    #novelGrid .card-book {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    header {
+        min-height: 65px;
+
+        padding: 0 20px;
+    }
+
+    .header-title {
+        display: none;
+    }
+
+    .hero {
+        padding: 50px 20px 45px;
+    }
+
+    .content {
+        width: calc(100% - 40px);
+
+        padding-top: 40px;
+    }
+
+    #grade {
+        grid-template-columns: 1fr;
+    }
+
+    .comment-form {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-comment {
+        height: 45px;
+    }
+
+    .drawer-header {
+        padding-left: 75px;
+
+        padding-right: 75px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     CABEÇALHO
+===================================================== -->
+
+<header>
+
+    <div class="logo">
+        Biblioteca
+    </div>
+
+    <div class="header-title">
+        Editora Gravura
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-label">
+        Acervo literário
+    </div>
+
+    <h1>
+        Gravura
+    </h1>
+
+    <p>
+        Um lugar para reunir histórias, mundos e autores.
+        Explore as obras disponíveis no acervo da Editora Gravura.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     CONTEÚDO
+===================================================== -->
+
+<main class="content">
+
+    <div class="section-heading">
+
+        <h2>
+            Obras
+        </h2>
+
+        <span>
+            Catálogo
+        </span>
+
+    </div>
+
+
+    <div class="library-layout">
+
+
+        <!-- =================================================
+             LIVROS PRINCIPAIS
+        ================================================== -->
+
+        <section>
+
+            <div id="grade"></div>
+
+        </section>
+
+
+        <!-- =================================================
+             NOVELS
+        ================================================== -->
+
+        <aside id="novelGrid">
+
+            <h2>
+                Nossos Novels
+            </h2>
+
+        </aside>
+
+    </div>
+
+
+    <!-- =================================================
+         COMENTÁRIOS
+    ================================================== -->
+
+    <section class="comments">
+
+        <div class="comments-header">
+
+            <h2>
+                Leituras
+            </h2>
+
+            <span>
+                Comentários dos leitores
+            </span>
+
+        </div>
+
+
+        <div class="comment-form">
+
+            <textarea
+                id="commentText"
+                placeholder="Compartilhe suas impressões sobre uma obra..."
+            ></textarea>
+
+
+            <button
+                class="btn-comment"
+                id="btnComment"
+            >
+                Publicar
+            </button>
+
+        </div>
+
+
+        <div id="listaComentarios"></div>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     LEITOR
+===================================================== -->
+
+<div
+    id="drawer"
+    class="drawer"
+    aria-hidden="true"
+>
+
+    <div class="drawer-header">
+
+        <button
+            class="btn"
+            id="closeDrawer"
+        >
+            Fechar
+        </button>
+
+
+        <h2 id="drawerTitle"></h2>
+
+
+        <button
+            class="btn"
+            id="toggleSlide"
+        >
+            Slide
+        </button>
+
+    </div>
+
+
+    <div class="drawer-content"></div>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+
+<script>
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyBPSH4g1rtk27n9wCCBJZ2GK1UKCMH-Yjs",
+
+    authDomain:
+        "login-sw-14940.firebaseapp.com",
+
+    databaseURL:
+        "https://login-sw-14940-default-rtdb.europe-west1.firebasedatabase.app",
+
+    projectId:
+        "login-sw-14940",
+
+    storageBucket:
+        "login-sw-14940.firebasestorage.app",
+
+    messagingSenderId:
+        "252978150700",
+
+    appId:
+        "1:252978150700:web:2c7d3997389f7675058089",
+
+    measurementId:
+        "G-5G7MWZHKCS"
+
+};
+
+
+/* =========================================================
+   INICIALIZAÇÃO ÚNICA
+========================================================= */
+
+if (!firebase.apps.length) {
+
+    firebase.initializeApp(
+        firebaseConfig
+    );
+
+}
+
+
+const auth =
+    firebase.auth();
+
+
+const db =
+    firebase.database();
+
+
+console.log(
+    "Firebase conectado:",
+    firebase.app().options.projectId
+);
+
+
+/* =========================================================
+   DADOS DOS LIVROS
+========================================================= */
+
+const livros = [
+
+    {
+
+        id: 1,
+
+        titulo:
+            "Melissa",
+
+        autor:
+            "Wellington Novaes",
+
+        capa:
+            "link_da_capa.png",
+
+        pasta:
+            "paginas_compendio",
+
+        totalPaginas:
+            6,
+
+        prefixo:
+            "Pagina ",
+
+        synopsis:
+            "Composto ao longo de treze anos, Melissa — Desespero, Amor e Morte, é uma antologia de contos de terror, realismo mágico, crônicas e confissões..."
+
+    },
+
+
+    {
+
+        id: 2,
+
+        titulo:
+            "Triohnte",
+
+        autor:
+            "Gabryell Aweryan",
+
+        capa:
+            "Coloque aqui seu png",
+
+        pasta:
+            "Triohnte",
+
+        totalPaginas:
+            3,
+
+        prefixo:
+            "",
+
+        synopsis:
+            "No tumultuoso mundo de Walingardyn, onde profecias antigas e guerras entre nobres definem o destino de gerações..."
+
+    }
+
+];
+
+
+const novels = [
+
+    {
+
+        id: 101,
+
+        titulo:
+            "Segredários",
+
+        autor:
+            "Gabryell Aweryan",
+
+        capa:
+            "Coloque aqui seu png",
+
+        pasta:
+            "S CAPS",
+
+        totalPaginas:
+            1,
+
+        prefixo:
+            "S CAP ",
+
+        synopsis:
+            `Marco, João e Lucas vivem a rotina sem graça da Kenya Enlatados, uma pequena empresa de São Paulo que enlata legumes e sardinhas. Mas a monotonia acaba quando recebem um telefonema inesperado de Cleber F. Junior, do Amazonas: investigar um parque aquático abandonado, palco de uma tragédia que ainda assombra o local.
+
+Aproveitando que suas férias estavam chegando, inventam um retiro espiritual para justificar a ausência, e claro, o chefe não entende nada! Munidos de curiosidade, improviso e sua van carateristicamente cômica, os Segredários partem rumo ao Amazonas.
+
+No parque, descobrem que Cleber desapareceu misteriosamente e que a missão agora é coordenada por seu filho, Victor, que quer resolver o problema da propriedade para vendê-la. Entre mistérios, absurdos e perigos que ninguém ousaria enfrentar, Marco, João e Lucas vão aprender que segredos enterrados nem sempre ficam onde deveriam, e que a linha entre o banal e o bizarro pode ser mais fina do que imaginam.`
+
+    }
+
+];
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const grade =
+    document.getElementById(
+        "grade"
+    );
+
+
+const novelGrid =
+    document.getElementById(
+        "novelGrid"
+    );
+
+
+/* =========================================================
+   ESCAPE DE HTML
+========================================================= */
+
+function escapeHTML(valor) {
+
+    return String(valor ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+function renderCard(
+    item,
+    container,
+    includeFav = false
+) {
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "card-book";
+
+
+    card.innerHTML = `
+
+        <div class="cover">
+
+            <img
+                src="${escapeHTML(item.capa)}"
+                alt="Capa de ${escapeHTML(item.titulo)}"
+                onerror="this.style.opacity='0.15'"
+            >
+
+        </div>
+
+
+        <div class="meta">
+
+            <h3>
+                ${escapeHTML(item.titulo)}
+            </h3>
+
+
+            <div class="author">
+                Por: ${escapeHTML(item.autor)}
+            </div>
+
+
+            <div class="synopsis">
+                ${escapeHTML(item.synopsis)}
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="btn ler"
+                data-id="${item.id}"
+                disabled
+            >
+                🔒
+            </button>
+
+
+            ${
+                includeFav
+                ?
+                `
+                <button
+                    class="btn fav"
+                    aria-pressed="false"
+                    data-id="${item.id}"
+                    title="Favoritar"
+                >
+
+                    <span
+                        class="star-count"
+                        id="stars-${item.id}"
+                    >
+                        0
+                    </span>
+
+                </button>
+                `
+                :
+                ""
+            }
+
+        </div>
+
+    `;
+
+
+    container.appendChild(
+        card
+    );
+
+}
+
+
+/* =========================================================
+   RENDERIZAÇÃO
+========================================================= */
+
+livros.forEach(
+    livro =>
+        renderCard(
+            livro,
+            grade,
+            true
+        )
+);
+
+
+novels.forEach(
+    novel =>
+        renderCard(
+            novel,
+            novelGrid,
+            true
+        )
+);
+
+
+/* =========================================================
+   PERMISSÕES
+========================================================= */
+
+function atualizarPermissoesBotao(
+    emailLogado
+) {
+
+    const permissoes =
+        JSON.parse(
+            localStorage.getItem(
+                "sw_permissoes"
+            ) || "[]"
+        );
+
+
+    document
+        .querySelectorAll(
+            ".btn.ler"
+        )
+        .forEach(
+            botao => {
+
+                const idDoLivro =
+                    botao.getAttribute(
+                        "data-id"
+                    );
+
+
+                const temAcesso =
+                    Array.isArray(
+                        permissoes
+                    )
+                    &&
+                    permissoes.some(
+                        permissao => {
+
+                            if (
+                                !permissao ||
+                                !permissao.email ||
+                                permissao.bookId === undefined
+                            ) {
+                                return false;
+                            }
+
+
+                            return (
+
+                                String(
+                                    permissao.email
+                                ).toLowerCase()
+                                ===
+                                String(
+                                    emailLogado
+                                ).toLowerCase()
+
+                                &&
+
+                                String(
+                                    permissao.bookId
+                                )
+                                ===
+                                String(
+                                    idDoLivro
+                                )
+
+                            );
+
+                        }
+                    );
+
+
+                if (temAcesso) {
+
+                    botao.disabled =
+                        false;
+
+                    botao.innerText =
+                        "Ler";
+
+                } else {
+
+                    botao.disabled =
+                        true;
+
+                    botao.innerText =
+                        "🔒";
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+auth.onAuthStateChanged(
+    function(user) {
+
+        if (
+            user &&
+            user.email
+        ) {
+
+            console.log(
+                "Usuário autenticado:",
+                user.email
+            );
+
+
+            atualizarPermissoesBotao(
+                user.email
+            );
+
+        } else {
+
+            console.log(
+                "Nenhum usuário autenticado."
+            );
+
+
+            document
+                .querySelectorAll(
+                    ".btn.ler"
+                )
+                .forEach(
+                    botao => {
+
+                        botao.disabled =
+                            true;
+
+                        botao.innerText =
+                            "🔒";
+
+                    }
+                );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLIQUES
+========================================================= */
+
+document.body.addEventListener(
+    "click",
+    function(event) {
+
+
+        /* =================================================
+           LER
+        ================================================== */
+
+        const btnLer =
+            event.target.closest(
+                ".ler"
+            );
+
+
+        if (
+            btnLer &&
+            !btnLer.disabled
+        ) {
+
+            const id =
+                btnLer.dataset.id;
+
+
+            const item =
+                [
+                    ...livros,
+                    ...novels
+                ]
+                .find(
+                    livro =>
+                        String(
+                            livro.id
+                        )
+                        ===
+                        String(id)
+                );
+
+
+            if (item) {
+
+                openDrawer(
+                    item
+                );
+
+            }
+
+
+            return;
+
+        }
+
+
+        /* =================================================
+           FAVORITO
+        ================================================== */
+
+        const btnFav =
+            event.target.closest(
+                ".fav"
+            );
+
+
+        if (btnFav) {
+
+            const id =
+                btnFav.dataset.id;
+
+
+            const user =
+                auth.currentUser;
+
+
+            if (!user) {
+
+                alert(
+                    "Faça login para favoritar uma obra."
+                );
+
+                return;
+
+            }
+
+
+            const estadoAtual =
+                btnFav.getAttribute(
+                    "aria-pressed"
+                )
+                ===
+                "true";
+
+
+            if (estadoAtual) {
+                return;
+            }
+
+
+            btnFav.setAttribute(
+                "aria-pressed",
+                "true"
+            );
+
+
+            const ref =
+                db.ref(
+                    "estrelas/" + id
+                );
+
+
+            ref.transaction(
+                valor =>
+                    (Number(valor) || 0) + 1
+            )
+            .catch(
+                erro => {
+
+                    console.error(
+                        "Erro ao registrar estrela:",
+                        erro
+                    );
+
+
+                    btnFav.setAttribute(
+                        "aria-pressed",
+                        "false"
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LEITOR
+========================================================= */
+
+function openDrawer(
+    item
+) {
+
+    const drawer =
+        document.getElementById(
+            "drawer"
+        );
+
+
+    const content =
+        document.querySelector(
+            ".drawer-content"
+        );
+
+
+    const title =
+        document.getElementById(
+            "drawerTitle"
+        );
+
+
+    title.textContent =
+        item.titulo;
+
+
+    content.innerHTML =
+        "";
+
+
+    for (
+        let i = 1;
+        i <= item.totalPaginas;
+        i++
+    ) {
+
+        const img =
+            document.createElement(
+                "img"
+            );
+
+
+        img.src =
+            `${item.pasta}/${item.prefixo}${i}.png`;
+
+
+        img.alt =
+            `${item.titulo} — página ${i}`;
+
+
+        img.loading =
+            "lazy";
+
+
+        img.onerror =
+            function() {
+
+                this.alt =
+                    "Página não encontrada";
+
+                this.style.opacity =
+                    "0.3";
+
+            };
+
+
+        content.appendChild(
+            img
+        );
+
+    }
+
+
+    drawer.classList.add(
+        "open"
+    );
+
+
+    drawer.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================================
+   FECHAR LEITOR
+========================================================= */
+
+document.getElementById(
+    "closeDrawer"
+)
+.onclick =
+    function() {
+
+        const drawer =
+            document.getElementById(
+                "drawer"
+            );
+
+
+        drawer.classList.remove(
+            "open"
+        );
+
+
+        drawer.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        document.body.style.overflow =
+            "auto";
+
+    };
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            const drawer =
+                document.getElementById(
+                    "drawer"
+                );
+
+
+            if (
+                drawer.classList.contains(
+                    "open"
+                )
+            ) {
+
+                drawer.classList.remove(
+                    "open"
+                );
+
+
+                drawer.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+
+                document.body.style.overflow =
+                    "auto";
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SLIDE
+========================================================= */
+
+let slideAtivo =
+    false;
+
+
+let slideInterval =
+    null;
+
+
+document.getElementById(
+    "toggleSlide"
+)
+.onclick =
+    function() {
+
+        const content =
+            document.querySelector(
+                ".drawer-content"
+            );
+
+
+        const imagens =
+            [
+                ...content.querySelectorAll(
+                    "img"
+                )
+            ];
+
+
+        if (
+            imagens.length < 2
+        ) {
+
+            return;
+
+        }
+
+
+        slideAtivo =
+            !slideAtivo;
+
+
+        if (
+            slideAtivo
+        ) {
+
+            this.innerText =
+                "Parar";
+
+
+            let indice =
+                0;
+
+
+            content.scrollTo({
+                top:
+                    imagens[0].offsetTop -
+                    35,
+
+                behavior:
+                    "smooth"
+
+            });
+
+
+            slideInterval =
+                setInterval(
+                    function() {
+
+                        indice =
+                            (indice + 1)
+                            %
+                            imagens.length;
+
+
+                        content.scrollTo({
+
+                            top:
+                                imagens[indice].offsetTop -
+                                35,
+
+                            behavior:
+                                "smooth"
+
+                        });
+
+                    },
+                    5000
+                );
+
+        } else {
+
+            this.innerText =
+                "Slide";
+
+
+            clearInterval(
+                slideInterval
+            );
+
+        }
+
+    };
+
+
+/* =========================================================
+   COMENTÁRIOS
+========================================================= */
+
+const btnComment =
+    document.getElementById(
+        "btnComment"
+    );
+
+
+const textarea =
+    document.getElementById(
+        "commentText"
+    );
+
+
+btnComment.onclick =
+    async function() {
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user) {
+
+            alert(
+                "Faça login para comentar."
+            );
+
+            return;
+
+        }
+
+
+        const texto =
+            textarea.value.trim();
+
+
+        if (!texto) {
+
+            textarea.focus();
+
+            return;
+
+        }
+
+
+        btnComment.disabled =
+            true;
+
+
+        btnComment.innerText =
+            "Publicando...";
+
+
+        try {
+
+            const snapshot =
+                await db
+                    .ref(
+                        `usuarios/${user.uid}`
+                    )
+                    .once(
+                        "value"
+                    );
+
+
+            const dados =
+                snapshot.val()
+                ||
+                {};
+
+
+            await db
+                .ref(
+                    "comentarios"
+                )
+                .push({
+
+                    texto:
+                        texto,
+
+                    data:
+                        firebase
+                            .database
+                            .ServerValue
+                            .TIMESTAMP,
+
+                    pais:
+                        `- de ${
+                            dados.nome ||
+                            (
+                                user.email
+                                ?
+                                user.email.split("@")[0]
+                                :
+                                "Leitor"
+                            )
+                        } (${
+                            dados.pais ||
+                            "Walingardyn"
+                        })`
+
+                });
+
+
+            textarea.value =
+                "";
+
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao publicar comentário:",
+                erro
+            );
+
+
+            alert(
+                "Não foi possível publicar o comentário."
+            );
+
+        } finally {
+
+            btnComment.disabled =
+                false;
+
+            btnComment.innerText =
+                "Publicar";
+
+        }
+
+    };
+
+
+/* =========================================================
+   COMENTÁRIOS — LEITURA
+========================================================= */
+
+db.ref(
+    "comentarios"
+)
+.on(
+    "child_added",
+
+    function(snapshot) {
+
+        const dados =
+            snapshot.val();
+
+
+        if (!dados) {
+            return;
+        }
+
+
+        const lista =
+            document.getElementById(
+                "listaComentarios"
+            );
+
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className =
+            "comentario-item";
+
+
+        const texto =
+            document.createElement(
+                "p"
+            );
+
+
+        texto.className =
+            "comentario-texto";
+
+
+        texto.textContent =
+            dados.texto || "";
+
+
+        const meta =
+            document.createElement(
+                "small"
+            );
+
+
+        meta.className =
+            "comentario-meta";
+
+
+        let dataTexto =
+            "";
+
+
+        if (dados.data) {
+
+            const data =
+                new Date(
+                    dados.data
+                );
+
+
+            if (
+                !Number.isNaN(
+                    data.getTime()
+                )
+            ) {
+
+                dataTexto =
+                    data.toLocaleDateString(
+                        "pt-BR"
+                    );
+
+            }
+
+        }
+
+
+        meta.textContent =
+            `${dados.pais || ""}${
+                dataTexto
+                ? " • " + dataTexto
+                : ""
+            }`;
+
+
+        div.appendChild(
+            texto
+        );
+
+
+        div.appendChild(
+            meta
+        );
+
+
+        lista.prepend(
+            div
+        );
+
+    },
+
+    function(error) {
+
+        console.error(
+            "Erro ao carregar comentários:",
+            error
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ESTRELAS — LEITURA
+========================================================= */
+
+[
+    ...livros,
+    ...novels
+]
+.forEach(
+    function(item) {
+
+        db.ref(
+            "estrelas/" + item.id
+        )
+        .on(
+            "value",
+
+            function(snapshot) {
+
+                const elemento =
+                    document.getElementById(
+                        "stars-" +
+                        item.id
+                    );
+
+
+                if (elemento) {
+
+                    elemento.textContent =
+                        snapshot.val() || 0;
+
+                }
+
+            },
+
+            function(error) {
+
+                console.error(
+                    "Erro ao carregar estrelas:",
+                    error
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ERROS GERAIS DE FIREBASE
+========================================================= */
+
+window.addEventListener(
+    "error",
+    function(event) {
+
+        console.error(
+            "Erro na Biblioteca:",
+            event.error || event.message
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
+
